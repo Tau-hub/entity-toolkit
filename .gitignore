@@ -1,0 +1,11 @@
+# Everything the toolkit downloads or you generate lives in data/ (perk icons, ratings, your levels, your NightLight token and browser profile, logs, screenshots)
+data/
+*-testdata*/
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+*.log
+nightlight_token.txt
+Thumbs.db

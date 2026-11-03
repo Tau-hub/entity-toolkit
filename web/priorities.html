@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Priorities · Entity Toolkit</title>
+<style>
+  .intro { color:var(--muted); font-size:13px; margin:0 0 14px; }
+  h2 { font-size:17px; margin:24px 0 10px; border-bottom:1px solid var(--border); padding-bottom:6px; }
+  .sub { color:var(--muted); font-size:13px; margin:0 0 10px; }
+  .row { display:grid; grid-template-columns:34px 72px 1fr auto; gap:12px; align-items:center; background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:10px; margin-bottom:8px; }
+  .row.done { opacity:.55; }
+  .rank { font-size:20px; font-weight:700; color:var(--muted); text-align:center; }
+  .row:nth-child(-n+3) .rank { color:var(--accent); }
+  .row img.p { width:72px; height:72px; object-fit:contain; background:var(--panel2); border-radius:10px; }
+  .name { font-weight:700; font-size:16px; }
+  .name a { color:inherit; text-decoration:none; } .name a:hover { text-decoration:underline; color:var(--accent); }
+  .meta { color:var(--muted); font-size:12px; margin-bottom:6px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .bar { height:6px; background:var(--panel2); border-radius:3px; overflow:hidden; min-width:120px; flex:1; max-width:260px; }
+  .bar i { display:block; height:100%; background:var(--accent); }
+  .perks { display:flex; gap:10px; flex-wrap:wrap; }
+  .perk { display:flex; gap:6px; align-items:center; background:var(--panel2); border-radius:8px; padding:3px 8px 3px 3px; cursor:help; font-size:12px; }
+  .perk img { width:34px; height:34px; object-fit:contain; }
+  .st { color:var(--star); letter-spacing:1px; white-space:nowrap; }
+  .st s { color:#444; text-decoration:none; } .sc { background:var(--accent); color:#fff; border-radius:6px; padding:0 5px; font-size:11px; font-weight:700; margin-left:2px; }
+  .lvl { display:flex; align-items:center; gap:6px; }
+  .lvl button { width:28px; height:28px; border-radius:8px; border:1px solid var(--border); background:var(--panel2); color:var(--text); cursor:pointer; font-size:16px; }
+  .lvl b { font-size:18px; min-width:34px; text-align:center; }
+  .tip { position:fixed; z-index:20; max-width:340px; background:#000d; border:1px solid var(--border); padding:8px 10px; border-radius:8px; font-size:12.5px; pointer-events:none; display:none; white-space:pre-line; }
+  .banner { margin:18px auto; max-width:760px; background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:14px 18px; color:var(--muted); text-align:center; }
+  @media (max-width:640px) { .row { grid-template-columns:28px 56px 1fr; } .lvl { grid-column:1/-1; justify-content:flex-end; } .row img.p { width:56px; height:56px; } }
+</style>
+<link rel="stylesheet" href="theme.css">
+</head>
+<body>
+<script src="nav.js"></script>
+<header>
+  <h1 id="title">Priorities</h1>
+  <label><input type="checkbox" id="hideDone"> Hide level 3</label>
+  <span class="patch" id="patch"></span>
+</header>
+<main>
+  <p class="intro">A perk's rating (out of 100) = 50 % Otzdarva's opinion (★ stars) + 35 % NightLight popularity (usage rank) + 15 % NightLight performance (<span id="rateLbl"></span> compared with the average). Level-0 characters come first only if their best perk rates ≥ 70/100 (their perks are not in the other characters' bloodwebs yet). Levels 1 and 2 weigh the same: the ranking only depends on the summed rating of the perks. Level-3 characters go to the bottom. NightLight period: <span id="nlp"></span>. Hover a perk for details. − / + corrects a level (saved in your data folder; see the <a href="levels.html">Levels</a> page for the whole picture).</p>
+  <p class="intro" id="hiddenNote"></p>
+  <div id="app"></div>
+</main>
+<div class="tip" id="tip"></div>
+<script>
+window.addEventListener("error", (e) => { document.getElementById("app").innerHTML = "<p>Error: " + e.message + "</p>"; });
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const kind = new URLSearchParams(location.search).get("kind") === "survivors" ? "survivors" : "killers";
+const post = (url, body) => fetch(url, { method: "POST", headers: { "Content-Type": "application/json", "X-Requested-With": "EntityToolkit" }, body: JSON.stringify(body || {}) }).then((r) => r.json());
+const stars = (n) => "★".repeat(n) + "<s>" + "★".repeat(3 - n) + "</s>";
+let DATA = null, K = [], levels = {};
+const total = (k) => k.teachables.reduce((a, t) => a + t.score, 0);
+const lvl = (k) => Math.max(0, Math.min(3, +(levels[k.short] ?? 0)));
+const W = [1, 1, 1, 0];  // levels 1 and 2: same weight; level 3 = done (separate section)
+const REAL = 700;        // rating (out of 1000) of the best perk from which a level-0 character becomes a priority
+const score = (k) => total(k) * W[lvl(k)];
+let MAX = 1;
+
+function row(k, rank) {
+  const L = lvl(k);
+  const link = kind === "killers" && k.slug ? `killer.html?k=${k.slug}#${k.slug}` : kind === "survivors" ? "survivor_builds.html" : "";
+  return `<div class="row ${L >= 3 ? "done" : ""}">
+    <div class="rank">${L >= 3 ? "✓" : rank}</div>
+    ${link ? `<a href="${link}">` : ""}<img class="p" referrerpolicy="no-referrer" src="${esc(k.portrait)}" data-f="${esc(k.portrait2)}" alt="">${link ? "</a>" : ""}
+    <div>
+      <div class="name">${link ? `<a href="${link}">${esc(k.short)}</a>` : esc(k.short)}</div>
+      <div class="meta"><span>perk score ${total(k)}</span><div class="bar" title="potential"><i style="width:${Math.round(score(k) / MAX * 100)}%"></i></div></div>
+      <div class="perks">${k.teachables.map((t) => `<div class="perk" data-tip="${esc(t.name)} — rating ${Math.round(t.score / 10)}/100\nOtz: ${t.value}/999 (${t.stars}★)${t.nl ? ` · NightLight: ${t.nl.pick}% pick, ${t.nl.rate}% ${DATA.nlRate} (${t.nl.games} games)` : " · NightLight: no stats"}\n\n${esc(t.desc)}"><img referrerpolicy="no-referrer" src="${esc(t.icon)}" data-f="${esc(t.icon2)}" alt=""><span>${esc(t.name)}<br><span class="st">${stars(t.stars)}</span> <span class="sc">${Math.round(t.score / 10)}</span></span></div>`).join("")}</div>
+    </div>
+    <div class="lvl"><button data-n="${esc(k.short)}" data-d="-1" aria-label="Lower the level of ${esc(k.short)}">−</button><b>${L}/3</b><button data-n="${esc(k.short)}" data-d="1" aria-label="Raise the level of ${esc(k.short)}">+</button></div>
+  </div>`;
+}
+
+function render() {
+  const best = (k) => Math.max(...k.teachables.map((t) => t.score));
+  const byScore = (a, b) => score(b) - score(a) || best(b) - best(a);
+  const zero = K.filter((k) => lvl(k) === 0 && best(k) >= REAL).sort(byScore);
+  const mid = K.filter((k) => (lvl(k) === 0 && best(k) < REAL) || lvl(k) === 1 || lvl(k) === 2).sort(byScore);
+  const done = K.filter((k) => lvl(k) >= 3).sort((a, b) => total(b) - total(a));
+  let h = `<h2>Level 0 with a real perk — top priority (${zero.length})</h2><p class="sub">Their perks are not in the other characters' bloodwebs until they are levelled, and at least one perk rates ≥ ${REAL / 10}/100.</p>` + (zero.length ? zero.map((k, i) => row(k, i + 1)).join("") : `<p class="sub">None for now.</p>`);
+  h += `<h2>The rest (${mid.length}) — most to least worthwhile</h2><p class="sub">Levels 1 and 2 (same weight), or level 0 without a standout perk.</p>` + mid.map((k, i) => row(k, zero.length + i + 1)).join("");
+  if (!$("hideDone").checked) h += `<h2>Level 3 reached (${done.length})</h2>` + done.map((k) => row(k, 0)).join("");
+  $("app").innerHTML = h;
+}
+
+$("app").addEventListener("click", async (e) => {
+  const b = e.target.closest("button[data-n]");
+  if (!b) return;
+  const k = K.find((x) => x.short === b.dataset.n), to = Math.max(0, Math.min(3, lvl(k) + +b.dataset.d));
+  if (to === lvl(k)) return;
+  levels[k.short] = to;
+  await post("/api/levels/set", { kind, name: k.short, level: to });
+  const y = scrollY; render(); scrollTo(0, y);
+});
+$("hideDone").onchange = render;
+
+async function init() {
+  $("title").textContent = kind === "killers" ? "Killer priorities" : "Survivor priorities";
+  const [builds, lv] = await Promise.all([fetch("/api/builds/" + kind, { cache: "no-store" }).then((r) => r.json()), fetch("/api/levels", { cache: "no-store" }).then((r) => r.json())]);
+  if (!builds || !builds.killers) {
+    $("app").innerHTML = `<div class="banner">No builds data yet. Open <a href="setup.html">Setup</a> and press “Update database”.</div>`;
+    return;
+  }
+  DATA = builds;
+  const owned = new Set((lv.characters[kind] || []).filter((c) => c.owned).map((c) => c.short));
+  const all = DATA.killers.filter((k) => k.teachables.length);
+  K = owned.size ? all.filter((k) => owned.has(k.short)) : all;  // only the characters you own can be levelled
+  const hidden = all.length - K.length;
+  if (hidden) $("hiddenNote").innerHTML = `${hidden} character${hidden > 1 ? "s" : ""} you do not own ${hidden > 1 ? "are" : "is"} left out — change that on the <a href="levels.html">Levels</a> page.`;
+  levels = lv.levels[kind] || {};
+  MAX = Math.max(1, ...K.map(total));
+  $("nlp").textContent = DATA.nlPeriod || "?"; $("rateLbl").textContent = DATA.nlRate;
+  $("patch").textContent = patchLabel(DATA);
+  render();
+}
+document.addEventListener("error", (e) => {
+  const i = e.target; if (i.tagName !== "IMG") return;
+  const n = +(i.dataset.try || 0); i.dataset.try = n + 1;
+  if (n === 0 && i.dataset.f) i.src = i.dataset.f;
+}, true);
+const tip = $("tip");
+document.addEventListener("mousemove", (e) => {
+  const t = e.target.closest("[data-tip]");
+  if (!t) { tip.style.display = "none"; return; }
+  tip.textContent = t.dataset.tip; tip.style.display = "block";
+  tip.style.left = Math.min(e.clientX + 14, innerWidth - 360) + "px"; tip.style.top = (e.clientY + 14) + "px";
+});
+init();
+</script>
+</body>
+</html>

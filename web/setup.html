@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Setup · Entity Toolkit</title>
+<style>
+  .step { background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:16px 20px; margin:0 auto 14px; max-width:860px; }
+  .step h2 { margin:0 0 4px; font-size:18px; display:flex; gap:10px; align-items:center; }
+  .step h2 .n { width:26px; height:26px; border-radius:50%; background:var(--accent); color:#fff; display:inline-flex; align-items:center; justify-content:center; font-size:14px; flex:none; }
+  .step.done h2 .n { background:#1e7a45; }
+  .step p { color:var(--muted); font-size:14px; margin:6px 0 10px; }
+  .step ul { color:var(--muted); font-size:14px; margin:6px 0 10px; padding-left:20px; }
+  .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin:8px 0; }
+  .row label { color:var(--text); font-size:14px; display:flex; gap:8px; align-items:center; }
+  button.act { background:linear-gradient(180deg,#d1243a,#7d0f1f); color:#fff; border:0; border-radius:999px; padding:9px 20px; font:inherit; font-size:14px; cursor:pointer; }
+  button.act:disabled { opacity:.5; cursor:default; }
+  button.sec { background:var(--panel2); color:var(--text); border:1px solid var(--border); border-radius:999px; padding:8px 16px; font:inherit; font-size:13px; cursor:pointer; }
+  .chip { font-size:12px; padding:2px 10px; border-radius:999px; background:var(--panel2); color:var(--muted); }
+  .chip.ok { background:#1e7a45; color:#fff; } .chip.no { background:#7a3a3a; color:#fff; }
+  .db { display:grid; grid-template-columns:1fr auto auto; gap:6px 12px; align-items:center; font-size:14px; margin:8px 0; }
+  .db .when { color:var(--muted); font-size:12px; }
+  #log { background:#000a; border:1px solid var(--border); border-radius:10px; padding:8px 12px; font:12px/1.5 Consolas,monospace; color:#cfc8bc; max-height:220px; overflow:auto; white-space:pre-wrap; display:none; }
+  input[type=text], input[type=password] { min-width:260px; }
+  .msg { color:var(--muted); font-size:13px; min-height:18px; }
+  code { background:var(--panel2); padding:1px 6px; border-radius:6px; font-size:13px; }
+</style>
+<link rel="stylesheet" href="theme.css">
+</head>
+<body>
+<script src="nav.js"></script>
+<header>
+  <h1>Setup</h1>
+  <div class="sub">First launch checklist</div>
+</header>
+<main>
+  <section class="step" id="s1">
+    <h2><span class="n">1</span>Game and Windows requirements</h2>
+    <ul>
+      <li>Dead by Daylight in <b>English</b> (the toolkit reads the game's English menu text) and in <b>borderless / windowed</b> display mode, not exclusive fullscreen.</li>
+      <li>An English language pack for Windows OCR (Settings → Time &amp; language → Language &amp; region). <span class="chip" id="ocrChip">checking…</span></li>
+      <li>Play on the screen the toolkit captures: it grabs the monitor the game is on.</li>
+    </ul>
+  </section>
+
+  <section class="step" id="s2">
+    <h2><span class="n">2</span>Download the data</h2>
+    <p>Perk names, descriptions and icons (DbD wiki), map names, Otzdarva's builds and tier list, and NightLight's community stats. Nothing from these sites ships with the toolkit: it is downloaded on your PC, into the <code>data</code> folder. Run it again after a game patch.</p>
+    <div class="db" id="db"></div>
+    <p id="patchInfo"></p>
+    <div class="row"><button class="act" id="bUpdate">Update database</button><span class="msg" id="upMsg"></span></div>
+    <div id="log"></div>
+  </section>
+
+  <section class="step" id="s3">
+    <h2><span class="n">3</span>You</h2>
+    <p>Your in-game name, exactly as shown on the end-of-match scoreboard: it is how the toolkit finds your row to tick “Me” on NightLight.</p>
+    <div class="row"><input type="text" id="player" placeholder="Your in-game name" autocomplete="off"><button class="sec" id="bPlayer">Save</button><span class="msg" id="plMsg"></span></div>
+  </section>
+
+  <section class="step" id="s4">
+    <h2><span class="n">4</span>Your character levels</h2>
+    <p>Tell the toolkit which characters you own and how far you got with each one, once: tick them by hand, or drop screenshots of the in-game killer / survivor selection screens and let it read the levels. After that it keeps them up to date from the scoreboard.</p>
+    <div id="scanMount"></div>
+    <div class="row"><a href="levels.html"><button class="sec">Open the Levels page</button></a><span class="chip" id="lvChip"></span></div>
+  </section>
+
+  <section class="step" id="s5">
+    <h2><span class="n">5</span>NightLight <span class="chip">optional</span></h2>
+    <p>To send the scoreboard to <a href="https://nightlight.gg" target="_blank" rel="noopener">nightlight.gg</a> and have the match reviewed for you (the toolkit ticks “Me”, sets the map and confirms):</p>
+    <ul>
+      <li>Create an API token in your NightLight account settings and paste it here. It is saved only in <code>data/nightlight_token.txt</code> and sent only to api.nightlight.gg.</li>
+      <li>Sign in once in the browser window the button opens (Edge). No password is read or stored by the toolkit.</li>
+    </ul>
+    <div class="row"><input type="password" id="token" placeholder="NightLight API token" autocomplete="off"><button class="sec" id="bToken">Save token</button><span class="chip" id="tkChip"></span></div>
+    <div class="row"><button class="sec" id="bLogin">Sign in to NightLight…</button><span class="chip" id="seChip"></span><span class="msg" id="loMsg"></span></div>
+    <div class="row"><label><input type="checkbox" id="oUpload"> Send the scoreboard to NightLight when I press the key on it</label></div>
+    <div class="row"><label><input type="checkbox" id="oDry"> Dry run: save the screenshot but never send it</label></div>
+  </section>
+
+  <section class="step" id="s6">
+    <h2><span class="n">6</span>Options</h2>
+    <div class="row"><label><input type="checkbox" id="oOverlay"> Draw the allies' perks over the game's survivor list (survivor view)</label></div>
+    <div class="row"><label><input type="checkbox" id="oSounds"> Play a small sound: ok / not ok</label></div>
+    <div class="row"><label><input type="checkbox" id="oAuto"> Start automatically with Windows</label><span class="msg" id="auMsg"></span></div>
+    <p>When this is on, a tiny watcher starts when you sign in to Windows (it only checks the process list every few seconds). <b>Entity Toolkit starts by itself when Dead by Daylight starts, and closes by itself when Dead by Daylight closes</b>; the watcher then waits for the next launch. Turn it off to start the toolkit by hand with <code>run.bat</code> instead.</p>
+    <div class="row"><label>Capture key <input type="text" id="kCap" style="min-width:140px"></label><label>Clear-overlay key <input type="text" id="kClr" style="min-width:140px"></label></div>
+    <p>Shortcuts look like <code>alt+numpad7</code>, <code>ctrl+shift+n</code>, <code>f9</code>. Changing them takes effect the next time the program starts.</p>
+    <div class="row"><button class="sec" id="bOpts">Save options</button><span class="msg" id="opMsg"></span></div>
+  </section>
+</main>
+<script src="scan.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const post = (url, body) => fetch(url, { method: "POST", headers: { "Content-Type": "application/json", "X-Requested-With": "EntityToolkit" }, body: JSON.stringify(body || {}) }).then((r) => r.json());
+const chip = (el, ok, yes, no) => { el.textContent = ok ? yes : no; el.className = "chip " + (ok ? "ok" : "no"); };
+const STEPNAMES = { patch: "Current game patch", builds: "Builds, tier list and ratings", perks: "Perk names, descriptions, icons", loadout: "Random-loadout data", maps: "Map and realm names", nl_maps: "NightLight map ids" };
+const when = (t) => t ? "updated " + new Date(t * 1000).toLocaleString() : "not downloaded yet";
+let polling = false, formLoaded = false;
+
+function renderDb(db) {
+  $("db").innerHTML = Object.keys(STEPNAMES).map((k) => {
+    const res = db.steps[k], running = db.running && db.step === k;
+    const state = running ? '<span class="chip">running…</span>' : res && res !== "ok" ? '<span class="chip no" title="' + res.replace(/"/g, "'") + '">failed</span>' : db.installed[k] ? '<span class="chip ok">installed</span>' : '<span class="chip no">missing</span>';
+    return `<span>${STEPNAMES[k]}</span>${state}<span class="when">${when(db.updated[k])}</span>`;
+  }).join("");
+  const log = $("log");
+  if (db.log.length) { log.style.display = "block"; log.textContent = db.log.join("\n"); log.scrollTop = log.scrollHeight; }
+  $("bUpdate").disabled = db.running;
+  $("bUpdate").textContent = db.running ? "Updating…" : "Update database";
+  const all = Object.values(db.installed).every(Boolean);
+  $("s2").classList.toggle("done", all);
+}
+
+async function refresh() {
+  const s = await (await fetch("/api/setup", { cache: "no-store" })).json();
+  chip($("ocrChip"), s.ocr, "OCR ready", "no English OCR found");
+  chip($("tkChip"), s.token, "token saved", "no token");
+  chip($("seChip"), s.session, "browser profile exists", "not signed in yet");
+  $("lvChip").textContent = s.levels_set ? s.levels_set + " levels set" : "no level set yet";
+  $("lvChip").className = "chip " + (s.levels_set ? "ok" : "no");
+  $("s1").classList.toggle("done", s.ocr);
+  $("s3").classList.toggle("done", !!s.config.player);
+  $("s4").classList.toggle("done", s.levels_set > 0);
+  $("s5").classList.toggle("done", s.token && s.session);
+  if (!formLoaded) {
+    formLoaded = true;
+    $("player").value = s.config.player;
+    $("oUpload").checked = s.config.upload; $("oDry").checked = s.config.dry_run;
+    $("oOverlay").checked = s.config.overlay; $("oSounds").checked = s.config.sounds;
+    $("oAuto").checked = s.autostart;
+    $("kCap").value = s.config.capture_key; $("kClr").value = s.config.clear_key;
+  }
+  renderDb(s.db);
+  const pi = $("patchInfo");
+  if (s.patch) {
+    const lag = s.ratings_patch && s.ratings_patch !== s.patch.live;
+    pi.textContent = `The game is on patch ${s.patch.live}` + (s.ratings_patch ? `; Otzdarva's ratings and builds you have are labelled ${s.ratings_patch}` : "") + (lag ? ". His site may lag a few days behind the game: pressing the button again later fetches whatever he has published (perks and descriptions come from the wiki and are refreshed every time)." : ". Everything is up to date.");
+  } else pi.textContent = "";
+  if (s.db.running && !polling) { polling = true; (function again() { setTimeout(async () => { await refresh(); if ($("bUpdate").disabled) again(); else polling = false; }, 1500); })(); }
+}
+
+$("bUpdate").onclick = async () => {
+  const r = await post("/api/update-db");
+  $("upMsg").textContent = r.started ? "Started: this can take a few minutes the first time." : "Already running.";
+  polling = false; refresh();
+};
+$("bPlayer").onclick = async () => { await post("/api/config", { player: $("player").value.trim() }); $("plMsg").textContent = "Saved."; refresh(); };
+$("bToken").onclick = async () => {
+  const t = $("token").value.trim();
+  if (!t) { $("tkChip").textContent = "paste a token first"; return; }
+  await post("/api/token", { token: t }); $("token").value = ""; refresh();
+};
+$("bLogin").onclick = async () => { await post("/api/login"); $("loMsg").textContent = "A browser window opened: sign in there, it closes by itself."; };
+$("oAuto").onchange = async (e) => {
+  const r = await post("/api/autostart", { enabled: e.target.checked });
+  e.target.checked = r.enabled;
+  $("auMsg").textContent = r.error ? "Error: " + r.error : r.enabled ? "On: takes effect at your next Windows sign-in." : "Off.";
+};
+$("bOpts").onclick = async () => {
+  const r = await post("/api/config", { upload: $("oUpload").checked, dry_run: $("oDry").checked, overlay: $("oOverlay").checked, sounds: $("oSounds").checked, capture_key: $("kCap").value.trim(), clear_key: $("kClr").value.trim() });
+  $("opMsg").textContent = r.error ? "Error: " + r.error : "Saved.";
+};
+mountScan($("scanMount"), { onDone: () => refresh() });
+refresh();
+</script>
+</body>
+</html>

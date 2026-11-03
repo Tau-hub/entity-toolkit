@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Live · Entity Toolkit</title>
+<style>
+  main.live { max-width:none; padding:0 22px 40px; }
+  header { padding:8px 20px 8px !important; gap:6px 14px !important; }
+  header h1 { font-size:28px !important; letter-spacing:.16em !important; margin:0 !important; }
+  .status { color:var(--muted); font-size:14px; letter-spacing:.06em; }
+  .status.off { color:var(--accent); }
+  .seg { display:inline-flex; border:1px solid var(--border); border-radius:999px; overflow:hidden; background:#0006; }
+  .seg button { background:none; border:0; color:var(--muted); padding:7px 16px; font:inherit; font-size:13px; cursor:pointer; }
+  .seg button.on { color:#fff; background:linear-gradient(180deg,#d1243a55,#7d0f1f55); }
+
+  .cols { display:grid; grid-template-columns:repeat(var(--n,3),minmax(0,1fr)); gap:16px; }
+  .who { display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin:4px 2px 8px; }
+  .who b { font-size:20px; letter-spacing:.08em; text-transform:uppercase; }
+  .who span { color:var(--gold); font-size:15px; }
+  .card { display:flex; gap:12px; background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:10px 12px; margin-bottom:10px; }
+  .card img { width:54px; height:54px; flex:none; object-fit:contain; background:#3c1c5a; border-radius:8px; padding:3px; }
+  .card h4 { margin:0 0 4px; font-size:16px; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .card p { margin:0; color:#d8d0c4; font-size:13.5px; line-height:1.45; white-space:pre-line; overflow-wrap:anywhere; }
+  .note { font-size:12px; font-weight:700; color:#fff; border-radius:6px; padding:1px 8px; }
+  .note.good { background:#1e7a45; } .note.mid { background:#9a7b12; } .note.low { background:#7a3a3a; }
+  .warn { font-size:12px; font-weight:700; color:#fff; background:#9a7b12; border-radius:6px; padding:1px 8px; }
+
+  .split { display:grid; grid-template-columns:minmax(360px,26%) 1fr; gap:20px; align-items:start; }
+  .pick { background:var(--panel); border:2px solid #2a2230; border-radius:12px; padding:8px 12px; margin-bottom:10px; cursor:pointer; transition:.12s; }
+  .pick.sel { border-color:var(--accent); background:var(--panel2); }
+  .pick .who b { font-size:17px; } .pick.sel .who b { color:var(--gold); }
+  .mini { display:flex; align-items:center; gap:8px; padding:2px 0; font-size:13.5px; }
+  .mini img { width:30px; height:30px; object-fit:contain; background:#3c1c5a; border-radius:6px; }
+  .mini .nm { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .detail { display:grid; grid-template-columns:1fr 1fr; gap:10px 14px; }
+  .detail .who { grid-column:1/-1; } .detail .who b { font-size:26px; }
+  .detail .card { margin:0; }
+  .banner { margin:18px auto; max-width:760px; background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:14px 18px; color:var(--muted); }
+  .banner a { color:var(--gold); }
+  @media (max-width:1100px) { .cols { grid-template-columns:1fr; } .split { grid-template-columns:1fr; } .detail { grid-template-columns:1fr; } }
+</style>
+<link rel="stylesheet" href="theme.css">
+</head>
+<body>
+<script src="nav.js"></script>
+<header>
+  <h1 id="title">Live</h1>
+  <div class="sub" id="sub"></div>
+  <div class="status" id="status">Connecting to the program…</div>
+  <div class="seg" id="seg"><button data-v="columns">Columns</button><button data-v="list">List + detail</button></div>
+</header>
+<main class="live" id="main"></main>
+<script>
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const ICONS = "icons/";
+let data = null, version = -1, layout = "columns", sel = 0, mainKey = "", keyLabel = "Alt+Numpad 7";
+try { layout = localStorage.getItem("et-live-layout") || layout; } catch (e) {}
+
+const noteCls = (n) => (n >= 60 ? "good" : n >= 35 ? "mid" : "low");
+
+function perkCard(pk) {
+  const ps = pk.perks, p0 = ps[0];
+  const desc = ps.map((p) => (ps.length > 1 ? p.name + ": " : "") + (p.desc || "No description.")).join("\n\n");
+  return `<div class="card"><img src="${ICONS + encodeURIComponent(pk.icon)}" alt="">
+    <div><h4>${esc(ps.map((p) => p.name).join(" / "))}
+      ${p0.note != null ? `<span class="note ${noteCls(p0.note)}">${p0.note}/100</span>` : ""}
+      ${pk.uncertain ? `<span class="warn">to check (${Math.round(pk.score * 100)} %)</span>` : ""}</h4>
+    <p>${esc(desc)}</p></div></div>`;
+}
+
+const who = (a, i) => `<div class="who"><b>${esc(a.survivor || "Ally " + (i + 1))}</b>${a.player ? `<span>${esc(a.player)}</span>` : ""}</div>`;
+
+function mini(pk) {
+  const ps = pk.perks, p0 = ps[0];
+  return `<div class="mini"><img src="${ICONS + encodeURIComponent(pk.icon)}" alt=""><span class="nm">${esc(ps.map((p) => p.name).join(" / "))}${pk.uncertain ? " ?" : ""}</span>
+    ${p0.note != null ? `<span class="note ${noteCls(p0.note)}">${p0.note}</span>` : ""}</div>`;
+}
+
+function renderDetail(allies) {
+  const a = allies[sel];
+  $("detail").innerHTML = who(a, sel) + a.perks.map(perkCard).join("");
+  document.querySelectorAll(".pick").forEach((el, i) => el.classList.toggle("sel", i === sel));
+}
+
+function renderMain() {
+  const r = data.result, allies = r ? r.allies : [];
+  if (!data.ready) { $("main").innerHTML = `<div class="banner">The perk database is not installed yet. Open <a href="setup.html">Setup</a> and press “Update database” (it takes a few minutes the first time).</div>`; return; }
+  if (!r) { $("main").innerHTML = `<div class="empty">Press ${esc(keyLabel)} on the players menu (Tab) during a match.</div>`; return; }
+  if (!allies.length) { $("main").innerHTML = `<div class="empty">No ally detected (players menu open, mouse away from the perks?)</div>`; return; }
+  sel = Math.min(sel, allies.length - 1);
+  if (layout === "list") {
+    $("main").innerHTML = `<div class="split"><div>${allies.map((a, i) => `<div class="pick" data-i="${i}">${who(a, i)}${a.perks.map(mini).join("")}</div>`).join("")}</div><div class="detail" id="detail"></div></div>`;
+    document.querySelectorAll(".pick").forEach((el) => el.addEventListener("click", () => { sel = +el.dataset.i; renderDetail(allies); }));
+    renderDetail(allies);
+  } else {
+    $("main").innerHTML = `<div class="cols" style="--n:${Math.max(allies.length, 1)}">${allies.map((a, i) => `<div>${who(a, i)}${a.perks.map(perkCard).join("")}</div>`).join("")}</div>`;
+  }
+}
+
+function renderHead() {
+  const r = data.result;
+  $("title").textContent = r && r.map ? r.map : "Live";
+  $("sub").textContent = r ? [r.realm, "captured at " + r.time].filter(Boolean).join(" · ") : "";
+  const st = $("status");
+  st.textContent = data.status || "";
+  st.style.display = data.status ? "" : "none";
+  document.querySelectorAll("#seg button").forEach((b) => b.classList.toggle("on", b.dataset.v === layout));
+}
+
+function render() {
+  renderHead();
+  // the content is rebuilt only when a new capture arrives or the view changes: no flicker
+  const full = (data.result ? data.result.time + "|" + JSON.stringify(data.result.allies).length : "") + "|" + layout + "|" + data.ready;
+  if (full !== mainKey) { mainKey = full; renderMain(); }
+}
+
+document.querySelectorAll("#seg button").forEach((b) => b.addEventListener("click", () => {
+  layout = b.dataset.v;
+  try { localStorage.setItem("et-live-layout", layout); } catch (e) {}
+  if (data) render();
+}));
+
+async function poll() {
+  try {
+    const r = await fetch("/api/live", { cache: "no-store" });
+    const d = await r.json();
+    keyLabel = d.key || keyLabel;
+    if (d.version !== version) { version = d.version; data = d; render(); }
+    $("status").classList.remove("off");
+  } catch (e) {
+    $("status").textContent = "Entity Toolkit is not running (start it with run.bat)";
+    $("status").classList.add("off");
+    $("status").style.display = "";
+  }
+  setTimeout(poll, 400);
+}
+poll();
+</script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Levels · Entity Toolkit</title>
+<style>
+  .intro { color:var(--muted); font-size:14px; max-width:860px; margin:0 auto 18px; text-align:center; }
+  .tools { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin:0 auto 14px; }
+  .tools button, .tools label.btn { background:var(--panel); color:var(--text); border:1px solid var(--border); border-radius:999px; padding:7px 16px; cursor:pointer; font:inherit; font-size:13px; }
+  .tools button:hover, .tools label.btn:hover { border-color:var(--accent); }
+  h2 { font-size:17px; margin:26px 0 8px; border-bottom:1px solid var(--border); padding-bottom:6px; display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; }
+  h2 small { color:var(--muted); font-weight:400; font-size:13px; }
+  .bar { height:10px; background:var(--panel2); border-radius:6px; overflow:hidden; margin:6px 0 4px; }
+  .bar i { display:block; height:100%; background:linear-gradient(90deg,var(--accent),#e8a33d); }
+  .sum { display:flex; gap:10px; flex-wrap:wrap; margin:6px 0 12px; }
+  .sum span { background:var(--panel); border:1px solid var(--border); border-radius:999px; padding:2px 12px; font-size:13px; color:var(--muted); }
+  .sum b { color:var(--text); }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:10px; }
+  .pc { display:flex; align-items:center; gap:10px; background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:8px 10px; }
+  .pc img { width:48px; height:48px; object-fit:contain; background:var(--panel2); border-radius:8px; flex:none; }
+  .pc .nm { font-weight:700; font-size:14px; line-height:1.2; flex:1; min-width:0; }
+  .pc .nm small { display:block; font-weight:400; font-size:11px; color:var(--muted); margin-top:1px; }
+  .pc .lv { display:flex; align-items:center; gap:4px; }
+  .pc .lv button { width:26px; height:26px; border-radius:8px; border:1px solid var(--border); background:var(--panel2); color:var(--text); cursor:pointer; font-size:15px; line-height:1; }
+  .pc .lv button:hover { border-color:var(--accent); }
+  .pc .lv b { min-width:30px; text-align:center; font-size:16px; }
+  .pc .pips { display:flex; gap:4px; margin-top:5px; }
+  .pc .pips i { width:22px; height:7px; border-radius:4px; background:var(--panel2); }
+  .pc.l1 .pips i.on { background:#7c8594; } .pc.l2 .pips i.on { background:#e8a33d; } .pc.l3 .pips i.on { background:#3fb96b; }
+  .pc.l0 { opacity:.8; }
+  .pc.lost { opacity:.45; } .pc.lost img { filter:grayscale(1); }
+  .own { display:flex; flex-direction:column; align-items:center; gap:2px; font-size:10px; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; cursor:pointer; }
+  .own input { width:16px; height:16px; cursor:pointer; }
+  .seg { display:inline-flex; border:1px solid var(--border); border-radius:999px; overflow:hidden; background:#0006; margin:4px 0 6px; }
+  .seg button { background:none; border:0; color:var(--muted); padding:8px 22px; font:inherit; font-size:14px; cursor:pointer; }
+  .seg button.on { color:#fff; background:linear-gradient(180deg,#d1243a55,#7d0f1f55); }
+  details.chap { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:8px 14px; margin:0 auto 18px; max-width:1100px; }
+  details.chap summary { cursor:pointer; font-size:14px; color:var(--gold); }
+  .chaps { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:6px 16px; margin-top:10px; }
+  .chaps label { display:flex; gap:8px; align-items:flex-start; font-size:13px; cursor:pointer; padding:3px 0; }
+  .chaps label small { color:var(--muted); display:block; font-size:11px; }
+  #hist { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:10px 14px; margin:0 auto 14px; max-width:860px; max-height:260px; overflow:auto; }
+  #hist[hidden] { display:none; }
+  #hist .h { display:flex; gap:10px; align-items:center; padding:3px 0; font-size:13px; border-bottom:1px solid var(--border); }
+  #hist .h:last-child { border-bottom:0; }
+  #hist .d { color:var(--muted); min-width:110px; font-size:12px; }
+  #hist .up { color:#3fb96b; font-weight:700; } #hist .dn { color:#e0645a; font-weight:700; }
+  .banner { margin:18px auto; max-width:760px; background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:14px 18px; color:var(--muted); text-align:center; }
+  .msg { text-align:center; color:var(--muted); font-size:13px; min-height:20px; margin-bottom:8px; }
+</style>
+<link rel="stylesheet" href="theme.css">
+</head>
+<body>
+<script src="nav.js"></script>
+<header>
+  <h1>Levels</h1>
+  <div class="sub">Which characters you own, and how far you got with them</div>
+</header>
+<main>
+  <p class="intro">Tick the characters you <b>own</b> and set each one's level (0–3: 0 = not levelled yet, 3 = done). The priorities pages only rank characters you own. Once set up, levels are kept up to date automatically: on the end-of-match scoreboard the toolkit reads the level badge of <i>your</i> row and corrects the character you just played (and marks it as owned).</p>
+  <div class="tools">
+    <button id="bOwnAll">I own everything</button>
+    <button id="bOwnNone">I own only the base game</button>
+    <button id="bHist">History</button>
+    <button id="bExport">Export JSON</button>
+    <label class="btn">Import JSON<input type="file" id="fImport" accept=".json,application/json" hidden></label>
+    <button id="bAll0">Set every owned killer to 0</button>
+    <button id="bAll3">Set every owned killer to 3</button>
+    <button id="bAll0s">Set every owned survivor to 0</button>
+    <button id="bAll3s">Set every owned survivor to 3</button>
+    <button id="bReset">Reset levels</button>
+  </div>
+  <div class="msg" id="msg"></div>
+  <div id="hist" hidden></div>
+  <details class="chap" id="scanBox"><summary>Import levels from screenshots</summary><div id="scanMount"></div></details>
+  <div id="chap"></div>
+  <div class="seg" id="viewSeg"><button data-v="killers">Killers</button><button data-v="survivors">Survivors</button></div>
+  <div id="app"></div>
+</main>
+<script src="scan.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const KINDS = [["killers", "Killers"], ["survivors", "Survivors"]];
+let state = null, view = "killers";
+try { view = localStorage.getItem("et-levels-view") || view; } catch (e) {}
+const post = (url, body) => fetch(url, { method: "POST", headers: { "Content-Type": "application/json", "X-Requested-With": "EntityToolkit" }, body: JSON.stringify(body || {}) }).then((r) => r.json());
+const say = (t) => { $("msg").textContent = t; if (t) setTimeout(() => { if ($("msg").textContent === t) $("msg").textContent = ""; }, 5000); };
+const fmtT = (t) => new Date(t).toLocaleString(undefined, { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
+
+async function load() {
+  state = await (await fetch("/api/levels", { cache: "no-store" })).json();
+  render();
+}
+
+function histHtml() {
+  const rows = state.history.slice().reverse().slice(0, 120).map((e) => {
+    if (e.src === "reset") return `<div class="h"><span class="d">${fmtT(e.t)}</span><span>Levels reset</span></div>`;
+    const up = e.to > e.f, how = { capture: "from the scoreboard", screenshot: "from screenshots", import: "imported", manual: "set by hand" }[e.src] || e.src;
+    return `<div class="h"><span class="d">${fmtT(e.t)}</span><b>${esc(e.n)}</b><span class="${up ? "up" : "dn"}">${e.f} → ${e.to}</span><span style="color:var(--muted)">${how}</span></div>`;
+  });
+  return rows.length ? rows.join("") : '<div class="h" style="color:var(--muted)">No change yet.</div>';
+}
+
+function chaptersHtml() {
+  const list = state.chapters.filter((g) => !g.base);
+  if (!list.length) return "";
+  const lost = list.filter((g) => g.owned !== "all").length;
+  return `<details class="chap"${lost ? " open" : ""}><summary>Chapters (DLC) — tick a chapter to own its killer and survivor together</summary><div class="chaps">${list.map((g) => {
+    const who = [...g.killers.map((c) => c.name), ...g.survivors.map((c) => c.name)].join(", ");
+    return `<label><input type="checkbox" data-chapter="${esc(g.label)}" ${g.owned === "all" ? "checked" : ""} ${g.owned === "some" ? 'data-some="1"' : ""}><span>${esc(g.label)}<small>${esc(who)}</small></span></label>`;
+  }).join("")}</div></details>`;
+}
+
+function render() {
+  if (!state.ready) {
+    $("app").innerHTML = `<div class="banner">The character list is not installed yet. Open <a href="setup.html">Setup</a> and press “Update database”.</div>`;
+    $("chap").innerHTML = "";
+    return;
+  }
+  $("hist").innerHTML = histHtml();
+  const open = $("chap").querySelector("details") ? $("chap").querySelector("details").open : null;
+  $("chap").innerHTML = chaptersHtml();
+  if (open !== null && $("chap").querySelector("details")) $("chap").querySelector("details").open = open;
+  $("chap").querySelectorAll("input[data-some]").forEach((i) => { i.indeterminate = true; });
+  document.querySelectorAll("#viewSeg button").forEach((b) => b.classList.toggle("on", b.dataset.v === view));
+  $("app").innerHTML = KINDS.filter(([kind]) => kind === view).map(([kind, label]) => {
+    const all = state.characters[kind], chars = all.filter((c) => c.owned), lv = state.levels[kind];
+    const L = (c) => Math.max(0, Math.min(3, +(lv[c.short] ?? 0)));
+    const cnt = [0, 0, 0, 0]; chars.forEach((c) => cnt[L(c)]++);
+    const pts = chars.reduce((a, c) => a + L(c), 0), max = Math.max(chars.length * 3, 1), pct = Math.round((pts / max) * 100);
+    const sorted = all.slice().sort((a, b) => b.owned - a.owned || L(b) - L(a) || String(a.short).localeCompare(String(b.short)));
+    return `<h2>${label} <small>${chars.length}/${all.length} owned · ${pts}/${max} levels (${pct} %)</small></h2>
+      <div class="bar"><i style="width:${pct}%"></i></div>
+      <div class="sum"><span>Level 3: <b>${cnt[3]}</b></span><span>Level 2: <b>${cnt[2]}</b></span><span>Level 1: <b>${cnt[1]}</b></span><span>Level 0: <b>${cnt[0]}</b></span><span>Owned: <b>${chars.length}</b></span></div>
+      <div class="grid">${sorted.map((c) => `<div class="pc ${c.owned ? "l" + L(c) : "lost"}">
+        <img referrerpolicy="no-referrer" src="${esc(c.portrait)}" data-f="${esc(c.portrait2)}" alt="">
+        <div class="nm">${esc(c.short)}<small>${esc(c.chapter)}</small>${c.owned ? `<div class="pips">${[1, 2, 3].map((i) => `<i class="${i <= L(c) ? "on" : ""}"></i>`).join("")}</div>` : ""}</div>
+        ${c.owned ? `<div class="lv"><button data-k="${kind}" data-n="${esc(c.short)}" data-d="-1" aria-label="Lower the level of ${esc(c.short)}">−</button><b>${L(c)}</b><button data-k="${kind}" data-n="${esc(c.short)}" data-d="1" aria-label="Raise the level of ${esc(c.short)}">+</button></div>` : ""}
+        <label class="own" title="${c.chapter === "Base Game" ? "Comes with the game" : "Do you own this character?"}"><input type="checkbox" data-own="${kind}" data-n="${esc(c.short)}" ${c.owned ? "checked" : ""} ${c.chapter === "Base Game" ? "disabled" : ""}>Own</label></div>`).join("")}</div>`;
+  }).join("");
+}
+
+async function act(fn, msg) {
+  const y = scrollY;
+  await fn();
+  await load();
+  scrollTo(0, y);
+  if (msg) say(msg);
+}
+
+document.querySelectorAll("#viewSeg button").forEach((b) => b.addEventListener("click", () => {
+  view = b.dataset.v;
+  try { localStorage.setItem("et-levels-view", view); } catch (e) {}
+  if (state) render();
+}));
+$("app").addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-k]");
+  if (!b) return;
+  const kind = b.dataset.k, name = b.dataset.n, cur = +(state.levels[kind][name] ?? 0);
+  const to = Math.max(0, Math.min(3, cur + +b.dataset.d));
+  if (to !== cur) act(() => post("/api/levels/set", { kind, name, level: to }));
+});
+$("app").addEventListener("change", (e) => {
+  const i = e.target.closest("input[data-own]");
+  if (i) act(() => post("/api/owned/set", { kind: i.dataset.own, name: i.dataset.n, owned: i.checked }));
+});
+$("chap").addEventListener("change", (e) => {
+  const i = e.target.closest("input[data-chapter]");
+  if (i) act(() => post("/api/owned/chapter", { label: i.dataset.chapter, owned: i.checked }));
+});
+const setAll = (kind, level) => () => {
+  if (state.ready) act(() => post("/api/levels/set-all", { kind, level }), `Every owned ${kind === "killers" ? "killer" : "survivor"} is now level ${level}.`);
+};
+$("bAll0").onclick = setAll("killers", 0); $("bAll3").onclick = setAll("killers", 3);
+$("bAll0s").onclick = setAll("survivors", 0); $("bAll3s").onclick = setAll("survivors", 3);
+$("bOwnAll").onclick = () => act(() => post("/api/owned/all", { owned: true }), "You own every character.");
+$("bOwnNone").onclick = () => { if (confirm("Mark every character except the base game ones as not owned?")) act(() => post("/api/owned/all", { owned: false }), "Only the base game characters are owned. Tick the ones you have."); };
+$("bHist").onclick = () => { $("hist").hidden = !$("hist").hidden; };
+$("bReset").onclick = () => { if (confirm("Reset every level to 0? (Ownership is kept.)")) act(() => post("/api/levels/reset"), "All levels reset."); };
+$("bExport").onclick = () => {
+  const lost = {}; Object.keys(state.characters).forEach((k) => { lost[k] = state.characters[k].filter((c) => !c.owned).map((c) => c.short); });
+  const blob = new Blob([JSON.stringify({ ...state.levels, unowned: lost }, null, 1)], { type: "application/json" });
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "entity-toolkit-levels.json"; a.click();
+};
+$("fImport").onchange = async (e) => {
+  const f = e.target.files[0]; if (!f) return;
+  const r = await post("/api/levels/import", { text: await f.text() });
+  e.target.value = "";
+  if (r.error) say("Import failed: " + r.error); else { await load(); say(`Imported: ${r.changed} change(s).`); }
+};
+document.addEventListener("error", (e) => {
+  const i = e.target; if (i.tagName !== "IMG") return;
+  const n = +(i.dataset.try || 0); i.dataset.try = n + 1;
+  if (n === 0 && i.dataset.f) i.src = i.dataset.f;
+}, true);
+mountScan($("scanMount"), { onDone: (m) => { load(); say(m); } });
+load();
+</script>
+</body>
+</html>

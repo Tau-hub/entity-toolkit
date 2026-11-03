@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Survivor builds · Entity Toolkit</title>
+<style>
+:root{--bg:#0f1115;--panel:#181b22;--panel2:#20242d;--text:#e8e6e3;--muted:#9aa0ab;--accent:#c0392b;--border:#2b303b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,Segoe UI,sans-serif}
+header{position:sticky;top:0;z-index:5;background:#0b0d11ee;backdrop-filter:blur(6px);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+header h1{font-size:18px;margin:0}
+.nav{display:flex;gap:6px;margin-left:auto;flex-wrap:wrap}.nav a{color:var(--text);text-decoration:none;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:6px 10px;font-size:13px}.nav a:hover,.nav a.on{border-color:var(--accent)}
+main{max-width:1150px;margin:0 auto;padding:16px}
+.tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.tabs button{background:var(--panel);color:var(--text);border:1px solid var(--border);border-radius:999px;padding:7px 16px;cursor:pointer;font-size:14px}
+.tabs button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.sub{color:var(--muted);font-size:13px;margin:0 0 12px}
+h3{margin:22px 0 10px;font-size:17px;border-bottom:1px solid var(--border);padding-bottom:6px}
+.builds{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px}
+.build{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:12px}
+.build h4{margin:0 0 8px;font-size:15px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.rk{background:var(--panel2);border-radius:6px;font-size:12px;padding:1px 8px;color:var(--muted)}
+.perks{display:flex;gap:8px;flex-wrap:wrap}
+.perk{width:calc(25% - 6px);min-width:64px;text-align:center;font-size:11px;line-height:1.2;cursor:help}
+.perk img{width:100%;max-width:72px;aspect-ratio:1;object-fit:contain;background:var(--panel2);border-radius:8px}
+.alts{display:flex;gap:3px;justify-content:center;margin-top:3px}
+.alts img{width:22px;height:22px;opacity:.75;border-radius:4px;background:var(--panel2)}
+.notes{margin:8px 0 0;padding-left:18px;color:var(--muted);font-size:13px}
+.stats{display:flex;gap:14px;margin-top:10px;font-size:13px;color:var(--muted)}
+.stats b{color:var(--text)}
+.tip{position:fixed;z-index:20;max-width:340px;background:#000d;border:1px solid var(--border);padding:8px 10px;border-radius:8px;font-size:12.5px;pointer-events:none;display:none;white-space:pre-line}
+</style>
+<link rel="stylesheet" href="theme.css">
+</head>
+<body>
+<script src="nav.js"></script>
+<header>
+  <h1>Survivor builds</h1>
+  <span class="patch" id="patch"></span>
+  </header>
+<main>
+  <div class="tabs"><button id="tNl" class="on">Most popular (NightLight)</button><button id="tOtz">Otz builds</button></div>
+  <div id="app"></div>
+</main>
+<div class="tip" id="tip"></div>
+<script>
+window.addEventListener("error",e=>{document.getElementById("app").innerHTML="<p>Error: "+e.message+"</p>"});
+const DATA = /*__DATA__*/null;
+const $ = id => document.getElementById(id);
+$("patch").textContent = patchLabel(DATA);
+const esc = s => String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const perk = p => `<div class="perk" data-tip="${esc(p.name)}${p.desc?"\n"+esc(p.desc):""}"><img referrerpolicy="no-referrer" src="${esc(p.icon)}" data-f="${esc(p.icon2)}" alt="">${esc(p.name)}${(p.alts||[]).length?`<div class="alts">${p.alts.map(a=>`<img referrerpolicy="no-referrer" src="${esc(a.icon)}" data-f="${esc(a.icon2)}" alt="" data-tip="Alternative: ${esc(a.name)}">`).join("")}</div>`:""}</div>`;
+function nl(){
+  return `<p class="sub">Most played full builds on NightLight (${esc(DATA.nlPeriod)}), gathered from every survivor's page (builds with an empty slot and "Adept" builds left out). The escape rate also depends on the players' skill and on the killer they face: treat it as a hint.</p>
+  <div class="builds">${DATA.nl.map((b,i)=>`<div class="build"><h4><span class="rk">#${i+1}</span>${b.games} games</h4>
+    <div class="perks">${b.perks.map(perk).join("")}</div>
+    <div class="stats"><span>Escape <b>${b.rate}%</b></span><span><b>${b.wins}</b>/${b.games} games</span></div></div>`).join("")}</div>`;
+}
+function otz(){
+  return `<p class="sub">Builds recommended by Otzdarva (otzdarva-builds.com).</p>` + DATA.otz.map(g=>`<h3>${esc(g.name)}</h3><div class="builds">${g.builds.map(b=>`<div class="build"><h4>${esc(b.name)}</h4><div class="perks">${b.perks.map(perk).join("")}</div>${b.notes.length?`<ul class="notes">${b.notes.map(n=>`<li>${esc(n)}</li>`).join("")}</ul>`:""}</div>`).join("")}</div>`).join("");
+}
+const show = t => { if(!DATA.nl.length && !DATA.otz.length){ $("app").innerHTML = '<p class="sub">No builds data yet. Open <a href="setup.html" style="color:var(--gold)">Setup</a> and press “Update database”.</p>'; return; } $("tNl").classList.toggle("on",t==="nl"); $("tOtz").classList.toggle("on",t==="otz"); $("app").innerHTML = t==="nl"?nl():otz(); };
+$("tNl").onclick = () => show("nl"); $("tOtz").onclick = () => show("otz");
+document.addEventListener("error", e => {
+  const i = e.target; if(i.tagName!=="IMG") return;
+  const n = +(i.dataset.try||0); i.dataset.try = n+1;
+  const base = i.dataset.base || (i.dataset.base = i.src);
+  if(n===0) setTimeout(()=>{ i.src = base+(base.includes("?")?"&":"?")+"r=1"; }, 600+Math.random()*800);
+  else if(n===1 && i.dataset.f) i.src = i.dataset.f;
+}, true);
+const tip = $("tip");
+document.addEventListener("mousemove", e => {
+  const t = e.target.closest("[data-tip]");
+  if(!t){ tip.style.display="none"; return; }
+  tip.textContent = t.dataset.tip; tip.style.display="block";
+  tip.style.left = Math.min(e.clientX+14, innerWidth-360)+"px"; tip.style.top = (e.clientY+14)+"px";
+});
+show("nl");
+</script>
+</body>
+</html>
