@@ -83,6 +83,23 @@ def grab_game_monitor(hwnd):
         return Image.frombytes("RGB", shot.size, shot.bgra, "raw", "BGRX")
 
 
+# ---------- one instance at a time ----------
+_MUTEXES = []  # kept alive for the life of the process
+
+
+def single_instance(name="EntityToolkit"):
+    """True if this is the only running copy. Uses a named Windows mutex: unlike a listening port, it cannot be shared by two processes
+    (on Windows a second server can bind the same port, so the port alone does not tell)."""
+    handle = kernel32.CreateMutexW(None, False, "Local\\" + name)
+    already = ctypes.get_last_error() == 183 or kernel32.GetLastError() == 183  # ERROR_ALREADY_EXISTS
+    if already:
+        if handle:
+            kernel32.CloseHandle(handle)
+        return False
+    _MUTEXES.append(handle)
+    return True
+
+
 # ---------- hotkeys ----------
 MODIFIERS = {"ctrl": 0x11, "shift": 0x10, "alt": 0x12}
 KEYS = {"tab": 0x09, "esc": 0x1B, "space": 0x20,

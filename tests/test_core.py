@@ -132,6 +132,14 @@ class Matching(unittest.TestCase):
         self.assertIsNone(assistant.same_match([], ["a"]))
 
 
+class OneInstance(unittest.TestCase):
+    def test_a_second_copy_is_refused(self):
+        import uuid
+        name = "EntityToolkitTest" + uuid.uuid4().hex
+        self.assertTrue(winapi.single_instance(name))
+        self.assertFalse(winapi.single_instance(name))
+
+
 class Hotkeys(unittest.TestCase):
     def test_parse(self):
         self.assertEqual(winapi.parse_combo("alt+numpad7"), [0x12, 0x67])

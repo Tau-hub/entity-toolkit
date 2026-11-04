@@ -66,8 +66,11 @@ def _test_image(path):
 
 
 def _serve(demo=False):
-    from . import config, server
+    from . import config, server, winapi
     from .log import log
+    if not winapi.single_instance():
+        log("Entity Toolkit is already running: not starting a second copy")
+        return 1
     hub = server.Hub()
     try:
         url = server.start(hub, config.load()["port"])
@@ -86,10 +89,15 @@ def _serve(demo=False):
 
 
 def _run(open_page, stop_with_game, setup=False):
-    from . import analyzer, assistant, config, overlay, paths, server
+    from . import analyzer, assistant, config, overlay, paths, server, winapi
     from .log import log
     paths.ensure()
     cfg = config.load()
+    if not winapi.single_instance():  # e.g. run.bat, then the autostart watcher launching another copy when the game starts
+        log("Entity Toolkit is already running: this second copy stops (one copy only, so a key press is handled once)")
+        if setup:
+            webbrowser.open(f"http://127.0.0.1:{cfg['port']}/setup.html")
+        return 1
     if not paths.CONFIG.exists():
         config.save(cfg)
     hub = server.Hub()

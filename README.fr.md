@@ -78,7 +78,7 @@ La touche par défaut est **Alt + pavé numérique 7** (verrouillage numérique 
 
 **Alt + pavé numérique 8** retire l'overlay et oublie les perks (pratique si tu ne veux pas envoyer ce match). Les deux touches se changent dans la page Setup.
 
-L'outil s'arrête tout seul quand le jeu se ferme. Pour qu'il démarre tout seul quand le jeu démarre : `python -m entity_toolkit autostart install` (annuler avec `autostart remove`).
+L'outil s'arrête tout seul quand le jeu se ferme. Pour qu'il démarre tout seul quand le jeu démarre : `python -m entity_toolkit autostart install` (annuler avec `autostart remove`). Une seule copie tourne à la fois : si tu le lances avec `run.bat` et que le surveillant du démarrage automatique le relance au démarrage du jeu, la seconde copie s'arrête toute seule, donc un appui sur la touche n'est traité qu'une fois.
 
 Pourquoi l'overlay attend : la liste des survivants du jeu n'est visible qu'une fois le menu Tab refermé. Après l'appui, l'outil surveille l'écran, lit les noms de la liste du jeu et associe chaque allié à la bonne ligne, d'abord par **portrait**, puis par **pseudo** quand deux alliés jouent le même personnage ou que les portraits se ressemblent trop. Ta propre ligne ne bouge jamais.
 

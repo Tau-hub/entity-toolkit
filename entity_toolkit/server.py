@@ -281,8 +281,12 @@ def _session_saved():
         return paths.NL_PROFILE.exists()
 
 
+class _Server(ThreadingHTTPServer):
+    allow_reuse_address = False  # on Windows the default would let two copies listen on the same port
+
+
 def start(hub, port=None):
     port = port or config.load()["port"]
-    srv = ThreadingHTTPServer(("127.0.0.1", port), make_handler(hub))
+    srv = _Server(("127.0.0.1", port), make_handler(hub))
     threading.Thread(target=srv.serve_forever, daemon=True).start()
     return f"http://127.0.0.1:{port}/"

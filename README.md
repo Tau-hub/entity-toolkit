@@ -76,7 +76,7 @@ The default key is **Alt + Numpad 7** (NumLock on). It only reacts while the gam
 
 **Alt + Numpad 8** removes the overlay and forgets the perks (handy if you do not want to upload that match). Both keys can be changed on the Setup page.
 
-The toolkit stops by itself when the game closes. To have it start by itself when the game starts: `python -m entity_toolkit autostart install` (undo with `autostart remove`).
+The toolkit stops by itself when the game closes. To have it start by itself when the game starts: `python -m entity_toolkit autostart install` (undo with `autostart remove`). Only one copy ever runs: if you start it with `run.bat` and the autostart watcher then launches it again when the game starts, the second copy stops by itself, so a key press is handled once.
 
 Why the overlay waits: the game's own survivor list is only visible once the Tab menu is closed. After the key press the toolkit watches the screen, reads the names in the game's list and matches each ally to the right row, first by **portrait**, then by **player name** when two allies play the same character or the portraits are too similar. Your own row never moves.
 
