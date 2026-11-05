@@ -71,6 +71,120 @@ class PerkHover(unittest.TestCase):
         self.assertEqual(overlay.tooltip_text(twin)[0], "X / Y")
 
 
+class HoverCost(unittest.TestCase):
+    """The mouse must be looked at often ONLY while the game has freed it and it is near the perk icons: nothing while the overlay is hidden,
+    one cheap look every half second while you play (cursor hidden / locked to the camera). A fake cursor counts every look."""
+
+    CENTER = (1280, 720)  # where the cursor sits during mouse look
+
+    def _setup(self, showing, pos=None, front=True):
+        import time
+        perk = {"perks": [{"name": "Bond", "desc": "d", "note": 78}], "uncertain": False}
+        state = {"pos": pos or self.CENTER, "showing": showing, "front": front, "calls": 0, "front_calls": 0}
+
+        def cursor():
+            state["calls"] += 1
+            return (*state["pos"], state["showing"])
+
+        def front(_hwnd):
+            state["front_calls"] += 1
+            return state["front"]
+
+        logs = []
+        ov = overlay.Overlay(log=logs.append, cursor_fn=cursor, front_fn=front, draw=False)  # draw=False: no window in tests
+        ov.hits = overlay.hit_rects({1: [perk] * 4}, (0, 0, 2560, 1440))
+        ov.hover_on = True
+        self.addCleanup(ov.active.clear)
+        return ov, state, logs, time
+
+    def _run(self, ov, seconds, time):
+        ov.active.set()
+        time.sleep(seconds)
+        ov.active.clear()
+        time.sleep(0.1)
+
+    # --- deterministic: what one look decides
+    def test_a_look_while_playing_waits_half_a_second_and_never_shows_anything(self):
+        ov, state, logs, _ = self._setup(showing=False)
+        self.assertEqual(ov._hover_step(), overlay.HOVER_LOCKED_S)
+        self.assertEqual(state["front_calls"], 0)  # not even the foreground window is asked while the cursor is hidden
+        self.assertTrue(ov.q.empty())
+
+    def test_a_look_with_the_mouse_free_but_far_waits_a_quarter_second(self):
+        ov, state, logs, _ = self._setup(showing=True)
+        self.assertEqual(ov._hover_step(), overlay.HOVER_FREE_S)
+        self.assertTrue(ov.q.empty())
+
+    def test_fast_looks_start_only_near_the_icons_and_the_text_appears_on_them(self):
+        ov, state, logs, _ = self._setup(showing=True)
+        x0, y0, x1, y1, _ = ov.hits[0]
+        state["pos"] = (x1 + 100, y0)  # near the grid, not on an icon
+        self.assertEqual(ov._hover_step(), overlay.HOVER_FAST_S)
+        self.assertTrue(ov.q.empty())
+        state["pos"] = ((x0 + x1) // 2, (y0 + y1) // 2)  # on an icon
+        self.assertEqual(ov._hover_step(), overlay.HOVER_FAST_S)
+        self.assertEqual(ov.q.get_nowait()[0], "tip")
+        state["pos"] = self.CENTER  # leaves: the text goes away
+        ov._hover_step()
+        self.assertIsNone(ov.q.get_nowait()[1])
+
+    def test_when_the_game_is_not_in_front_it_is_back_to_slow_looks(self):
+        ov, state, logs, _ = self._setup(showing=True, front=False)
+        x0, y0, x1, y1, _ = ov.hits[0]
+        state["pos"] = ((x0 + x1) // 2, (y0 + y1) // 2)
+        self.assertEqual(ov._hover_step(), overlay.HOVER_LOCKED_S)
+        self.assertTrue(ov.q.empty())
+
+    # --- measured: how many looks really happen
+    def test_no_look_at_all_while_the_overlay_is_not_shown(self):
+        ov, state, logs, time = self._setup(showing=True)
+        time.sleep(1.0)  # the hover thread is running but blocked
+        self.assertEqual(state["calls"], 0)
+
+    def test_playing_with_the_mouse_locked_costs_about_two_looks_a_second(self):
+        ov, state, logs, time = self._setup(showing=False)
+        self._run(ov, 2.2, time)
+        self.assertTrue(3 <= state["calls"] <= 6, state["calls"])
+        self.assertEqual(ov.polls["fast"] + ov.polls["free"], 0)
+
+    def test_mouse_free_but_far_from_the_icons_is_four_looks_a_second(self):
+        ov, state, logs, time = self._setup(showing=True)
+        self._run(ov, 2.0, time)
+        self.assertTrue(5 <= state["calls"] <= 11, state["calls"])
+        self.assertEqual(ov.polls["fast"], 0)
+
+    def test_fast_looks_happen_only_near_the_icons(self):
+        ov, state, logs, time = self._setup(showing=True)
+        x0, y0, x1, y1, _ = ov.hits[0]
+        state["pos"] = ((x0 + x1) // 2, (y0 + y1) // 2)
+        self._run(ov, 1.0, time)
+        self.assertGreater(state["calls"], 15)
+        self.assertGreater(ov.polls["fast"], 15)
+
+    def test_removing_the_overlay_stops_every_look(self):
+        ov, state, logs, time = self._setup(showing=True)
+        ov.active.set()
+        time.sleep(0.7)
+        ov.hide()
+        time.sleep(0.4)
+        n = state["calls"]
+        time.sleep(1.0)
+        self.assertLessEqual(state["calls"] - n, 1)  # at most the look that was already under way
+        self.assertTrue(any("asleep" in m for m in logs))
+
+    def test_the_log_reports_changes_of_situation_not_every_look(self):
+        ov, state, logs, time = self._setup(showing=False)
+        for _ in range(10):
+            ov._hover_step()
+        state["showing"] = True
+        for _ in range(10):
+            ov._hover_step()
+        hover = [m for m in logs if "Overlay hover" in m]
+        self.assertEqual(len(hover), 2, hover)  # "locked" once, then "free" once
+        self.assertIn("locked", hover[0])
+        self.assertIn("free", hover[1])
+
+
 class Levels(unittest.TestCase):
     def setUp(self):
         for p in (paths.LEVELS, paths.LEVELS_HISTORY, paths.KILLERS, paths.SURVIVORS):

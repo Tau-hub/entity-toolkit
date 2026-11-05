@@ -34,6 +34,12 @@ WS_EX_TRANSPARENT, WS_EX_NOACTIVATE, WS_EX_TOOLWINDOW, WS_EX_LAYERED = 0x20, 0x0
 PORTRAIT_MARGIN = 0.15  # below this gap the portraits are not decisive enough: use the player names
 
 
+# How often the mouse is looked at. The frequent check runs only while the game has freed the cursor AND it is near the perk icons;
+# while you play (cursor hidden, locked to the camera) it is one cheap look every half second, and nothing at all while the overlay is hidden.
+HOVER_LOCKED_S, HOVER_FREE_S, HOVER_FAST_S = 0.5, 0.25, 0.04
+HOVER_STATS_EVERY_S = 60
+
+
 class _CURSORINFO(ctypes.Structure):
     _fields_ = [("cbSize", wintypes.DWORD), ("flags", wintypes.DWORD), ("hCursor", wintypes.HANDLE), ("ptScreenPos", wintypes.POINT)]
 
@@ -254,7 +260,7 @@ def place(allies, names, me_row, menu_img=None, hud_img=None):
 class Overlay:
     """Tk lives in its own thread; everything goes through a command queue."""
 
-    def __init__(self, log=print, cursor_fn=cursor_state, front_fn=game_in_front):
+    def __init__(self, log=print, cursor_fn=cursor_state, front_fn=game_in_front, draw=True):
         self.log = log
         self.q = queue.Queue()
         self.visible = False
@@ -264,8 +270,12 @@ class Overlay:
         self.hover_on = True
         self.tip_shown = None  # (x0, y0) of the icon whose text is shown (set by the drawing thread)
         self.cursor_fn, self.front_fn = cursor_fn, front_fn
-        self.active = threading.Event()  # set while the overlay is on screen: the hover thread sleeps (no CPU) otherwise
-        threading.Thread(target=self._loop, daemon=True).start()
+        self.active = threading.Event()  # set while the overlay is on screen AND hover is enabled: the hover thread blocks (no CPU) otherwise
+        self._mode, self._last_key = None, None
+        self.polls = {"locked": 0, "away": 0, "free": 0, "fast": 0}  # mouse checks by situation, since the last report
+        self._stats_t0 = time.time()
+        if draw:
+            threading.Thread(target=self._loop, daemon=True).start()
         threading.Thread(target=self._hover_loop, daemon=True).start()
 
     def watch(self, allies, me_row, grab, game_hwnd, menu_img=None, timeout=240):
@@ -317,10 +327,19 @@ class Overlay:
             self.hover_on = True
         self.visible = True
         self.q.put(("show", icons, rect))
-        self.active.set()
+        self._mode, self._last_key = None, None
+        self.polls = {k: 0 for k in self.polls}
+        self._stats_t0 = time.time()
+        if self.hover_on:
+            self.log("Overlay hover: on. While you play (mouse locked) the mouse is looked at twice a second; fast checks only start when the game frees it and it is near the icons")
+            self.active.set()
+        else:
+            self.log("Overlay hover: off (disabled on the Setup page): the mouse is never checked")
 
     def hide(self):
         was = self.visible or self.pending
+        if self.active.is_set():
+            self.log("Overlay hover: asleep (overlay removed): no mouse checks until it is shown again")
         self.visible = self.pending = False
         self.gen += 1
         self.active.clear()
@@ -329,29 +348,60 @@ class Overlay:
         self.q.put(("hide",))
         return was
 
+    MODE_TEXT = {
+        "locked": "mouse locked by the game (you are playing): checking only twice a second",
+        "away": "game not in front: checking only twice a second",
+        "free": "mouse free: watching for it to reach a perk icon",
+    }
+
+    def _count(self, mode, pos=None):
+        """Counts one check, logs when the situation changes (locked / away / free; fast checks are part of free) and a summary every minute."""
+        self.polls[mode] += 1
+        base = "free" if mode == "fast" else mode
+        if base != self._mode:
+            self._mode = base
+            self.log(f"Overlay hover: {self.MODE_TEXT[base]}" + (f" (cursor at {pos[0]}, {pos[1]})" if pos else ""))
+        now = time.time()
+        if now - self._stats_t0 >= HOVER_STATS_EVERY_S:
+            p = self.polls
+            self.log(f"Overlay hover: last {int(now - self._stats_t0)} s: {sum(p.values())} mouse checks (locked {p['locked']}, game away {p['away']}, free {p['free']}, fast {p['fast']})")
+            self.polls = {k: 0 for k in p}
+            self._stats_t0 = now
+
+    def _hover_step(self):
+        """One look at the mouse; returns how many seconds to wait before the next one. Updates the tooltip (through the queue) when the icon under the mouse changes."""
+        x, y, showing = self.cursor_fn()
+        hit, mode = None, "locked"
+        if showing:
+            if not self.front_fn(self.game_hwnd):
+                mode = "away"
+            else:
+                hit = hover_target(self.hits, x, y)
+                bx0, by0 = min(h[0] for h in self.hits), min(h[1] for h in self.hits)
+                bx1, by1 = max(h[2] for h in self.hits), max(h[3] for h in self.hits)
+                near = bx0 - 160 <= x <= bx1 + 160 and by0 - 120 <= y <= by1 + 120
+                mode = "fast" if (hit or near) else "free"
+        self._count(mode, (x, y))
+        key = None if hit is None else (hit[0], hit[1])
+        if key != self._last_key:
+            self._last_key = key
+            self.q.put(("tip", hit))
+            self.log("Overlay hover: perk text " + (f"shown: {hit[4]['perks'][0]['name']} (cursor at {x}, {y})" if hit else f"hidden (cursor at {x}, {y})"))
+        return {"locked": HOVER_LOCKED_S, "away": HOVER_LOCKED_S, "free": HOVER_FREE_S, "fast": HOVER_FAST_S}[mode]
+
     def _hover_loop(self):
         """Shows a perk's text while the mouse is over its icon (the game frees the cursor when you are hooked or dead).
-        Reads only the cursor position; blocks (no CPU at all) while the overlay is not on screen, and polls slowly unless the cursor is near the icons."""
-        last = None
+        Reads only the cursor position. Blocks (no CPU at all) while the overlay is not on screen or hover is off."""
         while True:
             self.active.wait()
-            hit, near = None, False
+            wait = HOVER_LOCKED_S
             try:
-                if self.hover_on and self.hits:
-                    x, y, showing = self.cursor_fn()
-                    if showing and self.front_fn(self.game_hwnd):
-                        hit = hover_target(self.hits, x, y)
-                        bx0, by0 = min(h[0] for h in self.hits), min(h[1] for h in self.hits)
-                        bx1, by1 = max(h[2] for h in self.hits), max(h[3] for h in self.hits)
-                        near = bx0 - 160 <= x <= bx1 + 160 and by0 - 120 <= y <= by1 + 120
-                key = None if hit is None else (hit[0], hit[1])
-                if key != last:
-                    last = key
-                    self.q.put(("tip", hit))
+                if self.hits:
+                    wait = self._hover_step()
             except Exception as e:
                 self.log(f"Overlay hover: {e}")
-                time.sleep(2)
-            time.sleep(0.04 if (hit or near) else 0.15)
+                wait = 2
+            time.sleep(wait)
 
     def _loop(self):
         try:
