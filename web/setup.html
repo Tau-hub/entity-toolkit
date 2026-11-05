@@ -161,6 +161,7 @@ $("bOpts").onclick = async () => {
   const r = await post("/api/config", { upload: $("oUpload").checked, dry_run: $("oDry").checked, overlay: $("oOverlay").checked, sounds: $("oSounds").checked, capture_key: $("kCap").value.trim(), clear_key: $("kClr").value.trim() });
   $("opMsg").textContent = r.error ? "Error: " + r.error : "Saved.";
 };
+window.addEventListener("et-show", () => refresh());  // the shell re-shows this page: refresh its data
 mountScan($("scanMount"), { onDone: () => refresh() });
 refresh();
 </script>

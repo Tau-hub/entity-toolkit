@@ -129,6 +129,7 @@ document.addEventListener("mousemove", (e) => {
   tip.textContent = t.dataset.tip; tip.style.display = "block";
   tip.style.left = Math.min(e.clientX + 14, innerWidth - 360) + "px"; tip.style.top = (e.clientY + 14) + "px";
 });
+window.addEventListener("et-show", () => init());  // the shell re-shows this page: refresh its data
 init();
 </script>
 </body>

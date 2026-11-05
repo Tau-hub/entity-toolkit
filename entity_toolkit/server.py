@@ -124,7 +124,7 @@ def make_handler(hub):
             path = unquote(urlparse(self.path).path)
             if path in ("/", ""):
                 self.send_response(302)
-                self.send_header("Location", "/live.html" if db_ready() else "/setup.html")
+                self.send_header("Location", "/app.html#live.html" if db_ready() else "/app.html#setup.html")
                 self.end_headers()
                 return
             if path.startswith("/api/"):

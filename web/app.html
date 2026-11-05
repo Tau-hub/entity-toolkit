@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en" data-shell="1">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entity Toolkit</title>
+<style>
+  html, body { height:100%; }
+  body { display:flex; flex-direction:column; min-height:0; height:100vh; overflow:hidden; }
+  #bar { flex:none; width:100%; padding-bottom:6px; }
+  #frames { flex:1; min-height:0; position:relative; }
+  #frames iframe { position:absolute; inset:0; width:100%; height:100%; border:0; background:transparent; }
+  #frames iframe[hidden] { display:none; }
+</style>
+<link rel="stylesheet" href="theme.css">
+</head>
+<body>
+<script src="nav.js"></script>
+<div id="bar" class="topbar"></div>
+<div id="frames"></div>
+<script>
+// The shell keeps the navigation bar and one frame per page. Clicking a button only shows the right frame (created the first time),
+// so nothing is reloaded: pages keep their state, and the bar never flickers. Pages open on their own (e.g. /levels.html) come here too.
+const PAGES = window.ET_PAGES;
+const STATIC = new Set(["killer.html", "survivor_builds.html", "loadout.html"]);  // their data is written into the page: reload after a while hidden
+const frames = {};  // file -> { el, search, hiddenAt }
+let current = null;
+
+const fileOf = (href) => href.split("?")[0].split("#")[0];
+const searchOf = (href) => (href.split("#")[0].split("?")[1] || "");
+
+function drawBar(href) {
+  const here = href.split("#")[0];
+  $bar.innerHTML = '<nav class="nav">' + PAGES.map(([h, t]) => {
+    const on = h.includes("?") ? here === h : fileOf(here) === h;
+    return `<a href="#${h}" data-h="${h}"${on ? ' class="on"' : ""}>${t}</a>`;
+  }).join("") + "</nav>";
+}
+const $bar = document.getElementById("bar"), $frames = document.getElementById("frames");
+
+function show(href) {
+  const file = fileOf(href), search = searchOf(href);
+  if (!PAGES.some(([h]) => fileOf(h) === file)) { href = "live.html"; return go(href); }
+  if (current && frames[current]) { frames[current].hiddenAt = Date.now(); }
+  let f = frames[file];
+  if (!f) {
+    const el = document.createElement("iframe");
+    el.addEventListener("load", () => { if (current === file) document.title = el.contentDocument.title || "Entity Toolkit"; });
+    el.src = href;
+    $frames.appendChild(el);
+    f = frames[file] = { el, search, hiddenAt: 0, fresh: true };
+  } else if (f.search !== search) {  // same page, other query (e.g. killer or survivor priorities): that frame only is reloaded
+    f.search = search; f.fresh = true;
+    f.el.src = href;
+  }
+  current = file;
+  Object.values(frames).forEach((x) => { x.el.hidden = x !== f; });
+  drawBar(href);
+  if (f.fresh) f.fresh = false;
+  else if (STATIC.has(file) && Date.now() - f.hiddenAt > 60000) f.el.contentWindow.location.reload();
+  else f.el.contentWindow.dispatchEvent(new Event("et-show"));  // pages that show live data refresh themselves
+  if (f.el.contentDocument && f.el.contentDocument.title) document.title = f.el.contentDocument.title;
+}
+
+function go(href) {
+  if (location.hash.slice(1) === href) show(href);
+  else location.hash = href;  // the hashchange handler shows it (and the back button works)
+}
+
+window.etShell = { go };
+window.addEventListener("hashchange", () => show(decodeURIComponent(location.hash.slice(1)) || "live.html"));
+$bar.addEventListener("click", (e) => {
+  const a = e.target.closest("a[data-h]");
+  if (!a) return;
+  e.preventDefault();
+  go(a.dataset.h);
+});
+
+(async function start() {
+  let first = decodeURIComponent(location.hash.slice(1));
+  if (!first) {
+    try { first = (await (await fetch("/api/live", { cache: "no-store" })).json()).ready ? "live.html" : "setup.html"; } catch (e) { first = "live.html"; }
+    history.replaceState(null, "", "#" + first);
+  }
+  show(first);
+})();
+</script>
+</body>
+</html>

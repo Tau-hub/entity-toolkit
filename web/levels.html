@@ -195,6 +195,7 @@ document.addEventListener("error", (e) => {
   const n = +(i.dataset.try || 0); i.dataset.try = n + 1;
   if (n === 0 && i.dataset.f) i.src = i.dataset.f;
 }, true);
+window.addEventListener("et-show", () => load());  // the shell re-shows this page: refresh its data
 mountScan($("scanMount"), { onDone: (m) => { load(); say(m); } });
 load();
 </script>
