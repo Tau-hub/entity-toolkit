@@ -104,7 +104,7 @@ Everything comes from the database you downloaded, so it is as fresh as your las
 
 ![Random loadout](docs/images/loadout.png)
 
-Roll a random killer (or survivor) loadout: power, add-ons, four perks and an optional offering, each with its rating. Reroll everything or one part, then copy the poster or download it as a PNG.
+Pick a killer (or a survivor, or press **Random killer**) and get a random loadout: power, add-ons, four perks and an optional offering, each with its rating. The first visit shows every killer as a portrait; once you have rolled, they move to a column on the left so you can roll another one with a click. Reroll everything or one part, then copy the poster or download it as a PNG.
 
 ## Data and privacy
 

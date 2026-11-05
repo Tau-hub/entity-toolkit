@@ -106,7 +106,7 @@ Tout vient de la base que tu as téléchargée : c'est aussi frais que ta derni�
 
 ![Loadout aléatoire](docs/images/loadout.png)
 
-Tire un loadout aléatoire de tueur (ou de survivant) : pouvoir, add-ons, quatre perks et une offrande en option, chacun avec sa note. Relance tout ou une partie, puis copie l'affiche ou télécharge-la en PNG.
+Choisis un tueur (ou un survivant, ou **Random killer**) et obtiens un loadout aléatoire : pouvoir, add-ons, quatre perks et une offrande en option, chacun avec sa note. La première visite montre tous les tueurs en portraits ; une fois le tirage fait, ils passent dans une colonne à gauche pour en tirer un autre d'un clic. Relance tout ou une partie, puis copie l'affiche ou télécharge-la en PNG.
 
 ## Données et vie privée
 

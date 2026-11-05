@@ -86,6 +86,8 @@ def enrich(data):
             by_kid[int(m.group(1))] = k
     for p in data["powers"]:
         k = by_kid.get(p["kid"])
+        if k:
+            p["killer"] = k["name"]  # the wiki's add-on section titles are sometimes odd ("Special HB/CB Add-ons"): use the killer's real name
         p["names"] = sorted({p["killer"], re.sub(r"^The\s+", "", p["killer"]), *([k["name"], k["short"], *k.get("aliases", [])] if k else [])})
         if not k:
             continue

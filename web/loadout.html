@@ -49,6 +49,34 @@
   .chk { display:flex; gap:7px; align-items:center; color:var(--muted); font-size:14px; cursor:pointer; user-select:none; }
   @keyframes rise { from { opacity:0; transform:translateY(10px); } }
   @keyframes fade { from { opacity:0; } }
+.seg{display:inline-flex;border:1px solid var(--border);border-radius:999px;overflow:hidden;background:#0006}
+.seg button{background:none;border:0;color:var(--muted);padding:6px 12px;font:inherit;font-size:12px;cursor:pointer}
+.seg button.on{color:#fff;background:linear-gradient(180deg,#d1243a55,#7d0f1f55)}
+.layout{display:grid;grid-template-columns:206px minmax(0,1fr);gap:16px;max-width:1380px;margin:0 auto;padding:0 16px;align-items:start}
+.layout main{max-width:none;margin:0;padding:0 0 40px;min-width:0}
+.side{position:sticky;top:10px;max-height:calc(100vh - 20px);overflow-y:auto;background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:8px;scrollbar-width:thin}
+.side .seg{display:flex;width:100%;margin:6px 0 8px}.side .seg button{flex:1;padding:6px 4px}
+.side .rb{display:block;width:100%;margin-bottom:6px;padding:8px 6px;border-radius:10px;border:1px solid var(--border);background:var(--panel2);color:var(--text);font:inherit;font-size:13px;cursor:pointer}
+.side .rb:hover{border-color:var(--accent)} .side .rb.on{border-color:var(--accent);background:linear-gradient(180deg,#d1243a33,#7d0f1f33)}
+.faces{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.face{background:none;border:0;padding:2px;cursor:pointer;border-radius:50%;line-height:0}
+.face img{width:100%;aspect-ratio:1;border-radius:50%;object-fit:cover;object-position:50% 18%;background:var(--panel2);border:2px solid var(--border);transition:.12s}
+.face:hover img{border-color:var(--gold);transform:scale(1.08)}
+.face.on img{border-color:var(--accent);box-shadow:0 0 0 2px #d1243a66}
+.face span{display:none}
+/* first visit, nothing rolled yet: every killer in a big grid; once one is picked the grid becomes the left column */
+.layout.landing{grid-template-columns:minmax(0,1fr)}
+.layout.landing main{display:none}
+.layout.landing .side{position:static;max-height:none;overflow:visible;background:none;border:0;padding:0;text-align:center}
+.layout.landing .side .rb{display:inline-block;width:auto;margin:0 4px 12px;padding:9px 20px}
+.layout.landing .side .seg{display:inline-flex;width:auto;margin:0 0 14px 10px}
+.layout.landing .side .seg button{flex:none;padding:7px 20px;font-size:13px}
+.layout.landing .faces{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 10px;max-width:1150px;margin:0 auto}
+.layout.landing .face{display:flex;flex-direction:column;align-items:center;gap:4px;width:84px;line-height:1.15;font-size:11px;color:var(--muted);padding:3px 0}
+.layout.landing .face:hover{color:var(--text)}
+.layout.landing .face img{width:64px;height:64px}
+.layout.landing .face span{display:block}
+@media (max-width:900px){.layout{grid-template-columns:minmax(0,1fr)}.side{position:static;max-height:none;overflow:visible}.faces{display:flex;overflow-x:auto;gap:6px;padding-bottom:4px}.face{flex:none;width:50px}.layout.landing .faces{flex-wrap:wrap}.layout.landing .face{width:84px}}
 </style>
 <link rel="stylesheet" href="theme.css">
 </head>
@@ -66,6 +94,12 @@
   <div id="hint"></div>
 </div>
 
+<div class="layout landing" id="layout">
+<aside class="side">
+  <button class="rb" id="bRandom" type="button">🎲 Random killer</button><button class="rb" id="bSurv" type="button">🧍 Survivor</button>
+  <div class="seg" id="sortSeg"><button data-v="release" title="Release date">Release</button><button data-v="az" title="Alphabetical">A–Z</button></div>
+  <div class="faces" id="faces"></div>
+</aside>
 <main>
   <section class="stage">
     <div class="poster">
@@ -83,6 +117,7 @@
     </aside>
   </section>
 </main>
+</div>
 <div id="tip"></div>
 <script>
 const DATA = /*DATA*/null;
@@ -150,6 +185,24 @@ function openList(filterText){
   searchBox.classList.add("open");
 }
 function closeList(){ searchBox.classList.remove("open"); hl = -1; }
+// the killers, as portraits: a big grid first, then a left column (same pattern as the killer sheet)
+let sortMode = "release";
+try { sortMode = localStorage.getItem("et-killer-sort") || sortMode; } catch(e){}
+const sortedKillers = () => sortMode === "az" ? killers.slice().sort((a,b)=>shortName(a).localeCompare(shortName(b))) : killers.slice().sort((a,b)=>a.kid-b.kid);
+function renderFaces(){
+  const cur = mode === "K" && L.item ? L.item.kid : null;
+  faces.innerHTML = sortedKillers().map(p=>`<button class="face${p.kid===cur?" on":""}" data-k="${p.kid}" title="${esc(p.killer)}"><img src="${p.portraitUri || p.icon}" alt=""><span>${esc(shortName(p))}</span></button>`).join("");
+  bSurv.classList.toggle("on", mode === "S" && !!L.item);
+  document.querySelectorAll("#sortSeg button").forEach(b=>b.classList.toggle("on", b.dataset.v === sortMode));
+}
+faces.onclick = e => { const b = e.target.closest(".face"); if (b) choose(killers.find(p=>p.kid === +b.dataset.k)); };
+bRandom.onclick = () => choose({random:true});
+bSurv.onclick = () => choose({surv:true});
+document.querySelectorAll("#sortSeg button").forEach(b => b.addEventListener("click", () => {
+  sortMode = b.dataset.v; try { localStorage.setItem("et-killer-sort", sortMode); } catch(e){}
+  renderFaces();
+}));
+
 function choose(o){
   qK.value = o.random ? "" : o.surv ? "survivant" : shortName(o);
   closeList(); reroll("all");
@@ -325,7 +378,7 @@ cv.onmousemove = e => {
 };
 cv.onmouseleave = hideTip;
 
-async function render(){ lists(); await draw(); }
+async function render(){ layout.classList.remove("landing"); renderFaces(); lists(); await draw(); }
 function reroll(which){
   if (which === "all") {
     const r = resolve();
@@ -353,7 +406,8 @@ bCopy.onclick = ()=> cv.toBlob(async b=>{
   catch(e){ say("Copy refused: use Download"); }
 });
 
-reroll("all");
+renderFaces();
+hint.textContent = "Pick a killer below, roll a random one, or search for one.";
 </script>
 </body>
 </html>
