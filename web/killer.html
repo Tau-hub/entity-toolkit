@@ -77,6 +77,17 @@ h3{margin:28px 0 10px;font-size:19px;border-bottom:1px solid var(--border);paddi
 .face:hover img{border-color:var(--gold);transform:scale(1.08)}
 .face.on img{border-color:var(--accent);box-shadow:0 0 0 2px #d1243a66}
 .face span{display:none}
+/* first visit, nothing picked yet: every killer in a big grid under the search box; once one is picked the grid becomes the left column */
+.layout.landing{grid-template-columns:minmax(0,1fr)}
+.layout.landing .side{position:static;max-height:none;overflow:visible;background:none;border:0;padding:0;text-align:center}
+.layout.landing .side .seg{display:inline-flex;width:auto;margin-bottom:14px}
+.layout.landing .side .seg button{flex:none;padding:7px 20px;font-size:13px}
+.layout.landing .faces{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 10px;max-width:1150px;margin:0 auto}
+.layout.landing .face{display:flex;flex-direction:column;align-items:center;gap:4px;width:84px;line-height:1.15;font-size:11px;color:var(--muted);padding:3px 0}
+.layout.landing .face:hover{color:var(--text)}
+.layout.landing .face img{width:64px;height:64px}
+.layout.landing .face span{display:block}
+.layout.landing main .empty{padding:24px 0}
 @media (max-width:900px){.layout{grid-template-columns:minmax(0,1fr)}.side{position:static;max-height:none;overflow:visible}.faces{display:flex;overflow-x:auto;gap:6px;padding-bottom:4px}.face{flex:none;width:50px}}
 </style>
 <link rel="stylesheet" href="theme.css">
@@ -194,6 +205,7 @@ try { sortMode = localStorage.getItem("et-killer-sort") || sortMode; } catch(e){
 const sortedK = () => sortMode === "az" ? K.slice().sort((a,b)=>a.short.localeCompare(b.short)) : K;
 function renderFaces(){
   const cur = CUR && CUR.slug;
+  document.querySelector(".layout").classList.toggle("landing", !cur);
   $("faces").innerHTML = sortedK().map(k=>`<button class="face${k.slug===cur?" on":""}" data-s="${esc(k.slug)}" title="${esc(k.name)}"><img referrerpolicy="no-referrer" loading="lazy" src="${esc(k.portrait)}" data-f="${esc(k.portrait2)}" alt=""><span>${esc(k.short)}</span></button>`).join("");
   document.querySelectorAll("#sortSeg button").forEach(b=>b.classList.toggle("on", b.dataset.v===sortMode));
   const on = document.querySelector(".face.on"), box = document.querySelector(".side");
@@ -231,7 +243,7 @@ function fromUrl(){
   const q = p.get("q");
   if(K.some(k=>k.slug===want)) select(want);
   else if(q){ $("q").value=q; $("q").oninput({target:$("q")}); }
-  else $("app").innerHTML = K.length ? '<p class="empty">Pick a killer in the list or type their name.</p>' : '<p class="empty">No builds data yet. Open <a href="setup.html">Setup</a> and press “Update database”.</p>';
+  else $("app").innerHTML = K.length ? '<p class="empty">Click a killer above, or search for one.</p>' : '<p class="empty">No builds data yet. Open <a href="setup.html">Setup</a> and press “Update database”.</p>';
 }
 // images: one retry, then fall back to the original URL (wiki.gg)
 document.addEventListener("error", e => {
