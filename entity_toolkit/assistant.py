@@ -106,6 +106,7 @@ class Assistant:
         if kind == "players":
             self.on_players(img)
         elif kind == "end":
+            self.last_menu = None  # the match is over: its perks must never come back (not as an overlay, not as mouse checks)
             self.on_end(img)
         elif self.overlay_was_on:
             log("Overlay removed (press outside the menu)")
@@ -143,6 +144,9 @@ class Assistant:
         else:
             self.say(f"Map remembered: {mem['map']}" if mem else "Map not read")
             log(f"Map: {mem['map'] if mem else 'not read'} (perks not shown: killer view)")
+            self.last_menu = None  # killer: no overlay, no mouse checks, and no perks left over from an earlier survivor match
+            if self.overlay:
+                self.overlay.hide()
         if mem:
             canon = {n.upper(): n for n, _ in _survivor_surnames()}
             names = sorted(names_on_screen(img) | {canon[a] for a in allies if a in canon})
