@@ -64,6 +64,20 @@ h3{margin:28px 0 10px;font-size:19px;border-bottom:1px solid var(--border);paddi
 .src{color:var(--muted);font-size:12px;margin-top:30px;text-align:center}
 .src a{color:var(--muted)}
 .nav{display:flex;gap:6px;margin-left:auto}.nav a{color:var(--text);text-decoration:none;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:6px 10px;font-size:13px}.nav a:hover{border-color:var(--accent)}
+.seg{display:inline-flex;border:1px solid var(--border);border-radius:999px;overflow:hidden;background:#0006}
+.seg button{background:none;border:0;color:var(--muted);padding:6px 12px;font:inherit;font-size:12px;cursor:pointer}
+.seg button.on{color:#fff;background:linear-gradient(180deg,#d1243a55,#7d0f1f55)}
+.layout{display:grid;grid-template-columns:206px minmax(0,1fr);gap:16px;max-width:1380px;margin:0 auto;padding:0 16px;align-items:start}
+.layout main{max-width:none;margin:0;padding:0 0 40px;min-width:0}
+.side{position:sticky;top:10px;max-height:calc(100vh - 20px);overflow-y:auto;background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:8px;scrollbar-width:thin}
+.side .seg{display:flex;width:100%;margin-bottom:8px}.side .seg button{flex:1;padding:6px 4px}
+.faces{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.face{background:none;border:0;padding:2px;cursor:pointer;border-radius:50%;line-height:0}
+.face img{width:100%;aspect-ratio:1;border-radius:50%;object-fit:cover;object-position:50% 18%;background:var(--panel2);border:2px solid var(--border);transition:.12s}
+.face:hover img{border-color:var(--gold);transform:scale(1.08)}
+.face.on img{border-color:var(--accent);box-shadow:0 0 0 2px #d1243a66}
+.face span{display:none}
+@media (max-width:900px){.layout{grid-template-columns:minmax(0,1fr)}.side{position:static;max-height:none;overflow:visible}.faces{display:flex;overflow-x:auto;gap:6px;padding-bottom:4px}.face{flex:none;width:50px}}
 </style>
 <link rel="stylesheet" href="theme.css">
 </head>
@@ -75,7 +89,13 @@ h3{margin:28px 0 10px;font-size:19px;border-bottom:1px solid var(--border);paddi
   <select id="sel"></select>
   <span class="patch" style="margin-left:0" id="patch"></span>
 </header>
+<div class="layout">
+<aside class="side">
+  <div class="seg" id="sortSeg"><button data-v="release" title="Release date">Release</button><button data-v="az" title="Alphabetical">A–Z</button></div>
+  <div class="faces" id="faces"></div>
+</aside>
 <main id="app"></main>
+</div>
 <div class="tip" id="tip"></div>
 <script>
 window.addEventListener("error",e=>{document.getElementById("app").innerHTML="<p class=\"empty\">Error: "+e.message+"</p>"});
@@ -169,13 +189,33 @@ ${esc(k.addons[i].desc)}">`).join("+")}</div></div>`).join("")}</div>`;
   h += `<p class="src">Sources: <a href="https://otzdarva-builds.com">otzdarva-builds.com</a> · <a href="https://otz-addon-tierlist.pages.dev">otz-addon-tierlist</a> · <a href="https://otzdarva.com/dbd/character-info">otzdarva.com</a></p>`;
   $("app").innerHTML = h;
 }
+let sortMode = "release";  // K is in release order (the order of the data); "az" sorts by name
+try { sortMode = localStorage.getItem("et-killer-sort") || sortMode; } catch(e){}
+const sortedK = () => sortMode === "az" ? K.slice().sort((a,b)=>a.short.localeCompare(b.short)) : K;
+function renderFaces(){
+  const cur = CUR && CUR.slug;
+  $("faces").innerHTML = sortedK().map(k=>`<button class="face${k.slug===cur?" on":""}" data-s="${esc(k.slug)}" title="${esc(k.name)}"><img referrerpolicy="no-referrer" loading="lazy" src="${esc(k.portrait)}" data-f="${esc(k.portrait2)}" alt=""><span>${esc(k.short)}</span></button>`).join("");
+  document.querySelectorAll("#sortSeg button").forEach(b=>b.classList.toggle("on", b.dataset.v===sortMode));
+  const on = document.querySelector(".face.on"), box = document.querySelector(".side");
+  if(on && box && getComputedStyle(box).position === "sticky") box.scrollTop = Math.max(0, on.offsetTop - box.clientHeight / 2);
+}
+function fillSelect(){
+  const cur = CUR ? CUR.slug : "";
+  $("sel").innerHTML = '<option value="">— Pick a killer —</option>' + sortedK().map(k=>`<option value="${k.slug}">${esc(k.short)}</option>`).join("");
+  $("sel").value = cur;
+}
 function select(slug){
   const k = K.find(x=>x.slug===slug); if(!k) return;
-  $("sel").value = slug; history.replaceState(null,"","#"+slug); render(k); window.scrollTo(0,0);
+  $("sel").value = slug; history.replaceState(null,"","#"+slug); render(k); renderFaces(); window.scrollTo(0,0);
 }
 function init(){
   $("patch").textContent = patchLabel(DATA);
-  $("sel").innerHTML = '<option value="">— Pick a killer —</option>' + K.map(k=>`<option value="${k.slug}">${esc(k.short)}</option>`).join("");
+  fillSelect(); renderFaces();
+  $("faces").addEventListener("click", e => { const b = e.target.closest(".face"); if(b) select(b.dataset.s); });
+  document.querySelectorAll("#sortSeg button").forEach(b => b.addEventListener("click", () => {
+    sortMode = b.dataset.v; try { localStorage.setItem("et-killer-sort", sortMode); } catch(e){}
+    fillSelect(); renderFaces();
+  }));
   $("sel").onchange = e => e.target.value && select(e.target.value);
   $("q").oninput = e => {
     const r = K.map(k=>[score(e.target.value,k),k]).filter(x=>x[0]>0).sort((a,b)=>b[0]-a[0]);
