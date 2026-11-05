@@ -15,6 +15,7 @@ Un compagnon **non officiel** pour *Dead by Daylight* (Windows) : voir les perks
 | | |
 |---|---|
 | **Perks des alliés** (survivant) | Appuie sur la touche de capture dans le menu des joueurs (Tab) : l'outil lit les perks, les noms de personnage et les pseudos de tes trois alliés, les affiche sur la page **Live** (second écran) et les dessine sur la liste des survivants du jeu, devant le bon survivant. |
+| **Texte d'une perk au survol** | Quand le jeu libère la souris (tu es accroché ou mort), passe-la sur une icône de l'overlay : une petite boîte affiche le nom, la note et le texte de la perk. Elle disparaît dès que la souris quitte l'icône. À désactiver dans la page Setup. |
 | **Mémoire de la map** (survivant et tueur) | La même touche lit et mémorise la map depuis le menu des joueurs. |
 | **Envoi NightLight** | Même touche sur le tableau de fin de match : il est envoyé à [NightLight](https://nightlight.gg) et la revue est faite pour toi (« Me » coché sur ton pseudo, les autres en Random, map réglée depuis la mémoire, Confirm cliqué). |
 | **Suivi des niveaux** | Une page pour régler où tu en es avec chaque tueur et survivant, tenue à jour automatiquement depuis le tableau de fin. |
@@ -79,6 +80,8 @@ La touche par défaut est **Alt + pavé numérique 7** (verrouillage numérique 
 **Alt + pavé numérique 8** retire l'overlay et oublie les perks (pratique si tu ne veux pas envoyer ce match). Les deux touches se changent dans la page Setup.
 
 L'outil s'arrête tout seul quand le jeu se ferme. Pour qu'il démarre tout seul quand le jeu démarre : `python -m entity_toolkit autostart install` (annuler avec `autostart remove`). Une seule copie tourne à la fois : si tu le lances avec `run.bat` et que le surveillant du démarrage automatique le relance au démarrage du jeu, la seconde copie s'arrête toute seule, donc un appui sur la touche n'est traité qu'une fois.
+
+**Lire une perk :** tant que la souris est libre (accroché, mort, spectateur), survole une icône de l'overlay pour voir son texte ; sors de l'icône et il disparaît. L'outil ne regarde que la position de la souris, et seulement quand l'overlay est affiché et le jeu au premier plan (environ 0 % de CPU, aucun crochet, rien n'est lu dans le jeu). En jeu normal la souris est bloquée sur la caméra, donc rien ne s'affiche.
 
 Pourquoi l'overlay attend : la liste des survivants du jeu n'est visible qu'une fois le menu Tab refermé. Après l'appui, l'outil surveille l'écran, lit les noms de la liste du jeu et associe chaque allié à la bonne ligne, d'abord par **portrait**, puis par **pseudo** quand deux alliés jouent le même personnage ou que les portraits se ressemblent trop. Ta propre ligne ne bouge jamais.
 

@@ -15,6 +15,7 @@ An **unofficial** companion for *Dead by Daylight* (Windows): see your teammates
 | | |
 |---|---|
 | **Allies' perks** (survivor) | Press the capture key on the Tab players menu: the toolkit reads your three allies' perks, character names and player names, shows them on the **Live** page (second screen) and draws them over the game's survivor list, on the right survivor. |
+| **Perk text on hover** | When the game frees the mouse (you are hooked or dead), put it on an overlay icon and a small box shows that perk's name, rating and text. It disappears as soon as the mouse leaves the icon. Turn it off on the Setup page. |
 | **Map memory** (survivor and killer) | The same key reads and remembers the map from the players menu. |
 | **NightLight upload** | Press the same key on the end-of-match scoreboard: it is sent to [NightLight](https://nightlight.gg), the match is reviewed for you ("Me" ticked on your name, everyone else Random, map set from memory, Confirm clicked). |
 | **Level tracking** | A page to set how far you got with each killer and survivor, kept up to date automatically from the scoreboard. |
@@ -77,6 +78,8 @@ The default key is **Alt + Numpad 7** (NumLock on). It only reacts while the gam
 **Alt + Numpad 8** removes the overlay and forgets the perks (handy if you do not want to upload that match). Both keys can be changed on the Setup page.
 
 The toolkit stops by itself when the game closes. To have it start by itself when the game starts: `python -m entity_toolkit autostart install` (undo with `autostart remove`). Only one copy ever runs: if you start it with `run.bat` and the autostart watcher then launches it again when the game starts, the second copy stops by itself, so a key press is handled once.
+
+**Reading a perk:** while the mouse is free (hooked, dead, spectating), hover an icon of the overlay to see its text; move off the icon and it goes away. It only looks at the mouse position, and only while the overlay is on screen and the game is in front (about 0 % CPU, no hook, nothing read from the game). During normal play the mouse is locked to the camera, so nothing shows.
 
 Why the overlay waits: the game's own survivor list is only visible once the Tab menu is closed. After the key press the toolkit watches the screen, reads the names in the game's list and matches each ally to the right row, first by **portrait**, then by **player name** when two allies play the same character or the portraits are too similar. Your own row never moves.
 

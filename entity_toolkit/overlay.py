@@ -23,7 +23,7 @@ from ctypes import wintypes
 import numpy as np
 from PIL import Image, ImageDraw, ImageTk
 
-from . import ocr, paths, recognize as rc
+from . import config, ocr, paths, recognize as rc
 
 REF_H = 1440
 DEFAULT = {"x": 6, "rows": [622, 740, 858, 975], "dy": -19, "size": 52, "gap": 3}
@@ -34,11 +34,82 @@ WS_EX_TRANSPARENT, WS_EX_NOACTIVATE, WS_EX_TOOLWINDOW, WS_EX_LAYERED = 0x20, 0x0
 PORTRAIT_MARGIN = 0.15  # below this gap the portraits are not decisive enough: use the player names
 
 
+class _CURSORINFO(ctypes.Structure):
+    _fields_ = [("cbSize", wintypes.DWORD), ("flags", wintypes.DWORD), ("hCursor", wintypes.HANDLE), ("ptScreenPos", wintypes.POINT)]
+
+
+def cursor_state():
+    """(x, y, visible) of the mouse cursor. GetCursorInfo is a plain query: no hook, no raw input, nothing touches the game."""
+    ci = _CURSORINFO()
+    ci.cbSize = ctypes.sizeof(ci)
+    if not user32.GetCursorInfo(ctypes.byref(ci)):
+        return 0, 0, False
+    return ci.ptScreenPos.x, ci.ptScreenPos.y, bool(ci.flags & 1)  # CURSOR_SHOWING
+
+
+def game_in_front(hwnd):
+    return not hwnd or user32.GetForegroundWindow() == hwnd
+
+
 def layout():
     try:
         return {**DEFAULT, **json.loads(paths.OVERLAY_LAYOUT.read_text(encoding="utf8"))}
     except Exception:
         return dict(DEFAULT)
+
+
+def grid_geometry(rect, cfg=None):
+    """Where the overlay's grids are, from the game window's rectangle (left, top, width, height): used both to draw them and to know which icon the mouse is on."""
+    cfg = cfg or layout()
+    left, top, w, h = rect
+    s = h / REF_H
+    size, gap = int(cfg["size"] * s), int(cfg["gap"] * s)
+    rows = [r + cfg["dy"] for r in cfg["rows"]]  # dy only moves the drawing (name / portrait reading keeps the original rows)
+    block = 2 * size + gap  # 2x2 grid centred on each survivor's row
+    y0 = int(rows[0] * s) - block // 2
+    y1 = int(rows[-1] * s) + block - block // 2  # (not block // 2: with an odd block the last icon's bottom pixel would be cut off)
+    return {"left": left, "top": top, "s": s, "size": size, "gap": gap, "rows": rows, "block": block, "y0": y0, "y1": y1,
+            "x": left + int(cfg["x"] * s), "width": 2 * size + gap + 4}
+
+
+def icon_origin(g, i, j):
+    """Top-left corner, in the overlay window's own pixels, of perk j (0-3) of row i."""
+    cy = int(g["rows"][i] * g["s"]) - g["y0"]
+    return 2 + (j % 2) * (g["size"] + g["gap"]), cy - g["block"] // 2 + (j // 2) * (g["size"] + g["gap"])
+
+
+def hit_rects(perks_by_row, rect, cfg=None):
+    """[(x0, y0, x1, y1, perk)] in screen pixels, one per perk icon drawn."""
+    g = grid_geometry(rect, cfg)
+    out = []
+    for i, perks in perks_by_row.items():
+        if i >= len(g["rows"]):
+            continue
+        for j, pk in enumerate(perks[:4]):
+            ox, oy = icon_origin(g, i, j)
+            x0, y0 = g["x"] + ox, g["top"] + g["y0"] + oy
+            out.append((x0, y0, x0 + g["size"], y0 + g["size"], pk))
+    return out
+
+
+def hover_target(hits, x, y):
+    for h in hits:
+        if h[0] <= x < h[2] and h[1] <= y < h[3]:
+            return h
+    return None
+
+
+def tooltip_text(pk, limit=700):
+    """(title, body) of the tooltip for one recognised perk (perks sharing an icon are listed together)."""
+    cut = lambda t: t if len(t) <= limit else t[:limit].rsplit(" ", 1)[0] + "…"
+    sections = []
+    for p in pk["perks"]:
+        head = p["name"] + (f"   ·   {p['note']}/100" if p.get("note") is not None else "")
+        sections.append((head, cut((p.get("desc") or "No description.").strip())))
+    title = sections[0][0] + ("   (to check)" if pk.get("uncertain") else "")
+    if len(sections) == 1:
+        return title, sections[0][1]
+    return " / ".join(p["name"] for p in pk["perks"]), "\n\n".join(f"{h}\n{d}" for h, d in sections)
 
 
 def _gradient(size, c0, c1):
@@ -183,13 +254,19 @@ def place(allies, names, me_row, menu_img=None, hud_img=None):
 class Overlay:
     """Tk lives in its own thread; everything goes through a command queue."""
 
-    def __init__(self, log=print):
+    def __init__(self, log=print, cursor_fn=cursor_state, front_fn=game_in_front):
         self.log = log
         self.q = queue.Queue()
         self.visible = False
         self.gen = 0  # changes on every removal: stops a wait in progress
         self.pending = False
+        self.hits, self.rect, self.game_hwnd = [], None, None   # perk icons on screen, the game window: to show a perk's text under the mouse
+        self.hover_on = True
+        self.tip_shown = None  # (x0, y0) of the icon whose text is shown (set by the drawing thread)
+        self.cursor_fn, self.front_fn = cursor_fn, front_fn
+        self.active = threading.Event()  # set while the overlay is on screen: the hover thread sleeps (no CPU) otherwise
         threading.Thread(target=self._loop, daemon=True).start()
+        threading.Thread(target=self._hover_loop, daemon=True).start()
 
     def watch(self, allies, me_row, grab, game_hwnd, menu_img=None, timeout=240):
         """Waits for the game's left-hand list to be visible (Tab menu closed), reads the names and puts each grid on the right survivor."""
@@ -225,20 +302,56 @@ class Overlay:
 
         threading.Thread(target=run, daemon=True).start()
 
-    def show(self, allies, game_hwnd):
+    def show(self, allies, game_hwnd, rect=None):
         """allies: the analysis result's list; a["row"] is the row (0 to 3, top to bottom) of the game's left-hand list."""
         icons = {a["row"]: [p["icon"] for p in a["perks"]] for a in allies}
-        r = wintypes.RECT()
-        user32.GetWindowRect(game_hwnd, ctypes.byref(r))
+        if rect is None:
+            r = wintypes.RECT()
+            user32.GetWindowRect(game_hwnd, ctypes.byref(r))
+            rect = (r.left, r.top, r.right - r.left, r.bottom - r.top)
+        self.rect, self.game_hwnd = rect, game_hwnd
+        self.hits = hit_rects({a["row"]: a["perks"] for a in allies}, rect)
+        try:
+            self.hover_on = bool(config.load().get("perk_hover", True))
+        except Exception:
+            self.hover_on = True
         self.visible = True
-        self.q.put(("show", icons, (r.left, r.top, r.right - r.left, r.bottom - r.top)))
+        self.q.put(("show", icons, rect))
+        self.active.set()
 
     def hide(self):
         was = self.visible or self.pending
         self.visible = self.pending = False
         self.gen += 1
+        self.active.clear()
+        self.hits = []
+        self.q.put(("tip", None))
         self.q.put(("hide",))
         return was
+
+    def _hover_loop(self):
+        """Shows a perk's text while the mouse is over its icon (the game frees the cursor when you are hooked or dead).
+        Reads only the cursor position; blocks (no CPU at all) while the overlay is not on screen, and polls slowly unless the cursor is near the icons."""
+        last = None
+        while True:
+            self.active.wait()
+            hit, near = None, False
+            try:
+                if self.hover_on and self.hits:
+                    x, y, showing = self.cursor_fn()
+                    if showing and self.front_fn(self.game_hwnd):
+                        hit = hover_target(self.hits, x, y)
+                        bx0, by0 = min(h[0] for h in self.hits), min(h[1] for h in self.hits)
+                        bx1, by1 = max(h[2] for h in self.hits), max(h[3] for h in self.hits)
+                        near = bx0 - 160 <= x <= bx1 + 160 and by0 - 120 <= y <= by1 + 120
+                key = None if hit is None else (hit[0], hit[1])
+                if key != last:
+                    last = key
+                    self.q.put(("tip", hit))
+            except Exception as e:
+                self.log(f"Overlay hover: {e}")
+                time.sleep(2)
+            time.sleep(0.04 if (hit or near) else 0.15)
 
     def _loop(self):
         try:
@@ -257,19 +370,63 @@ class Overlay:
                 ex = user32.GetWindowLongW(hwnd, GWL_EXSTYLE)
                 user32.SetWindowLongW(hwnd, GWL_EXSTYLE, ex | WS_EX_TRANSPARENT | WS_EX_NOACTIVATE | WS_EX_TOOLWINDOW | WS_EX_LAYERED)
 
+            tipwin = {}
+
+            def tip_hide():
+                if "w" in tipwin:
+                    tipwin["w"].withdraw()
+                self.tip_shown = None
+
+            def tip_show(hit):
+                if "w" not in tipwin:
+                    w = tk.Toplevel(root)
+                    w.withdraw()
+                    w.overrideredirect(True)
+                    w.configure(bg="#6a4a8a")
+                    inner = tk.Frame(w, bg="#0e0a10", padx=11, pady=9)
+                    inner.pack(padx=1, pady=1)
+                    head = tk.Label(inner, bg="#0e0a10", fg="#f2ebe0", font=("Segoe UI", 11, "bold"), justify="left", anchor="w", wraplength=400)
+                    body = tk.Label(inner, bg="#0e0a10", fg="#d6cfc4", font=("Segoe UI", 10), justify="left", anchor="w", wraplength=400)
+                    head.pack(fill="x")
+                    body.pack(fill="x", pady=(5, 0))
+                    tipwin.update(w=w, head=head, body=body)
+                x0, y0, x1, y1, pk = hit
+                title, text = tooltip_text(pk)
+                tipwin["head"].config(text=title)
+                tipwin["body"].config(text=text)
+                w = tipwin["w"]
+                w.update_idletasks()
+                tw, th = w.winfo_reqwidth(), w.winfo_reqheight()
+                gl, gt, gw, gh = self.rect
+                x = x1 + 14
+                if x + tw > gl + gw:  # no room on the right: put it on the left of the icon
+                    x = max(gl + 4, x0 - tw - 14)
+                y = min(max(gt + 8, y0 - 6), gt + gh - th - 8)
+                w.geometry(f"+{x}+{y}")
+                w.deiconify()
+                w.attributes("-alpha", 0.97)
+                hwnd = user32.GetParent(w.winfo_id()) or w.winfo_id()
+                ex = user32.GetWindowLongW(hwnd, GWL_EXSTYLE)  # click-through, never focused, absent from the taskbar
+                user32.SetWindowLongW(hwnd, GWL_EXSTYLE, ex | WS_EX_TRANSPARENT | WS_EX_NOACTIVATE | WS_EX_TOOLWINDOW | WS_EX_LAYERED)
+                w.attributes("-topmost", True)
+                self.tip_shown = (x0, y0)
+
             def poll():
                 try:
                     while True:
                         cmd = self.q.get_nowait()
                         if cmd[0] == "hide":
+                            tip_hide()
                             root.withdraw()
                             canvas.delete("all")
                             photos.clear()
+                        elif cmd[0] == "tip":
+                            tip_hide() if cmd[1] is None else tip_show(cmd[1])
                         else:
                             self._draw(root, canvas, photos, style, cmd[1], cmd[2])
                 except queue.Empty:
                     pass
-                root.after(50, poll)
+                root.after(50 if self.visible else 250, poll)  # nothing on screen: look at the queue only 4 times a second
 
             poll()
             root.mainloop()
@@ -278,26 +435,19 @@ class Overlay:
 
     def _draw(self, root, canvas, photos, style, icons, rect):
         try:
-            cfg = layout()
-            left, top, w, h = rect
-            s = h / REF_H
-            size, gap = int(cfg["size"] * s), int(cfg["gap"] * s)
-            rows = [r + cfg["dy"] for r in cfg["rows"]]  # dy only moves the drawing (name / portrait reading keeps the original rows)
+            g = grid_geometry(rect)
+            size, y0, y1 = g["size"], g["y0"], g["y1"]
             canvas.delete("all")
             photos.clear()
-            width = 2 * size + gap + 4
-            block = 2 * size + gap  # 2x2 grid centred on each survivor's row
-            y0 = int(rows[0] * s) - block // 2
-            y1 = int(rows[-1] * s) + block // 2
-            icons = {k: v for k, v in icons.items() if k < len(rows)}
-            root.geometry(f"{width}x{y1 - y0}+{left + int(cfg['x'] * s)}+{top + y0}")
-            canvas.config(width=width, height=y1 - y0)
+            icons = {k: v for k, v in icons.items() if k < len(g["rows"])}
+            root.geometry(f"{g['width']}x{y1 - y0}+{g['x']}+{g['top'] + y0}")
+            canvas.config(width=g["width"], height=y1 - y0)
             for i, row_icons in icons.items():
-                cy = int(rows[i] * s) - y0
                 for j, ic in enumerate(row_icons[:4]):
                     ph = ImageTk.PhotoImage(_badge(ic, size))
                     photos.append(ph)
-                    canvas.create_image(2 + (j % 2) * (size + gap), cy - block // 2 + (j // 2) * (size + gap), image=ph, anchor="nw")
+                    ox, oy = icon_origin(g, i, j)
+                    canvas.create_image(ox, oy, image=ph, anchor="nw")
             root.deiconify()
             root.update_idletasks()
             style()

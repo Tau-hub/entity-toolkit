@@ -8,6 +8,7 @@ DEFAULTS = {
     "capture_key": "alt+numpad7",  # one key does everything: players menu -> perks + map, scoreboard -> NightLight upload
     "clear_key": "alt+numpad8",    # removes the perk overlay
     "overlay": True,              # draw the allies' perks over the game's survivor list
+    "perk_hover": True,           # show a perk's text when the mouse is over its icon (the game frees the cursor when you are hooked or dead)
     "sounds": True,               # small "ok" / "not ok" sounds
     "upload": True,               # send the scoreboard to NightLight when you press the key on it
     "dry_run": False,             # True: save the scoreboard locally but never send it

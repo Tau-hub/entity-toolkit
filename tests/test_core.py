@@ -35,6 +35,42 @@ class OverlayPlacement(unittest.TestCase):
         self.assertNotIn(1, out.values())
 
 
+class PerkHover(unittest.TestCase):
+    def _perk(self, name="Bond", desc="Auras are revealed.", note=78, uncertain=False):
+        return {"perks": [{"name": name, "desc": desc, "note": note}], "uncertain": uncertain}
+
+    def test_hit_boxes_stay_inside_the_overlay_and_do_not_overlap(self):
+        rect = (0, 0, 2560, 1440)
+        hits = overlay.hit_rects({1: [self._perk()] * 4, 2: [self._perk()] * 4, 3: [self._perk()] * 4}, rect)
+        g = overlay.grid_geometry(rect)
+        self.assertEqual(len(hits), 12)
+        for x0, y0, x1, y1, _ in hits:
+            self.assertTrue(g["x"] <= x0 and x1 <= g["x"] + g["width"] and g["top"] + g["y0"] <= y0 and y1 <= g["top"] + g["y1"])
+        boxes = {(h[0], h[1]) for h in hits}
+        self.assertEqual(len(boxes), 12)
+
+    def test_the_icon_under_the_mouse_is_found(self):
+        hits = overlay.hit_rects({1: [self._perk("A"), self._perk("B"), self._perk("C"), self._perk("D")]}, (0, 0, 2560, 1440))
+        x0, y0, x1, y1, pk = hits[2]
+        self.assertEqual(overlay.hover_target(hits, (x0 + x1) // 2, (y0 + y1) // 2)[4]["perks"][0]["name"], "C")
+        self.assertIsNone(overlay.hover_target(hits, 1500, 700))  # the middle of the screen, where the cursor sits during mouse look
+
+    def test_boxes_follow_the_screen_size(self):
+        small = overlay.hit_rects({1: [self._perk()]}, (0, 0, 1920, 1080))[0]
+        big = overlay.hit_rects({1: [self._perk()]}, (0, 0, 2560, 1440))[0]
+        self.assertAlmostEqual((small[2] - small[0]) / (big[2] - big[0]), 0.75, delta=0.05)
+
+    def test_tooltip_text(self):
+        title, body = overlay.tooltip_text(self._perk("Bond", "Auras are revealed.", 78))
+        self.assertEqual((title, body), ("Bond   ·   78/100", "Auras are revealed."))
+        self.assertIn("(to check)", overlay.tooltip_text(self._perk(uncertain=True))[0])
+        long_text = overlay.tooltip_text(self._perk(desc="word " * 400))[1]
+        self.assertLess(len(long_text), 720)
+        self.assertTrue(long_text.endswith("…"))
+        twin = {"perks": [{"name": "X", "desc": "one", "note": None}, {"name": "Y", "desc": "two", "note": 5}], "uncertain": False}
+        self.assertEqual(overlay.tooltip_text(twin)[0], "X / Y")
+
+
 class Levels(unittest.TestCase):
     def setUp(self):
         for p in (paths.LEVELS, paths.LEVELS_HISTORY, paths.KILLERS, paths.SURVIVORS):
