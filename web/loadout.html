@@ -37,10 +37,10 @@
   .row { display:flex; gap:12px; align-items:flex-start; padding:9px 12px 9px 9px; margin-bottom:7px; border-left:3px solid var(--rc);
          animation:rise .45s both; animation-delay:calc(var(--i) * 55ms); cursor:help; }
   .row:hover { transform:translateX(3px); }
-  .row .ic { flex:none; width:56px; height:56px; display:grid; place-items:center; border-radius:10px; background:radial-gradient(circle at 50% 35%, color-mix(in srgb,var(--rc) 55%,#000), #000a); box-shadow:inset 0 0 0 1px #fff1; }
-  .row .ic.dia { clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%); background:radial-gradient(circle,#5a2b78,#220f30); box-shadow:none; }
-  .row .ic img { width:44px; height:44px; object-fit:contain; filter:drop-shadow(0 2px 3px #000a); }
-  .row .ic.dia img { width:34px; height:34px; }
+  .row .ic { flex:none; width:56px; height:56px; display:grid; place-items:center; border-radius:7px; border:3px solid #08060a; background:linear-gradient(180deg,var(--c1,#555),var(--c2,#222)); box-shadow:none; }
+  .row .ic.dia { border:0; clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%); background:linear-gradient(135deg,#8e4eaa,#3a1c50); box-shadow:none; }
+  .row .ic img { width:46px; height:46px; object-fit:contain; filter:drop-shadow(0 2px 3px #000a); }
+  .row .ic.dia img { width:42px; height:42px; }
   .row .tx { min-width:0; flex:1; }
   .row .top { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
   .row b { font-size:15px; font-weight:600; }
@@ -86,6 +86,9 @@
 <div id="tip"></div>
 <script>
 const DATA = /*DATA*/null;
+// Rarity colours as the game paints them: a lit gradient (lighter on top), not a flat fill
+const RGRAD = {0:["#6a6a6a","#383838"],1:["#6b4a38","#3a2418"],2:["#f0bd1c","#c98a0c"],3:["#3f9a4c","#1e5a2c"],4:["#8a3fb0","#44205f"],5:["#e0407a","#8a1e48"],8:["#3f82d0","#1d3f78"],11:["#d8d8d8","#8c8c8c"]};
+const rgrad = r => RGRAD[r] || RGRAD[0];
 const RARITY = {0:"#5a5a5a",1:"#8a6a38",2:"#d1a82c",3:"#46a850",4:"#8a46c8",5:"#e03a78",8:"#3a8fd8",11:"#c8c8c8"};
 const RNAME = {1:"Common",2:"Uncommon",3:"Rare",4:"Very rare",5:"Ultra rare",8:"Event",11:"Limited"};
 const TIER_FR = {strongest:"Strongest", good:"Good", decent:"Decent", "almost-no-effect":"Almost no effect", detrimental:"Detrimental"};
@@ -196,9 +199,9 @@ function noteChip(d){
   return "";
 }
 function rowHtml(d, kind, i, dia){
-  const rc = dia ? "#8a46c8" : (RARITY[d.rarity] || "#8a46c8");
+  const rc = dia ? "#8e4eaa" : (RARITY[d.rarity] || "#8a46c8"), [c1, c2] = rgrad(d.rarity);
   const idx = entries.push({d, kind}) - 1;
-  return `<div class="row" data-e="${idx}" style="--rc:${rc};--i:${i}"><div class="ic${dia?" dia":""}"><img src="${d.icon}" alt=""></div>` +
+  return `<div class="row" data-e="${idx}" style="--rc:${rc};--c1:${c1};--c2:${c2};--i:${i}"><div class="ic${dia?" dia":""}"><img src="${d.icon}" alt=""></div>` +
          `<div class="tx"><div class="top"><b>${esc(d.name)}</b>${noteChip(d)}</div><span class="chip">${esc([kind, d.rarity?RNAME[d.rarity]:""].filter(Boolean).join(" · "))}</span><div class="d">${esc(d.desc||"")}</div></div></div>`;
 }
 function lists(){
@@ -238,6 +241,56 @@ async function slot(c, kind, cx, cy, r, d, label, fill, stroke, scale){
   c.drawImage(im, cx-im.width*k/2, cy-im.height*k/2, im.width*k, im.height*k);
   regions.push({cx, cy, r:r*0.9, d, label});
 }
+// A perk, drawn like the game's menu: a lit gradient diamond (violet for survivors, crimson for killers) in a thick dark border, big glyph.
+const TIER = { S: ["#8e4eaa", "#3a1c50"] };
+async function perkSlot(c, cx, cy, r, d, label, side){
+  const dia = (k) => path(c, [[cx,cy-k],[cx+k,cy],[cx,cy+k],[cx-k,cy]]);
+  dia(r); c.fillStyle = "#08060a"; c.fill();                                   // dark border
+  dia(r - 7);
+  const g = c.createLinearGradient(cx - r, cy - r, cx + r, cy + r); g.addColorStop(0, TIER[side][0]); g.addColorStop(1, TIER[side][1]);
+  c.fillStyle = g; c.fill();
+  path(c, [[cx, cy - r*0.86],[cx + r*0.28, cy - r*0.56],[cx, cy - r*0.26],[cx - r*0.28, cy - r*0.56]]); c.fillStyle = "rgba(255,255,255,0.10)"; c.fill();   // light catching the top
+  const im = await load(d.icon), k = (r*0.74*2)/Math.max(im.width, im.height);
+  c.drawImage(im, cx - im.width*k/2, cy - im.height*k/2, im.width*k, im.height*k);
+  regions.push({cx, cy, r:r*0.9, d, label});
+}
+// speckled grain over the frames, like the game's textured backgrounds
+let GRAIN = null;
+function grain(){
+  if (GRAIN) return GRAIN;
+  const g = document.createElement("canvas"); g.width = g.height = 96;
+  const x = g.getContext("2d"), id = x.createImageData(96, 96);
+  for (let i = 0; i < id.data.length; i += 4) {
+    const v = Math.random();
+    if (v < 0.10) { id.data[i] = id.data[i+1] = id.data[i+2] = 0; id.data[i+3] = 60 + Math.random()*70; }
+    else if (v > 0.965) { id.data[i] = id.data[i+1] = id.data[i+2] = 255; id.data[i+3] = 35 + Math.random()*40; }
+  }
+  x.putImageData(id, 0, 0);
+  return GRAIN = g;
+}
+const trimCache = {};
+function trimmed(im){  // the icon cropped to its visible glyph, so it can fill the frame
+  if (trimCache[im.src]) return trimCache[im.src];
+  const c = document.createElement("canvas"); c.width = im.width; c.height = im.height;
+  const x = c.getContext("2d"); x.drawImage(im, 0, 0);
+  const d = x.getImageData(0, 0, c.width, c.height).data;
+  let x0 = c.width, y0 = c.height, x1 = 0, y1 = 0;
+  for (let y = 0; y < c.height; y++) for (let xx = 0; xx < c.width; xx++) if (d[(y*c.width + xx)*4 + 3] > 24) { if (xx < x0) x0 = xx; if (xx > x1) x1 = xx; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+  if (x1 <= x0 || y1 <= y0) return trimCache[im.src] = {src:im, sx:0, sy:0, sw:im.width, sh:im.height};
+  return trimCache[im.src] = {src:im, sx:x0, sy:y0, sw:x1-x0+1, sh:y1-y0+1};
+}
+async function gameSquare(c, cx, cy, r, d, label, grad, fill){
+  const bw = Math.max(5, r*0.09), x = cx - r + bw, y = cy - r + bw, w = 2*(r - bw);
+  c.fillStyle = "#08060a"; c.beginPath(); c.roundRect(cx - r, cy - r, 2*r, 2*r, 7); c.fill();         // thick dark border
+  const g = c.createLinearGradient(0, y, 0, y + w); g.addColorStop(0, grad[0]); g.addColorStop(1, grad[1]);
+  c.save(); c.beginPath(); c.rect(x, y, w, w); c.clip();
+  c.fillStyle = g; c.fillRect(x, y, w, w);
+  c.fillStyle = c.createPattern(grain(), "repeat"); c.fillRect(x, y, w, w);
+  c.restore();
+  const t = trimmed(await load(d.icon)), k = (w*fill)/Math.max(t.sw, t.sh);
+  c.drawImage(t.src, t.sx, t.sy, t.sw, t.sh, cx - t.sw*k/2, cy - t.sh*k/2, t.sw*k, t.sh*k);
+  regions.push({cx, cy, r:r*0.9, d, label});
+}
 function heading(c, t, x, y){ c.fillStyle="#c9a46a"; c.font="600 22px Segoe UI, sans-serif"; c.textAlign="left"; c.fillText(t, x, y); }
 
 async function draw(){
@@ -252,16 +305,16 @@ async function draw(){
   const off = cOff.checked;
   heading(c, mode==="K"?"POWER":"ITEM", 40, 120); heading(c, "ADD-ONS", 270, 120); if (off) heading(c, "OFFERING", 690, 120); heading(c, "PERKS", 40, 362);
   const kindItem = mode==="K" ? "Power" : "Item";
-  await slot(c,"square", 120,215, 70, L.item, kindItem, mode==="K"?"#2a1a1e":(RARITY[L.item.rarity]||"#444"), "#e6d6b8", mode==="K"?0.95:0.85);
+  await gameSquare(c, 120, 215, 70, L.item, kindItem, mode==="K" ? ["#4a3038","#1c1216"] : rgrad(L.item.rarity), mode==="K" ? 0.98 : 0.84);
   for (const [i, cx] of [[0,330],[1,480]]) {
     const a = L.addons[i];
-    await slot(c,"square", cx,205, 62, a, "Add-on", RARITY[a.rarity]||"#444", "#e6d6b8", 0.85);
+    await gameSquare(c, cx, 205, 62, a, "Add-on", rgrad(a.rarity), 0.84);
     if (a.tier) pill(c, TIER_FR[a.tier], cx, 298, TIER_COL[a.tier]);
   }
   if (off) await slot(c,"hex", 830,205, 85, L.off, "Offering", RARITY[L.off.rarity]||"#444", "#d9b26f", 0.7);
   for (let i=0;i<4;i++) {
     const p = L.perks[i], cx = 150+i*233;
-    await slot(c,"diamond", cx, 480, 105, p, "Perk", "#2a1530", "#9a5bc4", 0.62);
+    await perkSlot(c, cx, 480, 105, p, "Perk", "S");
     if (p.note != null) pill(c, `Rating ${p.note}/100`, cx, 580, p.note>=60?"#1e7a45":p.note>=35?"#9a7b12":"#7a3a3a");
   }
 }

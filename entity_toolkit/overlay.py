@@ -41,14 +41,34 @@ def layout():
         return dict(DEFAULT)
 
 
+def _gradient(size, c0, c1):
+    """Diagonal gradient, light at the top left like the game's lit perk frame."""
+    yy, xx = np.mgrid[0:size, 0:size]
+    t = (xx + yy) / (2.0 * max(size - 1, 1))
+    arr = np.stack([(c0[i] + (c1[i] - c0[i]) * t).astype(np.uint8) for i in range(3)], axis=-1)
+    return Image.fromarray(arr, "RGB")
+
+
 def _badge(icon, size):
-    """Perk icon on an opaque dark badge (no transparency fringe)."""
-    im = Image.open(paths.ICONS / icon).convert("RGBA").resize((size - 6, size - 6), Image.LANCZOS)
-    bg = Image.new("RGBA", (size, size), (0, 0, 0, 0))
-    d = ImageDraw.Draw(bg)
-    d.rounded_rectangle((0, 0, size - 1, size - 1), radius=8, fill=(24, 14, 36, 255), outline=(150, 110, 200, 255), width=2)
-    bg.alpha_composite(im, (3, 3))
-    return bg.convert("RGB")
+    """Perk icon the way the game draws it: a lit violet frame with a thick dark border and a big glyph. Opaque; the corners use the
+    transparent key colour so the badge looks rounded."""
+    k = 4  # drawn at 4x then reduced, for smooth edges
+    big = size * k
+    corner = Image.new("RGB", (big, big), (1, 2, 3))
+    mask = Image.new("L", (big, big), 0)
+    ImageDraw.Draw(mask).rounded_rectangle((0, 0, big - 1, big - 1), radius=9 * k, fill=255)
+    base = Image.new("RGB", (big, big), (8, 6, 10))                      # dark border
+    inner = Image.new("L", (big, big), 0)
+    ImageDraw.Draw(inner).rounded_rectangle((3 * k, 3 * k, big - 1 - 3 * k, big - 1 - 3 * k), radius=7 * k, fill=255)
+    base.paste(_gradient(big, (142, 78, 170), (58, 28, 80)), (0, 0), inner)
+    ic = Image.open(paths.ICONS / icon).convert("RGBA")
+    if ic.getbbox():
+        ic = ic.crop(ic.getbbox())
+    f = min(big * 0.82 / ic.width, big * 0.82 / ic.height)
+    ic = ic.resize((max(1, int(ic.width * f)), max(1, int(ic.height * f))), Image.LANCZOS)
+    base.paste(ic, ((big - ic.width) // 2, (big - ic.height) // 2), ic)
+    corner.paste(base, (0, 0), mask)
+    return corner.resize((size, size), Image.LANCZOS)
 
 
 def _norm(t):

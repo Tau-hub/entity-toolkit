@@ -66,12 +66,9 @@ def _test_image(path):
 
 
 def _serve(demo=False):
-    from . import config, server, winapi
+    from . import config, server
     from .log import log
-    if not winapi.single_instance():
-        log("Entity Toolkit is already running: not starting a second copy")
-        return 1
-    hub = server.Hub()
+    hub = server.Hub()  # no mutex here: `serve` has no hotkeys, so it cannot double-handle a key press; the port check is enough
     try:
         url = server.start(hub, config.load()["port"])
     except OSError:
