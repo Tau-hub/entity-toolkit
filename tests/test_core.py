@@ -35,6 +35,38 @@ class OverlayPlacement(unittest.TestCase):
         self.assertNotIn(1, out.values())
 
 
+class PlacementWhenDown(unittest.TestCase):
+    """A real case: the key was pressed late, with survivors downed, so their portraits on the game's list no longer look like the menu's."""
+
+    ALLIES = [{"row": 1, "survivor": "NEA KARLSSON", "player": "Castax"},
+              {"row": 2, "survivor": "RICK GRIMES", "player": "TheSilentGamer08"},
+              {"row": 3, "survivor": "JILL VALENTINE", "player": "BuhGaIterOCHEK"}]
+    RIGHT = {1: 2, 2: 3, 3: 1}
+
+    def test_noisy_names_alone_give_the_right_placement(self):
+        for names in (["Vodlich", "BuhGa1terOCHEK", "Castax", "Th eSilen tGam er 08"], ["Vod/ich", "BuhGa/terOCHEK", "Castax", "TheSi/entGamer08"]):
+            self.assertEqual(overlay.place(self.ALLIES, names, 0), self.RIGHT)
+
+    def test_a_confidently_wrong_portrait_match_does_not_beat_clear_names(self):
+        from unittest import mock
+        names = ["Vodlich", "BuhGa1terOCHEK", "Castax", "Th eSilen tGam er 08"]
+        wrong = ({1: 2, 2: 1, 3: 3}, 5.0)  # what the portraits said at that moment: sure of itself, and wrong
+        trace = []
+        with mock.patch.object(overlay, "_scores", return_value={}), mock.patch.object(overlay, "_best_assign", return_value=wrong):
+            out = overlay.place(self.ALLIES, names, 0, menu_img=object(), hud_img=object(), trace=trace)
+        self.assertEqual(out, self.RIGHT)
+        self.assertTrue(any("clear match" in line for line in trace), trace)
+
+    def test_portraits_still_decide_when_no_name_is_readable(self):
+        from unittest import mock
+        names = ["Vodlich", "Qwertzuiop", "Castax", "Zz1"]  # only one of the three allies has a clearly matching name
+        ok = ({1: 2, 2: 3, 3: 1}, 5.0)
+        with mock.patch.object(overlay, "_scores", return_value={}), mock.patch.object(overlay, "_best_assign", return_value=ok):
+            out = overlay.place(self.ALLIES, names, 0, menu_img=object(), hud_img=object())
+        self.assertEqual(out[1], 2)  # Castax, by name
+        self.assertEqual((out[2], out[3]), (3, 1))  # the two unreadable names, by portrait
+
+
 class PerkHover(unittest.TestCase):
     def _perk(self, name="Bond", desc="Auras are revealed.", note=78, uncertain=False):
         return {"perks": [{"name": name, "desc": desc, "note": note}], "uncertain": uncertain}

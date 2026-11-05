@@ -217,43 +217,84 @@ def _by_pseudo(allies, free, names):
     return out
 
 
-def place(allies, names, me_row, menu_img=None, hud_img=None):
+STRONG_PSEUDO = 0.85  # similarity above which a player name read on the left is trusted over the portraits
+STRONG_PSEUDO_LEN = 5  # ... provided it is long enough not to match by chance
+
+
+def _strong_pseudo(allies, free, names):
+    """Player names that clearly match a name read on the game's list (OCR noise such as spaces or one wrong letter is fine): {ally row: slot}.
+    Best matches are taken first, and a slot is given only once."""
+    cands = []
+    for a in allies:
+        p = _norm(a.get("player") or "")
+        if len(p) < STRONG_PSEUDO_LEN:
+            continue
+        for i in free:
+            n = _norm(names[i])
+            if len(n) >= STRONG_PSEUDO_LEN:
+                r = difflib.SequenceMatcher(None, p, n).ratio()
+                if r >= STRONG_PSEUDO:
+                    cands.append((r, a["row"], i))
+    out, used = {}, set()
+    for r, row, i in sorted(cands, reverse=True):
+        if row not in out and i not in used:
+            out[row] = i
+            used.add(i)
+    return out
+
+
+def place(allies, names, me_row, menu_img=None, hud_img=None, trace=None):
     """Row of the game's left-hand list for each ally (your row stays where it is in the menu).
-    Order: 1) portrait, for characters that are not duplicated among the allies; 2) player name, for duplicates (two of the same
-    survivor) and when portraits are not decisive; 3) menu order for what is left. Returns None until the list is readable
-    (at least 2 names read on the left)."""
+    Order: 1) a player name that clearly matches one read on the list (duplicates of a character can only be told apart this way, and
+    it is the one thing a downed or injured portrait cannot spoil); 2) the portraits, for the allies still unplaced; 3) weaker name
+    matches; 4) menu order for what is left. `trace`, when given, receives a line saying how each ally was placed.
+    Returns None until the list is readable (at least 2 names read on the left)."""
     free = [i for i in range(len(names)) if i != me_row]
     if sum(1 for i in free if len(_norm(names[i])) >= 3) < min(2, len(free)):
         return None  # the left-hand list is not visible yet (Tab menu open): keep waiting
+    say = trace.append if trace is not None else (lambda _: None)
     count = {}
     for a in allies:
         count[a.get("survivor")] = count.get(a.get("survivor"), 0) + 1
     dups = [a for a in allies if count[a.get("survivor")] > 1 or not a.get("survivor")]
-    uniq = [a for a in allies if a not in dups]
     out = _by_pseudo(dups, free, names)  # duplicates differ only by their player name
-    left = list(uniq)
+    if out:
+        say(f"by player name (same character twice): {sorted(out)}")
+    rest_allies = [a for a in allies if a["row"] not in out]
+    strong = _strong_pseudo(rest_allies, free, names)
+    if strong:
+        out.update(strong)
+        free = [f for f in free if f not in out.values()]
+        say(f"by player name (clear match): {sorted(strong)}")
+    left = [a for a in rest_allies if a["row"] not in strong]
     if left and menu_img is not None and hud_img is not None and len(free) >= len(left):
         try:
             assign, margin = _best_assign(left, free, _scores(left, free, menu_img, hud_img))
             if margin >= PORTRAIT_MARGIN:
                 out.update(assign)
                 free = [f for f in free if f not in assign.values()]
+                say(f"by portrait: {sorted(assign)} (margin {margin:.2f})")
                 left = []
         except Exception:
             pass
-    if left:  # portraits not decisive: player name, then portrait for what is left
+    if left:  # portraits not decisive: weaker name matches, then portrait for what is left
         got = _by_pseudo(left, free, names)
         out.update(got)
+        if got:
+            say(f"by player name (weaker match): {sorted(got)}")
         left = [a for a in left if a["row"] not in got]
         if left and menu_img is not None and hud_img is not None and len(free) >= len(left):
             try:
-                out.update(_best_assign(left, free, _scores(left, free, menu_img, hud_img))[0])
+                best = _best_assign(left, free, _scores(left, free, menu_img, hud_img))[0]
+                out.update(best)
+                say(f"by portrait (not decisive): {sorted(best)}")
             except Exception:
                 pass
     rest = iter([f for f in free if f not in out.values()])
     for a in allies:
         if a["row"] not in out:
             out[a["row"]] = next(rest, a["row"])
+            say(f"menu order (nothing else matched): [{a['row']}]")
     return out
 
 
@@ -292,11 +333,12 @@ class Overlay:
                     hud = grab()
                     names = hud_names(hud)
                     tries += 1
-                    mapping = place(allies, names, me_row, menu_img, hud)
+                    trace = []
+                    mapping = place(allies, names, me_row, menu_img, hud, trace)
                     if tries <= 3 or tries % 10 == 0:
                         self.log(f"Overlay: try {tries} · read on the left: {names} · {'placement ' + str(mapping) if mapping else 'list not visible yet (Tab menu open?)'}")
                     if mapping and gen == self.gen:
-                        self.log(f"Game list read: {names} · placement {mapping}")
+                        self.log(f"Game list read: {names} · placement {mapping} · {'; '.join(trace)}")
                         self.show([{**a, "row": mapping[a["row"]]} for a in allies], game_hwnd)
                         return
                     time.sleep(1.2)
