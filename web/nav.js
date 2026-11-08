@@ -10,6 +10,7 @@ window.ET_PAGES = [
   ["killer.html", "Killer sheet"],
   ["survivor_builds.html", "Survivor builds"],
   ["loadout.html", "Random loadout"],
+  ["buildmaker.html", "Build creator"],
   ["setup.html", "Setup"],
 ];
 

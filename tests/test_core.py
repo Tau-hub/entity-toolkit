@@ -11,7 +11,7 @@ _TMP = tempfile.mkdtemp(prefix="entity-toolkit-test-")
 os.environ["ENTITY_TOOLKIT_DATA"] = _TMP
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from entity_toolkit import assistant, levels, overlay, paths, winapi  # noqa: E402
+from entity_toolkit import assistant, levels, mybuilds, overlay, paths, perk_types, winapi  # noqa: E402
 
 
 def ally(row, survivor, player):
@@ -320,6 +320,39 @@ class OneInstance(unittest.TestCase):
         name = "EntityToolkitTest" + uuid.uuid4().hex
         self.assertTrue(winapi.single_instance(name))
         self.assertFalse(winapi.single_instance(name))
+
+
+class BuildCreator(unittest.TestCase):
+    def test_a_perk_can_have_several_types(self):
+        perk = {"name": "X", "desc": "Blocks a generator and reveals the aura of survivors.", "tags": ["GenBlocker", "Auras"]}
+        types = perk_types.classify(perk, "K")
+        self.assertIn("gen-slowdown", types)
+        self.assertIn("aura", types)
+
+    def test_types_depend_on_the_side(self):
+        perk = {"name": "X", "desc": "Heal faster.", "tags": ["Healing"]}
+        self.assertIn("healing", perk_types.classify(perk, "S"))
+        self.assertNotIn("healing", perk_types.classify(perk, "K"))
+
+    def test_your_correction_replaces_the_automatic_types(self):
+        perk = {"name": "Corrected perk", "desc": "", "tags": ["Auras"]}
+        perk_types.save_override("Corrected perk", ["hex"])
+        self.assertEqual(perk_types.perk_types(perk, "K"), ["hex"])
+        perk_types.save_override("Corrected perk", None)
+        self.assertEqual(perk_types.perk_types(perk, "K"), ["aura"])
+
+    def test_saving_and_deleting_builds(self):
+        b = mybuilds.save({"name": "Gen rush", "side": "K", "perks": ["A", "B", "C", "D", "E"], "killers": ["The Trapper"]})
+        self.assertEqual(b["perks"], ["A", "B", "C", "D"])
+        again = mybuilds.save({**b, "name": "Renamed"})
+        self.assertEqual([x["name"] for x in mybuilds.load() if x["id"] == b["id"]], ["Renamed"])
+        self.assertEqual(again["id"], b["id"])
+        s = mybuilds.save({"name": "Survivor", "side": "S", "perks": ["A"], "killers": ["The Trapper"]})
+        self.assertEqual(s["killers"], [])  # survivor builds are not tied to a killer
+        with self.assertRaises(ValueError):
+            mybuilds.save({"name": "Empty", "perks": []})
+        self.assertEqual(mybuilds.delete(b["id"]), 1)
+        self.assertEqual(mybuilds.delete(b["id"]), 0)
 
 
 class Hotkeys(unittest.TestCase):

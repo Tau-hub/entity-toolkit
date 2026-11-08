@@ -7,7 +7,7 @@ Pressing the capture key (default Alt + Numpad 7, only when the game is running 
  - end-of-match scoreboard ("MATCH SCOREBOARD"): the screenshot is sent to NightLight, then "Me" is ticked on your name, the others are set to
    Random, the remembered map is set and the review is confirmed;
  - any other screen: the "not ok" sound; nothing is sent.
-Pressing the key again in the game (outside the menu) removes the overlay; the clear key (default Alt + Numpad 8) removes it too.
+The key never removes the overlay during a match: only the scoreboard (match over) or the clear key (default Alt + Numpad 8) does; a new players-menu press replaces it.
 """
 import difflib
 import json
@@ -108,9 +108,6 @@ class Assistant:
         elif kind == "end":
             self.last_menu = None  # the match is over: its perks must never come back (not as an overlay, not as mouse checks)
             self.on_end(img)
-        elif self.overlay_was_on:
-            log("Overlay removed (press outside the menu)")
-            self.say("Overlay removed")
         elif self.overlay and self.cfg["overlay"] and self.last_menu and time.time() - self.last_menu[3] < 45 * 60:
             allies, me, menu, _ = self.last_menu
             log("Press outside the menu: overlay put back with the perks of the last players-menu press")
@@ -135,10 +132,23 @@ class Assistant:
         survivor_view = self.analyzer.menu_visible(img)
         if survivor_view:  # survivor layout: the allies' perks are readable
             res = self.analyzer.analyze(img)
+            for _ in range(2):  # menu still opening: the names come out empty, so look again a moment later
+                if not res["allies"] or any(a["survivor"] for a in res["allies"]):
+                    break
+                log("No survivor name read (menu still opening?): looking again in 1 s")
+                time.sleep(1.0)
+                img = winapi.grab_game_monitor(self.hwnd)
+                res = self.analyzer.analyze(img)
             allies = [a["survivor"] for a in res["allies"] if a["survivor"]]
+            if not allies and self.last_menu and self.overlay and self.cfg["overlay"] and time.time() - self.last_menu[3] < 45 * 60:
+                prev, me, menu, _ = self.last_menu  # unreadable this time: same match, so the overlay already known stays
+                log("Names unreadable on this press: the overlay of the same match is kept")
+                self.overlay.watch(prev, me, lambda: winapi.grab_game_monitor(self.hwnd), self.hwnd, menu)
+                sounds.beep(False)
+                return
             self.hub.result(res)
             self.last_menu = (res["allies"], res.get("me_row", 0), img, time.time())
-            if self.overlay and self.cfg["overlay"] and res["allies"] and not self.overlay_was_on:  # a 2nd press on the players menu removes the overlay
+            if self.overlay and self.cfg["overlay"] and res["allies"]:  # a press on the players menu always reads again and shows (to remove: press outside the menu, or the clear key)
                 self.overlay.watch(res["allies"], res.get("me_row", 0), lambda: winapi.grab_game_monitor(self.hwnd), self.hwnd, img)
             log(f"Map: {mem['map'] if mem else 'not read'} · {len(res['allies'])} allies shown")
         else:

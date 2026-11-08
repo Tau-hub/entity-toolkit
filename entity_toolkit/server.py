@@ -9,7 +9,7 @@ from urllib.parse import quote
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import unquote, urlparse
 
-from . import autostart, config, database, levels, nightlight, paths, winapi
+from . import autostart, config, database, levels, mybuilds, nightlight, paths, perk_types, winapi
 from .database import patch as patch_info
 
 MIME = {".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8",
@@ -37,6 +37,22 @@ def loadout_data():
         "powers": [{**p, "icon": icon(p["icon"]) if p["icon"] else portrait(p), "portraitUri": portrait(p), "addons": [emb(a) for a in p["addons"]]} for p in extra["powers"]],
         "offerings": {k: [emb(d) for d in v] for k, v in extra["offerings"].items()},
     }
+
+
+def buildmaker_data():
+    """Everything the Build creator needs: perks of both sides with their types, the type lists, the killers (small heads), the saved builds."""
+    data = loadout_data()
+    over = perk_types.overrides()
+    perks, catalogs = {}, {}
+    for side in ("K", "S"):
+        src = perk_types.resolve_copies(data["perks"][side])
+        perks[side] = [{"name": p["name"], "icon": p["icon"], "desc": p.get("desc", ""), "owner": p.get("owner", ""), "ownerAlt": p.get("ownerAlt", ""),
+                        "types": perk_types.perk_types(p, side, over), "custom": p["name"] in over} for p in src]
+        catalogs[side] = perk_types.catalog(side, src, over)
+    killers = sorted(({"kid": p["kid"], "name": p["killer"], "short": p["names"][1] if len(p["names"]) > 1 else p["killer"], "names": p["names"], "portrait": p.get("portraitUri")}
+                      for p in data["powers"]), key=lambda k: k["kid"])
+    return {"perks": perks, "types": catalogs, "allTypes": [{"id": t[0], "label": t[1], "group": t[2], "sides": t[3], "alias": perk_types.ALIASES.get(t[0], "")} for t in perk_types.TYPES],
+            "killers": killers, "builds": mybuilds.load()}
 
 
 def with_patch(data):
@@ -166,6 +182,8 @@ def make_handler(hub):
             if path == "/api/levels":
                 chars = {k: levels.characters(k) for k in levels.KINDS}
                 return self._json({"ready": any(chars.values()), "characters": chars, "levels": levels.load(), "history": levels.history(), "chapters": levels.chapters()})
+            if path == "/api/buildmaker":
+                return self._json(buildmaker_data())
             if path in ("/api/builds/killers", "/api/builds/survivors"):
                 f = paths.KILLERS if path.endswith("killers") else paths.SURVIVORS
                 data = json.loads(f.read_text(encoding="utf8")) if f.exists() else {}
@@ -237,6 +255,13 @@ def make_handler(hub):
                 return {"changed": levels.set_all_owned(bool(body["owned"]))}
             if path == "/api/levels/reset":
                 levels.reset()
+                return {"ok": True}
+            if path == "/api/mybuilds/save":
+                return {"build": mybuilds.save(body)}
+            if path == "/api/mybuilds/delete":
+                return {"deleted": mybuilds.delete(body["id"])}
+            if path == "/api/perktypes/set":
+                perk_types.save_override(body["name"], body.get("types"))
                 return {"ok": True}
             if path == "/api/levels/import":
                 return {"changed": levels.import_json(body["text"])}

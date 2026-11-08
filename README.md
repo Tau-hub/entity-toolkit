@@ -22,6 +22,7 @@ An **unofficial** companion for *Dead by Daylight* (Windows): see your teammates
 | **Priorities** | Which characters are worth levelling next, from Otzdarva's opinion plus NightLight stats. |
 | **Recommended builds** | Killer sheets (builds, add-on tier list, combos) and survivor builds, from Otzdarva and NightLight. |
 | **Random loadout** | Roll a random killer (or survivor) loadout: power, add-ons, perks, optional offering, with ratings. Copy or download the poster as an image. |
+| **Build creator** | Save your own killer and survivor builds (four perks, a name, the killers it suits). Search perks by name, killer or type: "aura", "gen regression", "healing"… |
 | **Sounds** | A soft "ok" or "not ok" sound so you know without looking whether the map and perks were read. |
 
 ![Live page](docs/images/live.png)
@@ -70,9 +71,9 @@ The default key is **Alt + Numpad 7** (NumLock on). It only reacts while the gam
 |---|---|---|
 | The **players menu** (Tab), as survivor | once | Map remembered, allies' perks on the Live page, overlay drawn once you close the menu |
 | The **players menu**, as killer | once | Map remembered |
-| The game (menu closed), overlay shown | once | Overlay removed |
+| The game (menu closed), overlay shown | once | Overlay stays (it is only removed by the scoreboard or by Alt + Numpad 8) |
 | The game (menu closed), overlay removed | once | Overlay put back with the last perks read |
-| The **match scoreboard** | once | Screenshot sent to NightLight, match reviewed and confirmed, your character's level corrected |
+| The **match scoreboard** | once | Overlay removed, screenshot sent to NightLight, match reviewed and confirmed, your character's level corrected |
 | Anything else | once | "Not ok" sound, nothing is sent |
 
 **Alt + Numpad 8** removes the overlay and forgets the perks (handy if you do not want to upload that match). Both keys can be changed on the Setup page.
@@ -108,6 +109,12 @@ Everything comes from the database you downloaded, so it is as fresh as your las
 ![Random loadout](docs/images/loadout.png)
 
 Pick a killer (or a survivor, or press **Random killer**) and get a random loadout: power, add-ons, four perks and an optional offering, each with its rating. The first visit shows every killer as a portrait; once you have rolled, they move to a column on the left so you can roll another one with a click. Reroll everything or one part, then copy the poster or download it as a PNG.
+
+## Build creator
+
+Choose **Killer builds** or **Survivor builds**, give the build a name, and pick up to four perks. Killer builds can list the killers they suit (shown as small heads on the saved build); a build with none is a general one. Survivor builds apply to any survivor.
+
+To find perks, type a perk name, a killer name or a **type** ("aura", "gen regression", "healing"), or use the drop-down list of all types. A perk can have several types. The types come from the wiki's mechanic tags and from the perk text, so they are a best effort: **✎ Edit types** lets you correct any perk by hand (kept in `data/perk_types.json`). Saved builds are in `data/my_builds.json`.
 
 ## Data and privacy
 

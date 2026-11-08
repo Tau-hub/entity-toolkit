@@ -22,6 +22,7 @@ Un compagnon **non officiel** pour *Dead by Daylight* (Windows) : voir les perks
 | **Priorités** | Quels personnages monter en priorité, d'après l'avis d'Otzdarva et les stats NightLight. |
 | **Builds recommandés** | Fiches tueur (builds, tier list des add-ons, combos) et builds survivants, d'Otzdarva et de NightLight. |
 | **Loadout aléatoire** | Tire un loadout aléatoire de tueur (ou de survivant) : pouvoir, add-ons, perks, offrande en option, avec les notes. L'affiche se copie ou se télécharge en image. |
+| **Création de build** | Enregistre tes propres builds killer et survivant (quatre perks, un nom, les killers concernés). Recherche de perks par nom, killer ou type : « aura », « gen regression », « healing »… |
 | **Sons** | Un son doux « ok » ou « pas ok » pour savoir sans regarder si la map et les perks ont été lus. |
 
 ![Page Live](docs/images/live.png)
@@ -72,9 +73,9 @@ La touche par défaut est **Alt + pavé numérique 7** (verrouillage numérique 
 |---|---|---|
 | Le **menu des joueurs** (Tab), en survivant | oui | Map mémorisée, perks des alliés sur la page Live, overlay dessiné quand tu refermes le menu |
 | Le **menu des joueurs**, en tueur | oui | Map mémorisée |
-| Le jeu (menu fermé), overlay affiché | oui | Overlay retiré |
+| Le jeu (menu fermé), overlay affiché | oui | L'overlay reste (seuls le tableau des scores ou Alt + pavé 8 le retirent) |
 | Le jeu (menu fermé), overlay retiré | oui | Overlay remis avec les derniers perks lus |
-| Le **tableau de fin** | oui | Capture envoyée à NightLight, match revu et validé, niveau de ton personnage corrigé |
+| Le **tableau de fin** | oui | Overlay retiré, capture envoyée à NightLight, match revu et validé, niveau de ton personnage corrigé |
 | Tout autre écran | oui | Son « pas ok », rien n'est envoyé |
 
 **Alt + pavé numérique 8** retire l'overlay et oublie les perks (pratique si tu ne veux pas envoyer ce match). Les deux touches se changent dans la page Setup.
@@ -110,6 +111,12 @@ Tout vient de la base que tu as téléchargée : c'est aussi frais que ta derni�
 ![Loadout aléatoire](docs/images/loadout.png)
 
 Choisis un tueur (ou un survivant, ou **Random killer**) et obtiens un loadout aléatoire : pouvoir, add-ons, quatre perks et une offrande en option, chacun avec sa note. La première visite montre tous les tueurs en portraits ; une fois le tirage fait, ils passent dans une colonne à gauche pour en tirer un autre d'un clic. Relance tout ou une partie, puis copie l'affiche ou télécharge-la en PNG.
+
+## Création de build
+
+Choisis **Killer builds** ou **Survivor builds**, donne un nom au build et prends jusqu'à quatre perks. Un build killer peut indiquer les killers auxquels il convient (affichés en petites têtes sur le build enregistré) ; sans killer, c'est un build général. Les builds survivant valent pour n'importe quel survivant.
+
+Pour trouver des perks, tape un nom de perk, un nom de killer ou un **type** (« aura », « gen regression », « healing »), ou utilise la liste déroulante de tous les types. Un perk peut avoir plusieurs types. Les types viennent des étiquettes du wiki et du texte du perk : c'est approximatif, et **✎ Edit types** te laisse corriger un perk à la main (gardé dans `data/perk_types.json`). Les builds enregistrés sont dans `data/my_builds.json`.
 
 ## Données et vie privée
 

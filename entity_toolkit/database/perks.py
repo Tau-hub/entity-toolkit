@@ -135,21 +135,23 @@ def fetch_icon(args):
         return False
 
 
-def parse_perk_names(lua, char_type):
-    """Perk names of one side ('K' or 'S') from the wiki's Lua datatable, skipping unused / retired ones."""
+def parse_perks(lua, char_type):
+    """[(name, wiki tags)] of one side ('K' or 'S') from the wiki's Lua datatable, skipping unused / retired perks.
+    The wiki tags every perk with the mechanics it touches (Auras, Regression, Healing, Exposed...): the Build creator builds its types on them."""
     start = lua.index("p.perks = {")
     end = lua.index("p.perksCount", start)
-    names = []
+    out = []
     for line in lua[start:end].splitlines():
         m = re.match(r'\s*\["(.+?)"\]\s*=\s*\{(.*)\}\s*,?\s*$', line)
         if not m:
             continue
         body = m.group(2)
+        tags = re.findall(r'"([^"]+)"', (re.search(r"tags\s*=\s*\{([^}]*)\}", body) or [None, ""])[1])
         f = {k: v.strip("\"'") for k, v in re.findall(r"(\w+)\s*=\s*(\"[^\"]*\"|'[^']*'|[\w.+-]+)", re.sub(r"tags\s*=\s*\{[^}]*\}", "", body))}
         if any(f.get(k) for k in ("unused", "deprecated", "retired")) or f.get("charType") != char_type:
             continue
-        names.append(m.group(1))
-    return names
+        out.append((m.group(1), tags))
+    return out
 
 
 def enrich(data):
@@ -180,10 +182,10 @@ def main(log=print, refresh=False):
     rows = {"K": wiki_rows("Killer_Perks", refresh), "S": wiki_rows("Survivor_Perks", refresh)}
     perks = {"K": [], "S": []}
     for side in ("K", "S"):
-        for n in parse_perk_names(lua, side):
+        for n, tags in parse_perks(lua, side):
             row = rows[side].get(norm(n)) or rows[side].get(norm(re.sub(r"\s*\(.*?\)\s*$", "", n)))
             if row:
-                perks[side].append({"name": n, "icon": row[1], "desc": row[2]})
+                perks[side].append({"name": n, "icon": row[1], "desc": row[2], "tags": tags})
     files = {d["icon"] for side in perks.values() for d in side}
     log(f"{len(perks['K'])} killer perks, {len(perks['S'])} survivor perks, {len(files)} icons to check...")
     urls = resolve_urls(files)

@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build creator · Entity Toolkit</title>
+<style>
+  .wrap { max-width:1180px; margin:0 auto; padding:0 20px 60px; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:22px; align-items:start; }
+  @media (max-width:980px) { .wrap { grid-template-columns:1fr; } }
+  .panel { background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:14px 16px; }
+  .panel h3 { margin:0 0 12px; }
+  .bar { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .bar input.name { flex:1; min-width:180px; }
+
+  /* perk diamond: same look everywhere (lit violet, thick dark border, big glyph) */
+  .dia { position:relative; flex:none; width:64px; height:64px; display:grid; place-items:center; clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%); background:linear-gradient(135deg,#8e4eaa,#3a1c50); }
+  .dia img { width:48px; height:48px; object-fit:contain; filter:drop-shadow(0 2px 3px #000a); }
+  .dia.sm { width:46px; height:46px; } .dia.sm img { width:35px; height:35px; }
+  .slots { display:flex; gap:10px; justify-content:center; margin:6px 0 14px; }
+  .slot { width:84px; height:84px; display:grid; place-items:center; border:1px dashed var(--border); border-radius:50%; position:relative; color:var(--muted); font-size:22px; }
+  .slot.full { border:0; cursor:pointer; }
+  .slot .dia { width:84px; height:84px; } .slot .dia img { width:62px; height:62px; }
+  .slot.full:hover::after { content:"✕"; position:absolute; inset:0; display:grid; place-items:center; background:#000a; clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%); color:#fff; font-size:22px; }
+
+  .heads { display:flex; flex-wrap:wrap; gap:5px; }
+  .head { padding:0; border:0; background:none; line-height:0; border-radius:50%; cursor:pointer; }
+  .head img { width:34px; height:34px; border-radius:50%; object-fit:cover; object-position:50% 18%; background:var(--panel2); border:2px solid var(--border); transition:.12s; opacity:.6; }
+  .head:hover img { border-color:var(--gold); opacity:1; }
+  .head.on img { border-color:var(--accent); box-shadow:0 0 0 2px #d1243a66; opacity:1; }
+  .heads.mini .head { cursor:default; } .heads.mini img { width:26px; height:26px; opacity:1; border-width:1px; }
+  details > summary { cursor:pointer; color:var(--muted); font-size:13px; margin:6px 0 8px; }
+  details[open] > summary { color:var(--gold); }
+
+  .find { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
+  .find input { flex:1; min-width:200px; }
+  .find select { max-width:240px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:8px; max-height:560px; overflow:auto; padding-right:4px; }
+  .perk { display:flex; gap:8px; align-items:center; padding:5px 8px 5px 2px; border:1px solid var(--border); border-radius:12px; background:#0004; cursor:pointer; text-align:left; color:var(--text); transition:.12s; }
+  .perk:hover { border-color:var(--accent); background:var(--panel2); }
+  .perk.in { border-color:var(--accent); background:linear-gradient(180deg,#d1243a33,#7d0f1f33); }
+  .perk b { font-size:13px; font-weight:600; line-height:1.2; }
+  .perk small { display:block; color:var(--muted); font-size:11px; }
+  .count { color:var(--muted); font-size:12px; margin:0 0 8px; }
+
+  .bcard { display:flex; flex-direction:column; gap:8px; padding:12px 14px; margin-bottom:10px; background:var(--panel); border:1px solid var(--border); border-radius:14px; }
+  .bcard .top { display:flex; align-items:center; gap:10px; }
+  .bcard .top b { font-size:16px; flex:1; }
+  .bcard .ps { display:flex; gap:4px; }
+  .bcard .for { display:flex; align-items:center; gap:8px; flex-wrap:wrap; color:var(--muted); font-size:12px; }
+  .tiny { border:1px solid var(--border); background:#0006; color:var(--muted); border-radius:999px; padding:3px 11px; font-size:12px; }
+  .tiny:hover { color:#fff; border-color:var(--gold); }
+  .tiny.del:hover { border-color:var(--accent); }
+  .editor { margin-top:12px; padding:12px; border:1px solid var(--red2); border-radius:12px; background:#0006; }
+  .editor label { display:flex; gap:7px; align-items:center; font-size:13px; padding:2px 0; cursor:pointer; }
+  .editor .cols { columns:2; column-gap:20px; }
+  .editor .grp { color:var(--gold); font-size:11px; letter-spacing:.14em; text-transform:uppercase; margin:8px 0 2px; break-after:avoid; }
+  #msg { color:var(--gold); font-size:13px; }
+</style>
+<link rel="stylesheet" href="theme.css">
+</head>
+<body>
+<script src="nav.js"></script>
+<header>
+  <h1>Build creator</h1>
+  <div class="sub" id="sub"></div>
+</header>
+<div class="tabs"><button id="tK" class="on">Killer builds</button><button id="tS">Survivor builds</button></div>
+
+<div class="wrap">
+  <section class="panel" id="left">
+    <h3 id="hEdit">New build</h3>
+    <div class="bar"><input class="name" id="name" placeholder="Build name (e.g. Gen rush)" maxlength="60" autocomplete="off">
+      <button class="go" id="bSave" style="padding:9px 22px">Save</button><button class="ghost" id="bNew">New</button><span id="msg"></span></div>
+    <div class="slots" id="slots"></div>
+    <details id="kSec"><summary id="kSum">Killers this build suits (optional)</summary><div class="heads" id="heads"></div></details>
+    <h3 style="margin-top:18px">Find perks</h3>
+    <div class="find">
+      <input id="q" placeholder="Perk, killer, or type — e.g. aura, gen regression, healing…" autocomplete="off">
+      <select id="type"></select>
+      <button class="tiny" id="bEdit" title="Fix the type(s) of a perk by hand">✎ Edit types</button>
+    </div>
+    <div class="count" id="count"></div>
+    <div class="grid" id="grid"></div>
+    <div class="editor" id="editor" style="display:none"></div>
+  </section>
+
+  <section>
+    <div class="panel">
+      <h3 id="hList">Saved builds</h3>
+      <div class="bar" style="margin-bottom:10px"><span class="sub" style="font-size:13px">Show builds for</span><select id="fK"></select></div>
+      <div id="list"></div>
+    </div>
+  </section>
+</div>
+<div id="tip"></div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const H = {"X-Requested-With": "EntityToolkit", "Content-Type": "application/json"};
+const post = (u, b) => fetch(u, {method: "POST", headers: H, body: JSON.stringify(b)}).then((r) => r.json());
+
+let D = null, side = localStorage.getItem("et-bm-side") === "S" ? "S" : "K";
+let cur = {id: null, name: "", perks: [], killers: []};
+let editMode = false, editing = null;
+
+const killerBy = (k) => D.killers.find((x) => x.name === k || x.short === k);
+const perkBy = (n) => D.perks[side].find((p) => p.name === n) || D.perks[side === "K" ? "S" : "K"].find((p) => p.name === n);
+const typeLabel = (id) => (D.allTypes.find((t) => t.id === id) || {}).label || id;
+const dia = (p, cls = "") => p ? `<span class="dia ${cls}"><img src="${p.icon}" alt=""></span>` : "";
+
+async function load() {
+  D = await (await fetch("/api/buildmaker")).json();
+  if (!D.perks.K.length && !D.perks.S.length) {
+    document.querySelector(".wrap").innerHTML = '<div class="empty" style="grid-column:1/-1">The perk database is empty. Open <a href="setup.html">Setup</a> and run the update first.</div>';
+    return;
+  }
+  render();
+}
+
+function render() {
+  $("tK").classList.toggle("on", side === "K"); $("tS").classList.toggle("on", side === "S");
+  $("sub").textContent = side === "K" ? "Killer builds · perks of the killer side" : "Survivor builds · perks for any survivor";
+  $("kSec").style.display = side === "K" ? "" : "none";
+  const cat = D.types[side];
+  const groups = [...new Set(cat.map((t) => t.group))];
+  const keep = $("type").value;
+  $("type").innerHTML = '<option value="">All types</option>' + groups.map((g) => `<optgroup label="${esc(g)}">` + cat.filter((t) => t.group === g).map((t) => `<option value="${t.id}">${esc(t.label)} (${t.count})</option>`).join("") + "</optgroup>").join("");
+  if (cat.some((t) => t.id === keep)) $("type").value = keep;
+  $("heads").innerHTML = D.killers.map((k) => `<button class="head${cur.killers.includes(k.name) ? " on" : ""}" data-k="${esc(k.name)}" title="${esc(k.name)}"><img src="${k.portrait}" alt=""></button>`).join("");
+  $("fK").innerHTML = '<option value="">any killer</option>' + D.killers.map((k) => `<option value="${esc(k.name)}">${esc(k.name)}</option>`).join("");
+  $("fK").style.display = side === "K" ? "" : "none"; $("fK").previousElementSibling.style.display = side === "K" ? "" : "none";
+  drawEditor(); drawResults(); drawList();
+}
+
+function drawEditor() {
+  $("name").value = cur.name;
+  $("hEdit").textContent = cur.id ? "Editing: " + (cur.name || "build") : "New build";
+  $("slots").innerHTML = [0, 1, 2, 3].map((i) => {
+    const p = cur.perks[i] && perkBy(cur.perks[i]);
+    return p ? `<div class="slot full" data-i="${i}" title="Remove ${esc(p.name)}">${dia(p)}</div>` : `<div class="slot">+</div>`;
+  }).join("");
+  $("kSum").textContent = "Killers this build suits (optional)" + (cur.killers.length ? " · " + cur.killers.length + " selected" : "");
+  document.querySelectorAll(".head").forEach((h) => h.classList.toggle("on", cur.killers.includes(h.dataset.k)));
+}
+
+function matches(p, q, typeId) {
+  if (typeId && !p.types.includes(typeId)) return false;
+  if (!q) return true;
+  const hay = (p.name + " " + p.owner + " " + p.ownerAlt + " " + p.types.map((t) => { const T = D.allTypes.find((x) => x.id === t); return T ? T.label + " " + T.alias : ""; }).join(" ")).toLowerCase();
+  return q.toLowerCase().split(/\s+/).filter(Boolean).every((tok) => hay.includes(tok));
+}
+
+function drawResults() {
+  const list = D.perks[side].filter((p) => matches(p, $("q").value.trim(), $("type").value));
+  $("count").textContent = list.length + " perk" + (list.length === 1 ? "" : "s");
+  $("grid").innerHTML = list.map((p) => `<div class="perk${cur.perks.includes(p.name) ? " in" : ""}" data-n="${esc(p.name)}">${dia(p, "sm")}<span><b>${esc(p.name)}</b><small>${p.types.map((t) => esc(typeLabel(t))).join(" · ") || "no type"}${p.custom ? " ✎" : ""}</small></span></div>`).join("")
+    || '<div class="empty" style="grid-column:1/-1;padding:24px 0">Nothing matches.</div>';
+}
+
+function drawList() {
+  const fk = $("fK").value;
+  const builds = D.builds.filter((b) => b.side === side && (!fk || b.killers.includes(fk)));
+  $("hList").textContent = (side === "K" ? "Saved killer builds" : "Saved survivor builds") + " (" + builds.length + ")";
+  $("list").innerHTML = builds.map((b) => `<div class="bcard" data-id="${b.id}">
+    <div class="top"><b>${esc(b.name)}</b><button class="tiny" data-a="edit">Edit</button><button class="tiny del" data-a="del">Delete</button></div>
+    <div class="ps">${b.perks.map((n) => { const p = perkBy(n); return p ? `<span title="${esc(n)}">${dia(p, "sm")}</span>` : `<span class="tiny">${esc(n)}</span>`; }).join("")}</div>
+    <div class="for">${b.perks.map(esc).join(" · ")}</div>
+    ${b.killers.length ? `<div class="for"><div class="heads mini">${b.killers.map((n) => { const k = killerBy(n); return k ? `<span class="head" title="${esc(k.name)}"><img src="${k.portrait}" alt=""></span>` : ""; }).join("")}</div></div>` : (side === "K" ? '<div class="for">General build (any killer)</div>' : "")}
+  </div>`).join("") || `<div class="empty" style="padding:30px 0">No ${side === "K" ? "killer" : "survivor"} build saved yet.</div>`;
+}
+
+function flash(t) { $("msg").textContent = t; setTimeout(() => ($("msg").textContent = ""), 2500); }
+
+$("tK").onclick = () => setSide("K"); $("tS").onclick = () => setSide("S");
+function setSide(s) { side = s; try { localStorage.setItem("et-bm-side", s); } catch (e) {} cur = {id: null, name: "", perks: [], killers: []}; editing = null; $("editor").style.display = "none"; render(); }
+
+$("name").oninput = () => (cur.name = $("name").value);
+$("q").oninput = drawResults; $("type").onchange = drawResults; $("fK").onchange = drawList;
+$("bNew").onclick = () => { cur = {id: null, name: "", perks: [], killers: []}; drawEditor(); drawResults(); };
+$("heads").onclick = (e) => {
+  const b = e.target.closest(".head"); if (!b) return;
+  const k = b.dataset.k; cur.killers = cur.killers.includes(k) ? cur.killers.filter((x) => x !== k) : [...cur.killers, k]; drawEditor();
+};
+$("slots").onclick = (e) => { const s = e.target.closest(".slot.full"); if (s) { cur.perks.splice(+s.dataset.i, 1); drawEditor(); drawResults(); } };
+$("grid").onclick = (e) => {
+  const el = e.target.closest(".perk"); if (!el) return;
+  const n = el.dataset.n;
+  if (editMode) return openTypeEditor(n);
+  if (cur.perks.includes(n)) cur.perks = cur.perks.filter((x) => x !== n);
+  else if (cur.perks.length < 4) cur.perks.push(n);
+  else return flash("4 perks max");
+  drawEditor(); drawResults();
+};
+$("bSave").onclick = async () => {
+  if (!cur.perks.length) return flash("Pick at least one perk");
+  const r = await post("/api/mybuilds/save", {...cur, side});
+  if (r.error) return flash(r.error);
+  D.builds = [r.build, ...D.builds.filter((b) => b.id !== r.build.id)]; cur.id = r.build.id;
+  flash("Saved ✓"); drawEditor(); drawList();
+};
+$("list").onclick = async (e) => {
+  const btn = e.target.closest("button[data-a]"); if (!btn) return;
+  const id = btn.closest(".bcard").dataset.id, b = D.builds.find((x) => x.id === id);
+  if (btn.dataset.a === "edit") { cur = {id: b.id, name: b.name, perks: [...b.perks], killers: [...b.killers]}; drawEditor(); drawResults(); window.scrollTo({top: 0, behavior: "smooth"}); }
+  else if (confirm("Delete the build “" + b.name + "”?")) { await post("/api/mybuilds/delete", {id}); D.builds = D.builds.filter((x) => x.id !== id); if (cur.id === id) cur.id = null; drawEditor(); drawList(); }
+};
+
+// hand-corrected perk types
+$("bEdit").onclick = () => { editMode = !editMode; $("bEdit").style.color = editMode ? "#fff" : ""; $("bEdit").style.borderColor = editMode ? "var(--accent)" : ""; $("editor").style.display = "none"; $("bEdit").textContent = editMode ? "✎ Editing types — click a perk" : "✎ Edit types"; };
+function openTypeEditor(name) {
+  const p = D.perks[side].find((x) => x.name === name); editing = name;
+  const list = D.allTypes.filter((t) => t.sides.includes(side)), groups = [...new Set(list.map((t) => t.group))];
+  $("editor").style.display = "";
+  $("editor").innerHTML = `<b>${esc(name)}</b><div class="count">${esc(p.desc || "").replace(/\n/g, "<br>")}</div><div class="cols">` +
+    groups.map((g) => `<div class="grp">${esc(g)}</div>` + list.filter((t) => t.group === g).map((t) => `<label><input type="checkbox" value="${t.id}"${p.types.includes(t.id) ? " checked" : ""}> ${esc(t.label)}</label>`).join("")).join("") +
+    `</div><div class="bar" style="margin-top:10px"><button class="go" style="padding:8px 20px" id="tSave">Save types</button><button class="ghost" id="tReset">Back to automatic</button><button class="ghost" id="tClose">Close</button></div>`;
+  $("tSave").onclick = () => saveTypes([...$("editor").querySelectorAll("input:checked")].map((i) => i.value));
+  $("tReset").onclick = () => saveTypes(null);
+  $("tClose").onclick = () => ($("editor").style.display = "none");
+  $("editor").scrollIntoView({block: "nearest", behavior: "smooth"});
+}
+async function saveTypes(types) {
+  await post("/api/perktypes/set", {name: editing, types});
+  const keepBuilds = D.builds; D = await (await fetch("/api/buildmaker")).json(); D.builds = keepBuilds;
+  $("editor").style.display = "none"; render();
+}
+
+// description on hover
+const tip = $("tip");
+$("grid").addEventListener("mousemove", (e) => {
+  const el = e.target.closest(".perk"); if (!el) { tip.style.display = "none"; return; }
+  const p = D.perks[side].find((x) => x.name === el.dataset.n);
+  tip.innerHTML = `<b>${esc(p.name)}</b><i>${esc(p.owner || "")}</i>${esc(p.desc || "No description.")}`;
+  tip.style.display = "block";
+  tip.style.left = Math.min(e.clientX + 16, innerWidth - tip.offsetWidth - 10) + "px"; tip.style.top = Math.max(8, Math.min(e.clientY + 16, innerHeight - tip.offsetHeight - 10)) + "px";
+});
+$("grid").addEventListener("mouseleave", () => (tip.style.display = "none"));
+
+load();
+</script>
+</body>
+</html>
