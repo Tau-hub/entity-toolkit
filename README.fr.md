@@ -142,6 +142,7 @@ Tout ce que l'outil enregistre vit dans le dossier `data/` (ignoré par git) à 
 | `icons/`, `images/`, `loadout_data.json`, `loadout_extra.json`, `patch.json`, `killers.json`, `survivors.json`, `survivor_builds.json`, `maps.json`, `nl_maps.json` | Téléchargés par **Update database** |
 | `levels.json`, `levels_history.json`, `levels_backups.json`, `owned.json` | Tes niveaux, leur historique, les états gardés avant les changements en masse, et les personnages que tu ne possèdes pas |
 | `my_builds.json`, `perk_types.json` | Tes builds de la Création de build, et tes corrections des types de perks |
+| `captures/` | Les 100 dernières captures prises avec la touche (une rotation : la plus ancienne est supprimée ; le nombre se règle dans Settings, 0 = aucune) |
 | `config.json` | Tes réglages (dont le délai de mise à jour automatique) |
 | `nightlight_token.txt` | Ton jeton d'API NightLight. Envoyé **uniquement** à `api.nightlight.gg` |
 | `nightlight_profile/` | Le profil Edge qui garde ta session NightLight |

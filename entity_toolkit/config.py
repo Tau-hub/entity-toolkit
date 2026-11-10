@@ -17,6 +17,7 @@ DEFAULTS = {
     "auto_update_days": 7,        # refresh the database by itself every N days (0 = never)
     "last_update": 0,             # when the whole database was last refreshed (set by the update)
     "setup_done": None,           # first-launch setup finished (None = decide from the data: database present and name set)
+    "keep_captures": 100,         # keep the last N screenshots taken with the key (0 = none), the oldest are deleted
     "port": 8765,
 }
 

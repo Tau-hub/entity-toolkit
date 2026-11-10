@@ -15,7 +15,7 @@ import re
 import threading
 import time
 
-from . import analyzer as an, config, levels, nightlight, ocr, paths, review, sounds, winapi
+from . import analyzer as an, captures, config, levels, nightlight, ocr, paths, review, sounds, winapi
 from .log import log
 from .text import norm
 
@@ -103,6 +103,7 @@ class Assistant:
     def handle(self, img):
         kind = classify(img)
         log(f"Screen recognised: {kind or 'none'}")
+        threading.Thread(target=captures.save, args=(img.copy(), kind or "other"), daemon=True).start()  # rotation of the last captures, off the critical path
         if kind == "players":
             self.on_players(img)
         elif kind == "end":

@@ -26,6 +26,7 @@ CONFIG = DATA / "config.json"
 OVERLAY_LAYOUT = DATA / "overlay_layout.json"
 LAST_MATCH = DATA / "last_match.json"       # map remembered between the players menu and the scoreboard
 LOG_FILE = DATA / "entity_toolkit.log"
+CAPTURES = DATA / "captures"              # the last screenshots taken with the capture key (a rotation, see captures.py)
 DEBUG = DATA / "debug"                      # last captures kept to diagnose recognition problems
 UPLOADS = DATA / "uploads"                  # scoreboards sent to NightLight
 NL_PROFILE = DATA / "nightlight_profile"    # Edge profile holding your NightLight session

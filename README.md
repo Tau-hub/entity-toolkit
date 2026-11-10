@@ -140,6 +140,7 @@ Everything the toolkit stores lives in the git-ignored `data/` folder next to th
 | `icons/`, `images/`, `loadout_data.json`, `loadout_extra.json`, `patch.json`, `killers.json`, `survivors.json`, `survivor_builds.json`, `maps.json`, `nl_maps.json` | Downloaded by **Update database** |
 | `levels.json`, `levels_history.json`, `levels_backups.json`, `owned.json` | Your levels, their history, the states kept before bulk changes, and the characters you do not own |
 | `my_builds.json`, `perk_types.json` | Your Build creator builds, and your corrections of the perk types |
+| `captures/` | The last 100 screenshots taken with the capture key (a rotation: the oldest is deleted; the number is in Settings, 0 = none) |
 | `config.json` | Your settings (including the automatic update delay) |
 | `nightlight_token.txt` | Your NightLight API token. Sent **only** to `api.nightlight.gg` |
 | `nightlight_profile/` | The Edge profile holding your NightLight session |

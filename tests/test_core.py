@@ -11,7 +11,7 @@ _TMP = tempfile.mkdtemp(prefix="entity-toolkit-test-")
 os.environ["ENTITY_TOOLKIT_DATA"] = _TMP
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from entity_toolkit import database, assistant, levels, mybuilds, overlay, paths, perk_types, winapi  # noqa: E402
+from entity_toolkit import captures, database, assistant, levels, mybuilds, overlay, paths, perk_types, winapi  # noqa: E402
 
 
 def ally(row, survivor, player):
@@ -402,6 +402,25 @@ class LevelBackups(unittest.TestCase):
         self.assertTrue(any(b["label"].startswith("Before restoring") for b in levels.backups()))
         with self.assertRaises(ValueError):
             levels.restore(1)
+
+
+class CaptureRotation(unittest.TestCase):
+    def test_only_the_newest_captures_are_kept(self):
+        from PIL import Image
+        from entity_toolkit import config
+        cfg = config.load()
+        config.save({**cfg, "keep_captures": 3})
+        for d in paths.CAPTURES.glob("*.jpg") if paths.CAPTURES.exists() else []:
+            d.unlink()
+        paths.CAPTURES.mkdir(parents=True, exist_ok=True)
+        for i in range(5):  # older names first, as the real ones start with the date
+            Image.new("RGB", (8, 8)).save(paths.CAPTURES / f"2026010{i}_000000_players.jpg")
+        captures.prune(3)
+        self.assertEqual([f.name[:8] for f in sorted(paths.CAPTURES.glob("*.jpg"))], ["20260102", "20260103", "20260104"])
+        self.assertIsNotNone(captures.save(Image.new("RGB", (8, 8)), "end"))
+        self.assertEqual(len(list(paths.CAPTURES.glob("*.jpg"))), 3)
+        config.save({**cfg, "keep_captures": 0})
+        self.assertIsNone(captures.save(Image.new("RGB", (8, 8)), "end"))  # switched off
 
 
 class Hotkeys(unittest.TestCase):
