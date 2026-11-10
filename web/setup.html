@@ -7,6 +7,7 @@
 <style>
   .step { background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:16px 20px; margin:0 auto 14px; max-width:860px; }
   .step h2 { margin:0 0 4px; font-size:18px; display:flex; gap:10px; align-items:center; }
+  .step h2 button { font-size:13px; letter-spacing:0; text-transform:none; font-weight:400; }
   .step h2 .n { width:26px; height:26px; border-radius:50%; background:var(--accent); color:#fff; display:inline-flex; align-items:center; justify-content:center; font-size:14px; flex:none; padding:0; margin:0; border:0; letter-spacing:0; line-height:1; text-transform:none; }
   .step.done h2 .n { background:#1e7a45; }
   .step p { color:var(--muted); font-size:14px; margin:6px 0 10px; }
@@ -18,8 +19,10 @@
   button.sec { background:var(--panel2); color:var(--text); border:1px solid var(--border); border-radius:999px; padding:8px 16px; font:inherit; font-size:13px; cursor:pointer; }
   .chip { font-size:12px; padding:2px 10px; border-radius:999px; background:var(--panel2); color:var(--muted); }
   .chip.ok { background:#1e7a45; color:#fff; } .chip.no { background:#7a3a3a; color:#fff; }
-  .db { display:grid; grid-template-columns:1fr auto auto; gap:6px 12px; align-items:center; font-size:14px; margin:8px 0; }
+  .db { font-size:14px; margin:8px 0; }
+  .db .dr { display:flex; justify-content:space-between; gap:12px; padding:7px 0; border-bottom:1px solid var(--border); }
   .db .when { color:var(--muted); font-size:12px; }
+  .dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:9px; background:var(--muted); } .dot.ok { background:#3fb96b; } .dot.no { background:var(--accent); } .dot.run { background:var(--gold); }
   #news { background:#d9b26f14; border:1px solid #d9b26f55; border-radius:10px; padding:8px 14px; margin:8px 0; font-size:14px; } #news ul { margin:4px 0 0; padding-left:20px; color:var(--text); }
   #log { background:#000a; border:1px solid var(--border); border-radius:10px; padding:8px 12px; font:12px/1.5 Consolas,monospace; color:#cfc8bc; max-height:220px; overflow:auto; white-space:pre-wrap; display:none; }
   input[type=text], input[type=password] { min-width:260px; }
@@ -47,11 +50,11 @@
   </section>
 
   <section class="step" id="s2">
-    <h2><span class="n">2</span>Download the data</h2>
+    <h2><span class="n">2</span>Download the data<button class="act" id="bUpdate" style="margin-left:auto">Update database</button></h2>
     <p>Perk names, descriptions and icons (DbD wiki), map names, Otzdarva's builds and tier list, and NightLight's community stats. Nothing from these sites ships with the toolkit: it is downloaded on your PC, into the <code>data</code> folder. Run it again after a game patch.</p>
     <div class="db" id="db"></div>
     <p id="patchInfo"></p>
-    <div class="row"><button class="act" id="bUpdate">Update database</button><span class="msg" id="upMsg"></span></div>
+    <div class="msg" id="upMsg"></div>
     <div id="news" style="display:none"></div>
     <div id="log"></div>
   </section>
@@ -117,10 +120,9 @@ let polling = false, formLoaded = false;
 function renderDb(db) {
   $("db").innerHTML = Object.keys(STEPNAMES).map((k) => {
     const res = db.steps[k], running = db.running && db.step === k;
-    const state = running ? '<span class="chip">running…</span>' : res && res !== "ok" ? '<span class="chip no" title="' + res.replace(/"/g, "'") + '">failed</span>' : db.installed[k] ? '<span class="chip ok">installed</span>' : '<span class="chip no">missing</span>';
-    return `<span>${STEPNAMES[k]}</span>${state}<span class="when">${when(db.updated[k])}</span>`;
-  }).join("");
-  const log = $("log");
+    const st = running ? ["run", "running…"] : res && res !== "ok" ? ["no", "failed"] : db.installed[k] ? ["ok", ""] : ["no", "missing"];
+    return `<div class="dr"${res && res !== "ok" ? ' title="' + res.replace(/"/g, "'") + '"' : ""}><span><span class="dot ${st[0]}"></span>${STEPNAMES[k]}${st[1] ? ' <span class="when">· ' + st[1] + "</span>" : ""}</span><span class="when">${when(db.updated[k])}</span></div>`;
+  }).join("");  const log = $("log");
   if (db.log.length) { log.style.display = "block"; log.textContent = db.log.join("\n"); log.scrollTop = log.scrollHeight; }
   const nw = $("news");
   if (db.changes && db.changes.length) { nw.style.display = "block"; nw.innerHTML = "<b>What the last update brought</b><ul>" + db.changes.map((c) => "<li>" + c.replace(/</g, "&lt;") + "</li>").join("") + "</ul>"; }

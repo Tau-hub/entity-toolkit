@@ -82,14 +82,18 @@ main h2, main h3 { font-size:13px; font-weight:600; letter-spacing:.22em; text-t
 .hero h2 { font-size:28px; letter-spacing:.06em; text-transform:none; color:var(--text); border:0; margin:0 0 6px; padding:0; }
 .sub { color:var(--muted); }
 
-/* cartes */
-.hero, .build, .addon, .combo, .row, #hist, .poster, .card, .sec-card {
-  background:var(--panel); border:1px solid var(--border); border-radius:14px; transition:background .15s, transform .15s, border-color .15s;
+/* cartes — style "ouvert" : pas de blocs gris. Les éléments larges sont séparés par un filet fin, les petites tuiles sont seulement cerclées. */
+.hero, #hist, .card, .sec-card, .step, .panel, .bcard, details.chap, .banner, .pick {
+  background:none; border:0; border-bottom:1px solid var(--border); border-radius:0; transition:background .15s, border-color .15s;
 }
-.build:hover, .combo:hover, .row:hover, .card:hover { background:var(--panel2); }
+.row { background:none; border-top:0; border-right:0; border-bottom:1px solid var(--border); border-radius:0; transition:background .15s, transform .15s, border-color .15s; }
+.build, .addon, .combo, .pc, .poster { background:none; border-radius:12px; transition:background .15s, transform .15s, border-color .15s; }
+.build, .combo, .pc, .poster { border:1px solid var(--border); }
+.build:hover, .combo:hover, .row:hover, .card:hover, .pc:hover, .addon:hover { background:#ffffff0a; }
+.pick.sel { background:#d1243a14; border-bottom-color:var(--accent); }
 .build.best { border-color:var(--accent); box-shadow:0 0 0 1px var(--accent) inset, 0 0 24px #d1243a33; }
 .addon { border-left-width:4px; border-radius:12px; }
-.addon:hover { background:var(--panel2); transform:translateY(-1px); }
+.addon:hover { transform:translateY(-1px); }
 .perk img, .alts img, .row img.p, .combo img, .addon img, .hero img { background:radial-gradient(circle at 50% 35%, #ffffff14, #0008); }
 .badge, .pill, .star, .sc { letter-spacing:.04em; }
 .meta .bar { background:#0008 !important; }
@@ -127,3 +131,9 @@ main h2, main h3 { font-size:13px; font-weight:600; letter-spacing:.22em; text-t
 .scan img { width:34px; height:34px; object-fit:contain; background:var(--panel2); border-radius:6px; vertical-align:middle; }
 .scan select { background:var(--panel2); color:var(--text); border:1px solid var(--border); border-radius:8px; padding:3px 6px; }
 .scan .up { color:#3fb96b; font-weight:700; } .scan .dn { color:#e0645a; font-weight:700; } .scan .same { color:var(--muted); }
+
+/* boutons : contour, jamais de grande barre pleine */
+button.act, .scan-actions button { background:none; color:var(--text); border:1px solid var(--accent); box-shadow:none; transition:.15s; }
+button.act:hover:not(:disabled), .scan-actions button:hover { background:#d1243a2e; color:#fff; }
+button.sec, .ghost, .tools button, .tools label.btn, .sum span, .seg, .side .rb { background:none; }
+button.sec:hover, .ghost:hover { border-color:var(--gold); color:#fff; }
