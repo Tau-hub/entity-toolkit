@@ -1,6 +1,6 @@
 # Entity Toolkit
 
-Un compagnon **non officiel** pour *Dead by Daylight* (Windows) : voir les perks de tes alliés par-dessus le jeu, envoyer le tableau de fin de match à NightLight avec une seule touche, suivre le niveau de tes personnages et consulter des builds recommandés.
+Un compagnon **non officiel** pour *Dead by Daylight* (Windows) : voir les perks de tes alliés par-dessus le jeu, envoyer le tableau de fin de match à NightLight avec une seule touche, suivre le niveau de tes personnages, consulter des builds recommandés et créer les tiens.
 
 [English version](README.md)
 
@@ -15,17 +15,20 @@ Un compagnon **non officiel** pour *Dead by Daylight* (Windows) : voir les perks
 | | |
 |---|---|
 | **Perks des alliés** (survivant) | Appuie sur la touche de capture dans le menu des joueurs (Tab) : l'outil lit les perks, les noms de personnage et les pseudos de tes trois alliés, les affiche sur la page **Live** (second écran) et les dessine sur la liste des survivants du jeu, devant le bon survivant. |
-| **Texte d'une perk au survol** | Quand le jeu libère la souris (tu es accroché ou mort), passe-la sur une icône de l'overlay : une petite boîte affiche le nom, la note et le texte de la perk. Elle disparaît dès que la souris quitte l'icône. À désactiver dans la page Setup. |
+| **Texte d'une perk au survol** | Quand le jeu libère la souris (tu es accroché ou mort), passe-la sur une icône de l'overlay : une petite boîte affiche le nom, la note et le texte de la perk. Elle disparaît dès que la souris quitte l'icône. À désactiver dans la page Settings. |
 | **Mémoire de la map** (survivant et tueur) | La même touche lit et mémorise la map depuis le menu des joueurs. |
 | **Envoi NightLight** | Même touche sur le tableau de fin de match : il est envoyé à [NightLight](https://nightlight.gg) et la revue est faite pour toi (« Me » coché sur ton pseudo, les autres en Random, map réglée depuis la mémoire, Confirm cliqué). |
-| **Suivi des niveaux** | Une page pour régler où tu en es avec chaque tueur et survivant, tenue à jour automatiquement depuis le tableau de fin. |
+| **Suivi des niveaux** | Une page pour régler où tu en es avec chaque tueur et survivant, tenue à jour automatiquement depuis le tableau de fin. Les actions en masse demandent confirmation et peuvent être annulées. |
 | **Priorités** | Quels personnages monter en priorité, d'après l'avis d'Otzdarva et les stats NightLight. La page affiche aussi les points de sang qui restent à dépenser pour amener tes killers, tes survivants, ou les deux, au niveau 3 (estimation d'environ 1 116 000 par niveau). |
 | **Builds recommandés** | Fiches tueur (builds, tier list des add-ons, combos) et builds survivants, d'Otzdarva et de NightLight. |
 | **Loadout aléatoire** | Tire un loadout aléatoire de tueur (ou de survivant) : pouvoir, add-ons, perks, offrande en option, avec les notes. L'affiche se copie ou se télécharge en image. |
 | **Création de build** | Enregistre tes propres builds killer et survivant (quatre perks, un nom, les killers concernés). Recherche de perks par nom, killer ou type : « aura », « gen regression », « healing »… |
+| **Mise à jour de la base** | Un bouton télécharge tout depuis les sites communautaires, indique l'étape en cours et ce que le patch a apporté (nouveaux killers, survivants, perks, add-ons, maps…). Elle se rafraîchit aussi toute seule tous les 7 jours en arrière-plan (modifiable). |
 | **Sons** | Un son doux « ok » ou « pas ok » pour savoir sans regarder si la map et les perks ont été lus. |
 
 ![Page Live](docs/images/live.png)
+
+*Les captures de ce README ont été prises sur un dossier de données de démonstration : niveaux et builds inventés, pseudos d'exemple.*
 
 *(L'interface des pages est en anglais.)*
 
@@ -56,7 +59,7 @@ run.bat
 
 ## Premier lancement : la page Setup
 
-![Page Setup](docs/images/setup.png)
+![Page Setup, premier lancement](docs/images/setup.png)
 
 1. **Prérequis.** La page vérifie que Windows a un moteur OCR anglais.
 2. **Update database.** Un bouton télécharge les noms, descriptions et icônes des perks (wiki DbD), les noms de maps, les builds et la tier list d'Otzdarva, et les stats de NightLight. La première fois, compte quelques minutes. Relance-le après un patch du jeu (nouveaux perks, nouvelles maps, nouvelles notes). La page indique le patch du jeu (d'après les annonces Steam) et l'étiquette de patch des données d'Otzdarva, qui peut avoir quelques jours de retard ; les pages du wiki sont retéléchargées à chaque mise à jour. Chaque étape rend compte séparément, donc un site en panne ne bloque pas les autres. Depuis une console : `python -m entity_toolkit update-db`. Pendant le téléchargement, la page indique l'étape en cours, puis ce que le patch a apporté (killers, survivants, perks, add-ons, objets, offrandes, maps ajoutés ou retirés). Une fois fait une première fois, l'outil rafraîchit les données tout seul tous les 7 jours en arrière-plan (modifiable ou désactivable dans *Options*).
@@ -66,6 +69,8 @@ run.bat
 6. **Options.** Overlay oui/non, sons, simulation (enregistre le tableau mais ne l'envoie jamais) et les touches.
 
 Quand tu appuies sur **Finish setup**, le bouton *Setup* devient **⚙ Settings** (en haut à droite) : la même page sans les prérequis, pour mettre à jour la base, changer ton pseudo, importer les niveaux, régler le jeton NightLight et les options. *Reset the setup* en bas refait apparaître la checklist de premier lancement (tes données sont gardées).
+
+![Page Settings](docs/images/settings.png)
 
 ## En match
 
@@ -80,7 +85,7 @@ La touche par défaut est **Alt + pavé numérique 7** (verrouillage numérique 
 | Le **tableau de fin** | oui | Overlay retiré, capture envoyée à NightLight, match revu et validé, niveau de ton personnage corrigé |
 | Tout autre écran | oui | Son « pas ok », rien n'est envoyé |
 
-**Alt + pavé numérique 8** retire l'overlay et oublie les perks (pratique si tu ne veux pas envoyer ce match). Les deux touches se changent dans la page Setup.
+**Alt + pavé numérique 8** retire l'overlay et oublie les perks (pratique si tu ne veux pas envoyer ce match). Les deux touches se changent dans la page Settings.
 
 L'outil s'arrête tout seul quand le jeu se ferme. Pour qu'il démarre tout seul quand le jeu démarre : `python -m entity_toolkit autostart install` (annuler avec `autostart remove`). Une seule copie tourne à la fois : si tu le lances avec `run.bat` et que le surveillant du démarrage automatique le relance au démarrage du jeu, la seconde copie s'arrête toute seule, donc un appui sur la touche n'est traité qu'une fois.
 
@@ -94,13 +99,17 @@ Pourquoi l'overlay attend : la liste des survivants du jeu n'est visible qu'une 
 
 ![Lecture des niveaux depuis des captures des écrans de sélection](docs/images/levels-import.png)
 
-*Dépôt de quatre captures de l'écran de sélection des tueurs : chaque personnage est reconnu, et les cinq niveaux qui diffèrent de ceux enregistrés sont cochés pour que tu les appliques.*
+*Dépôt de quatre captures de l'écran de sélection des tueurs : chaque personnage est reconnu, et les niveaux qui diffèrent de ceux enregistrés sont cochés pour que tu les appliques.*
 
-Les niveaux vont de 0 à 3 (0 = pas encore monté, 3 = terminé). Un nouvel utilisateur les règle une fois sur la page **Levels**, soit à la main, soit en **déposant des captures des écrans de sélection des tueurs et des survivants** : l'outil reconnaît chaque carte de personnage (correspondance de points d'intérêt SIFT avec les portraits téléchargés) et lit sa pastille de niveau, puis te montre ce qu'il a trouvé pour que tu vérifies et appliques. À la main : **+** et **−** par personnage, boutons pour mettre tous les tueurs ou tous les survivants à 0 ou à 3, **Import / Export JSON** pour déplacer tes niveaux d'un PC à l'autre ou les partager, et un panneau **History**. Ensuite l'outil les tient à jour tout seul : sur le tableau de fin, il lit la pastille de niveau de *ta* ligne et corrige le personnage que tu viens de jouer. Tout le monde ne possède pas tous les personnages : chacun a donc une case **Own**. Boutons **I own everything** et **I own only the base game** (puis tu coches ce que tu as), panneau **Chapters (DLC)** qui coche ensemble le tueur et le survivant d'un même chapitre, ou un par un. Les priorités ne classent que les personnages que tu possèdes, et jouer un personnage sur le tableau de fin le marque comme possédé.
+Les niveaux vont de 0 à 3 (0 = pas encore monté, 3 = terminé). Un nouvel utilisateur les règle une fois sur la page **Levels**, soit à la main, soit en **déposant des captures des écrans de sélection des tueurs et des survivants** : l'outil reconnaît chaque carte de personnage (correspondance de points d'intérêt SIFT avec les portraits téléchargés) et lit sa pastille de niveau, puis te montre ce qu'il a trouvé pour que tu vérifies et appliques. À la main : **+** et **−** par personnage, et trois menus déroulants en haut : **Ownership**, **Set levels** (tous les tueurs ou survivants possédés à 0 ou à 3) et **History and backup** (changements, états précédents, **Import / Export JSON** pour déplacer tes niveaux d'un PC à l'autre ou les partager, réinitialisation). Ensuite l'outil les tient à jour tout seul : sur le tableau de fin, il lit la pastille de niveau de *ta* ligne et corrige le personnage que tu viens de jouer. Tout le monde ne possède pas tous les personnages : chacun a donc une case **Own**. Boutons **I own everything** et **I own only the base game** (puis tu coches ce que tu as), panneau **Chapters (DLC)** qui coche ensemble le tueur et le survivant d'un même chapitre, ou un par un. Les priorités ne classent que les personnages que tu possèdes, et jouer un personnage sur le tableau de fin le marque comme possédé.
+
+Les actions en masse (tout posséder, régler tous les niveaux, réinitialiser, importer) demandent confirmation et gardent d'abord l'état précédent : **Undo** juste après, ou *History and backup → Changes and earlier states → Restore* plus tard (les 20 derniers états sont gardés dans `data/levels_backups.json`).
+
+## Priorités
 
 ![Page Priorités](docs/images/priorities.png)
 
-Les actions en masse (tout posséder, régler tous les niveaux, réinitialiser, importer) sont dans des menus déroulants, demandent confirmation et gardent d'abord l'état précédent : **Undo** juste après, ou *History and backup → Changes and earlier states → Restore* plus tard (les 20 derniers états sont gardés dans `data/levels_backups.json`).
+Les pages **Killer priorities** et **Survivor priorities** classent les personnages que tu possèdes selon la valeur de leurs perks (avis d'Otzdarva, popularité et performance NightLight), avec en premier les personnages de niveau 0 qui apportent une perk de premier plan. Une ligne repliée en haut donne les points de sang déjà dépensés et ceux qui restent pour tout amener au niveau 3, pour les tueurs, les survivants et les deux, avec le nombre de personnages et de niveaux concernés. C'est une **estimation** (environ 1 116 000 points de sang par niveau, une bloodweb complète) : le vrai coût dépend de la chance dans la bloodweb.
 
 ## Builds recommandés
 
@@ -118,6 +127,8 @@ Choisis un tueur (ou un survivant, ou **Random killer**) et obtiens un loadout a
 
 ## Création de build
 
+![Création de build](docs/images/buildmaker.png)
+
 Choisis **Killer builds** ou **Survivor builds**, donne un nom au build et prends jusqu'à quatre perks. Un build killer peut indiquer les killers auxquels il convient (affichés en petites têtes sur le build enregistré) ; sans killer, c'est un build général. Les builds survivant valent pour n'importe quel survivant.
 
 Pour trouver des perks, tape un nom de perk, un nom de killer ou un **type** (« aura », « gen regression », « healing »), ou utilise la liste déroulante de tous les types. Un perk peut avoir plusieurs types. Les types viennent des étiquettes du wiki et du texte du perk : c'est approximatif, et **✎ Edit types** te laisse corriger un perk à la main (gardé dans `data/perk_types.json`). Les builds enregistrés sont dans `data/my_builds.json`.
@@ -129,14 +140,15 @@ Tout ce que l'outil enregistre vit dans le dossier `data/` (ignoré par git) à 
 | Fichier / dossier | Contenu |
 |---|---|
 | `icons/`, `images/`, `loadout_data.json`, `loadout_extra.json`, `patch.json`, `killers.json`, `survivors.json`, `survivor_builds.json`, `maps.json`, `nl_maps.json` | Téléchargés par **Update database** |
-| `levels.json`, `levels_history.json`, `owned.json` | Tes niveaux, et les personnages que tu ne possèdes pas |
-| `config.json` | Tes réglages |
+| `levels.json`, `levels_history.json`, `levels_backups.json`, `owned.json` | Tes niveaux, leur historique, les états gardés avant les changements en masse, et les personnages que tu ne possèdes pas |
+| `my_builds.json`, `perk_types.json` | Tes builds de la Création de build, et tes corrections des types de perks |
+| `config.json` | Tes réglages (dont le délai de mise à jour automatique) |
 | `nightlight_token.txt` | Ton jeton d'API NightLight. Envoyé **uniquement** à `api.nightlight.gg` |
 | `nightlight_profile/` | Le profil Edge qui garde ta session NightLight |
 | `uploads/`, `debug/` | Les tableaux envoyés et les dernières captures gardées pour diagnostiquer |
 | `entity_toolkit.log` | Ce que l'outil a fait |
 
-Réseau : la capture du jeu ne quitte jamais ton PC, sauf le **tableau de fin**, qui part vers NightLight quand tu appuies sur la touche dessus (désactive-le avec *Dry run* dans Setup). **Update database** lit `deadbydaylight.wiki.gg`, `otzdarva-builds.com`, `otzdarva.com`, `otz-addon-tierlist.pages.dev` et `nightlight.gg`. Le serveur web local n'écoute que sur `127.0.0.1` et refuse les requêtes venant d'autres sites.
+Réseau : la capture du jeu ne quitte jamais ton PC, sauf le **tableau de fin**, qui part vers NightLight quand tu appuies sur la touche dessus (désactive-le avec *Dry run* dans Settings). **Update database** lit `deadbydaylight.wiki.gg`, `otzdarva-builds.com`, `otzdarva.com`, `otz-addon-tierlist.pages.dev` et `nightlight.gg`. Le serveur web local n'écoute que sur `127.0.0.1` et refuse les requêtes venant d'autres sites.
 
 ## Dépannage
 
@@ -144,7 +156,7 @@ Réseau : la capture du jeu ne quitte jamais ton PC, sauf le **tableau de fin**,
 - **Rien ne se passe** : le jeu doit être lancé et au premier plan. Regarde `data/entity_toolkit.log`. Lance `python -m entity_toolkit` à la place de `run.bat` pour voir la console.
 - **Perks faux ou manquants** : les perks sous 78 % de confiance sont marqués « to check » sur la page Live. Lance **Update database** après un patch pour que les nouvelles icônes existent.
 - **Overlay mal placé** : les positions sont proportionnelles à la hauteur de l'écran du jeu et ont été mesurées en 2560×1440. Ajuste `data/overlay_layout.json` (`x`, `dy`, `rows`, `size`, `gap`, décrits en tête de `entity_toolkit/overlay.py`) et rappuie sur la touche. Les pull requests avec des mesures pour d'autres résolutions sont très bienvenues.
-- **La revue NightLight échoue** : Edge doit être installé et tu dois t'être connecté une fois (Setup → Sign in). La fenêtre est visible exprès : NightLight est derrière Cloudflare, qui refuse les navigateurs invisibles. L'outil rend le focus au jeu pendant qu'il travaille.
+- **La revue NightLight échoue** : Edge doit être installé et tu dois t'être connecté une fois (Settings → Sign in to NightLight). La fenêtre est visible exprès : NightLight est derrière Cloudflare, qui refuse les navigateurs invisibles. L'outil rend le focus au jeu pendant qu'il travaille.
 - **Les noms de la liste du jeu sont illisibles** : l'overlay se rabat alors sur l'ordre du menu.
 
 ## Ligne de commande
@@ -170,8 +182,9 @@ python -m unittest discover -s tests
 | `recognize.py`, `analyzer.py` | Perks, noms et map d'après une capture du menu des joueurs |
 | `overlay.py` | La fenêtre transparente et l'association allié → ligne |
 | `nightlight.py`, `review.py` | Envoi, mémoire de la map, revue automatique |
-| `levels.py` | Niveaux, historique, lecture de la pastille du tableau de fin |
-| `database/` | `update-db` : téléchargements du wiki, d'Otzdarva et de NightLight |
+| `levels.py` | Niveaux, historique, sauvegardes, lecture de la pastille du tableau de fin |
+| `perk_types.py`, `mybuilds.py` | Création de build : ce que fait un perk (plusieurs types par perk), builds enregistrés |
+| `database/` | `update-db` : téléchargements du wiki, d'Otzdarva et de NightLight, ce qui a changé (`changes.py`), rafraîchissement automatique |
 | `server.py`, `web/` | Pages locales et API JSON |
 
 Contributions : ouvre d'abord une issue pour tout ce qui est gros (voir aussi [Assistance de l'IA](#assistance-de-lia)).

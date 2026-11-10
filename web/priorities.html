@@ -94,17 +94,18 @@ function bpLeft(k) {  // levels still to gain on the characters you own, and wha
   const lv = LV.levels[k] || {};
   const n = [...owned].reduce((a, name) => a + Math.max(0, 3 - Math.max(0, Math.min(3, +(lv[name] ?? 0)))), 0);
   const done = [...owned].reduce((a, name) => a + Math.max(0, Math.min(3, +(lv[name] ?? 0))), 0);
-  return { n, bp: n * BP_PER_LEVEL, done, spent: done * BP_PER_LEVEL, chars: owned.size };
+  const todo = [...owned].filter((name) => Math.max(0, Math.min(3, +(lv[name] ?? 0))) < 3).length;
+  return { n, todo, bp: n * BP_PER_LEVEL, done, spent: done * BP_PER_LEVEL, chars: owned.size };
 }
 function drawBp() {
   if (!LV) return;
   LV.levels[kind] = levels;
   const k = bpLeft("killers"), s = bpLeft("survivors");
-  const both = { n: k.n + s.n, bp: k.bp + s.bp, done: k.done + s.done, spent: k.spent + s.spent };
-  const row = (cls, label, o) => `<tr class="${cls}"><td>${label}</td><td>≈ ${nf(o.spent)}</td><td>≈ ${nf(o.bp)}</td><td>${o.n}</td></tr>`;
+  const both = { n: k.n + s.n, todo: k.todo + s.todo, bp: k.bp + s.bp, done: k.done + s.done, spent: k.spent + s.spent };
+  const row = (cls, label, o) => `<tr class="${cls}"><td>${label}</td><td>≈ ${nf(o.spent)}</td><td>≈ ${nf(o.bp)}</td><td>${o.todo}</td><td>${o.n}</td></tr>`;
   const open = $("bp").open;
-  $("bp").innerHTML = `<summary>Bloodpoints to get everything to level 3: <b>≈ ${nf(both.bp)}</b> left · ≈ ${nf(both.spent)} already spent</summary>
-    <table><tr><th></th><th>Already spent</th><th>Still to spend</th><th>Levels to go</th></tr>
+  $("bp").innerHTML = `<summary>Bloodpoints to get everything to level 3: <b>≈ ${nf(both.bp)}</b> left · ≈ ${nf(both.spent)} already spent · ${both.todo} character${both.todo === 1 ? "" : "s"} to take to level 3</summary>
+    <table><tr><th></th><th>Already spent</th><th>Still to spend</th><th>Characters to go</th><th>Levels to go</th></tr>
     ${row(kind === "killers" ? "me" : "", "Killers", k)}${row(kind === "survivors" ? "me" : "", "Survivors", s)}${row("", "Both", both)}</table>
     <div class="note">Averages: about ${nf(BP_PER_LEVEL)} bloodpoints per level (a full bloodweb, level 1 → 50). The real cost depends on bloodweb luck. Only characters you own count.</div>`;
   $("bp").open = open;
