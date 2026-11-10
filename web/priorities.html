@@ -63,7 +63,7 @@ const kind = new URLSearchParams(location.search).get("kind") === "survivors" ? 
 const post = (url, body) => fetch(url, { method: "POST", headers: { "Content-Type": "application/json", "X-Requested-With": "EntityToolkit" }, body: JSON.stringify(body || {}) }).then((r) => r.json());
 const stars = (n) => "★".repeat(n) + "<s>" + "★".repeat(3 - n) + "</s>";
 let DATA = null, K = [], levels = {}, LV = null;
-// Bloodpoints to take one character one level further: the bloodweb from level 1 to 50 plus the 20,000 prestige fee. The wiki gives no official total;
+// Bloodpoints to take one character one level further: the bloodweb from level 1 to 50. The wiki gives no official total;
 // calculators and players land between 1.05 and 1.2 million depending on bloodweb luck, so this is an estimate.
 const BP_PER_LEVEL = 1116000;
 const nf = (n) => n.toLocaleString("en-US").replace(/,/g, " ");
@@ -106,7 +106,7 @@ function drawBp() {
   $("bp").innerHTML = `<summary>Bloodpoints to get everything to level 3: <b>≈ ${nf(both.bp)}</b> left · ≈ ${nf(both.spent)} already spent</summary>
     <table><tr><th></th><th>Already spent</th><th>Still to spend</th><th>Levels to go</th></tr>
     ${row(kind === "killers" ? "me" : "", "Killers", k)}${row(kind === "survivors" ? "me" : "", "Survivors", s)}${row("", "Both", both)}</table>
-    <div class="note">Averages: about ${nf(BP_PER_LEVEL)} bloodpoints per level (bloodweb 1 → 50 plus the 20 000 prestige fee). The real cost depends on bloodweb luck. Only characters you own count.</div>`;
+    <div class="note">Averages: about ${nf(BP_PER_LEVEL)} bloodpoints per level (a full bloodweb, level 1 → 50). The real cost depends on bloodweb luck. Only characters you own count.</div>`;
   $("bp").open = open;
 }
 
