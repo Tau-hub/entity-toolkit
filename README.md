@@ -19,7 +19,7 @@ An **unofficial** companion for *Dead by Daylight* (Windows): see your teammates
 | **Map memory** (survivor and killer) | The same key reads and remembers the map from the players menu. |
 | **NightLight upload** | Press the same key on the end-of-match scoreboard: it is sent to [NightLight](https://nightlight.gg), the match is reviewed for you ("Me" ticked on your name, everyone else Random, map set from memory, Confirm clicked). |
 | **Level tracking** | A page to set how far you got with each killer and survivor, kept up to date automatically from the scoreboard. |
-| **Priorities** | Which characters are worth levelling next, from Otzdarva's opinion plus NightLight stats. |
+| **Priorities** | Which characters are worth levelling next, from Otzdarva's opinion plus NightLight stats. The page also shows the bloodpoints still needed to bring your owned killers, survivors, or both to level 3 (an estimate of about 1,116,000 per level). |
 | **Recommended builds** | Killer sheets (builds, add-on tier list, combos) and survivor builds, from Otzdarva and NightLight. |
 | **Random loadout** | Roll a random killer (or survivor) loadout: power, add-ons, perks, optional offering, with ratings. Copy or download the poster as an image. |
 | **Build creator** | Save your own killer and survivor builds (four perks, a name, the killers it suits). Search perks by name, killer or type: "aura", "gen regression", "healing"… |

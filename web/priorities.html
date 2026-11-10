@@ -27,6 +27,13 @@
   .lvl button { width:28px; height:28px; border-radius:8px; border:1px solid var(--border); background:var(--panel2); color:var(--text); cursor:pointer; font-size:16px; }
   .lvl b { font-size:18px; min-width:34px; text-align:center; }
   .tip { position:fixed; z-index:20; max-width:340px; background:#000d; border:1px solid var(--border); padding:8px 10px; border-radius:8px; font-size:12.5px; pointer-events:none; display:none; white-space:pre-line; }
+  .bp { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; max-width:860px; margin:0 auto 18px; }
+  .bp > div { border:1px solid rgba(255,255,255,.14); border-radius:12px; padding:10px 14px; text-align:center; }
+  .bp > div.me { border-color:var(--gold); }
+  .bp small { display:block; color:var(--muted); font-size:11px; letter-spacing:.14em; text-transform:uppercase; }
+  .bp b { display:block; font-size:22px; font-weight:600; color:var(--gold); margin:2px 0; }
+  .bp span { color:var(--muted); font-size:12px; }
+  @media (max-width:640px) { .bp { grid-template-columns:1fr; } }
   .banner { margin:18px auto; max-width:760px; background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:14px 18px; color:var(--muted); text-align:center; }
   @media (max-width:640px) { .row { grid-template-columns:28px 56px 1fr; } .lvl { grid-column:1/-1; justify-content:flex-end; } .row img.p { width:56px; height:56px; } }
 </style>
@@ -40,6 +47,7 @@
   <span class="patch" id="patch"></span>
 </header>
 <main>
+  <div id="bp" class="bp"></div>
   <p class="intro">A perk's rating (out of 100) = 50 % Otzdarva's opinion (★ stars) + 35 % NightLight popularity (usage rank) + 15 % NightLight performance (<span id="rateLbl"></span> compared with the average). Level-0 characters come first only if their best perk rates ≥ 70/100 (their perks are not in the other characters' bloodwebs yet). Levels 1 and 2 weigh the same: the ranking only depends on the summed rating of the perks. Level-3 characters go to the bottom. NightLight period: <span id="nlp"></span>. Hover a perk for details. − / + corrects a level (saved in your data folder; see the <a href="levels.html">Levels</a> page for the whole picture).</p>
   <p class="intro" id="hiddenNote"></p>
   <div id="app"></div>
@@ -52,7 +60,11 @@ const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<
 const kind = new URLSearchParams(location.search).get("kind") === "survivors" ? "survivors" : "killers";
 const post = (url, body) => fetch(url, { method: "POST", headers: { "Content-Type": "application/json", "X-Requested-With": "EntityToolkit" }, body: JSON.stringify(body || {}) }).then((r) => r.json());
 const stars = (n) => "★".repeat(n) + "<s>" + "★".repeat(3 - n) + "</s>";
-let DATA = null, K = [], levels = {};
+let DATA = null, K = [], levels = {}, LV = null;
+// Bloodpoints to take one character one level further: the bloodweb from level 1 to 50 plus the 20,000 prestige fee. The wiki gives no official total;
+// calculators and players land between 1.05 and 1.2 million depending on bloodweb luck, so this is an estimate.
+const BP_PER_LEVEL = 1116000;
+const nf = (n) => n.toLocaleString("en-US").replace(/,/g, " ");
 const total = (k) => k.teachables.reduce((a, t) => a + t.score, 0);
 const lvl = (k) => Math.max(0, Math.min(3, +(levels[k.short] ?? 0)));
 const W = [1, 1, 1, 0];  // levels 1 and 2: same weight; level 3 = done (separate section)
@@ -75,7 +87,25 @@ function row(k, rank) {
   </div>`;
 }
 
+function bpLeft(k) {  // levels still to gain on the characters you own, and what they cost
+  const owned = new Set(((LV.characters || {})[k] || []).filter((c) => c.owned).map((c) => c.short));
+  const lv = LV.levels[k] || {};
+  const n = [...owned].reduce((a, name) => a + Math.max(0, 3 - Math.max(0, Math.min(3, +(lv[name] ?? 0)))), 0);
+  return { n, bp: n * BP_PER_LEVEL, chars: owned.size };
+}
+function drawBp() {
+  if (!LV) return;
+  LV.levels[kind] = levels;
+  const k = bpLeft("killers"), s = bpLeft("survivors");
+  const box = (cls, label, o, note) => `<div class="${cls}"><small>${label}</small><b>${nf(o.bp)}</b><span>${note}</span></div>`;
+  $("bp").innerHTML = box(kind === "killers" ? "me" : "", "Killers to level 3", k, `${k.n} level${k.n === 1 ? "" : "s"} to go · ${k.chars} owned`) +
+    box(kind === "survivors" ? "me" : "", "Survivors to level 3", s, `${s.n} level${s.n === 1 ? "" : "s"} to go · ${s.chars} owned`) +
+    box("", "Both together", { bp: k.bp + s.bp }, `${k.n + s.n} levels · bloodpoints`);
+  $("bp").title = `Estimate: about ${nf(BP_PER_LEVEL)} bloodpoints per level (bloodweb 1 → 50 plus the 20 000 prestige fee). The real cost depends on bloodweb luck.`;
+}
+
 function render() {
+  drawBp();
   const best = (k) => Math.max(...k.teachables.map((t) => t.score));
   const byScore = (a, b) => score(b) - score(a) || best(b) - best(a);
   const zero = K.filter((k) => lvl(k) === 0 && best(k) >= REAL).sort(byScore);
@@ -111,6 +141,7 @@ async function init() {
   K = owned.size ? all.filter((k) => owned.has(k.short)) : all;  // only the characters you own can be levelled
   const hidden = all.length - K.length;
   if (hidden) $("hiddenNote").innerHTML = `${hidden} character${hidden > 1 ? "s" : ""} you do not own ${hidden > 1 ? "are" : "is"} left out — change that on the <a href="levels.html">Levels</a> page.`;
+  LV = lv;
   levels = lv.levels[kind] || {};
   MAX = Math.max(1, ...K.map(total));
   $("nlp").textContent = DATA.nlPeriod || "?"; $("rateLbl").textContent = DATA.nlRate;
