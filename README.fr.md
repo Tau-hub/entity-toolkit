@@ -91,6 +91,14 @@ L'outil s'arrête tout seul quand le jeu se ferme. Pour qu'il démarre tout seul
 
 **Lire une perk :** tant que la souris est libre (accroché, mort, spectateur), survole une icône de l'overlay pour voir son texte ; sors de l'icône et il disparaît. L'outil ne lit que la position de la souris (aucun crochet, rien n'est lu dans le jeu) : rien du tout quand l'overlay est caché, deux fois par seconde pendant que tu joues (le jeu cache et bloque le curseur), et une vérification rapide (25 fois par seconde) seulement quand la souris est libre **et** près des icônes. En jeu normal la souris est bloquée sur la caméra, donc rien ne s'affiche. `data/entity_toolkit.log` garde la trace : des lignes `Overlay hover:` à chaque changement (souris bloquée / libre, texte affiché / masqué) et un résumé du nombre de vérifications chaque minute.
 
+![Le menu Tab des joueurs, tel qu'il est lu quand tu appuies sur la touche (pseudos floutés)](docs/images/players-menu.jpg)
+
+![De retour en jeu : les quatre perks de chaque allié sur la liste de gauche (pseudos floutés)](docs/images/ingame.jpg)
+
+![Le tableau de fin de partie envoyé à NightLight (pseudos et chat floutés)](docs/images/scoreboard.jpg)
+
+![Le résultat sur NightLight : map renseignée, toi coché « Me », les autres en Random (pseudos floutés)](docs/images/nightlight.jpg)
+
 Pourquoi l'overlay attend : la liste des survivants du jeu n'est visible qu'une fois le menu Tab refermé. Après l'appui, l'outil surveille l'écran, lit les noms de la liste du jeu et associe chaque allié à la bonne ligne, d'abord par **portrait**, puis par **pseudo** quand deux alliés jouent le même personnage ou que les portraits se ressemblent trop. Ta propre ligne ne bouge jamais.
 
 ## Niveaux
