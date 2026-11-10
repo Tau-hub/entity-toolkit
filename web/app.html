@@ -21,7 +21,8 @@
 <script>
 // The shell keeps the navigation bar and one frame per page. Clicking a button only shows the right frame (created the first time),
 // so nothing is reloaded: pages keep their state, and the bar never flickers. Pages open on their own (e.g. /levels.html) come here too.
-const PAGES = window.ET_PAGES;
+const PAGES = window.ET_PAGES.concat([[window.ET_SETUP_PAGE, "Setup"]]);  // Setup / Settings is drawn separately, at the far right
+let setupDone = true, lastHref = "live.html";
 const STATIC = new Set(["killer.html", "survivor_builds.html", "loadout.html"]);  // their data is written into the page: reload after a while hidden
 const frames = {};  // file -> { el, search, hiddenAt }
 let current = null;
@@ -30,12 +31,12 @@ const fileOf = (href) => href.split("?")[0].split("#")[0];
 const searchOf = (href) => (href.split("#")[0].split("?")[1] || "");
 
 function drawBar(href) {
+  lastHref = href;
   const here = href.split("#")[0];
-  $bar.innerHTML = '<nav class="nav">' + PAGES.map(([h, t]) => {
-    const on = h.includes("?") ? here === h : fileOf(here) === h;
-    return `<a href="#${h}" data-h="${h}"${on ? ' class="on"' : ""}>${t}</a>`;
-  }).join("") + "</nav>";
+  const link = ([h, t], cls) => { const on = h.includes("?") ? here === h : fileOf(here) === h; return `<a href="#${h}" data-h="${h}" class="${cls}${on ? " on" : ""}">${t}</a>`; };
+  $bar.innerHTML = '<nav class="nav">' + PAGES.slice(0, -1).map((p) => link(p, "")).join("") + link([window.ET_SETUP_PAGE, window.setupLabel(setupDone)], "set") + "</nav>";
 }
+async function loadState() { try { setupDone = (await window.ET_STATE).setup_done; } catch (e) {} drawBar(lastHref); }
 const $bar = document.getElementById("bar"), $frames = document.getElementById("frames");
 
 function show(href) {
@@ -67,7 +68,7 @@ function go(href) {
   else location.hash = href;  // the hashchange handler shows it (and the back button works)
 }
 
-window.etShell = { go };
+window.etShell = { go, refreshState: async () => { window.ET_STATE = fetch("/api/shell", { cache: "no-store" }).then((r) => r.json()); await loadState(); } };
 window.addEventListener("hashchange", () => show(decodeURIComponent(location.hash.slice(1)) || "live.html"));
 $bar.addEventListener("click", (e) => {
   const a = e.target.closest("a[data-h]");
@@ -77,9 +78,10 @@ $bar.addEventListener("click", (e) => {
 });
 
 (async function start() {
+  await loadState();
   let first = decodeURIComponent(location.hash.slice(1));
   if (!first) {
-    try { first = (await (await fetch("/api/live", { cache: "no-store" })).json()).ready ? "live.html" : "setup.html"; } catch (e) { first = "live.html"; }
+    try { first = (await (await fetch("/api/live", { cache: "no-store" })).json()).ready && setupDone ? "live.html" : "setup.html"; } catch (e) { first = "live.html"; }
     history.replaceState(null, "", "#" + first);
   }
   show(first);

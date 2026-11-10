@@ -63,6 +63,8 @@ run.bat
 5. **NightLight** (optional). Paste an API token from your NightLight account settings and sign in once in the Edge window the button opens. The toolkit never sees your password.
 6. **Options.** Overlay on/off, sounds, dry run (saves the scoreboard but never sends it), and the keys.
 
+Once you press **Finish setup**, the *Setup* button becomes **⚙ Settings** (top right): same page without the requirements, to update the database, change your name, import levels, set the NightLight token and the options. *Reset the setup* at the bottom brings the first-launch checklist back (your data is kept).
+
 ## Using it during a match
 
 The default key is **Alt + Numpad 7** (NumLock on). It only reacts while the game is running **and** in front.

@@ -63,6 +63,14 @@ def with_patch(data):
     return data
 
 
+def setup_done():
+    """The first-launch setup is over: your own choice (Finish / Reset on the Setup page), else guessed from the data for older installs."""
+    cfg = config.load()
+    if cfg.get("setup_done") is not None:
+        return bool(cfg["setup_done"])
+    return db_ready() and bool(cfg.get("player"))
+
+
 def db_ready():
     return paths.LOADOUT.exists() and paths.ICONS.exists() and any(paths.ICONS.iterdir())
 
@@ -140,7 +148,7 @@ def make_handler(hub):
             path = unquote(urlparse(self.path).path)
             if path in ("/", ""):
                 self.send_response(302)
-                self.send_header("Location", "/app.html#live.html" if db_ready() else "/app.html#setup.html")
+                self.send_header("Location", "/app.html#live.html" if db_ready() and setup_done() else "/app.html#setup.html")
                 self.end_headers()
                 return
             if path.startswith("/api/"):
@@ -175,10 +183,12 @@ def make_handler(hub):
         def _api_get(self, path):
             if path == "/api/live":
                 return self._json(hub.snapshot())
+            if path == "/api/shell":
+                return self._json({"setup_done": setup_done()})
             if path == "/api/setup":
                 lv = levels.load()
                 return self._json({"ocr": _ocr_available(), "token": _token_saved(), "session": _session_saved(), "config": config.load(),
-                                   "db": database.status(), "patch": patch_info.load(), "ratings_patch": _ratings_patch(), "autostart": autostart.installed(), "last_update": database.last_update(), "levels_set": sum(1 for k in lv.values() for v in k.values() if v)})
+                                   "db": database.status(), "patch": patch_info.load(), "ratings_patch": _ratings_patch(), "setup_done": setup_done(), "autostart": autostart.installed(), "last_update": database.last_update(), "levels_set": sum(1 for k in lv.values() for v in k.values() if v)})
             if path == "/api/levels":
                 chars = {k: levels.characters(k) for k in levels.KINDS}
                 return self._json({"ready": any(chars.values()), "characters": chars, "levels": levels.load(), "history": levels.history(), "chapters": levels.chapters()})
@@ -216,6 +226,11 @@ def make_handler(hub):
                 cfg.update({k: v for k, v in body.items() if k in config.DEFAULTS})
                 config.save(cfg)
                 return {"ok": True}
+            if path == "/api/setup/done":
+                cfg = config.load()
+                cfg["setup_done"] = bool(body.get("done"))
+                config.save(cfg)
+                return {"setup_done": cfg["setup_done"]}
             if path == "/api/token":
                 paths.ensure()
                 paths.NL_TOKEN.write_text(str(body.get("token", "")).strip(), encoding="utf8")

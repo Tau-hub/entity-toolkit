@@ -65,6 +65,8 @@ run.bat
 5. **NightLight** (facultatif). Colle un jeton d'API créé dans les paramètres de ton compte NightLight et connecte-toi une fois dans la fenêtre Edge qu'ouvre le bouton. L'outil ne voit jamais ton mot de passe.
 6. **Options.** Overlay oui/non, sons, simulation (enregistre le tableau mais ne l'envoie jamais) et les touches.
 
+Quand tu appuies sur **Finish setup**, le bouton *Setup* devient **⚙ Settings** (en haut à droite) : la même page sans les prérequis, pour mettre à jour la base, changer ton pseudo, importer les niveaux, régler le jeton NightLight et les options. *Reset the setup* en bas refait apparaître la checklist de premier lancement (tes données sont gardées).
+
 ## En match
 
 La touche par défaut est **Alt + pavé numérique 7** (verrouillage numérique activé). Elle ne réagit que si le jeu est lancé **et** au premier plan.

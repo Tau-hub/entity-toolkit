@@ -11,8 +11,11 @@ window.ET_PAGES = [
   ["survivor_builds.html", "Survivor builds"],
   ["loadout.html", "Random loadout"],
   ["buildmaker.html", "Build creator"],
-  ["setup.html", "Setup"],
 ];
+// Setup (first launch) becomes Settings, at the far right, once the setup is finished
+window.ET_SETUP_PAGE = "setup.html";
+window.ET_STATE = fetch("/api/shell", { cache: "no-store" }).then((r) => r.json()).catch(() => ({ setup_done: true }));
+window.setupLabel = (done) => (done ? "⚙ Settings" : "Setup");
 
 // Shown next to page titles: the game's live patch, and the patch label of Otzdarva's data when it differs.
 window.patchLabel = (d) => {
@@ -54,6 +57,7 @@ window.patchLabel = (d) => {
   bar.innerHTML = '<nav class="nav">' + window.ET_PAGES.map(([h, t]) => {
     const on = h.includes("?") ? here === h : here.split("?")[0] === h;
     return `<a href="${h}${h.includes("?") ? "&" : "?"}noshell=1"${on ? ' class="on"' : ""}>${t}</a>`;
-  }).join("") + "</nav>";
+  }).join("") + `<a class="set${here.split("?")[0] === window.ET_SETUP_PAGE ? " on" : ""}" href="${window.ET_SETUP_PAGE}?noshell=1">Setup</a></nav>`;
   document.body.prepend(bar);
+  window.ET_STATE.then((s) => { bar.querySelector("a.set").textContent = window.setupLabel(s.setup_done); });
 })();

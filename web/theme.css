@@ -29,6 +29,7 @@ a { color:var(--gold); }
 .nav { display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end; margin:0; }
 .nav a { color:var(--muted); text-decoration:none; border:1px solid var(--border); border-radius:999px; padding:5px 13px; font-size:13px; background:#0006; transition:.15s; }
 .nav a:hover { color:var(--text); border-color:var(--accent); }
+.nav a.set { margin-left:16px; }
 .nav a.on { color:#fff; border-color:var(--accent); background:linear-gradient(180deg,#d1243a55,#7d0f1f55); }
 
 /* page header: big title + centred controls below */
