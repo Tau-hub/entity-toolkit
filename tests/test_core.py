@@ -11,7 +11,7 @@ _TMP = tempfile.mkdtemp(prefix="entity-toolkit-test-")
 os.environ["ENTITY_TOOLKIT_DATA"] = _TMP
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from entity_toolkit import assistant, levels, mybuilds, overlay, paths, perk_types, winapi  # noqa: E402
+from entity_toolkit import database, assistant, levels, mybuilds, overlay, paths, perk_types, winapi  # noqa: E402
 
 
 def ally(row, survivor, player):
@@ -353,6 +353,33 @@ class BuildCreator(unittest.TestCase):
             mybuilds.save({"name": "Empty", "perks": []})
         self.assertEqual(mybuilds.delete(b["id"]), 1)
         self.assertEqual(mybuilds.delete(b["id"]), 0)
+
+
+class UpdateNews(unittest.TestCase):
+    def test_new_things_are_described(self):
+        from entity_toolkit.database import changes
+        before = {"Killer": ["A"], "Survivor perk": ["P1"], "Map": ["M"]}
+        after = {"Killer": ["A", "B"], "Survivor perk": ["P1", "P2", "P3"], "Map": ["M"], "Item": ["I"]}
+        lines = changes.describe(changes.diff(before, after))
+        self.assertEqual(lines, ["New killer: B", "2 new survivor perks: P2, P3"])  # "Item" did not exist before: a first download is not news
+
+    def test_removed_things_are_described(self):
+        from entity_toolkit.database import changes
+        self.assertEqual(changes.describe(changes.diff({"Perk": ["a", "b"]}, {"Perk": ["a"]})), ["Removed perk: b"])
+
+    def test_automatic_update_is_due_after_the_chosen_delay(self):
+        import time
+        from entity_toolkit import config
+        cfg = config.load()
+        cfg.update(auto_update_days=7, last_update=int(time.time()) - 8 * 86400)
+        config.save(cfg)
+        self.assertTrue(database.due())
+        config.save({**cfg, "last_update": int(time.time()) - 86400})
+        self.assertFalse(database.due())
+        config.save({**cfg, "auto_update_days": 0, "last_update": 1})
+        self.assertFalse(database.due())  # switched off
+        config.save({**cfg, "last_update": 0})
+        self.assertFalse(database.due())  # never before a first download
 
 
 class Hotkeys(unittest.TestCase):

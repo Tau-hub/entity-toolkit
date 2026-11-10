@@ -115,6 +115,14 @@ def _run(open_page, stop_with_game, setup=False):
             log(f"Perk database could not be loaded: {e}")
             ready = False
     ast = assistant.Assistant(hub, ana, overlay.Overlay(log))
+    from . import database
+
+    def reload_recogniser():  # new perks and icons: rebuild the recogniser from the fresh data (swapped in one assignment, never half-built)
+        if server.db_ready():
+            ast.analyzer = analyzer.Analyzer()
+            log("Recogniser reloaded with the updated perk database")
+    database.ON_FINISH.append(reload_recogniser)
+    database.start_auto_update(log)
     label = assistant.run(hub, ast, stop_with_game=stop_with_game)
     log(f"Entity Toolkit ready: {label} · {'dry run' if cfg['dry_run'] or not cfg['upload'] else 'real upload'}")
     if not ready:
