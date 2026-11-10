@@ -100,6 +100,8 @@ Les niveaux vont de 0 à 3 (0 = pas encore monté, 3 = terminé). Un nouvel util
 
 ![Page Priorités](docs/images/priorities.png)
 
+Les actions en masse (tout posséder, régler tous les niveaux, réinitialiser, importer) sont dans des menus déroulants, demandent confirmation et gardent d'abord l'état précédent : **Undo** juste après, ou *History and backup → Changes and earlier states → Restore* plus tard (les 20 derniers états sont gardés dans `data/levels_backups.json`).
+
 ## Builds recommandés
 
 ![Fiche tueur](docs/images/killer-sheet.png)

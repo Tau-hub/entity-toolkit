@@ -98,6 +98,8 @@ Levels run from 0 to 3 (0 = not levelled yet, 3 = done). A new user sets them on
 
 ![Priorities page](docs/images/priorities.png)
 
+Bulk actions (own everything, set every level, reset, import) are in drop-down menus, ask for confirmation, and keep the previous state first: **Undo** right after, or *History and backup → Changes and earlier states → Restore* later (the last 20 states are kept in `data/levels_backups.json`).
+
 ## Recommended builds
 
 ![Killer sheet](docs/images/killer-sheet.png)

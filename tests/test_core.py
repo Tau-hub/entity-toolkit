@@ -382,6 +382,28 @@ class UpdateNews(unittest.TestCase):
         self.assertFalse(database.due())  # never before a first download
 
 
+class LevelBackups(unittest.TestCase):
+    def test_a_bulk_change_can_be_undone(self):
+        levels.set_level("killers", "Alpha", 3)
+        levels.set_level("killers", "Beta", 2)
+        before = levels.load()
+        t = levels.snapshot("Before resetting the levels")
+        levels.reset()
+        self.assertEqual(levels.load()["killers"], {})
+        levels.restore(t)
+        self.assertEqual(levels.load(), before)
+
+    def test_restoring_keeps_the_current_state_as_a_backup(self):
+        levels.set_level("killers", "Gamma", 1)
+        t = levels.snapshot("one")
+        levels.set_level("killers", "Gamma", 3)
+        levels.restore(t)
+        self.assertEqual(levels.load()["killers"]["Gamma"], 1)
+        self.assertTrue(any(b["label"].startswith("Before restoring") for b in levels.backups()))
+        with self.assertRaises(ValueError):
+            levels.restore(1)
+
+
 class Hotkeys(unittest.TestCase):
     def test_parse(self):
         self.assertEqual(winapi.parse_combo("alt+numpad7"), [0x12, 0x67])

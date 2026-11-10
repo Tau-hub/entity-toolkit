@@ -191,7 +191,7 @@ def make_handler(hub):
                                    "db": database.status(), "patch": patch_info.load(), "ratings_patch": _ratings_patch(), "setup_done": setup_done(), "autostart": autostart.installed(), "last_update": database.last_update(), "levels_set": sum(1 for k in lv.values() for v in k.values() if v)})
             if path == "/api/levels":
                 chars = {k: levels.characters(k) for k in levels.KINDS}
-                return self._json({"ready": any(chars.values()), "characters": chars, "levels": levels.load(), "history": levels.history(), "chapters": levels.chapters()})
+                return self._json({"ready": any(chars.values()), "characters": chars, "levels": levels.load(), "history": levels.history(), "chapters": levels.chapters(), "backups": levels.backups()})
             if path == "/api/buildmaker":
                 return self._json(buildmaker_data())
             if path in ("/api/builds/killers", "/api/builds/survivors"):
@@ -253,22 +253,30 @@ def make_handler(hub):
                 return {"changed": levels.set_level(body["kind"], body["name"], body["level"])}
             if path == "/api/levels/scan":
                 return {"cards": _scan_image(body["image"]), "ok": True}
+            if path == "/api/levels/restore":
+                return {"ok": levels.restore(int(body["t"]))}
             if path == "/api/levels/apply":
+                if len(body["entries"]) > 5:
+                    levels.snapshot("Before importing levels from screenshots")
                 n = 0
                 for e in body["entries"]:
                     n += bool(levels.set_level(e["kind"], e["name"], e["level"], src="screenshot"))
                     levels.set_owned(e["kind"], e["name"], True)  # it showed on your character screen with a level: you own it
                 return {"changed": n}
             if path == "/api/levels/set-all":
+                levels.snapshot(f"Before setting every owned {body['kind'][:-1]} to level {body['level']}")
                 names = [c["short"] for c in levels.characters(body["kind"]) if c["owned"]]
                 return {"changed": levels.set_many(body["kind"], {n: body["level"] for n in names}, src="manual")}
             if path == "/api/owned/set":
                 return {"changed": levels.set_owned(body["kind"], body["name"], bool(body["owned"]))}
             if path == "/api/owned/chapter":
+                levels.snapshot("Before changing a chapter")
                 return {"changed": levels.set_chapter_owned(body["label"], bool(body["owned"]))}
             if path == "/api/owned/all":
+                levels.snapshot("Before " + ("owning everything" if body["owned"] else "keeping only the base game"))
                 return {"changed": levels.set_all_owned(bool(body["owned"]))}
             if path == "/api/levels/reset":
+                levels.snapshot("Before resetting the levels")
                 levels.reset()
                 return {"ok": True}
             if path == "/api/mybuilds/save":
@@ -279,6 +287,7 @@ def make_handler(hub):
                 perk_types.save_override(body["name"], body.get("types"))
                 return {"ok": True}
             if path == "/api/levels/import":
+                levels.snapshot("Before importing a JSON file")
                 return {"changed": levels.import_json(body["text"])}
             return {"error": "unknown endpoint"}
 

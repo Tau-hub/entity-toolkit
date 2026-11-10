@@ -82,15 +82,14 @@ main h2, main h3 { font-size:13px; font-weight:600; letter-spacing:.22em; text-t
 .hero h2 { font-size:28px; letter-spacing:.06em; text-transform:none; color:var(--text); border:0; margin:0 0 6px; padding:0; }
 .sub { color:var(--muted); }
 
-/* cartes — style "ouvert" : pas de blocs gris. Les éléments larges sont séparés par un filet fin, les petites tuiles sont seulement cerclées. */
-.hero, #hist, .card, .sec-card, .step, .panel, .bcard, details.chap, .banner, .pick {
-  background:none; border:0; border-bottom:1px solid var(--border); border-radius:0; transition:background .15s, border-color .15s;
+/* cartes — style "contour" : un cadre fin, jamais de fond gris. Chaque catégorie reste bien délimitée. */
+.hero, #hist, .card, .sec-card, .step, .panel, .bcard, details.chap, .banner, .pick, .build, .combo, .pc, .poster {
+  background:none; border:1px solid rgba(255,255,255,.14); border-radius:12px; transition:background .15s, transform .15s, border-color .15s;
 }
-.row { background:none; border-top:0; border-right:0; border-bottom:1px solid var(--border); border-radius:0; transition:background .15s, transform .15s, border-color .15s; }
-.build, .addon, .combo, .pc, .poster { background:none; border-radius:12px; transition:background .15s, transform .15s, border-color .15s; }
-.build, .combo, .pc, .poster { border:1px solid var(--border); }
+.row { background:none; border-top:1px solid rgba(255,255,255,.14); border-right:1px solid rgba(255,255,255,.14); border-bottom:1px solid rgba(255,255,255,.14); border-radius:12px; transition:background .15s, transform .15s, border-color .15s; }
+.addon { background:none; border-radius:12px; transition:background .15s, transform .15s, border-color .15s; }
 .build:hover, .combo:hover, .row:hover, .card:hover, .pc:hover, .addon:hover { background:#ffffff0a; }
-.pick.sel { background:#d1243a14; border-bottom-color:var(--accent); }
+.pick.sel { background:#d1243a14; border-color:var(--accent); }
 .build.best { border-color:var(--accent); box-shadow:0 0 0 1px var(--accent) inset, 0 0 24px #d1243a33; }
 .addon { border-left-width:4px; border-radius:12px; }
 .addon:hover { transform:translateY(-1px); }

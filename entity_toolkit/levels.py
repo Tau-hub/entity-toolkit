@@ -127,6 +127,44 @@ def set_chapter_owned(label, owned):
     return n
 
 
+# ---------- backups: the state before every bulk change, to undo a mistake ----------
+KEEP_BACKUPS = 20
+
+
+def snapshot(label):
+    """Keeps the current levels and ownership before a bulk change (nothing is stored when it is identical to the last backup)."""
+    cur = {"levels": load(), "unowned": {k: sorted(v) for k, v in unowned().items()}}
+    b = _read(paths.LEVELS_BACKUPS, [])
+    if b and b[-1]["levels"] == cur["levels"] and b[-1]["unowned"] == cur["unowned"]:
+        return b[-1]["t"]
+    t = int(time.time() * 1000)
+    b.append({"t": t, "label": label, **cur})
+    paths.ensure()
+    paths.LEVELS_BACKUPS.write_text(json.dumps(b[-KEEP_BACKUPS:], ensure_ascii=False), encoding="utf8")
+    return t
+
+
+def backups():
+    """Newest first: [{"t", "label", "points" (sum of levels), "characters" (with a level), "unowned"}]."""
+    out = []
+    for e in reversed(_read(paths.LEVELS_BACKUPS, [])):
+        lv = [v for k in KINDS for v in e["levels"].get(k, {}).values()]
+        out.append({"t": e["t"], "label": e["label"], "points": sum(lv), "characters": sum(1 for v in lv if v), "unowned": sum(len(e["unowned"].get(k, [])) for k in KINDS)})
+    return out
+
+
+def restore(t):
+    """Puts levels and ownership back as they were in backup `t` (the current state is kept as a backup first, so a restore can be undone too)."""
+    e = next((x for x in _read(paths.LEVELS_BACKUPS, []) if x["t"] == t), None)
+    if not e:
+        raise ValueError("that backup no longer exists")
+    snapshot("Before restoring an earlier state")
+    _save({k: e["levels"].get(k, {}) for k in KINDS})
+    _save_unowned({k: set(e["unowned"].get(k, [])) for k in KINDS})
+    _log_history("all", "", 0, 0, "restore")
+    return True
+
+
 def set_level(kind, name, level, src="manual"):
     levels = load()
     level = max(0, min(MAX_LEVEL, int(level)))

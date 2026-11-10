@@ -18,6 +18,7 @@ MAPS = DATA / "maps.json"                   # map and realm names (wiki)
 NL_MAPS = DATA / "nl_maps.json"             # NightLight map ids
 LEVELS = DATA / "levels.json"               # character levels {"killers": {...}, "survivors": {...}}
 LEVELS_HISTORY = DATA / "levels_history.json"
+LEVELS_BACKUPS = DATA / "levels_backups.json"  # states kept before every bulk change, so a mistake can be undone
 PERK_TYPES = DATA / "perk_types.json"       # your corrections of the automatic perk types {"Perk": ["type id", ...]}
 MYBUILDS = DATA / "my_builds.json"           # the builds you saved in the Build creator
 OWNED = DATA / "owned.json"                 # characters you do NOT own: {"killers": [...], "survivors": [...]} (everything is owned by default)

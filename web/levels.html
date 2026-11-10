@@ -9,6 +9,16 @@
   .tools { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin:0 auto 14px; }
   .tools button, .tools label.btn { background:var(--panel); color:var(--text); border:1px solid var(--border); border-radius:999px; padding:7px 16px; cursor:pointer; font:inherit; font-size:13px; }
   .tools button:hover, .tools label.btn:hover { border-color:var(--accent); }
+  .dd { position:relative; }
+  .ddm { display:none; position:absolute; z-index:25; left:0; top:calc(100% + 6px); min-width:290px; background:#130f11; border:1px solid var(--red2); border-radius:12px; padding:6px; box-shadow:0 14px 40px #000d; }
+  .dd.open .ddm { display:block; } .dd.open .ddb { border-color:var(--gold); }
+  .tools .ddm button, .tools .ddm label.btn { display:block; width:100%; text-align:left; border:0; border-radius:8px; background:none; padding:8px 12px; font-size:13px; }
+  .tools .ddm button:hover, .tools .ddm label.btn:hover { background:#ffffff14; }
+  #msg button { margin-left:10px; border:1px solid var(--gold); background:none; color:var(--gold); border-radius:999px; padding:2px 12px; cursor:pointer; font:inherit; }
+  #hist h4 { margin:8px 0 4px; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); border:0; padding:0; }
+  #hist .bk { display:flex; align-items:center; gap:10px; padding:4px 0; border-bottom:1px solid var(--border); font-size:13px; }
+  #hist .bk button { margin-left:auto; border:1px solid var(--border); background:none; color:var(--text); border-radius:999px; padding:3px 12px; cursor:pointer; }
+  #hist .bk button:hover { border-color:var(--accent); }
   h2 { font-size:17px; margin:26px 0 8px; border-bottom:1px solid var(--border); padding-bottom:6px; display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; }
   h2 small { color:var(--muted); font-weight:400; font-size:13px; }
   .bar { height:10px; background:var(--panel2); border-radius:6px; overflow:hidden; margin:6px 0 4px; }
@@ -60,16 +70,22 @@
 <main>
   <p class="intro">Tick the characters you <b>own</b> and set each one's level (0–3: 0 = not levelled yet, 3 = done). The priorities pages only rank characters you own. Once set up, levels are kept up to date automatically: on the end-of-match scoreboard the toolkit reads the level badge of <i>your</i> row and corrects the character you just played (and marks it as owned).</p>
   <div class="tools">
-    <button id="bOwnAll">I own everything</button>
-    <button id="bOwnNone">I own only the base game</button>
-    <button id="bHist">History</button>
-    <button id="bExport">Export JSON</button>
-    <label class="btn">Import JSON<input type="file" id="fImport" accept=".json,application/json" hidden></label>
-    <button id="bAll0">Set every owned killer to 0</button>
-    <button id="bAll3">Set every owned killer to 3</button>
-    <button id="bAll0s">Set every owned survivor to 0</button>
-    <button id="bAll3s">Set every owned survivor to 3</button>
-    <button id="bReset">Reset levels</button>
+    <div class="dd"><button class="ddb" type="button">Ownership ▾</button><div class="ddm">
+      <button id="bOwnAll">I own everything</button>
+      <button id="bOwnNone">I own only the base game</button>
+    </div></div>
+    <div class="dd"><button class="ddb" type="button">Set levels ▾</button><div class="ddm">
+      <button id="bAll0">Every owned killer → level 0</button>
+      <button id="bAll3">Every owned killer → level 3</button>
+      <button id="bAll0s">Every owned survivor → level 0</button>
+      <button id="bAll3s">Every owned survivor → level 3</button>
+    </div></div>
+    <div class="dd"><button class="ddb" type="button">History and backup ▾</button><div class="ddm">
+      <button id="bHist">Changes and earlier states…</button>
+      <button id="bExport">Export JSON</button>
+      <label class="btn">Import JSON<input type="file" id="fImport" accept=".json,application/json" hidden></label>
+      <button id="bReset">Reset levels…</button>
+    </div></div>
   </div>
   <div class="msg" id="msg"></div>
   <div id="hist" hidden></div>
@@ -86,7 +102,21 @@ const KINDS = [["killers", "Killers"], ["survivors", "Survivors"]];
 let state = null, view = "killers";
 try { view = localStorage.getItem("et-levels-view") || view; } catch (e) {}
 const post = (url, body) => fetch(url, { method: "POST", headers: { "Content-Type": "application/json", "X-Requested-With": "EntityToolkit" }, body: JSON.stringify(body || {}) }).then((r) => r.json());
-const say = (t) => { $("msg").textContent = t; if (t) setTimeout(() => { if ($("msg").textContent === t) $("msg").textContent = ""; }, 5000); };
+const say = (t, undo) => {
+  $("msg").textContent = t;
+  if (undo && state.backups && state.backups.length) { const b = document.createElement("button"); b.textContent = "Undo"; b.onclick = () => restore(state.backups[0].t, true); $("msg").appendChild(b); }
+  if (t) setTimeout(() => { if ($("msg").textContent.startsWith(t)) $("msg").textContent = ""; }, undo ? 15000 : 5000);
+};
+async function restore(t, quiet) {
+  if (!quiet && !confirm("Put levels and ownership back as they were then?\n\nThe current state is kept too, so you can come back to it.")) return;
+  await act(() => post("/api/levels/restore", { t }), "Earlier state restored.");
+}
+document.addEventListener("click", (e) => {
+  const b = e.target.closest(".ddb"), open = b && b.parentElement;
+  document.querySelectorAll(".dd.open").forEach((d) => { if (d !== open) d.classList.remove("open"); });
+  if (open) open.classList.toggle("open");
+  else if (!e.target.closest(".ddm") || e.target.closest("button, label.btn")) document.querySelectorAll(".dd.open").forEach((d) => d.classList.remove("open"));
+});
 const fmtT = (t) => new Date(t).toLocaleString(undefined, { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
 
 async function load() {
@@ -94,13 +124,18 @@ async function load() {
   render();
 }
 
+function backupsHtml() {
+  const rows = (state.backups || []).map((b) => `<div class="bk"><span class="d">${fmtT(b.t)}</span><span>${esc(b.label)}</span><span style="color:var(--muted)">${b.characters} levelled · ${b.points} points · ${b.unowned} not owned</span><button data-restore="${b.t}">Restore</button></div>`);
+  return "<h4>Earlier states (kept before every bulk change)</h4>" + (rows.join("") || '<div class="bk" style="color:var(--muted)">None yet: one is saved automatically before each bulk change.</div>') + "<h4>Changes</h4>";
+}
 function histHtml() {
   const rows = state.history.slice().reverse().slice(0, 120).map((e) => {
+    if (e.src === "restore") return `<div class="h"><span class="d">${fmtT(e.t)}</span><span>Earlier state restored</span></div>`;
     if (e.src === "reset") return `<div class="h"><span class="d">${fmtT(e.t)}</span><span>Levels reset</span></div>`;
     const up = e.to > e.f, how = { capture: "from the scoreboard", screenshot: "from screenshots", import: "imported", manual: "set by hand" }[e.src] || e.src;
     return `<div class="h"><span class="d">${fmtT(e.t)}</span><b>${esc(e.n)}</b><span class="${up ? "up" : "dn"}">${e.f} → ${e.to}</span><span style="color:var(--muted)">${how}</span></div>`;
   });
-  return rows.length ? rows.join("") : '<div class="h" style="color:var(--muted)">No change yet.</div>';
+  return backupsHtml() + (rows.length ? rows.join("") : '<div class="h" style="color:var(--muted)">No change yet.</div>');
 }
 
 function chaptersHtml() {
@@ -142,12 +177,12 @@ function render() {
   }).join("");
 }
 
-async function act(fn, msg) {
+async function act(fn, msg, undo) {
   const y = scrollY;
   await fn();
   await load();
   scrollTo(0, y);
-  if (msg) say(msg);
+  if (msg) say(msg, undo);
 }
 
 document.querySelectorAll("#viewSeg button").forEach((b) => b.addEventListener("click", () => {
@@ -171,14 +206,16 @@ $("chap").addEventListener("change", (e) => {
   if (i) act(() => post("/api/owned/chapter", { label: i.dataset.chapter, owned: i.checked }));
 });
 const setAll = (kind, level) => () => {
-  if (state.ready) act(() => post("/api/levels/set-all", { kind, level }), `Every owned ${kind === "killers" ? "killer" : "survivor"} is now level ${level}.`);
+  const w = kind === "killers" ? "killer" : "survivor";
+  if (state.ready && confirm(`Are you sure? Every owned ${w} will be set to level ${level}.\n\nThe current levels are kept first, so you can undo it.`)) act(() => post("/api/levels/set-all", { kind, level }), `Every owned ${w} is now level ${level}.`, true);
 };
 $("bAll0").onclick = setAll("killers", 0); $("bAll3").onclick = setAll("killers", 3);
 $("bAll0s").onclick = setAll("survivors", 0); $("bAll3s").onclick = setAll("survivors", 3);
-$("bOwnAll").onclick = () => act(() => post("/api/owned/all", { owned: true }), "You own every character.");
-$("bOwnNone").onclick = () => { if (confirm("Mark every character except the base game ones as not owned?")) act(() => post("/api/owned/all", { owned: false }), "Only the base game characters are owned. Tick the ones you have."); };
+$("bOwnAll").onclick = () => { if (confirm("Are you sure? Every character will be marked as owned.\n\nThe current state is kept first, so you can undo it.")) act(() => post("/api/owned/all", { owned: true }), "You own every character.", true); };
+$("bOwnNone").onclick = () => { if (confirm("Are you sure? Every character except the base game ones will be marked as not owned.\n\nThe current state is kept first, so you can undo it.")) act(() => post("/api/owned/all", { owned: false }), "Only the base game characters are owned. Tick the ones you have.", true); };
 $("bHist").onclick = () => { $("hist").hidden = !$("hist").hidden; };
-$("bReset").onclick = () => { if (confirm("Reset every level to 0? (Ownership is kept.)")) act(() => post("/api/levels/reset"), "All levels reset."); };
+$("bReset").onclick = () => { if (confirm("Are you sure? Every level goes back to 0 (ownership is kept).\n\nThe current levels are kept first, so you can undo it.")) act(() => post("/api/levels/reset"), "All levels reset.", true); };
+$("hist").addEventListener("click", (e) => { const b = e.target.closest("button[data-restore]"); if (b) restore(+b.dataset.restore); });
 $("bExport").onclick = () => {
   const lost = {}; Object.keys(state.characters).forEach((k) => { lost[k] = state.characters[k].filter((c) => !c.owned).map((c) => c.short); });
   const blob = new Blob([JSON.stringify({ ...state.levels, unowned: lost }, null, 1)], { type: "application/json" });
@@ -188,7 +225,7 @@ $("fImport").onchange = async (e) => {
   const f = e.target.files[0]; if (!f) return;
   const r = await post("/api/levels/import", { text: await f.text() });
   e.target.value = "";
-  if (r.error) say("Import failed: " + r.error); else { await load(); say(`Imported: ${r.changed} change(s).`); }
+  if (r.error) say("Import failed: " + r.error); else { await load(); say(`Imported: ${r.changed} change(s).`, true); }
 };
 document.addEventListener("error", (e) => {
   const i = e.target; if (i.tagName !== "IMG") return;
