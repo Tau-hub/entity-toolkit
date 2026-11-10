@@ -27,13 +27,15 @@
   .lvl button { width:28px; height:28px; border-radius:8px; border:1px solid var(--border); background:var(--panel2); color:var(--text); cursor:pointer; font-size:16px; }
   .lvl b { font-size:18px; min-width:34px; text-align:center; }
   .tip { position:fixed; z-index:20; max-width:340px; background:#000d; border:1px solid var(--border); padding:8px 10px; border-radius:8px; font-size:12.5px; pointer-events:none; display:none; white-space:pre-line; }
-  .bp { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; max-width:860px; margin:0 auto 18px; }
-  .bp > div { border:1px solid rgba(255,255,255,.14); border-radius:12px; padding:10px 14px; text-align:center; }
-  .bp > div.me { border-color:var(--gold); }
-  .bp small { display:block; color:var(--muted); font-size:11px; letter-spacing:.14em; text-transform:uppercase; }
-  .bp b { display:block; font-size:22px; font-weight:600; color:var(--gold); margin:2px 0; }
-  .bp span { color:var(--muted); font-size:12px; }
-  @media (max-width:640px) { .bp { grid-template-columns:1fr; } }
+  details.bp { max-width:860px; margin:0 auto 12px; border:1px solid rgba(255,255,255,.14); border-radius:12px; padding:6px 14px; font-size:13px; }
+  details.bp summary { cursor:pointer; color:var(--muted); list-style:none; }
+  details.bp summary::before { content:"▸ "; color:var(--gold); } details.bp[open] summary::before { content:"▾ "; }
+  details.bp summary b { color:var(--gold); font-weight:600; }
+  .bp table { width:100%; border-collapse:collapse; margin:8px 0 4px; }
+  .bp th { color:var(--muted); font-size:11px; font-weight:400; letter-spacing:.12em; text-transform:uppercase; text-align:right; padding:2px 8px; }
+  .bp th:first-child, .bp td:first-child { text-align:left; }
+  .bp td { padding:3px 8px; text-align:right; border-top:1px solid var(--border); } .bp tr.me td:first-child { color:var(--gold); }
+  .bp .note { color:var(--muted); font-size:12px; margin:4px 0 2px; }
   .banner { margin:18px auto; max-width:760px; background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:14px 18px; color:var(--muted); text-align:center; }
   @media (max-width:640px) { .row { grid-template-columns:28px 56px 1fr; } .lvl { grid-column:1/-1; justify-content:flex-end; } .row img.p { width:56px; height:56px; } }
 </style>
@@ -47,7 +49,7 @@
   <span class="patch" id="patch"></span>
 </header>
 <main>
-  <div id="bp" class="bp"></div>
+  <details class="bp" id="bp"></details>
   <p class="intro">A perk's rating (out of 100) = 50 % Otzdarva's opinion (★ stars) + 35 % NightLight popularity (usage rank) + 15 % NightLight performance (<span id="rateLbl"></span> compared with the average). Level-0 characters come first only if their best perk rates ≥ 70/100 (their perks are not in the other characters' bloodwebs yet). Levels 1 and 2 weigh the same: the ranking only depends on the summed rating of the perks. Level-3 characters go to the bottom. NightLight period: <span id="nlp"></span>. Hover a perk for details. − / + corrects a level (saved in your data folder; see the <a href="levels.html">Levels</a> page for the whole picture).</p>
   <p class="intro" id="hiddenNote"></p>
   <div id="app"></div>
@@ -91,17 +93,21 @@ function bpLeft(k) {  // levels still to gain on the characters you own, and wha
   const owned = new Set(((LV.characters || {})[k] || []).filter((c) => c.owned).map((c) => c.short));
   const lv = LV.levels[k] || {};
   const n = [...owned].reduce((a, name) => a + Math.max(0, 3 - Math.max(0, Math.min(3, +(lv[name] ?? 0)))), 0);
-  return { n, bp: n * BP_PER_LEVEL, chars: owned.size };
+  const done = [...owned].reduce((a, name) => a + Math.max(0, Math.min(3, +(lv[name] ?? 0))), 0);
+  return { n, bp: n * BP_PER_LEVEL, done, spent: done * BP_PER_LEVEL, chars: owned.size };
 }
 function drawBp() {
   if (!LV) return;
   LV.levels[kind] = levels;
   const k = bpLeft("killers"), s = bpLeft("survivors");
-  const box = (cls, label, o, note) => `<div class="${cls}"><small>${label}</small><b>${nf(o.bp)}</b><span>${note}</span></div>`;
-  $("bp").innerHTML = box(kind === "killers" ? "me" : "", "Killers to level 3", k, `${k.n} level${k.n === 1 ? "" : "s"} to go · ${k.chars} owned`) +
-    box(kind === "survivors" ? "me" : "", "Survivors to level 3", s, `${s.n} level${s.n === 1 ? "" : "s"} to go · ${s.chars} owned`) +
-    box("", "Both together", { bp: k.bp + s.bp }, `${k.n + s.n} levels · bloodpoints`);
-  $("bp").title = `Estimate: about ${nf(BP_PER_LEVEL)} bloodpoints per level (bloodweb 1 → 50 plus the 20 000 prestige fee). The real cost depends on bloodweb luck.`;
+  const both = { n: k.n + s.n, bp: k.bp + s.bp, done: k.done + s.done, spent: k.spent + s.spent };
+  const row = (cls, label, o) => `<tr class="${cls}"><td>${label}</td><td>≈ ${nf(o.spent)}</td><td>≈ ${nf(o.bp)}</td><td>${o.n}</td></tr>`;
+  const open = $("bp").open;
+  $("bp").innerHTML = `<summary>Bloodpoints to get everything to level 3: <b>≈ ${nf(both.bp)}</b> left · ≈ ${nf(both.spent)} already spent</summary>
+    <table><tr><th></th><th>Already spent</th><th>Still to spend</th><th>Levels to go</th></tr>
+    ${row(kind === "killers" ? "me" : "", "Killers", k)}${row(kind === "survivors" ? "me" : "", "Survivors", s)}${row("", "Both", both)}</table>
+    <div class="note">Averages: about ${nf(BP_PER_LEVEL)} bloodpoints per level (bloodweb 1 → 50 plus the 20 000 prestige fee). The real cost depends on bloodweb luck. Only characters you own count.</div>`;
+  $("bp").open = open;
 }
 
 function render() {
