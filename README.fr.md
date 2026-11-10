@@ -19,7 +19,7 @@ Un compagnon **non officiel** pour *Dead by Daylight* (Windows) : voir les perks
 | **Mémoire de la map** (survivant et tueur) | La même touche lit et mémorise la map depuis le menu des joueurs. |
 | **Envoi NightLight** | Même touche sur le tableau de fin de match : il est envoyé à [NightLight](https://nightlight.gg) et la revue est faite pour toi (« Me » coché sur ton pseudo, les autres en Random, map réglée depuis la mémoire, Confirm cliqué). |
 | **Suivi des niveaux** | Une page pour régler où tu en es avec chaque tueur et survivant, tenue à jour automatiquement depuis le tableau de fin. |
-| **Priorités** | Quels personnages monter en priorité, d'après l'avis d'Otzdarva et les stats NightLight. |
+| **Priorités** | Quels personnages monter en priorité, d'après l'avis d'Otzdarva et les stats NightLight. La page affiche aussi les points de sang qui restent à dépenser pour amener tes killers, tes survivants, ou les deux, au niveau 3 (estimation d'environ 1 116 000 par niveau). |
 | **Builds recommandés** | Fiches tueur (builds, tier list des add-ons, combos) et builds survivants, d'Otzdarva et de NightLight. |
 | **Loadout aléatoire** | Tire un loadout aléatoire de tueur (ou de survivant) : pouvoir, add-ons, perks, offrande en option, avec les notes. L'affiche se copie ou se télécharge en image. |
 | **Création de build** | Enregistre tes propres builds killer et survivant (quatre perks, un nom, les killers concernés). Recherche de perks par nom, killer ou type : « aura », « gen regression », « healing »… |
