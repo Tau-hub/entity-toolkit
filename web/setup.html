@@ -93,6 +93,8 @@
     <div class="row"><label><input type="checkbox" id="oSounds"> Play a small sound: ok / not ok</label></div>
     <div class="row"><label>Keep the last <input type="text" id="kKeep" style="min-width:0;width:70px"> screenshots taken with the key (0 = none)</label></div>
     <p>Every press of the capture key (Tab menu, scoreboard…) is saved in <code>data/captures</code>, the oldest being deleted beyond that number. They stay on your PC: useful to understand a wrong reading.</p>
+    <div class="row"><label><input type="checkbox" id="oOpen"> Open the Live page in my browser when the toolkit starts</label></div>
+    <p>With <i>Start automatically with Windows</i> below, this means the page opens by itself each time you launch Dead by Daylight.</p>
     <div class="row"><label><input type="checkbox" id="oAuto"> Start automatically with Windows</label><span class="msg" id="auMsg"></span></div>
     <p>When this is on, a tiny watcher starts when you sign in to Windows (it only checks the process list every few seconds). <b>Entity Toolkit starts by itself when Dead by Daylight starts, and closes by itself when Dead by Daylight closes</b>; the watcher then waits for the next launch. Turn it off to start the toolkit by hand with <code>run.bat</code> instead.</p>
     <div class="row"><label>Update the database by itself every <select id="oDays"><option value="0">never</option><option value="1">day</option><option value="3">3 days</option><option value="7">7 days</option><option value="14">14 days</option><option value="30">30 days</option></select></label><span class="msg" id="lastUp"></span></div>
@@ -162,7 +164,7 @@ async function refresh() {
     $("player").value = s.config.player;
     $("oUpload").checked = s.config.upload; $("oDry").checked = s.config.dry_run;
     $("oOverlay").checked = s.config.overlay; $("oHover").checked = s.config.perk_hover; $("oSounds").checked = s.config.sounds;
-    $("oAuto").checked = s.autostart;
+    $("oAuto").checked = s.autostart; $("oOpen").checked = s.config.open_browser;
     $("oDays").value = String(s.config.auto_update_days);
     $("kKeep").value = s.config.keep_captures;
     $("kCap").value = s.config.capture_key; $("kClr").value = s.config.clear_key;
@@ -201,7 +203,7 @@ $("oAuto").onchange = async (e) => {
   $("auMsg").textContent = r.error ? "Error: " + r.error : r.enabled ? "On: takes effect at your next Windows sign-in." : "Off.";
 };
 $("bOpts").onclick = async () => {
-  const r = await post("/api/config", { upload: $("oUpload").checked, dry_run: $("oDry").checked, overlay: $("oOverlay").checked, perk_hover: $("oHover").checked, sounds: $("oSounds").checked, auto_update_days: +$("oDays").value, keep_captures: Math.max(0, parseInt($("kKeep").value, 10) || 0), capture_key: $("kCap").value.trim(), clear_key: $("kClr").value.trim() });
+  const r = await post("/api/config", { upload: $("oUpload").checked, dry_run: $("oDry").checked, overlay: $("oOverlay").checked, perk_hover: $("oHover").checked, sounds: $("oSounds").checked, open_browser: $("oOpen").checked, auto_update_days: +$("oDays").value, keep_captures: Math.max(0, parseInt($("kKeep").value, 10) || 0), capture_key: $("kCap").value.trim(), clear_key: $("kClr").value.trim() });
   $("opMsg").textContent = r.error ? "Error: " + r.error : "Saved.";
 };
 window.addEventListener("et-show", () => refresh());  // the shell re-shows this page: refresh its data

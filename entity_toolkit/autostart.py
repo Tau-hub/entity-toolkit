@@ -53,7 +53,7 @@ def watch():
     while True:
         if winapi.game_running():
             log("Game detected: starting Entity Toolkit")
-            code = subprocess.call([pythonw(), "-m", "entity_toolkit", "run", "--no-open"], cwd=str(paths.ROOT))
+            code = subprocess.call([pythonw(), "-m", "entity_toolkit", "run"], cwd=str(paths.ROOT))
             log(f"Entity Toolkit stopped (code {code})")
             while winapi.game_running():  # wait for the game to close before re-arming (avoids restarting a copy that just stopped)
                 time.sleep(5)

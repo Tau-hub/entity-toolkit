@@ -12,7 +12,7 @@ DEFAULTS = {
     "sounds": True,               # small "ok" / "not ok" sounds
     "upload": True,               # send the scoreboard to NightLight when you press the key on it
     "dry_run": False,             # True: save the scoreboard locally but never send it
-    "open_browser": True,         # open the live page when the program starts
+    "open_browser": True,         # open the Live page in your default browser when the toolkit starts (so: when the game starts, with autostart)
     "layout": "columns",          # live page layout: "columns" or "list"
     "auto_update_days": 7,        # refresh the database by itself every N days (0 = never)
     "last_update": 0,             # when the whole database was last refreshed (set by the update)
