@@ -423,6 +423,32 @@ class CaptureRotation(unittest.TestCase):
         self.assertIsNone(captures.save(Image.new("RGB", (8, 8)), "end"))  # switched off
 
 
+class SurvivorNames(unittest.TestCase):
+    def resolve(self, text):
+        from entity_toolkit import analyzer
+        a = analyzer.Analyzer.__new__(analyzer.Analyzer)
+        a.names = ["Yui Kimura", "Nea Karlsson", "Meg Thomas"]
+        return a.resolve_survivor(text)
+
+    def test_a_few_letters_misread_as_lower_case_still_give_the_character(self):
+        self.assertEqual(self.resolve("Y Ul KIMURA"), "YUI KIMURA")
+        self.assertEqual(self.resolve("KARLSSON"), "NEA KARLSSON")
+
+    def test_a_player_name_is_left_alone(self):
+        self.assertEqual(self.resolve("Yui Kimura"), "Yui Kimura")  # mixed case: a player name
+        self.assertEqual(self.resolve("XxDARKLORDxX"), "XxDARKLORDxX")  # mostly upper-case but no character looks like it
+
+
+class NewVersion(unittest.TestCase):
+    def test_only_a_higher_number_is_newer(self):
+        from entity_toolkit import version
+        self.assertTrue(version.newer("0.10.0", "0.9.3"))
+        self.assertFalse(version.newer("0.2.0", "0.2.0"))
+        self.assertFalse(version.newer("0.1.9", "0.2.0"))
+        self.assertFalse(version.newer(None, "0.2.0"))
+        self.assertEqual(version.read('"""doc"""\n__version__ = "1.4.2"\n'), "1.4.2")
+
+
 class Hotkeys(unittest.TestCase):
     def test_parse(self):
         self.assertEqual(winapi.parse_combo("alt+numpad7"), [0x12, 0x67])

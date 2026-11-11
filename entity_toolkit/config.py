@@ -18,6 +18,8 @@ DEFAULTS = {
     "last_update": 0,             # when the whole database was last refreshed (set by the update)
     "setup_done": None,           # first-launch setup finished (None = decide from the data: database present and name set)
     "keep_captures": 100,         # keep the last N screenshots taken with the key (0 = none), the oldest are deleted
+    "tray": True,                 # icon in the Windows notification area while the toolkit runs (open the pages, quit)
+    "check_version": True,        # once a day, look on GitHub whether a newer Entity Toolkit exists (reads one public file, sends nothing)
     "port": 8765,
 }
 

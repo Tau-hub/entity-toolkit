@@ -64,7 +64,7 @@ run.bat
 3. **You.** Type your in-game name exactly as the scoreboard shows it.
 4. **Your levels.** Drop screenshots of the in-game killer and survivor selection screens right on the Setup page and the toolkit reads which characters you have and their levels (you review before saving), or set them by hand on the **Levels** page (see below).
 5. **NightLight** (optional). Paste an API token from your NightLight account settings and sign in once in the Edge window the button opens. The toolkit never sees your password.
-6. **Options.** Overlay on/off, sounds, opening the Live page in your browser when the toolkit starts (on by default: with the automatic start, the page opens each time you launch the game), dry run (saves the scoreboard but never sends it), and the keys.
+6. **Options.** Overlay on/off, sounds, the notification-area icon, the new-version check, opening the Live page in your browser when the toolkit starts (on by default: with the automatic start, the page opens each time you launch the game), dry run (saves the scoreboard but never sends it), and the keys.
 
 Once you press **Finish setup**, the *Setup* button becomes **⚙ Settings** (top right): same page without the requirements, to update the database, change your name, import levels, set the NightLight token and the options. *Reset the setup* at the bottom brings the first-launch checklist back (your data is kept).
 
@@ -169,7 +169,7 @@ Everything the toolkit stores lives in the git-ignored `data/` folder next to th
 | `uploads/`, `debug/` | The scoreboards sent and the last captures kept to diagnose problems |
 | `entity_toolkit.log` | What the toolkit did |
 
-Network use: the game screenshot never leaves your PC except the **scoreboard**, which goes to NightLight when you press the key on it (turn that off with *Dry run* on the Settings page). **Update database** reads from `deadbydaylight.wiki.gg`, `otzdarva-builds.com`, `otzdarva.com`, `otz-addon-tierlist.pages.dev` and `nightlight.gg`. The local web server listens on `127.0.0.1` only and refuses requests from other websites.
+Network use: the game screenshot never leaves your PC except the **scoreboard**, which goes to NightLight when you press the key on it (turn that off with *Dry run* on the Settings page). **Update database** reads from `deadbydaylight.wiki.gg`, `otzdarva-builds.com`, `otzdarva.com`, `otz-addon-tierlist.pages.dev` and `nightlight.gg`. Once a day it also reads one public file on `raw.githubusercontent.com` to tell you when a newer Entity Toolkit exists (nothing is sent; turn it off in Settings). The local web server listens on `127.0.0.1` only and refuses requests from other websites.
 
 ## Troubleshooting
 

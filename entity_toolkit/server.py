@@ -9,7 +9,7 @@ from urllib.parse import quote
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import unquote, urlparse
 
-from . import autostart, config, database, levels, mybuilds, nightlight, paths, perk_types, winapi
+from . import autostart, config, database, levels, mybuilds, nightlight, paths, perk_types, version, winapi
 from .database import patch as patch_info
 
 MIME = {".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8",
@@ -184,11 +184,13 @@ def make_handler(hub):
             if path == "/api/live":
                 return self._json(hub.snapshot())
             if path == "/api/shell":
-                return self._json({"setup_done": setup_done()})
+                st = database.STATE
+                return self._json({"setup_done": setup_done(), "version": version.info(),
+                                   "update": {"running": st["running"], "finished": st["finished"], "changes": len(st["changes"])}})
             if path == "/api/setup":
                 lv = levels.load()
                 return self._json({"ocr": _ocr_available(), "token": _token_saved(), "session": _session_saved(), "config": config.load(),
-                                   "db": database.status(), "patch": patch_info.load(), "ratings_patch": _ratings_patch(), "setup_done": setup_done(), "autostart": autostart.installed(), "last_update": database.last_update(), "levels_set": sum(1 for k in lv.values() for v in k.values() if v)})
+                                   "db": database.status(), "patch": patch_info.load(), "ratings_patch": _ratings_patch(), "setup_done": setup_done(), "autostart": autostart.installed(), "last_update": database.last_update(), "version": version.info(), "levels_set": sum(1 for k in lv.values() for v in k.values() if v)})
             if path == "/api/levels":
                 chars = {k: levels.characters(k) for k in levels.KINDS}
                 return self._json({"ready": any(chars.values()), "characters": chars, "levels": levels.load(), "history": levels.history(), "chapters": levels.chapters(), "backups": levels.backups()})

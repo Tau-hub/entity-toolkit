@@ -35,8 +35,21 @@ function drawBar(href) {
   const here = href.split("#")[0];
   const link = ([h, t], cls) => { const on = h.includes("?") ? here === h : fileOf(here) === h; return `<a href="#${h}" data-h="${h}" class="${cls}${on ? " on" : ""}">${t}</a>`; };
   $bar.innerHTML = '<nav class="nav">' + PAGES.slice(0, -1).map((p) => link(p, "")).join("") + link([window.ET_SETUP_PAGE, window.setupLabel(setupDone)], "set") + "</nav>";
+  if (fileOf(here) === window.ET_SETUP_PAGE && shell.update && shell.update.finished && !shell.update.running) { try { localStorage.setItem("et-news-seen", shell.update.finished); } catch (e) {} }
+  dot();
 }
-async function loadState() { try { setupDone = (await window.ET_STATE).setup_done; } catch (e) {} drawBar(lastHref); }
+// A dot on the Setup / Settings button: pulsing while the database updates, steady when an update brought something new or a newer toolkit exists.
+let shell = {};
+const seen = () => { try { return +localStorage.getItem("et-news-seen") || 0; } catch (e) { return 0; } };
+function dot() {
+  const a = $bar.querySelector("a.set"), u = shell.update || {}, v = shell.version || {};
+  if (!a) return;
+  const news = u.finished && u.changes > 0 && u.finished > seen();
+  const why = u.running ? "The database is updating…" : news ? `The last update brought ${u.changes} change${u.changes > 1 ? "s" : ""}` : v.newer ? `Entity Toolkit ${v.latest} is available` : "";
+  a.classList.toggle("dot", !!why); a.classList.toggle("busy", !!u.running); a.title = why;
+}
+async function loadState() { try { shell = await window.ET_STATE; setupDone = shell.setup_done; } catch (e) {} drawBar(lastHref); }
+setInterval(() => window.etShell && window.etShell.refreshState(), 20000);
 const $bar = document.getElementById("bar"), $frames = document.getElementById("frames");
 
 function show(href) {

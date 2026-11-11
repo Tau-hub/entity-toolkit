@@ -123,6 +123,9 @@ def _run(open_page, stop_with_game, setup=False):
             log("Recogniser reloaded with the updated perk database")
     database.ON_FINISH.append(reload_recogniser)
     database.start_auto_update(log)
+    from . import tray, version
+    version.start(log)
+    icon = tray.start(url, hub, log) if cfg["tray"] else None
     label = assistant.run(hub, ast, stop_with_game=stop_with_game)
     log(f"Entity Toolkit ready: {label} · {'dry run' if cfg['dry_run'] or not cfg['upload'] else 'real upload'}")
     if not ready:
@@ -135,6 +138,8 @@ def _run(open_page, stop_with_game, setup=False):
         hub.wait()
     except KeyboardInterrupt:
         pass
+    if icon:
+        icon.stop()
     return 0
 
 

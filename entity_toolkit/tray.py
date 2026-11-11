@@ -1,0 +1,40 @@
+"""A small icon in the Windows notification area while the toolkit runs: open the pages, the settings, or quit.
+
+Optional: needs the `pystray` package (in requirements.txt). Without it, or with the `tray` setting off, the toolkit runs exactly as before.
+"""
+import webbrowser
+
+from . import __version__
+
+
+def _image():
+    from PIL import Image, ImageDraw
+    im = Image.new("RGBA", (64, 64), (0, 0, 0, 0))
+    d = ImageDraw.Draw(im)
+    d.ellipse((2, 2, 62, 62), fill=(18, 20, 26, 255), outline=(209, 36, 58, 255), width=5)
+    d.rectangle((21, 19, 27, 45), fill=(240, 240, 240, 255))  # an "E"
+    for y, x1 in ((19, 43), (29, 38), (40, 43)):
+        d.rectangle((23, y, x1, y + 5), fill=(240, 240, 240, 255))
+    return im
+
+
+def start(url, hub, log):
+    """Shows the icon; returns it (call .stop() when leaving) or None when it cannot be shown."""
+    try:
+        import pystray
+    except Exception:
+        log("No tray icon: the pystray package is not installed (pip install pystray)")
+        return None
+    try:
+        item = pystray.MenuItem
+        icon = pystray.Icon("entity_toolkit", _image(), f"Entity Toolkit {__version__}", pystray.Menu(
+            item("Open the Live page", lambda: webbrowser.open(url + "live.html"), default=True),
+            item("Settings", lambda: webbrowser.open(url + "setup.html")),
+            pystray.Menu.SEPARATOR,
+            item("Quit Entity Toolkit", lambda: hub.quit()),
+        ))
+        icon.run_detached()
+        return icon
+    except Exception as e:
+        log(f"No tray icon: {e}")
+        return None

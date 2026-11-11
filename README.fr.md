@@ -66,7 +66,7 @@ run.bat
 3. **You.** Saisis ton pseudo en jeu exactement comme sur le tableau de fin.
 4. **Your levels.** Dépose des captures des écrans de sélection des tueurs et des survivants directement dans la page Setup : l'outil lit quels personnages tu as et leurs niveaux (tu vérifies avant d'enregistrer), ou règle-les à la main sur la page **Levels** (voir plus bas).
 5. **NightLight** (facultatif). Colle un jeton d'API créé dans les paramètres de ton compte NightLight et connecte-toi une fois dans la fenêtre Edge qu'ouvre le bouton. L'outil ne voit jamais ton mot de passe.
-6. **Options.** Overlay oui/non, sons, ouverture de la page Live dans ton navigateur au démarrage de l'outil (activée par défaut : avec le démarrage automatique, la page s'ouvre à chaque lancement du jeu), simulation (enregistre le tableau mais ne l'envoie jamais) et les touches.
+6. **Options.** Overlay oui/non, sons, icône dans la zone de notification, vérification d'une nouvelle version, ouverture de la page Live dans ton navigateur au démarrage de l'outil (activée par défaut : avec le démarrage automatique, la page s'ouvre à chaque lancement du jeu), simulation (enregistre le tableau mais ne l'envoie jamais) et les touches.
 
 Quand tu appuies sur **Finish setup**, le bouton *Setup* devient **⚙ Settings** (en haut à droite) : la même page sans les prérequis, pour mettre à jour la base, changer ton pseudo, importer les niveaux, régler le jeton NightLight et les options. *Reset the setup* en bas refait apparaître la checklist de premier lancement (tes données sont gardées).
 
@@ -171,7 +171,7 @@ Tout ce que l'outil enregistre vit dans le dossier `data/` (ignoré par git) à 
 | `uploads/`, `debug/` | Les tableaux envoyés et les dernières captures gardées pour diagnostiquer |
 | `entity_toolkit.log` | Ce que l'outil a fait |
 
-Réseau : la capture du jeu ne quitte jamais ton PC, sauf le **tableau de fin**, qui part vers NightLight quand tu appuies sur la touche dessus (désactive-le avec *Dry run* dans Settings). **Update database** lit `deadbydaylight.wiki.gg`, `otzdarva-builds.com`, `otzdarva.com`, `otz-addon-tierlist.pages.dev` et `nightlight.gg`. Le serveur web local n'écoute que sur `127.0.0.1` et refuse les requêtes venant d'autres sites.
+Réseau : la capture du jeu ne quitte jamais ton PC, sauf le **tableau de fin**, qui part vers NightLight quand tu appuies sur la touche dessus (désactive-le avec *Dry run* dans Settings). **Update database** lit `deadbydaylight.wiki.gg`, `otzdarva-builds.com`, `otzdarva.com`, `otz-addon-tierlist.pages.dev` et `nightlight.gg`. Une fois par jour, l'outil lit aussi un fichier public sur `raw.githubusercontent.com` pour te prévenir quand une nouvelle version existe (rien n'est envoyé ; désactivable dans Settings). Le serveur web local n'écoute que sur `127.0.0.1` et refuse les requêtes venant d'autres sites.
 
 ## Dépannage
 

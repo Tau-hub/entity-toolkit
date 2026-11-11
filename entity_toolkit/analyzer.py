@@ -89,8 +89,11 @@ class Analyzer:
         norm = lambda x: re.sub(r"[^a-z0-9]", "", x.lower())
         truncated = text.rstrip().endswith(("...", "…"))  # the game cuts long names with "…": compare with the start of the name then
         t = norm(text)
-        if len(t) < 3 or text != text.upper():  # character names are upper-case: mixed case means a player name (name line unreadable)
+        letters = [c for c in text if c.isalpha()]
+        upper = sum(c.isupper() for c in letters) / len(letters) if letters else 0
+        if len(t) < 3 or upper < 0.7:  # character names are upper-case: mixed case means a player name (name line unreadable)
             return text
+        need = 0.5 if upper == 1 else 0.8  # a few letters misread as lower-case ("Y Ul KIMURA"): accepted only when it is clearly a character
         best, score = None, 0
         for name in self.names:
             n = norm(name)
@@ -104,7 +107,7 @@ class Analyzer:
             sc = max(cands)
             if sc > score:
                 best, score = name, sc
-        return best.upper() if best and score >= 0.5 else text
+        return best.upper() if best and score >= need else text
 
     @staticmethod
     def row_name(img, ri):

@@ -5,6 +5,7 @@ mss>=9
 requests>=2.31
 beautifulsoup4>=4.12
 playwright>=1.44
+pystray>=0.19
 winrt-runtime>=2.0
 winrt-Windows.Foundation>=2.0
 winrt-Windows.Foundation.Collections>=2.0
