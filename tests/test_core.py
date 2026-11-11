@@ -439,6 +439,15 @@ class SurvivorNames(unittest.TestCase):
         self.assertEqual(self.resolve("XxDARKLORDxX"), "XxDARKLORDxX")  # mostly upper-case but no character looks like it
 
 
+class TrayMenu(unittest.TestCase):
+    def test_lists_the_same_pages_as_the_navigation_bar(self):
+        import re
+        from entity_toolkit import tray
+        js = (Path(__file__).resolve().parent.parent / "web" / "nav.js").read_text(encoding="utf8")
+        nav = re.findall(r'^\s*\["([^"]+\.html[^"]*)",\s*"([^"]+)"\]', js, re.M)
+        self.assertEqual(tray.PAGES, nav)
+
+
 class NewVersion(unittest.TestCase):
     def test_only_a_higher_number_is_newer(self):
         from entity_toolkit import version

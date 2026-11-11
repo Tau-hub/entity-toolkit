@@ -72,6 +72,15 @@ Quand tu appuies sur **Finish setup**, le bouton *Setup* devient **⚙ Settings*
 
 ![Page Settings](docs/images/settings.png)
 
+### L'icône dans la zone de notification
+
+Tant que l'outil tourne, un petit **E** rouge reste dans la zone de notification de Windows (en bas à droite de la barre des tâches, derrière la flèche **^** si Windows le masque). Il indique que l'outil est allumé, et c'est le moyen le plus rapide de retrouver les pages quand l'onglet du navigateur est fermé :
+
+- **Double-clic** : ouvre la page Live.
+- **Clic droit** : un menu avec toutes les pages (Live, Levels, Killer priorities, Survivor priorities, Killer sheet, Survivor builds, Random loadout, Build creator), puis **Settings**, puis **Quit Entity Toolkit**, qui arrête les raccourcis, l'overlay et les pages locales.
+
+Tu peux désactiver l'icône dans les options ; l'outil fonctionne pareil sans elle.
+
 ## Comment ça marche, pas à pas
 
 Une seule touche, **Alt + pavé numérique 7** (verrouillage numérique activé), à trois moments d'une partie. Tout le reste est automatique.

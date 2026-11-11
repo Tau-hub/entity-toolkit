@@ -7,6 +7,23 @@ import webbrowser
 from . import __version__
 
 
+# Same pages, same order as the navigation bar (web/nav.js). A double click on the icon opens the first one.
+PAGES = [
+    ("live.html", "Live"),
+    ("levels.html", "Levels"),
+    ("priorities.html?kind=killers", "Killer priorities"),
+    ("priorities.html?kind=survivors", "Survivor priorities"),
+    ("killer.html", "Killer sheet"),
+    ("survivor_builds.html", "Survivor builds"),
+    ("loadout.html", "Random loadout"),
+    ("buildmaker.html", "Build creator"),
+]
+
+
+def _opener(address):
+    return lambda: webbrowser.open(address)
+
+
 def _image():
     from PIL import Image, ImageDraw
     im = Image.new("RGBA", (64, 64), (0, 0, 0, 0))
@@ -28,8 +45,9 @@ def start(url, hub, log):
     try:
         item = pystray.MenuItem
         icon = pystray.Icon("entity_toolkit", _image(), f"Entity Toolkit {__version__}", pystray.Menu(
-            item("Open the Live page", lambda: webbrowser.open(url + "live.html"), default=True),
-            item("Settings", lambda: webbrowser.open(url + "setup.html")),
+            *[item(label, _opener(url + page), default=page == "live.html") for page, label in PAGES],
+            pystray.Menu.SEPARATOR,
+            item("Settings", _opener(url + "setup.html")),
             pystray.Menu.SEPARATOR,
             item("Quit Entity Toolkit", lambda: hub.quit()),
         ))

@@ -70,6 +70,15 @@ Once you press **Finish setup**, the *Setup* button becomes **⚙ Settings** (to
 
 ![Settings page](docs/images/settings.png)
 
+### The notification-area icon
+
+While the toolkit runs, a small red **E** sits in the Windows notification area (bottom right of the taskbar, behind the **^** arrow if Windows hides it). It tells you the toolkit is on, and it is the quickest way back to the pages when the browser tab is closed:
+
+- **Double-click**: opens the Live page.
+- **Right-click**: a menu with every page (Live, Levels, Killer priorities, Survivor priorities, Killer sheet, Survivor builds, Random loadout, Build creator), then **Settings**, then **Quit Entity Toolkit**, which stops the hotkeys, the overlay and the local pages.
+
+You can turn the icon off in the options; the toolkit works the same without it.
+
 ## How it works, step by step
 
 One key, **Alt + Numpad 7** (NumLock on), at three moments of a match. Everything else is automatic.
