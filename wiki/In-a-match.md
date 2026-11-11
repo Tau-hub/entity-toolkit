@@ -53,6 +53,8 @@ Settings → Options starts with a choice: **Hotkey** (the default: you press th
 
 The capture key and the clear key keep working exactly as before.
 
+**It only does what you set up.** If NightLight is not in use (no token, or sending turned off in Settings), the end of the match sends nothing and makes no sound: the toolkit just removes the overlay and updates your level.
+
 **What it costs.** While the game is the window in front, the toolkit looks at a thin strip at the top left of the screen (where *PLAYERS* and *MATCH SCOREBOARD* are written) every 2 seconds, and three times in the two seconds after a Tab press. One look takes about 30 ms. When the game is not in front, it looks at nothing.
 
 **What it touches.** Nothing new compared with the capture key: a screenshot of the monitor, the state of the Tab key, and the list of running programs to know the game is in front. The game's memory and files are never read, and nothing is sent to the game. As always, there is no guarantee about anti-cheat: see the README.

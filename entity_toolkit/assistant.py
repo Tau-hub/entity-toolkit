@@ -115,7 +115,7 @@ class Assistant:
         elif kind == "end":
             self.end_at, self.players_at = time.time(), None
             self.last_menu = None  # the match is over: its perks must never come back (not as an overlay, not as mouse checks)
-            self.on_end(img)
+            self.on_end(img, quiet)
         elif self.overlay and self.cfg["overlay"] and self.last_menu and time.time() - self.last_menu[3] < 45 * 60:
             allies, me, menu, _ = self.last_menu
             log("Press outside the menu: overlay put back with the perks of the last players-menu press")
@@ -174,8 +174,19 @@ class Assistant:
         sounds.beep(bool(mem) and (bool(allies) or not survivor_view))  # survivor: map + allies read; killer: map read
 
     # ----- end scoreboard -----
-    def on_end(self, img):
+    def on_end(self, img, quiet=False):
         cfg = self.cfg
+        if quiet and not cfg["dry_run"] and not (cfg["upload"] and nightlight.have_token()):
+            # automatic mode, and NightLight is not in use (sending turned off, or no token): the end of the match only removes the
+            # overlay and updates your level. Nothing is saved or sent, and no "not ok" sound.
+            log("Match over · NightLight is not in use (upload off or no token): nothing is sent")
+            try:
+                levels.sync_from_scoreboard(img, own_row(img, cfg["player"]), self.analyzer, log=log, dry=False)
+            except Exception as e:
+                log(f"Level update failed: {e}")
+            nightlight.forget_map()
+            self.say("Match over: perks removed (NightLight upload is off)")
+            return
         if COOLDOWN and time.time() - self.last_upload < COOLDOWN:
             log(f"Scoreboard ignored: last upload {time.time() - self.last_upload:.0f} s ago (< {COOLDOWN} s)")
             sounds.beep(False)

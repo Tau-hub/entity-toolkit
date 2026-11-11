@@ -27,7 +27,16 @@
   #news { border-left:2px solid var(--gold); padding:2px 0 2px 12px; margin:10px 0; font-size:14px; border-radius:0; border-top:0; border-right:0; border-bottom:0; background:none; } #news ul { margin:4px 0 0; padding-left:20px; color:var(--text); }
   #log { background:#000a; border:1px solid var(--border); border-radius:10px; padding:8px 12px; font:12px/1.5 Consolas,monospace; color:#cfc8bc; max-height:220px; overflow:auto; white-space:pre-wrap; display:none; }
   input[type=text], input[type=password] { min-width:260px; }
-  body.done #s1, body.done #finish, body.done .step h2 .n { display:none; } body:not(.done) #reset { display:none; }
+  body.done #s1, body.done #finish, body.done .step h2 .n, body.done .wizOnly, body.done #wizBar, body.done #wizNav { display:none; } body:not(.done) #reset { display:none; }
+  /* first launch: one page at a time, with Back / Next */
+  body:not(.done) main > .step { display:none; } body:not(.done) main > .step.cur { display:block; min-height:230px; }
+  #wizBar { display:flex; gap:6px; flex-wrap:wrap; justify-content:center; max-width:860px; margin:0 auto 14px; }
+  #wizBar button { background:var(--panel2); border:1px solid var(--border); color:var(--muted); border-radius:999px; padding:5px 12px; font:inherit; font-size:12.5px; cursor:pointer; }
+  #wizBar button b { display:inline-block; min-width:16px; margin-right:5px; color:var(--text); }
+  #wizBar button.ok b { color:#3fb96b; } #wizBar button.on { border-color:var(--accent); color:#fff; background:linear-gradient(180deg,#d1243a55,#7d0f1f55); }
+  #wizNav { display:flex; gap:12px; align-items:center; justify-content:space-between; max-width:860px; margin:0 auto 30px; }
+  #wizNav .msg { flex:1; text-align:right; } #wizNav button:disabled { visibility:hidden; }
+  #summary .dr { border-top:1px solid var(--border); } #summary .dr:first-child { border-top:0; }
   #finish { background:none; border:0; }
   .msg { color:var(--muted); font-size:13px; min-height:18px; }
   code { background:var(--panel2); padding:1px 6px; border-radius:6px; font-size:13px; }
@@ -43,6 +52,7 @@
   <div class="sub" id="subtitle">First launch checklist</div>
 </header>
 <main>
+  <div id="wizBar"></div>
   <section class="step" id="s1">
     <h2><span class="n">1</span>Game and Windows requirements</h2>
     <ul>
@@ -54,6 +64,7 @@
 
   <section class="step" id="s2">
     <h2><span class="n">2</span>Download the data<button class="act" id="bUpdate" style="margin-left:auto">Update database</button></h2>
+    <p class="wizOnly"><b>Press “Update database”, then Next:</b> the download takes a few minutes and goes on in the background while you fill in the rest.</p>
     <p>Perk names, descriptions and icons (DbD wiki), map names, Otzdarva's builds and tier list, and NightLight's community stats. Nothing from these sites ships with the toolkit: it is downloaded on your PC, into the <code>data</code> folder. Run it again after a game patch.</p>
     <div class="db" id="db"></div>
     <p id="patchInfo"></p>
@@ -62,40 +73,47 @@
     <div id="log"></div>
   </section>
 
+  <section class="step" id="sMode">
+    <h2><span class="n"></span>Hotkey or automatic</h2>
+    <p>How do you want the toolkit to read the players menu and the scoreboard?</p>
+    <div class="row"><label><input type="radio" name="mode" id="oKeyMode"> <span><b>Hotkey</b>: I press the capture key on the players menu (Tab) and on the scoreboard</span></label></div>
+    <div class="row"><label><input type="radio" name="mode" id="oAutoMode"> <span><b>Automatic</b>: no key to press. Tab reads the players menu, and the scoreboard is sent by itself once the match is over for everyone (every player's perks are revealed)</span></label></div>
+    <p>In automatic mode, while the game is in front, the toolkit looks at a thin strip at the top left of the screen every 2 seconds (about 30 ms each time), and a few times right after you press Tab. It is the same screenshot technique as the capture key, nothing more: the game itself is never read. The capture key below keeps working in both modes, for instance to send a scoreboard before the match is over for everyone. Changing the mode applies within a few seconds, no restart needed.</p>
+    <div class="row"><label>Capture key <input type="text" id="kCap" style="min-width:140px"></label><label>Clear-overlay key <input type="text" id="kClr" style="min-width:140px"></label></div>
+    <p>Shortcuts look like <code>alt+numpad7</code>, <code>ctrl+shift+n</code>, <code>f9</code>. A new shortcut takes effect the next time the toolkit starts.</p>
+  </section>
+
   <section class="step" id="s3">
-    <h2><span class="n">3</span>You</h2>
+    <h2><span class="n"></span>Your in-game name</h2>
     <p>Your in-game name, exactly as shown on the end-of-match scoreboard: it is how the toolkit finds your row to tick “Me” on NightLight.</p>
     <div class="row"><input type="text" id="player" placeholder="Your in-game name" autocomplete="off"><span class="msg" id="plMsg"></span></div>
+  </section>
+
+  <section class="step" id="s5">
+    <h2><span class="n">5</span>NightLight <span class="chip">optional</span></h2>
+    <p class="wizOnly"><b>You do not use NightLight? Just press Next.</b> Without a token the toolkit never sends anything: it only shows the perks.</p>
+    <p>To send the scoreboard to <a href="https://nightlight.gg" target="_blank" rel="noopener">nightlight.gg</a> and have the match reviewed for you (the toolkit ticks “Me”, sets the map and confirms):</p>
+    <ul>
+      <li>Get your API token on NightLight: <a href="https://nightlight.gg/account/api" target="_blank" rel="noopener">nightlight.gg/account/api</a> (sign in there first, create a token, copy it) and paste it here. It is saved only in <code>data/nightlight_token.txt</code> and sent only to api.nightlight.gg.</li>
+      <li>Sign in once in the browser window the button opens (Edge). No password is read or stored by the toolkit.</li>
+    </ul>
+    <div class="row"><input type="password" id="token" placeholder="NightLight API token" autocomplete="off"><button class="sec" id="bToken">Save token</button><span class="chip" id="tkChip"></span></div>
+    <div class="row"><button class="sec" id="bLogin">Sign in to NightLight…</button><span class="chip" id="seChip"></span><span class="msg" id="loMsg"></span></div>
+    <div class="row"><label><input type="checkbox" id="oUpload"> Send the scoreboard to NightLight (when I press the key on it, or by itself in automatic mode)</label></div>
+    <div class="row"><label><input type="checkbox" id="oDry"> Dry run: save the screenshot but never send it</label></div>
   </section>
 
   <section class="step" id="s4">
     <h2><span class="n">4</span>Your character levels</h2>
     <p>Tell the toolkit which characters you own and how far you got with each one, once: tick them by hand, or drop screenshots of the in-game killer / survivor selection screens and let it read the levels. After that it keeps them up to date from the scoreboard.</p>
+    <p class="wizOnly"><b>Optional.</b> Reading screenshots takes a moment: you can press Next and do it later from the Levels page.</p>
     <div id="scanMount"></div>
     <div class="row"><a href="levels.html"><button class="sec">Open the Levels page</button></a><span class="chip" id="lvChip"></span></div>
   </section>
 
-  <section class="step" id="s5">
-    <h2><span class="n">5</span>NightLight <span class="chip">optional</span></h2>
-    <p>To send the scoreboard to <a href="https://nightlight.gg" target="_blank" rel="noopener">nightlight.gg</a> and have the match reviewed for you (the toolkit ticks “Me”, sets the map and confirms):</p>
-    <ul>
-      <li>Create an API token in your NightLight account settings and paste it here. It is saved only in <code>data/nightlight_token.txt</code> and sent only to api.nightlight.gg.</li>
-      <li>Sign in once in the browser window the button opens (Edge). No password is read or stored by the toolkit.</li>
-    </ul>
-    <div class="row"><input type="password" id="token" placeholder="NightLight API token" autocomplete="off"><button class="sec" id="bToken">Save token</button><span class="chip" id="tkChip"></span></div>
-    <div class="row"><button class="sec" id="bLogin">Sign in to NightLight…</button><span class="chip" id="seChip"></span><span class="msg" id="loMsg"></span></div>
-    <div class="row"><label><input type="checkbox" id="oUpload"> Send the scoreboard to NightLight when I press the key on it</label></div>
-    <div class="row"><label><input type="checkbox" id="oDry"> Dry run: save the screenshot but never send it</label></div>
-  </section>
-
   <section class="step" id="s6">
     <h2><span class="n">6</span>Options</h2>
-    <p><b>How the toolkit is triggered</b></p>
-    <div class="row"><label><input type="radio" name="mode" id="oKeyMode"> <b>Hotkey</b>: I press the capture key on the players menu (Tab) and on the scoreboard</label></div>
-    <div class="row"><label><input type="radio" name="mode" id="oAutoMode"> <b>Automatic</b>: no key to press. Tab reads the players menu, and the scoreboard is sent by itself once the match is over for everyone (every player's perks are revealed)</label></div>
-    <p>In automatic mode, while the game is in front, the toolkit looks at a thin strip at the top left of the screen every 2 seconds (about 30 ms each time), and a few times right after you press Tab. It is the same screenshot technique as the capture key, nothing more: the game itself is never read. The capture key below keeps working in both modes, for instance to send a scoreboard before the match is over for everyone. Changing the mode applies within a few seconds, no restart needed.</p>
-    <div class="row"><label>Capture key <input type="text" id="kCap" style="min-width:140px"></label><label>Clear-overlay key <input type="text" id="kClr" style="min-width:140px"></label></div>
-    <p>Shortcuts look like <code>alt+numpad7</code>, <code>ctrl+shift+n</code>, <code>f9</code>. A new shortcut takes effect the next time the toolkit starts.</p>
+    <p class="wizOnly">The defaults suit most players: you can leave this page as it is. Everything here, and on the previous pages, can be changed later in <b>⚙ Settings</b>.</p>
     <div class="row"><label><input type="checkbox" id="oOverlay"> Draw the allies' perks over the game's survivor list (survivor view)</label></div>
     <div class="row"><label><input type="checkbox" id="oHover"> Show a perk's text when the mouse is over its icon (the game frees the mouse when you are hooked or dead)</label></div>
     <div class="row"><label><input type="checkbox" id="oSounds"> Play a small sound: ok / not ok</label></div>
@@ -110,12 +128,14 @@
     <p>When this is on, a tiny watcher starts when you sign in to Windows (it only checks the process list every few seconds). <b>Entity Toolkit starts by itself when Dead by Daylight starts, and closes by itself when Dead by Daylight closes</b>; the watcher then waits for the next launch. Turn it off to start the toolkit by hand with <code>run.bat</code> instead.</p>
     <div class="row"><label>Update the database by itself every <select id="oDays"><option value="0">never</option><option value="1">day</option><option value="3">3 days</option><option value="7">7 days</option><option value="14">14 days</option><option value="30">30 days</option></select></label><span class="msg" id="lastUp"></span></div>
     <p>A patch can add killers, survivors, perks, add-ons or maps. While the toolkit runs, it checks once in a while whether the chosen delay has passed and then refreshes everything in the background (a few MB, no effect on the game). It never does it before you have done the first download yourself.</p>
-    <p>Every change on this page is saved as soon as you make it.</p>
   </section>
   <section class="step" id="finish">
+    <h2 class="wizOnly"><span class="n"></span>All set</h2>
+    <div class="db" id="summary"></div>
     <div class="row" style="justify-content:center"><button class="act" id="bFinish">Finish setup</button></div>
     <p style="text-align:center">You can come back to all of this later: the Setup button becomes <b>⚙ Settings</b> (top right).</p>
   </section>
+  <div id="wizNav"><button class="sec" id="bBack">← Back</button><span class="msg" id="wizHint"></span><button class="act" id="bNext">Next →</button></div>
   <section class="step" id="reset">
     <h2>Reset</h2>
     <p>Shows the first-launch setup again. Your downloaded data, levels, builds, NightLight token and options are kept.</p>
@@ -129,7 +149,34 @@ const post = (url, body) => fetch(url, { method: "POST", headers: { "Content-Typ
 const chip = (el, ok, yes, no) => { el.textContent = ok ? yes : no; el.className = "chip " + (ok ? "ok" : "no"); };
 const STEPNAMES = { patch: "Current game patch", builds: "Builds, tier list and ratings", perks: "Perk names, descriptions, icons", loadout: "Random-loadout data", maps: "Map and realm names", nl_maps: "NightLight map ids" };
 const when = (t) => t ? "updated " + new Date(t * 1000).toLocaleString() : "not downloaded yet";
-let polling = false, formLoaded = false;
+let polling = false, formLoaded = false, last = null;
+
+// First launch: the sections are shown one at a time, in this order. Next never blocks: everything can be done later in Settings.
+const WIZ = [["s1", "Requirements"], ["s2", "Data"], ["sMode", "Hotkey or automatic"], ["s3", "Your name"], ["s5", "NightLight"], ["s4", "Levels"], ["s6", "Options"], ["finish", "Done"]];
+const HINT = { s2: "The download continues in the background.", s5: "Optional: Next skips it.", s4: "Optional: Next skips it.", s6: "The defaults are fine." };
+let wiz = 0;
+try { wiz = Math.max(0, Math.min(WIZ.length - 1, +localStorage.getItem("et-setup-step") || 0)); } catch (e) {}
+function showStep(i) {
+  wiz = Math.max(0, Math.min(WIZ.length - 1, i));
+  try { localStorage.setItem("et-setup-step", wiz); } catch (e) {}
+  WIZ.forEach(([id], k) => { $(id).classList.toggle("cur", k === wiz); const n = $(id).querySelector("h2 .n"); if (n) n.textContent = k + 1; });
+  $("wizBar").innerHTML = WIZ.map(([id, name], k) => `<button data-i="${k}" class="${k === wiz ? "on" : ""}${$(id).classList.contains("done") ? " ok" : ""}"><b>${$(id).classList.contains("done") ? "✓" : k + 1}</b>${name}</button>`).join("");
+  $("bBack").disabled = wiz === 0;
+  $("bNext").disabled = wiz === WIZ.length - 1;
+  $("wizHint").textContent = HINT[WIZ[wiz][0]] || "";
+}
+function summary(s) {
+  const all = Object.values(s.db.installed).every(Boolean);
+  const rows = [
+    ["Windows text reading (OCR)", s.ocr, s.ocr ? "ready" : "no English language pack found: the toolkit cannot read the game yet"],
+    ["Database", all, all ? "downloaded" : s.db.running ? "downloading in the background…" : "not downloaded yet: go back to “Data”"],
+    ["Mode", true, s.config.auto ? "automatic (the capture key still works)" : "hotkey: " + s.config.capture_key],
+    ["Your name", !!s.config.player, s.config.player || "not set (only needed for NightLight)"],
+    ["NightLight", s.token && s.session, s.token && s.session ? (s.config.upload ? "scoreboards are sent" : "set up, but sending is turned off") : s.token ? "token saved, but you have not signed in yet" : "not used: nothing is ever sent"],
+    ["Levels", s.levels_set > 0, s.levels_set ? s.levels_set + " levels set" : "none yet (optional)"],
+  ];
+  $("summary").innerHTML = rows.map(([name, ok, text]) => `<div class="dr"><span><span class="dot ${ok ? "ok" : ""}"></span>${name}</span><span class="when">${String(text).replace(/</g, "&lt;")}</span></div>`).join("");
+}
 
 function renderDb(db) {
   $("db").innerHTML = Object.keys(STEPNAMES).map((k) => {
@@ -152,7 +199,7 @@ function renderDb(db) {
 function setMode(done) {  // first launch: the numbered checklist. Afterwards: plain settings (no requirements, no numbers, a reset at the bottom)
   document.body.classList.toggle("done", done);
   $("title").textContent = done ? "Settings" : "Setup";
-  $("subtitle").textContent = done ? "Data, you, levels, NightLight, options" : "First launch checklist";
+  $("subtitle").textContent = done ? "Data, mode and keys, you, NightLight, levels, options" : "First launch: a few pages, one at a time";
   document.title = (done ? "Settings" : "Setup") + " · Entity Toolkit";
 }
 async function stateChanged() { if (window.parent !== window && window.parent.etShell) await window.parent.etShell.refreshState(); await refresh(); }
@@ -168,6 +215,8 @@ async function refresh() {
   $("s3").classList.toggle("done", !!s.config.player);
   $("s4").classList.toggle("done", s.levels_set > 0);
   $("s5").classList.toggle("done", s.token && s.session);
+  $("sMode").classList.add("done"); $("s6").classList.add("done");  // a choice with a default: always answered
+  last = s; summary(s);
   if (!formLoaded) {
     formLoaded = true;
     $("player").value = s.config.player;
@@ -182,6 +231,7 @@ async function refresh() {
   $("lastUp").textContent = s.last_update ? "Last full update: " + new Date(s.last_update * 1000).toLocaleString() : "";
   setMode(s.setup_done);
   renderDb(s.db);
+  showStep(wiz);
   const pi = $("patchInfo");
   if (s.patch) {
     const lag = s.ratings_patch && s.ratings_patch !== s.patch.live;
@@ -195,9 +245,22 @@ $("bUpdate").onclick = async () => {
   $("upMsg").textContent = r.started ? "Started: this can take a few minutes the first time." : "Already running.";
   polling = false; refresh();
 };
-$("bFinish").onclick = async () => { await post("/api/setup/done", { done: true }); await stateChanged(); window.scrollTo(0, 0); };
+$("bFinish").onclick = async () => {
+  await post("/api/setup/done", { done: true });
+  try { localStorage.removeItem("et-setup-step"); } catch (e) {}
+  wiz = 0;
+  await stateChanged(); window.scrollTo(0, 0);
+  if (window.parent !== window && window.parent.etShell && last && last.db.installed.perks) window.parent.etShell.go("live.html");  // setup over: on to the Live page
+};
+$("bBack").onclick = () => { showStep(wiz - 1); window.scrollTo(0, 0); };
+$("bNext").onclick = async () => {
+  if (WIZ[wiz][0] === "s2" && last && !last.db.running && !Object.values(last.db.installed).some(Boolean)) $("bUpdate").click();  // nothing downloaded yet: Next starts it
+  showStep(wiz + 1); window.scrollTo(0, 0); refresh();
+};
+$("wizBar").onclick = (e) => { const b = e.target.closest("button[data-i]"); if (b) { showStep(+b.dataset.i); refresh(); } };
 $("bReset").onclick = async () => {
   if (!confirm("Show the first-launch setup again?\n\nYour downloaded data, levels, builds, NightLight token and options are kept.")) return;
+  wiz = 0;
   await post("/api/setup/done", { done: false }); await stateChanged(); window.scrollTo(0, 0);
 };
 $("player").addEventListener("change", async () => { const r = await post("/api/config", { player: $("player").value.trim() }); said(r.error ? "Not saved: " + r.error : "Saved ✓", !!r.error); refresh(); });

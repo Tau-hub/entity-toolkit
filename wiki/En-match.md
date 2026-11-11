@@ -53,6 +53,8 @@ Settings → Options commence par un choix : **Hotkey** (par défaut : tu appuie
 
 La touche de capture et la touche qui retire l'overlay marchent exactement comme avant.
 
+**Il ne fait que ce que tu as configuré.** Si NightLight n'est pas utilisé (pas de jeton, ou envoi désactivé dans Settings), la fin du match n'envoie rien et ne fait aucun son : l'outil retire seulement l'overlay et met ton niveau à jour.
+
 **Ce que ça coûte.** Tant que le jeu est la fenêtre au premier plan, l'outil regarde une fine bande en haut à gauche de l'écran (là où sont écrits *PLAYERS* et *MATCH SCOREBOARD*) toutes les 2 secondes, et trois fois dans les deux secondes qui suivent un appui sur Tab. Un coup d'œil prend environ 30 ms. Quand le jeu n'est pas au premier plan, il ne regarde rien.
 
 **Ce que ça touche.** Rien de nouveau par rapport à la touche de capture : une capture de l'écran, l'état de la touche Tab, et la liste des programmes lancés pour savoir que le jeu est au premier plan. La mémoire et les fichiers du jeu ne sont jamais lus, et rien n'est envoyé au jeu. Comme toujours, aucune garantie vis-à-vis de l'anti-triche : voir le README.
