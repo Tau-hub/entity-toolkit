@@ -492,6 +492,18 @@ class SameMatchAgain(unittest.TestCase):
         self.assertFalse(assistant.still_this_match(["ELLEN RIPLEY", "LARA CROFT"], set()))
 
 
+class CompleteReading(unittest.TestCase):
+    KNOWN = ["Kate Denson", "Ada Wong", "Thalita Lyra", "Meg Thomas"]
+
+    def test_three_allies_with_known_survivors_is_complete(self):
+        self.assertTrue(assistant.read_complete([{"survivor": "KATE DENSON"}, {"survivor": "ADA WONG"}, {"survivor": "THALITA LYRA"}], self.KNOWN))
+
+    def test_a_tooltip_over_the_menu_gives_an_incomplete_reading(self):
+        # what was read with the game's item tooltip over the allies: one ally missing, another one's name replaced by tooltip text
+        self.assertFalse(assistant.read_complete([{"survivor": "KATE DENSON"}, {"survivor": "Nell. sed to repair various"}], self.KNOWN))
+        self.assertFalse(assistant.read_complete([{"survivor": "KATE DENSON"}, {"survivor": "ADA WONG"}, {"survivor": ""}], self.KNOWN))
+
+
 class Autostart(unittest.TestCase):
     def test_launcher_starts_the_watcher_with_python_or_with_the_exe(self):
         from entity_toolkit import autostart

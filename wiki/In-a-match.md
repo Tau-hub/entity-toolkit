@@ -59,4 +59,6 @@ The capture key and the clear key keep working exactly as before.
 
 **What it touches.** Nothing new compared with the capture key: a screenshot of the monitor, the state of the Tab key, and the list of running programs to know the game is in front. The game's memory and files are never read, and nothing is sent to the game. As always, there is no guarantee about anti-cheat: see the README.
 
+**If the first reading is incomplete** (the mouse was on an item or a perk, so the game's own tooltip covered the allies), the toolkit reads the menu again while it stays open, or at your next Tab: keep the mouse away from the icons for a second.
+
 **Limits.** A scoreboard is sent only when all five rows show at least one perk, so a custom match with fewer players, or a player who brought no perk at all, is not sent by itself: use the capture key. After one scoreboard, the next one is not sent by itself for 2.5 minutes (so leaving the page and coming back does not send it twice).

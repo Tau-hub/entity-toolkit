@@ -59,4 +59,6 @@ La touche de capture et la touche qui retire l'overlay marchent exactement comme
 
 **Ce que ça touche.** Rien de nouveau par rapport à la touche de capture : une capture de l'écran, l'état de la touche Tab, et la liste des programmes lancés pour savoir que le jeu est au premier plan. La mémoire et les fichiers du jeu ne sont jamais lus, et rien n'est envoyé au jeu. Comme toujours, aucune garantie vis-à-vis de l'anti-triche : voir le README.
 
+**Si la première lecture est incomplète** (la souris était sur un objet ou une perk, donc l'infobulle du jeu cachait les alliés), l'outil relit le menu tant qu'il reste ouvert, ou à ton prochain Tab : éloigne la souris des icônes une seconde.
+
 **Limites.** Un tableau n'est envoyé que si les cinq lignes montrent au moins une perk, donc un match personnalisé avec moins de joueurs, ou un joueur venu sans aucune perk, ne part pas tout seul : utilise la touche de capture. Après un tableau, le suivant ne part pas tout seul pendant 2 min 30 (pour que quitter la page puis y revenir ne l'envoie pas deux fois).

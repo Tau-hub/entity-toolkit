@@ -71,6 +71,13 @@ def still_this_match(known, seen):
     return bool(known) and len(known & seen) >= min(2, len(known))
 
 
+def read_complete(allies, known):
+    """A players-menu reading is complete when it found three allies and recognised the survivor each of them plays.
+    It is not when something covered part of the menu (the game's own tooltip when the mouse is on an item or a perk)."""
+    known = {norm(n) for n in known}
+    return len(allies) >= 3 and all(norm(a.get("survivor") or "") in known for a in allies)
+
+
 def own_row(img, pseudo):
     """Rank (0 = top row, 4 = bottom row) of your name on the scoreboard, read by OCR; None if not found."""
     w, h = img.size
@@ -100,6 +107,8 @@ class Assistant:
         self.last_menu = None  # (allies, your row, menu screenshot, time) of the last press in the players menu
         self.players_at = None  # when the players menu was last read for the current match (automatic mode does not read it again right away)
         self.end_at = None      # when a scoreboard was last handled (automatic mode does not handle the same one twice)
+        self.complete = False   # the last players-menu reading found the three allies and their survivors
+        self.retries = 0        # automatic mode: readings done again because the last one was incomplete (at most 2 per match)
 
     @property
     def cfg(self):
@@ -119,7 +128,7 @@ class Assistant:
                 log("Automatic: nothing to read after all: the overlay is put back")
                 self.overlay.watch(allies, me, lambda: winapi.grab_game_monitor(self.hwnd), self.hwnd, menu)
             return
-        if quiet and kind == "players" and self.last_menu and time.time() - self.last_menu[3] < 45 * 60:
+        if quiet and kind == "players" and self.complete and self.last_menu and time.time() - self.last_menu[3] < 45 * 60:
             # automatic mode, menu opened again during the match: when the same allies are on screen, the perks already shown stay as they are
             if still_this_match([a["survivor"] for a in self.last_menu[0]], names_on_screen(img)):
                 log("Automatic: players menu seen again, same match: the perks already shown are kept")
@@ -129,8 +138,18 @@ class Assistant:
         if kind == "players":
             self.players_at = time.time()
             self.on_players(img)
+            self.complete = bool(self.last_menu) and read_complete(self.last_menu[0], an.survivor_names())
+            if quiet and self.last_menu and not self.complete and self.retries < 2:
+                # automatic mode: part of the menu was hidden (a tooltip under the mouse?) or still opening. It is read again
+                # as long as the menu stays open, or at the next Tab, twice at most.
+                self.retries += 1
+                self.players_at = None
+                log(f"Automatic: incomplete reading ({len(self.last_menu[0])} allies, some survivors not recognised): the menu will be read again (retry {self.retries} of 2)")
+            elif self.complete:
+                self.retries = 0
         elif kind == "end":
             self.end_at, self.players_at = time.time(), None
+            self.complete, self.retries = False, 0
             self.last_menu = None  # the match is over: its perks must never come back (not as an overlay, not as mouse checks)
             self.on_end(img, quiet)
         elif self.overlay and self.cfg["overlay"] and self.last_menu and time.time() - self.last_menu[3] < 45 * 60:
