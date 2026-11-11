@@ -88,8 +88,12 @@
 
   <section class="step" id="s6">
     <h2><span class="n">6</span>Options</h2>
-    <div class="row"><label><input type="checkbox" id="oAutoMode"> <b>Automatic mode</b>: no key to press. Tab reads the players menu, and the scoreboard is sent by itself once every survivor has finished</label></div>
-    <p>While the game is in front, the toolkit looks at a thin strip at the top left of the screen every 2 seconds (about 30 ms each time), and a few times right after you press Tab. It is the same screenshot technique as the capture key, nothing more: the game itself is never read. The capture key keeps working, for instance to send a scoreboard before everyone has finished. Applies within a few seconds, no restart needed.</p>
+    <p><b>How the toolkit is triggered</b></p>
+    <div class="row"><label><input type="radio" name="mode" id="oKeyMode"> <b>Hotkey</b>: I press the capture key on the players menu (Tab) and on the scoreboard</label></div>
+    <div class="row"><label><input type="radio" name="mode" id="oAutoMode"> <b>Automatic</b>: no key to press. Tab reads the players menu, and the scoreboard is sent by itself once every survivor has finished</label></div>
+    <p>In automatic mode, while the game is in front, the toolkit looks at a thin strip at the top left of the screen every 2 seconds (about 30 ms each time), and a few times right after you press Tab. It is the same screenshot technique as the capture key, nothing more: the game itself is never read. The capture key below keeps working in both modes, for instance to send a scoreboard before everyone has finished. Changing the mode applies within a few seconds, no restart needed.</p>
+    <div class="row"><label>Capture key <input type="text" id="kCap" style="min-width:140px"></label><label>Clear-overlay key <input type="text" id="kClr" style="min-width:140px"></label></div>
+    <p>Shortcuts look like <code>alt+numpad7</code>, <code>ctrl+shift+n</code>, <code>f9</code>. Changing them takes effect the next time the program starts.</p>
     <div class="row"><label><input type="checkbox" id="oOverlay"> Draw the allies' perks over the game's survivor list (survivor view)</label></div>
     <div class="row"><label><input type="checkbox" id="oHover"> Show a perk's text when the mouse is over its icon (the game frees the mouse when you are hooked or dead)</label></div>
     <div class="row"><label><input type="checkbox" id="oSounds"> Play a small sound: ok / not ok</label></div>
@@ -104,8 +108,6 @@
     <p>When this is on, a tiny watcher starts when you sign in to Windows (it only checks the process list every few seconds). <b>Entity Toolkit starts by itself when Dead by Daylight starts, and closes by itself when Dead by Daylight closes</b>; the watcher then waits for the next launch. Turn it off to start the toolkit by hand with <code>run.bat</code> instead.</p>
     <div class="row"><label>Update the database by itself every <select id="oDays"><option value="0">never</option><option value="1">day</option><option value="3">3 days</option><option value="7">7 days</option><option value="14">14 days</option><option value="30">30 days</option></select></label><span class="msg" id="lastUp"></span></div>
     <p>A patch can add killers, survivors, perks, add-ons or maps. While the toolkit runs, it checks once in a while whether the chosen delay has passed and then refreshes everything in the background (a few MB, no effect on the game). It never does it before you have done the first download yourself.</p>
-    <div class="row"><label>Capture key <input type="text" id="kCap" style="min-width:140px"></label><label>Clear-overlay key <input type="text" id="kClr" style="min-width:140px"></label></div>
-    <p>Shortcuts look like <code>alt+numpad7</code>, <code>ctrl+shift+n</code>, <code>f9</code>. Changing them takes effect the next time the program starts.</p>
     <div class="row"><button class="sec" id="bOpts">Save options</button><span class="msg" id="opMsg"></span></div>
   </section>
   <section class="step" id="finish">
@@ -168,7 +170,7 @@ async function refresh() {
     formLoaded = true;
     $("player").value = s.config.player;
     $("oUpload").checked = s.config.upload; $("oDry").checked = s.config.dry_run;
-    $("oOverlay").checked = s.config.overlay; $("oAutoMode").checked = s.config.auto; $("oHover").checked = s.config.perk_hover; $("oSounds").checked = s.config.sounds;
+    $("oOverlay").checked = s.config.overlay; $("oAutoMode").checked = !!s.config.auto; $("oKeyMode").checked = !s.config.auto; $("oHover").checked = s.config.perk_hover; $("oSounds").checked = s.config.sounds;
     $("oAuto").checked = s.autostart; $("oOpen").checked = s.config.open_browser; $("oTray").checked = s.config.tray; $("oVer").checked = s.config.check_version; $("oShrine").checked = s.config.shrine;
     $("verMsg").innerHTML = s.version.newer ? `Version ${s.version.current} · <b>${s.version.latest} is available</b>: <a href="${s.version.page}" target="_blank" rel="noopener">get it on GitHub</a>${s.version.exe ? " and replace this folder's files (keep your <code>data</code> folder)" : " (or <code>git pull</code>)"}, then restart.` : `Version ${s.version.current}` + (s.version.latest ? " (up to date)" : "");
     $("oDays").value = String(s.config.auto_update_days);

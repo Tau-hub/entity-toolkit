@@ -45,7 +45,7 @@ Why the overlay waits: the game's own survivor list is only visible once the Tab
 
 ## Automatic mode
 
-Tick **Automatic mode** in Settings → Options (off by default) and you no longer press the capture key:
+Settings → Options starts with a choice: **Hotkey** (the default: you press the capture key, which you can change just below) or **Automatic**. In automatic mode you no longer press the capture key:
 
 1. **At the start of the match, press Tab** as you would anyway. The toolkit sees the players menu, reads the perks and the map, and draws the overlay.
 2. **Play.** Opening Tab again does not read the menu again for 5 minutes.

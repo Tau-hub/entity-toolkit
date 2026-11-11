@@ -45,7 +45,7 @@ Pourquoi l'overlay attend : la liste des survivants du jeu n'est visible qu'une 
 
 ## Mode automatique
 
-Coche **Automatic mode** dans Settings → Options (désactivé par défaut) et tu n'appuies plus sur la touche de capture :
+Settings → Options commence par un choix : **Hotkey** (par défaut : tu appuies sur la touche de capture, modifiable juste en dessous) ou **Automatic**. En mode automatique, tu n'appuies plus sur la touche de capture :
 
 1. **Au début du match, appuie sur Tab** comme tu le ferais de toute façon. L'outil voit le menu des joueurs, lit les perks et la map, et affiche l'overlay.
 2. **Joue.** Rouvrir Tab ne relit pas le menu pendant 5 minutes.
