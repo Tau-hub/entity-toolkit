@@ -34,6 +34,10 @@ def main():
         if subprocess.call(["git", "diff", "--cached", "--quiet"], cwd=str(clone)) == 0:
             print("The wiki is already up to date.")
             return 0
+        for key in ("user.name", "user.email"):  # the same author as in this repository (it may only be set here, not globally)
+            value = subprocess.run(["git", "config", key], cwd=str(ROOT), capture_output=True, text=True).stdout.strip()
+            if value:
+                git("config", key, value, cwd=clone)
         git("commit", "--quiet", "-m", "Update from the repository's wiki/ folder", cwd=clone)
         git("push", "--quiet", cwd=clone)
         print("Wiki updated.")
