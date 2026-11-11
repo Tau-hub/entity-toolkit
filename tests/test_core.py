@@ -466,16 +466,21 @@ class AutomaticMode(unittest.TestCase):
         self.assertFalse(auto.want_end(1000, 1000 + 30))
         self.assertTrue(auto.want_end(1000, 1000 + auto.RESEND_AFTER + 1))
 
-    def test_a_survivor_row_without_a_status_icon_is_still_playing(self):
-        from PIL import Image, ImageDraw
+    def test_a_row_whose_perks_are_hidden_means_the_match_is_not_over(self):
+        import random
+        from PIL import Image
         from entity_toolkit import auto
+        rnd = random.Random(1)
         img = Image.new("RGB", (2560, 1440), (20, 24, 28))
-        d = ImageDraw.Draw(img)
-        for i in (0, 1, 3):  # a white icon left of the name on three rows; the third survivor has none yet
-            d.ellipse((222, 342 + 160.5 * i, 248, 368 + 160.5 * i), fill=(255, 255, 255))
-        self.assertEqual(auto.survivors_done(img), [True, True, False, True])
-        small = img.resize((1920, 1080))  # positions follow the screen's height
-        self.assertEqual(auto.survivors_done(small), [True, True, False, True])
+        px = img.load()
+        for row in (0, 1, 2, 4):  # every row shows its perks, except the fourth player (still in the trial)
+            for x in auto.PERKS_X:
+                cy = int(auto.ROW_Y + auto.ROW_STEP * row)
+                for dx in range(-20, 20):
+                    for dy in range(-20, 20):
+                        px[x + dx, cy + dy] = (rnd.choice((40, 230)),) * 3
+        self.assertEqual(auto.rows_revealed(img), [True, True, True, False, True])
+        self.assertEqual(auto.rows_revealed(img.resize((1920, 1080))), [True, True, True, False, True])  # positions follow the screen's height
 
 
 class Autostart(unittest.TestCase):

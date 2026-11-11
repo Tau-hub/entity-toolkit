@@ -16,7 +16,7 @@ An **unofficial** companion for *Dead by Daylight* (Windows): see your teammates
 |---|---|
 | **Allies' perks** (survivor) | Press the capture key on the Tab players menu: the toolkit reads your three allies' perks, character names and player names, shows them on the **Live** page (second screen) and draws them over the game's survivor list, on the right survivor. |
 | **Perk text on hover** | When the game frees the mouse (you are hooked or dead), put it on an overlay icon and a small box shows that perk's name, rating and text. It disappears as soon as the mouse leaves the icon. Turn it off in the Settings page. |
-| **Automatic mode** (optional) | No key at all: Tab reads the players menu, and the scoreboard is sent by itself once every survivor has finished. Off by default, in Settings. |
+| **Automatic mode** (optional) | No key at all: Tab reads the players menu, and the scoreboard is sent by itself once the match is over for everyone. Off by default, in Settings. |
 | **Map memory** (survivor and killer) | The same key reads and remembers the map from the players menu. |
 | **NightLight upload** | Press the same key on the end-of-match scoreboard: it is sent to [NightLight](https://nightlight.gg), the match is reviewed for you ("Me" ticked on your name, everyone else Random, map set from memory, Confirm clicked). |
 | **Level tracking** | A page to set how far you got with each killer and survivor, kept up to date automatically from the scoreboard. Bulk changes ask for confirmation and can be undone. |

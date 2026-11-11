@@ -3,8 +3,8 @@
 What it does, only while the game is the window in front:
  - when you press Tab, it looks a few times at a thin strip at the top left of the game's monitor; if the players menu is there, it
    does what the capture key does (perks, map, overlay);
- - every 2 seconds it looks at the same strip; when the end-of-match scoreboard is there and every survivor has finished (a status
-   icon on each of the four rows), it does what the capture key does on the scoreboard (NightLight upload, overlay removed).
+ - every 2 seconds it looks at the same strip; when the end-of-match scoreboard is there and every player's perks are revealed (the match is over
+   for everyone), it does what the capture key does on the scoreboard (NightLight upload, overlay removed).
 
 It uses nothing new: the same screenshots of the monitor, the same key-state polling and the same process-list check as the manual key.
 Nothing is read from, or sent to, the game's process. The strip is about 1/17 of the screen, and reading it takes about 30 ms, so the
@@ -66,15 +66,24 @@ def look(hwnd):
     return read_kind(Image.frombytes("RGB", shot.size, shot.bgra, "raw", "BGRX"))
 
 
-def survivors_done(img):
-    """For the four survivor rows of the scoreboard: True when the row shows a status icon (escaped, dead, disconnected...) left of the
-    name. The icons are white on a dark bar, so a row still without one has almost no bright pixel there."""
+PERKS_X = (245, 317, 397, 476)   # centres of the four perk diamonds of a scoreboard row (px on a 1440-high screen)
+ROW_Y, ROW_STEP = 433, 160.5     # centre of the first row's perks, distance between two rows
+
+
+def rows_revealed(img):
+    """For the five rows of the scoreboard (four survivors, then the killer): True when the row shows its perks.
+
+    The game hides a player's perks until the match is really over for everyone: a scoreboard seen earlier (you died first, or you came
+    back from spectating) has rows without their perk diamonds. A drawn perk is a busy little picture; a hidden or empty slot is flat.
+    """
     k = img.height / 1440
     out = []
-    for i in range(4):
-        cx, cy, half = 235 * k, (355 + 160.5 * i) * k, 22 * k
-        g = np.asarray(img.crop((int(cx - half), int(cy - half), int(cx + half), int(cy + half))).convert("L"))
-        out.append(float((g > 175).mean()) >= 0.06)
+    for i in range(5):
+        cy, half, shown = (ROW_Y + ROW_STEP * i) * k, 26 * k, False
+        for x in PERKS_X:
+            g = np.asarray(img.crop((int(x * k - half), int(cy - half), int(x * k + half), int(cy + half))).convert("L"), dtype=float)
+            shown = shown or float(g.std()) >= 15
+        out.append(shown)
     return out
 
 
@@ -97,7 +106,7 @@ class Watcher:
         self.looks = []        # moments at which to look for the players menu after a Tab press
         self.next_end = 0.0
         self.confirm = 0       # looks in a row that found a finished scoreboard
-        self.told = False      # "waiting for the survivors" was said for this scoreboard
+        self.told = False      # "waiting for the end of the match" was said for this scoreboard
 
     def step(self, now):
         """One turn of the loop; returns how long to sleep."""
@@ -133,12 +142,12 @@ class Watcher:
             if not want_end(self.ast.end_at, now):
                 return 0.03
             img = winapi.grab_game_monitor(hwnd)
-            done = survivors_done(img)
+            done = rows_revealed(img)
             if all(done):
                 self.confirm += 1
-                if self.confirm >= 2:  # seen finished twice in a row: the page has settled
+                if self.confirm >= 2:  # seen complete twice in a row: the page has settled
                     self.confirm, self.told = 0, False
-                    self.press(hwnd, "scoreboard seen, every survivor has finished", img)
+                    self.press(hwnd, "scoreboard seen, every player's perks are revealed", img)
                 else:
                     self.next_end = now + 0.7
             else:
@@ -146,8 +155,8 @@ class Watcher:
                 if not self.told:
                     self.told = True
                     left = done.count(False)
-                    self.log(f"Automatic: scoreboard seen, {left} survivor{'s' if left > 1 else ''} still in the trial: waiting")
-                    self.say(f"Scoreboard seen: waiting for {left} survivor{'s' if left > 1 else ''} to finish (press the capture key to send it now)")
+                    self.log(f"Automatic: scoreboard seen, the perks of {left} player{'s' if left > 1 else ''} are still hidden (rows {done}): waiting")
+                    self.say(f"Scoreboard seen: waiting for the end of the match ({left} player{'s' if left > 1 else ''} with hidden perks). Press the capture key to send it now")
         else:
             self.confirm, self.told = 0, False
         return 0.03

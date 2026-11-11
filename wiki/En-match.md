@@ -49,7 +49,7 @@ Settings → Options commence par un choix : **Hotkey** (par défaut : tu appuie
 
 1. **Au début du match, appuie sur Tab** comme tu le ferais de toute façon. L'outil voit le menu des joueurs, lit les perks et la map, et affiche l'overlay.
 2. **Joue.** Rouvrir Tab ne relit pas le menu pendant 5 minutes.
-3. **À la fin, reste deux secondes sur le tableau de fin.** Dès que chacun des quatre survivants a une icône d'état (échappé, mort, déconnecté), le tableau part sur NightLight et l'overlay est retiré. Si tu meurs en premier et que tu regardes le tableau pendant que les autres jouent encore, l'outil attend ; appuie sur la touche de capture si tu veux l'envoyer tout de suite.
+3. **À la fin, reste deux secondes sur le tableau de fin.** Le tableau part sur NightLight, et l'overlay est retiré, seulement quand le match est terminé pour tout le monde : le jeu dévoile alors les perks de chaque joueur, et l'outil attend que les quatre survivants et le tueur affichent les leurs. Si tu meurs en premier, ou si tu reviens du mode spectateur, le tableau que tu vois cache encore des perks : l'outil attend. Appuie sur la touche de capture si tu veux l'envoyer tout de suite.
 
 La touche de capture et la touche qui retire l'overlay marchent exactement comme avant.
 
@@ -57,4 +57,4 @@ La touche de capture et la touche qui retire l'overlay marchent exactement comme
 
 **Ce que ça touche.** Rien de nouveau par rapport à la touche de capture : une capture de l'écran, l'état de la touche Tab, et la liste des programmes lancés pour savoir que le jeu est au premier plan. La mémoire et les fichiers du jeu ne sont jamais lus, et rien n'est envoyé au jeu. Comme toujours, aucune garantie vis-à-vis de l'anti-triche : voir le README.
 
-**Limites.** Un tableau n'est envoyé que si les quatre lignes de survivants ont une icône d'état, donc un match personnalisé avec moins de survivants ne part pas tout seul : utilise la touche de capture. Après un tableau, le suivant ne part pas tout seul pendant 2 min 30 (pour que quitter la page puis y revenir ne l'envoie pas deux fois).
+**Limites.** Un tableau n'est envoyé que si les cinq lignes montrent au moins une perk, donc un match personnalisé avec moins de joueurs, ou un joueur venu sans aucune perk, ne part pas tout seul : utilise la touche de capture. Après un tableau, le suivant ne part pas tout seul pendant 2 min 30 (pour que quitter la page puis y revenir ne l'envoie pas deux fois).

@@ -49,7 +49,7 @@ Settings → Options starts with a choice: **Hotkey** (the default: you press th
 
 1. **At the start of the match, press Tab** as you would anyway. The toolkit sees the players menu, reads the perks and the map, and draws the overlay.
 2. **Play.** Opening Tab again does not read the menu again for 5 minutes.
-3. **At the end, stay on the scoreboard a couple of seconds.** As soon as each of the four survivors has a status icon (escaped, dead, disconnected), the scoreboard is sent to NightLight and the overlay is removed. If you die first and look at the scoreboard while the others still play, the toolkit waits; press the capture key if you want to send it right away.
+3. **At the end, stay on the scoreboard a couple of seconds.** The scoreboard is sent to NightLight, and the overlay removed, only when the match is over for everyone: the game then reveals every player's perks, and the toolkit waits until the four survivors and the killer all show theirs. If you die first, or come back from spectating, the scoreboard you see still hides some perks: the toolkit waits. Press the capture key if you want to send it right away.
 
 The capture key and the clear key keep working exactly as before.
 
@@ -57,4 +57,4 @@ The capture key and the clear key keep working exactly as before.
 
 **What it touches.** Nothing new compared with the capture key: a screenshot of the monitor, the state of the Tab key, and the list of running programs to know the game is in front. The game's memory and files are never read, and nothing is sent to the game. As always, there is no guarantee about anti-cheat: see the README.
 
-**Limits.** A scoreboard is sent only when four survivor rows show a status icon, so a custom match with fewer survivors is not sent by itself: use the capture key. After one scoreboard, the next one is not sent by itself for 2.5 minutes (so leaving the page and coming back does not send it twice).
+**Limits.** A scoreboard is sent only when all five rows show at least one perk, so a custom match with fewer players, or a player who brought no perk at all, is not sent by itself: use the capture key. After one scoreboard, the next one is not sent by itself for 2.5 minutes (so leaving the page and coming back does not send it twice).
