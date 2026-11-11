@@ -42,3 +42,19 @@ The toolkit stops by itself when the game closes. To have it start by itself whe
 **Reading a perk:** while the mouse is free (hooked, dead, spectating), hover an icon of the overlay to see its text; move off the icon and it goes away. It only reads the mouse position (no hook, nothing read from the game): nothing at all while the overlay is hidden, twice a second while you play (the game hides and locks the cursor), and a fast check (25 times a second) only when the mouse is free **and** near the icons. During normal play the mouse is locked to the camera, so nothing shows. `data/entity_toolkit.log` records it: `Overlay hover:` lines for every change (mouse locked / free, text shown / hidden) and a summary of the number of checks each minute.
 
 Why the overlay waits: the game's own survivor list is only visible once the Tab menu is closed. After the key press the toolkit watches the screen, reads the names in the game's list and matches each ally to the right row, first by **portrait**, then by **player name** when two allies play the same character or the portraits are too similar. Your own row never moves.
+
+## Automatic mode
+
+Tick **Automatic mode** in Settings → Options (off by default) and you no longer press the capture key:
+
+1. **At the start of the match, press Tab** as you would anyway. The toolkit sees the players menu, reads the perks and the map, and draws the overlay.
+2. **Play.** Opening Tab again does not read the menu again for 5 minutes.
+3. **At the end, stay on the scoreboard a couple of seconds.** As soon as each of the four survivors has a status icon (escaped, dead, disconnected), the scoreboard is sent to NightLight and the overlay is removed. If you die first and look at the scoreboard while the others still play, the toolkit waits; press the capture key if you want to send it right away.
+
+The capture key and the clear key keep working exactly as before.
+
+**What it costs.** While the game is the window in front, the toolkit looks at a thin strip at the top left of the screen (where *PLAYERS* and *MATCH SCOREBOARD* are written) every 2 seconds, and three times in the two seconds after a Tab press. One look takes about 30 ms. When the game is not in front, it looks at nothing.
+
+**What it touches.** Nothing new compared with the capture key: a screenshot of the monitor, the state of the Tab key, and the list of running programs to know the game is in front. The game's memory and files are never read, and nothing is sent to the game. As always, there is no guarantee about anti-cheat: see the README.
+
+**Limits.** A scoreboard is sent only when four survivor rows show a status icon, so a custom match with fewer survivors is not sent by itself: use the capture key. After one scoreboard, the next one is not sent by itself for 2.5 minutes (so leaving the page and coming back does not send it twice).

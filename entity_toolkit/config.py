@@ -7,6 +7,7 @@ DEFAULTS = {
     "player": "",                 # your in-game name, as shown on the scoreboard (needed to tick "Me" on NightLight)
     "capture_key": "alt+numpad7",  # one key does everything: players menu -> perks + map, scoreboard -> NightLight upload
     "clear_key": "alt+numpad8",    # removes the perk overlay
+    "auto": False,                # automatic mode: Tab reads the players menu and the scoreboard is sent by itself, without the capture key (which keeps working)
     "overlay": True,              # draw the allies' perks over the game's survivor list
     "perk_hover": True,           # show a perk's text when the mouse is over its icon (the game frees the cursor when you are hooked or dead)
     "sounds": True,               # small "ok" / "not ok" sounds

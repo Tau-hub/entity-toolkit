@@ -117,7 +117,7 @@ class Hub:
         with self.lock:
             s = dict(self.state)
         cfg = config.load()
-        s.update(ready=db_ready(), key=winapi.combo_label(cfg["capture_key"]))
+        s.update(ready=db_ready(), key=winapi.combo_label(cfg["capture_key"]), auto=bool(cfg.get("auto")))
         return s
 
     def quit(self):

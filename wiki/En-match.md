@@ -42,3 +42,19 @@ L'outil s'arrête tout seul quand le jeu se ferme. Pour qu'il démarre tout seul
 **Lire une perk :** tant que la souris est libre (accroché, mort, spectateur), survole une icône de l'overlay pour voir son texte ; sors de l'icône et il disparaît. L'outil ne lit que la position de la souris (aucun crochet, rien n'est lu dans le jeu) : rien du tout quand l'overlay est caché, deux fois par seconde pendant que tu joues (le jeu cache et bloque le curseur), et une vérification rapide (25 fois par seconde) seulement quand la souris est libre **et** près des icônes. En jeu normal la souris est bloquée sur la caméra, donc rien ne s'affiche. `data/entity_toolkit.log` garde la trace : des lignes `Overlay hover:` à chaque changement (souris bloquée / libre, texte affiché / masqué) et un résumé du nombre de vérifications chaque minute.
 
 Pourquoi l'overlay attend : la liste des survivants du jeu n'est visible qu'une fois le menu Tab refermé. Après l'appui, l'outil surveille l'écran, lit les noms de la liste du jeu et associe chaque allié à la bonne ligne, d'abord par **portrait**, puis par **pseudo** quand deux alliés jouent le même personnage ou que les portraits se ressemblent trop. Ta propre ligne ne bouge jamais.
+
+## Mode automatique
+
+Coche **Automatic mode** dans Settings → Options (désactivé par défaut) et tu n'appuies plus sur la touche de capture :
+
+1. **Au début du match, appuie sur Tab** comme tu le ferais de toute façon. L'outil voit le menu des joueurs, lit les perks et la map, et affiche l'overlay.
+2. **Joue.** Rouvrir Tab ne relit pas le menu pendant 5 minutes.
+3. **À la fin, reste deux secondes sur le tableau de fin.** Dès que chacun des quatre survivants a une icône d'état (échappé, mort, déconnecté), le tableau part sur NightLight et l'overlay est retiré. Si tu meurs en premier et que tu regardes le tableau pendant que les autres jouent encore, l'outil attend ; appuie sur la touche de capture si tu veux l'envoyer tout de suite.
+
+La touche de capture et la touche qui retire l'overlay marchent exactement comme avant.
+
+**Ce que ça coûte.** Tant que le jeu est la fenêtre au premier plan, l'outil regarde une fine bande en haut à gauche de l'écran (là où sont écrits *PLAYERS* et *MATCH SCOREBOARD*) toutes les 2 secondes, et trois fois dans les deux secondes qui suivent un appui sur Tab. Un coup d'œil prend environ 30 ms. Quand le jeu n'est pas au premier plan, il ne regarde rien.
+
+**Ce que ça touche.** Rien de nouveau par rapport à la touche de capture : une capture de l'écran, l'état de la touche Tab, et la liste des programmes lancés pour savoir que le jeu est au premier plan. La mémoire et les fichiers du jeu ne sont jamais lus, et rien n'est envoyé au jeu. Comme toujours, aucune garantie vis-à-vis de l'anti-triche : voir le README.
+
+**Limites.** Un tableau n'est envoyé que si les quatre lignes de survivants ont une icône d'état, donc un match personnalisé avec moins de survivants ne part pas tout seul : utilise la touche de capture. Après un tableau, le suivant ne part pas tout seul pendant 2 min 30 (pour que quitter la page puis y revenir ne l'envoie pas deux fois).

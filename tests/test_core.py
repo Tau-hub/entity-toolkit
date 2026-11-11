@@ -448,6 +448,36 @@ class TrayMenu(unittest.TestCase):
         self.assertEqual(tray.PAGES, nav)
 
 
+class AutomaticMode(unittest.TestCase):
+    def test_the_strip_text_tells_the_screen(self):
+        from entity_toolkit import auto
+        self.assertEqual(auto.kind_of("Match SCOREBOARD"), "end")
+        self.assertEqual(auto.kind_of("players quests power"), "players")
+        self.assertEqual(auto.kind_of("PLAY QUESTS"), "players")      # PLAYERS read short
+        self.assertIsNone(auto.kind_of("PLAY AS KILLER"))             # a lobby button is not the players menu
+        self.assertIsNone(auto.kind_of(""))
+
+    def test_the_menu_is_not_read_twice_in_a_row_nor_a_scoreboard_sent_twice(self):
+        from entity_toolkit import auto
+        self.assertTrue(auto.want_players(None, 1000))
+        self.assertFalse(auto.want_players(1000, 1000 + 60))
+        self.assertTrue(auto.want_players(1000, 1000 + auto.REREAD_AFTER + 1))
+        self.assertTrue(auto.want_end(None, 1000))
+        self.assertFalse(auto.want_end(1000, 1000 + 30))
+        self.assertTrue(auto.want_end(1000, 1000 + auto.RESEND_AFTER + 1))
+
+    def test_a_survivor_row_without_a_status_icon_is_still_playing(self):
+        from PIL import Image, ImageDraw
+        from entity_toolkit import auto
+        img = Image.new("RGB", (2560, 1440), (20, 24, 28))
+        d = ImageDraw.Draw(img)
+        for i in (0, 1, 3):  # a white icon left of the name on three rows; the third survivor has none yet
+            d.ellipse((222, 342 + 160.5 * i, 248, 368 + 160.5 * i), fill=(255, 255, 255))
+        self.assertEqual(auto.survivors_done(img), [True, True, False, True])
+        small = img.resize((1920, 1080))  # positions follow the screen's height
+        self.assertEqual(auto.survivors_done(small), [True, True, False, True])
+
+
 class Autostart(unittest.TestCase):
     def test_launcher_starts_the_watcher_with_python_or_with_the_exe(self):
         from entity_toolkit import autostart

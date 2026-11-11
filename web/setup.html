@@ -88,6 +88,8 @@
 
   <section class="step" id="s6">
     <h2><span class="n">6</span>Options</h2>
+    <div class="row"><label><input type="checkbox" id="oAutoMode"> <b>Automatic mode</b>: no key to press. Tab reads the players menu, and the scoreboard is sent by itself once every survivor has finished</label></div>
+    <p>While the game is in front, the toolkit looks at a thin strip at the top left of the screen every 2 seconds (about 30 ms each time), and a few times right after you press Tab. It is the same screenshot technique as the capture key, nothing more: the game itself is never read. The capture key keeps working, for instance to send a scoreboard before everyone has finished. Applies within a few seconds, no restart needed.</p>
     <div class="row"><label><input type="checkbox" id="oOverlay"> Draw the allies' perks over the game's survivor list (survivor view)</label></div>
     <div class="row"><label><input type="checkbox" id="oHover"> Show a perk's text when the mouse is over its icon (the game frees the mouse when you are hooked or dead)</label></div>
     <div class="row"><label><input type="checkbox" id="oSounds"> Play a small sound: ok / not ok</label></div>
@@ -166,7 +168,7 @@ async function refresh() {
     formLoaded = true;
     $("player").value = s.config.player;
     $("oUpload").checked = s.config.upload; $("oDry").checked = s.config.dry_run;
-    $("oOverlay").checked = s.config.overlay; $("oHover").checked = s.config.perk_hover; $("oSounds").checked = s.config.sounds;
+    $("oOverlay").checked = s.config.overlay; $("oAutoMode").checked = s.config.auto; $("oHover").checked = s.config.perk_hover; $("oSounds").checked = s.config.sounds;
     $("oAuto").checked = s.autostart; $("oOpen").checked = s.config.open_browser; $("oTray").checked = s.config.tray; $("oVer").checked = s.config.check_version; $("oShrine").checked = s.config.shrine;
     $("verMsg").innerHTML = s.version.newer ? `Version ${s.version.current} · <b>${s.version.latest} is available</b>: <a href="${s.version.page}" target="_blank" rel="noopener">get it on GitHub</a>${s.version.exe ? " and replace this folder's files (keep your <code>data</code> folder)" : " (or <code>git pull</code>)"}, then restart.` : `Version ${s.version.current}` + (s.version.latest ? " (up to date)" : "");
     $("oDays").value = String(s.config.auto_update_days);
@@ -207,7 +209,7 @@ $("oAuto").onchange = async (e) => {
   $("auMsg").textContent = r.error ? "Error: " + r.error : r.enabled ? "On: takes effect at your next Windows sign-in." : "Off.";
 };
 $("bOpts").onclick = async () => {
-  const r = await post("/api/config", { upload: $("oUpload").checked, dry_run: $("oDry").checked, overlay: $("oOverlay").checked, perk_hover: $("oHover").checked, sounds: $("oSounds").checked, open_browser: $("oOpen").checked, tray: $("oTray").checked, check_version: $("oVer").checked, shrine: $("oShrine").checked, auto_update_days: +$("oDays").value, keep_captures: Math.max(0, parseInt($("kKeep").value, 10) || 0), capture_key: $("kCap").value.trim(), clear_key: $("kClr").value.trim() });
+  const r = await post("/api/config", { upload: $("oUpload").checked, dry_run: $("oDry").checked, overlay: $("oOverlay").checked, auto: $("oAutoMode").checked, perk_hover: $("oHover").checked, sounds: $("oSounds").checked, open_browser: $("oOpen").checked, tray: $("oTray").checked, check_version: $("oVer").checked, shrine: $("oShrine").checked, auto_update_days: +$("oDays").value, keep_captures: Math.max(0, parseInt($("kKeep").value, 10) || 0), capture_key: $("kCap").value.trim(), clear_key: $("kClr").value.trim() });
   $("opMsg").textContent = r.error ? "Error: " + r.error : "Saved.";
 };
 window.addEventListener("et-show", () => refresh());  // the shell re-shows this page: refresh its data

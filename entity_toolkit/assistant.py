@@ -15,7 +15,7 @@ import re
 import threading
 import time
 
-from . import analyzer as an, captures, config, levels, nightlight, ocr, paths, review, sounds, winapi
+from . import analyzer as an, auto, captures, config, levels, nightlight, ocr, paths, review, sounds, winapi
 from .log import log
 from .text import norm
 
@@ -91,6 +91,8 @@ class Assistant:
         self.last_upload = 0.0
         self.overlay_was_on = False  # this press has just removed the overlay
         self.last_menu = None  # (allies, your row, menu screenshot, time) of the last press in the players menu
+        self.players_at = None  # when the players menu was last read for the current match (automatic mode does not read it again right away)
+        self.end_at = None      # when a scoreboard was last handled (automatic mode does not handle the same one twice)
 
     @property
     def cfg(self):
@@ -105,8 +107,10 @@ class Assistant:
         log(f"Screen recognised: {kind or 'none'}")
         threading.Thread(target=captures.save, args=(img.copy(), kind or "other"), daemon=True).start()  # rotation of the last captures, off the critical path
         if kind == "players":
+            self.players_at = time.time()
             self.on_players(img)
         elif kind == "end":
+            self.end_at, self.players_at = time.time(), None
             self.last_menu = None  # the match is over: its perks must never come back (not as an overlay, not as mouse checks)
             self.on_end(img)
         elif self.overlay and self.cfg["overlay"] and self.last_menu and time.time() - self.last_menu[3] < 45 * 60:
@@ -232,12 +236,12 @@ def run(hub, ast, stop_with_game=True):
     capture, clear = winapi.parse_combo(cfg["capture_key"]), winapi.parse_combo(cfg["clear_key"])
     label = winapi.combo_label(cfg["capture_key"])
 
-    def on_press(hwnd):
+    def on_press(hwnd, why=None):
         if not ast.busy.acquire(blocking=False):
             log("Press ignored: a job is already running")
             return
         try:
-            log(f"{label} pressed (game window {hwnd})")
+            log(f"Automatic: {why} (game window {hwnd})" if why else f"{label} pressed (game window {hwnd})")
             ast.overlay_was_on = ast.overlay.hide() if ast.overlay else False  # removed before the capture: it must not get in the way of reading
             if ast.overlay_was_on:
                 log("Overlay removed")
@@ -259,6 +263,7 @@ def run(hub, ast, stop_with_game=True):
     def clear_overlay():
         was = ast.overlay.hide() if ast.overlay else False  # removes the drawing or cancels a wait in progress
         ast.last_menu = None  # a press outside the menu no longer puts it back
+        ast.players_at = None  # automatic mode: the next Tab reads the menu again
         log("Overlay removed" if was else "No overlay to remove (perk memory cleared)")
 
     def keys():
@@ -296,6 +301,18 @@ def run(hub, ast, stop_with_game=True):
                     return
             time.sleep(3)
 
+    state = {"on": False, "at": 0.0}
+
+    def auto_on():  # the setting is read again every 2 seconds, so ticking it on the Settings page works without a restart
+        if time.time() - state["at"] > 2:
+            on = bool(config.load().get("auto"))
+            if on != state["on"]:
+                log("Automatic mode on: Tab reads the players menu, the scoreboard is sent by itself" if on else "Automatic mode off")
+            state.update(on=on, at=time.time())
+        return state["on"]
+
+    watcher = auto.Watcher(ast, lambda hwnd, why: threading.Thread(target=on_press, args=(hwnd, why), daemon=True).start(), auto_on, hub.status, log)
+    threading.Thread(target=watcher.run, daemon=True, name="auto").start()
     threading.Thread(target=keys, daemon=True).start()
     threading.Thread(target=watch_game, daemon=True).start()
     return label

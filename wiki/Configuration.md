@@ -9,7 +9,7 @@
 3. **You.** Saisis ton pseudo en jeu exactement comme sur le tableau de fin.
 4. **Your levels.** Dépose des captures des écrans de sélection des tueurs et des survivants directement dans la page Setup : l'outil lit quels personnages tu as et leurs niveaux (tu vérifies avant d'enregistrer), ou règle-les à la main sur la page **Levels** (voir plus bas).
 5. **NightLight** (facultatif). Colle un jeton d'API créé dans les paramètres de ton compte NightLight et connecte-toi une fois dans la fenêtre Edge qu'ouvre le bouton. L'outil ne voit jamais ton mot de passe.
-6. **Options.** Overlay oui/non, sons, icône dans la zone de notification, vérification d'une nouvelle version, ouverture de la page Live dans ton navigateur au démarrage de l'outil (activée par défaut : avec le démarrage automatique, la page s'ouvre à chaque lancement du jeu), simulation (enregistre le tableau mais ne l'envoie jamais) et les touches.
+6. **Options.** Mode automatique (voir [En match](https://github.com/Tau-hub/entity-toolkit/wiki/En-match#mode-automatique)), overlay oui/non, sons, icône dans la zone de notification, vérification d'une nouvelle version, ouverture de la page Live dans ton navigateur au démarrage de l'outil (activée par défaut : avec le démarrage automatique, la page s'ouvre à chaque lancement du jeu), simulation (enregistre le tableau mais ne l'envoie jamais) et les touches.
 
 Quand tu appuies sur **Finish setup**, le bouton *Setup* devient **⚙ Settings** (en haut à droite) : la même page sans les prérequis, pour mettre à jour la base, changer ton pseudo, importer les niveaux, régler le jeton NightLight et les options. *Reset the setup* en bas refait apparaître la checklist de premier lancement (tes données sont gardées).
 
