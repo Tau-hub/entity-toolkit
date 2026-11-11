@@ -106,7 +106,7 @@ class Burst:
     """A few more screenshots of the players menu, taken in the background while the first one is being read. They are only looked at
     when that first reading is incomplete (an ally missing, a name unreadable): the mouse may have moved off the icon by then."""
 
-    def __init__(self, hwnd, delays=(0.4, 0.9, 1.6, 2.5)):
+    def __init__(self, hwnd, delays=(0.15, 0.35, 0.6, 0.9, 1.3, 1.8)):  # close together: the menu is often open for a second or two only
         self.frames = []
         self.thread = threading.Thread(target=self._run, args=(hwnd, delays), daemon=True)
         self.thread.start()
