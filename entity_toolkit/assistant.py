@@ -118,11 +118,14 @@ class Burst:
             try:
                 img = winapi.grab_game_monitor(hwnd)
                 if auto.read_kind(auto.strip_of(img)) != "players":
-                    break  # the menu was closed (or it was not the menu at all): nothing more to take
+                    log(f"Extra screenshots: the menu was no longer on screen {d} s after the first one ({len(self.frames)} kept)")
+                    return  # the menu was closed (or it was not the menu at all): nothing more to take
                 self.frames.append(img)
                 captures.save(img.copy(), f"players-extra{len(self.frames)}")  # kept with the other captures, to see afterwards what was read
-            except Exception:
-                break
+            except Exception as e:
+                log(f"Extra screenshots stopped: {type(e).__name__}: {e}")
+                return
+        log(f"Extra screenshots: {len(self.frames)} kept")
 
     def get(self):
         self.thread.join(4)
