@@ -78,6 +78,56 @@ def read_complete(allies, known):
     return len(allies) >= 3 and all(norm(a.get("survivor") or "") in known for a in allies)
 
 
+def merge_readings(readings, known):
+    """The best of several readings of the same players menu, ally by ally: a recognised survivor wins over an unreadable one, a player
+    name over none, and each of the four perks keeps its most confident reading. A row hidden on one screenshot (the game's tooltip
+    under the mouse) is taken from another one."""
+    known = {norm(n) for n in known}
+    ok = lambda a: norm(a.get("survivor") or "") in known
+    rows = {}
+    for res in readings:
+        for a in res["allies"]:
+            b = rows.get(a["row"])
+            if b is None:
+                rows[a["row"]] = dict(a, perks=list(a["perks"]))
+                continue
+            if ok(a) and not ok(b):
+                b["survivor"], b["player"] = a["survivor"], a["player"] or b["player"]
+            elif ok(a) == ok(b) and a["player"] and not b["player"]:
+                b["player"] = a["player"]
+            b["perks"] = [x if x["score"] >= y["score"] else y for x, y in zip(b["perks"], a["perks"])]
+    out = dict(readings[0], allies=[rows[r] for r in sorted(rows)])
+    for key in ("map", "realm"):
+        out[key] = next((r[key] for r in readings if r.get(key)), None)
+    return out
+
+
+class Burst:
+    """A few more screenshots of the players menu, taken in the background while the first one is being read. They are only looked at
+    when that first reading is incomplete (an ally missing, a name unreadable): the mouse may have moved off the icon by then."""
+
+    def __init__(self, hwnd, delays=(0.4, 0.9, 1.6, 2.5)):
+        self.frames = []
+        self.thread = threading.Thread(target=self._run, args=(hwnd, delays), daemon=True)
+        self.thread.start()
+
+    def _run(self, hwnd, delays):
+        t0 = time.time()
+        for d in delays:
+            time.sleep(max(0.0, t0 + d - time.time()))
+            try:
+                img = winapi.grab_game_monitor(hwnd)
+                if auto.read_kind(auto.strip_of(img)) != "players":
+                    break  # the menu was closed (or it was not the menu at all): nothing more to take
+                self.frames.append(img)
+            except Exception:
+                break
+
+    def get(self):
+        self.thread.join(4)
+        return list(self.frames)
+
+
 def own_row(img, pseudo):
     """Rank (0 = top row, 4 = bottom row) of your name on the scoreboard, read by OCR; None if not found."""
     w, h = img.size
@@ -108,6 +158,8 @@ class Assistant:
         self.players_at = None  # when the players menu was last read for the current match (automatic mode does not read it again right away)
         self.end_at = None      # when a scoreboard was last handled (automatic mode does not handle the same one twice)
         self.complete = False   # the last players-menu reading found the three allies and their survivors
+        self.burst = None       # the extra screenshots being taken for the press in progress
+        self.partial = None     # (incomplete reading, time): completed by the next reading of the same menu
         self.retries = 0        # automatic mode: readings done again because the last one was incomplete (at most 2 per match)
 
     @property
@@ -183,6 +235,17 @@ class Assistant:
                 time.sleep(1.0)
                 img = winapi.grab_game_monitor(self.hwnd)
                 res = self.analyzer.analyze(img)
+            known = an.survivor_names()
+            if not read_complete(res["allies"], known):  # something is missing: use the other screenshots taken meanwhile, then what the previous try had read
+                for n, frame in enumerate(reversed(self.burst.get() if self.burst else []), 1):  # the latest first: the most likely to differ
+                    log(f"Incomplete reading ({len(res['allies'])} allies): reading another screenshot of the menu ({n})")
+                    res = merge_readings([res, self.analyzer.analyze(frame)], known)
+                    if read_complete(res["allies"], known):
+                        break
+                if not read_complete(res["allies"], known) and self.partial and time.time() - self.partial[1] < 120:
+                    res = merge_readings([res, self.partial[0]], known)
+                log(f"After putting the readings together: {[(a['row'], a['survivor']) for a in res['allies']]}")
+            self.partial = None if read_complete(res["allies"], known) else (res, time.time())
             allies = [a["survivor"] for a in res["allies"] if a["survivor"]]
             if not allies and self.last_menu and self.overlay and self.cfg["overlay"] and time.time() - self.last_menu[3] < 45 * 60:
                 prev, me, menu, _ = self.last_menu  # unreadable this time: same match, so the overlay already known stays
@@ -305,6 +368,7 @@ def run(hub, ast, stop_with_game=True):
                 img = winapi.grab_game_monitor(hwnd)
                 log(f"Game screen captured: {img.size[0]}x{img.size[1]} in {time.time() - t0:.2f} s")
             ast.hwnd = hwnd
+            ast.burst = Burst(hwnd)  # a few more screenshots while this one is read (they stop by themselves when it is not the players menu)
             ast.handle(img, quiet=bool(why))
             log(f"Done in {time.time() - t0:.1f} s")
         except Exception as e:

@@ -504,6 +504,26 @@ class CompleteReading(unittest.TestCase):
         self.assertFalse(assistant.read_complete([{"survivor": "KATE DENSON"}, {"survivor": "ADA WONG"}, {"survivor": ""}], self.KNOWN))
 
 
+class SeveralScreenshots(unittest.TestCase):
+    KNOWN = ["Kate Denson", "Ada Wong", "Thalita Lyra"]
+
+    @staticmethod
+    def ally(row, survivor, player, scores):
+        return {"row": row, "survivor": survivor, "player": player, "perks": [{"score": s, "icon": f"{survivor}{i}{s}"} for i, s in enumerate(scores)]}
+
+    def test_a_row_hidden_on_one_screenshot_comes_from_another(self):
+        first = {"me_row": 0, "map": None, "realm": None, "allies": [self.ally(1, "KATE DENSON", "", [0.9, 0.9, 0.2, 0.9]), self.ally(3, "Nell. sed to repair", "Jget", [0.3, 0.3, 0.3, 0.3])]}
+        later = {"me_row": 0, "map": "Disturbed Ward", "realm": "Crotus Prenn Asylum",
+                 "allies": [self.ally(1, "KATE DENSON", "Bogdan", [0.8, 0.8, 0.95, 0.8]), self.ally(2, "ADA WONG", "friikk", [0.9] * 4), self.ally(3, "THALITA LYRA", "Big mc nugget", [0.9] * 4)]}
+        got = assistant.merge_readings([first, later], self.KNOWN)
+        self.assertEqual([(a["row"], a["survivor"], a["player"]) for a in got["allies"]],
+                         [(1, "KATE DENSON", "Bogdan"), (2, "ADA WONG", "friikk"), (3, "THALITA LYRA", "Big mc nugget")])
+        self.assertEqual([p["score"] for p in got["allies"][0]["perks"]], [0.9, 0.9, 0.95, 0.9])  # each perk keeps its most confident reading
+        self.assertEqual(got["map"], "Disturbed Ward")
+        self.assertTrue(assistant.read_complete(got["allies"], self.KNOWN))
+        self.assertFalse(assistant.read_complete(first["allies"], self.KNOWN))
+
+
 class Autostart(unittest.TestCase):
     def test_launcher_starts_the_watcher_with_python_or_with_the_exe(self):
         from entity_toolkit import autostart
