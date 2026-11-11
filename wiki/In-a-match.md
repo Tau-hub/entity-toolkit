@@ -6,15 +6,15 @@ The toolkit acts at **two moments** of a match: at the start, on the players men
 
 | Mode | At the start | At the end |
 |---|---|---|
-| **Hotkey** (the default) | Open the players menu (Tab) and press **your capture key** | Press **your capture key** on the scoreboard |
-| **Automatic** | Open the players menu (Tab) and keep it open about one second | Nothing: the scoreboard is sent by itself |
+| **Automatic** (the default) | Open the players menu (Tab) and keep it open about one second | Nothing: the scoreboard is sent by itself |
+| **Hotkey** | Open the players menu (Tab) and press **your capture key** | Press **your capture key** on the scoreboard |
 
 **Your capture key** is the one set in Settings. It is **Alt + Numpad 7** until you change it (NumLock on), and any combination works: `f9`, `ctrl+shift+n`… The second key, the **clear key** (Alt + Numpad 8 until you change it), removes the overlay.
 
 **1. At the start: the players menu is read.** The toolkit takes a screenshot of the game, reads the map name at the bottom, then for each ally the character, the player name and the four perks (icons compared with the downloaded ones). A short "ok" sound tells you it worked; the result also shows on the **Live** page.
 
-- *Hotkey:* open the menu with Tab and press your capture key.
 - *Automatic:* open the menu with Tab and keep it open about one second.
+- *Hotkey:* open the menu with Tab and press your capture key.
 
 ![The Tab players menu, as it is read (player names blurred)](https://raw.githubusercontent.com/Tau-hub/entity-toolkit/main/docs/images/players-menu.jpg)
 
@@ -37,7 +37,7 @@ If you do not want a match uploaded, press your clear key before the scoreboard 
 
 ## Hotkey mode
 
-Your capture key only reacts while the game is running **and** in front. What it does depends on the screen:
+Choose **Hotkey** in Settings → *Hotkey or automatic* if you would rather decide yourself when the toolkit reads the screen: nothing is then looked at until you press your capture key. Your capture key only reacts while the game is running **and** in front. What it does depends on the screen:
 
 | You are on… | Your capture key does this |
 |---|---|
@@ -52,7 +52,7 @@ Both keys are changed in Settings → *Hotkey or automatic*; a new shortcut take
 
 ## Automatic mode
 
-Choose **Automatic** in Settings → *Hotkey or automatic* (it applies within a few seconds, no restart). You then press no key at all:
+This is the mode the toolkit starts in (Settings → *Hotkey or automatic*; a change applies within a few seconds, no restart). You press no key at all:
 
 1. **At the start of the match, press Tab and keep the menu open about one second.** The toolkit sees the players menu, reads the perks and the map, and draws the overlay. A tap shorter than half a second can be missed: nothing happens then, just press Tab again a little longer.
 2. **Play.** Opening Tab again changes nothing: the toolkit sees the same allies and keeps the perks already shown.

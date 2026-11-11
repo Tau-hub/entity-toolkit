@@ -16,7 +16,7 @@ An **unofficial** companion for *Dead by Daylight* (Windows): see your teammates
 |---|---|
 | **Allies' perks** (survivor) | On the Tab players menu (with your capture key, or by itself in automatic mode), the toolkit reads your three allies' perks, character names and player names, shows them on the **Live** page (second screen) and draws them over the game's survivor list, on the right survivor. |
 | **Perk text on hover** | When the game frees the mouse (you are hooked or dead), put it on an overlay icon and a small box shows that perk's name, rating and text. It disappears as soon as the mouse leaves the icon. Turn it off in the Settings page. |
-| **Automatic mode** (optional) | No key at all: Tab (menu open about one second) reads the players menu, and the scoreboard is sent by itself once the match is over for everyone. Off by default, in Settings. |
+| **Automatic mode** (the default) | No key at all: Tab (menu open about one second) reads the players menu, and the scoreboard is sent by itself once the match is over for everyone. Prefer a key? Choose *Hotkey* in Settings. |
 | **Map memory** (survivor and killer) | The map is read from the players menu at the same time, and remembered for the upload. |
 | **NightLight upload** | On the end-of-match scoreboard (same key, or by itself in automatic mode), the match is sent to [NightLight](https://nightlight.gg), the match is reviewed for you ("Me" ticked on your name, everyone else Random, map set from memory, Confirm clicked). |
 | **Level tracking** | A page to set how far you got with each killer and survivor, kept up to date automatically from the scoreboard. Bulk changes ask for confirmation and can be undone. |
@@ -42,12 +42,12 @@ An **unofficial** companion for *Dead by Daylight* (Windows): see your teammates
 
 ## In a match
 
-The toolkit acts at two moments, the start and the end of a match. You choose in Settings how they are triggered: **Hotkey** (a capture key of your choice, Alt + Numpad 7 until you change it) or **Automatic** (no key at all).
+The toolkit acts at two moments, the start and the end of a match. You choose in Settings how they are triggered: **Automatic** (the default: no key at all) or **Hotkey** (a capture key of your choice, Alt + Numpad 7 until you change it).
 
-| | Hotkey mode | Automatic mode |
+| | Automatic mode (default) | Hotkey mode |
 |---|---|---|
-| **Start of the match** | Open the players menu (Tab) and press your capture key | Open the players menu (Tab) and keep it open about one second |
-| **End of the match** | Press your capture key on the scoreboard | Nothing: it is sent once every player's perks are revealed |
+| **Start of the match** | Open the players menu (Tab) and keep it open about one second | Open the players menu (Tab) and press your capture key |
+| **End of the match** | Nothing: it is sent once every player's perks are revealed | Press your capture key on the scoreboard |
 
 1. **Start: the players menu is read.** Your three allies' perks and the map.
 2. **Close the menu**: each ally's four perks stay drawn next to their portrait, for the whole match. Your clear key (Alt + Numpad 8 until you change it) removes them.

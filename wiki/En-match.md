@@ -6,15 +6,15 @@ L'outil agit à **deux moments** d'une partie : au début, sur le menu des joueu
 
 | Mode | Au début | À la fin |
 |---|---|---|
-| **Hotkey** (par défaut) | Ouvre le menu des joueurs (Tab) et appuie sur **ta touche de capture** | Appuie sur **ta touche de capture** sur le tableau de fin |
-| **Automatic** | Ouvre le menu des joueurs (Tab) et garde-le ouvert environ une seconde | Rien : le tableau part tout seul |
+| **Automatic** (par défaut) | Ouvre le menu des joueurs (Tab) et garde-le ouvert environ une seconde | Rien : le tableau part tout seul |
+| **Hotkey** | Ouvre le menu des joueurs (Tab) et appuie sur **ta touche de capture** | Appuie sur **ta touche de capture** sur le tableau de fin |
 
 **Ta touche de capture** est celle réglée dans Settings. C'est **Alt + pavé numérique 7** tant que tu ne la changes pas (verrouillage numérique activé), et n'importe quelle combinaison convient : `f9`, `ctrl+shift+n`… La seconde touche, celle qui **retire l'overlay** (Alt + pavé numérique 8 tant que tu ne la changes pas), efface les perks affichées.
 
 **1. Au début : le menu des joueurs est lu.** L'outil prend une capture du jeu, lit le nom de la map en bas, puis pour chaque allié le personnage, le pseudo et les quatre perks (icônes comparées à celles téléchargées). Un petit son « ok » te dit que ça a marché ; le résultat s'affiche aussi sur la page **Live**.
 
-- *Hotkey :* ouvre le menu avec Tab et appuie sur ta touche de capture.
 - *Automatic :* ouvre le menu avec Tab et garde-le ouvert environ une seconde.
+- *Hotkey :* ouvre le menu avec Tab et appuie sur ta touche de capture.
 
 ![Le menu Tab des joueurs, tel qu'il est lu (pseudos floutés)](https://raw.githubusercontent.com/Tau-hub/entity-toolkit/main/docs/images/players-menu.jpg)
 
@@ -37,7 +37,7 @@ Si tu ne veux pas envoyer une partie, appuie sur ta touche qui retire l'overlay 
 
 ## Mode Hotkey
 
-Ta touche de capture ne réagit que si le jeu est lancé **et** au premier plan. Ce qu'elle fait dépend de l'écran :
+Choisis **Hotkey** dans Settings → *Hotkey or automatic* si tu préfères décider toi-même quand l'outil lit l'écran : il ne regarde alors rien tant que tu n'appuies pas sur ta touche de capture. Ta touche de capture ne réagit que si le jeu est lancé **et** au premier plan. Ce qu'elle fait dépend de l'écran :
 
 | Tu es sur… | Ta touche de capture fait ceci |
 |---|---|
@@ -52,7 +52,7 @@ Les deux touches se changent dans Settings → *Hotkey or automatic* ; un nouvea
 
 ## Mode automatique
 
-Choisis **Automatic** dans Settings → *Hotkey or automatic* (appliqué en quelques secondes, sans redémarrage). Tu n'appuies alors plus sur aucune touche :
+C'est le mode dans lequel l'outil démarre (Settings → *Hotkey or automatic* ; un changement s'applique en quelques secondes, sans redémarrage). Tu n'appuies sur aucune touche :
 
 1. **Au début du match, appuie sur Tab et garde le menu ouvert environ une seconde.** L'outil voit le menu des joueurs, lit les perks et la map, et affiche l'overlay. Un appui de moins d'une demi-seconde peut passer inaperçu : il ne se passe alors rien, refais simplement Tab un peu plus longtemps.
 2. **Joue.** Rouvrir Tab ne change rien : l'outil voit les mêmes alliés et garde les perks déjà affichées.

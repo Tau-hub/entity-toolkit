@@ -16,7 +16,7 @@ Un compagnon **non officiel** pour *Dead by Daylight* (Windows) : voir les perks
 |---|---|
 | **Perks des alliés** (survivant) | Dans le menu des joueurs (Tab), avec ta touche de capture ou tout seul en mode automatique, l'outil lit les perks, les noms de personnage et les pseudos de tes trois alliés, les affiche sur la page **Live** (second écran) et les dessine sur la liste des survivants du jeu, devant le bon survivant. |
 | **Texte d'une perk au survol** | Quand le jeu libère la souris (tu es accroché ou mort), passe-la sur une icône de l'overlay : une petite boîte affiche le nom, la note et le texte de la perk. Elle disparaît dès que la souris quitte l'icône. À désactiver dans la page Settings. |
-| **Mode automatique** (facultatif) | Plus aucune touche : Tab (menu ouvert environ une seconde) lit le menu des joueurs, et le tableau de fin part tout seul une fois le match terminé pour tout le monde. Désactivé par défaut, dans Settings. |
+| **Mode automatique** (par défaut) | Aucune touche : Tab (menu ouvert environ une seconde) lit le menu des joueurs, et le tableau de fin part tout seul une fois le match terminé pour tout le monde. Tu préfères une touche ? Choisis *Hotkey* dans Settings. |
 | **Mémoire de la map** (survivant et tueur) | La même touche lit et mémorise la map depuis le menu des joueurs. |
 | **Envoi NightLight** | Sur le tableau de fin de match (même touche, ou tout seul en mode automatique), le match est envoyé à [NightLight](https://nightlight.gg) et la revue est faite pour toi (« Me » coché sur ton pseudo, les autres en Random, map réglée depuis la mémoire, Confirm cliqué). |
 | **Suivi des niveaux** | Une page pour régler où tu en es avec chaque tueur et survivant, tenue à jour automatiquement depuis le tableau de fin. Les actions en masse demandent confirmation et peuvent être annulées. |
@@ -44,12 +44,12 @@ Un compagnon **non officiel** pour *Dead by Daylight* (Windows) : voir les perks
 
 ## En match
 
-L'outil agit à deux moments, le début et la fin d'une partie. Tu choisis dans Settings comment ils se déclenchent : **Hotkey** (une touche de capture de ton choix, Alt + pavé numérique 7 tant que tu ne la changes pas) ou **Automatic** (aucune touche).
+L'outil agit à deux moments, le début et la fin d'une partie. Tu choisis dans Settings comment ils se déclenchent : **Automatic** (par défaut : aucune touche) ou **Hotkey** (une touche de capture de ton choix, Alt + pavé numérique 7 tant que tu ne la changes pas).
 
-| | Mode Hotkey | Mode automatique |
+| | Mode automatique (par défaut) | Mode Hotkey |
 |---|---|---|
-| **Début de la partie** | Ouvre le menu des joueurs (Tab) et appuie sur ta touche de capture | Ouvre le menu des joueurs (Tab) et garde-le ouvert environ une seconde |
-| **Fin de la partie** | Appuie sur ta touche de capture sur le tableau de fin | Rien : il part quand les perks de tous les joueurs sont dévoilées |
+| **Début de la partie** | Ouvre le menu des joueurs (Tab) et garde-le ouvert environ une seconde | Ouvre le menu des joueurs (Tab) et appuie sur ta touche de capture |
+| **Fin de la partie** | Rien : il part quand les perks de tous les joueurs sont dévoilées | Appuie sur ta touche de capture sur le tableau de fin |
 
 1. **Début : le menu des joueurs est lu.** Les perks de tes trois alliés et la map.
 2. **Ferme le menu** : les quatre perks de chaque allié restent affichées à côté de son portrait, pendant tout le match. Ta touche qui retire l'overlay (Alt + pavé numérique 8 tant que tu ne la changes pas) les efface.
