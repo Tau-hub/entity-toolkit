@@ -246,10 +246,10 @@ def run(hub, ast, stop_with_game=True):
         try:
             log(f"Automatic: {why} (game window {hwnd})" if why else f"{label} pressed (game window {hwnd})")
             t0 = time.time()
-            if img is None:
-                ast.overlay_was_on = ast.overlay.hide() if ast.overlay else False  # removed before the capture: it must not get in the way of reading
-                if ast.overlay_was_on:
-                    log("Overlay removed")
+            ast.overlay_was_on = ast.overlay.hide() if ast.overlay else False  # removed before the capture: it must not get in the way of reading, nor end up in the scoreboard sent to NightLight
+            if ast.overlay_was_on:
+                log("Overlay removed")
+            if img is None or ast.overlay_was_on:  # automatic mode hands over its own screenshot: it is only used when the overlay was not drawn on it
                 time.sleep(0.25)
                 t0 = time.time()
                 img = winapi.grab_game_monitor(hwnd)

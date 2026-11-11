@@ -11,6 +11,8 @@
 5. **NightLight** (optional). Paste an API token from your NightLight account settings and sign in once in the Edge window the button opens. The toolkit never sees your password.
 6. **Options.** Hotkey or automatic mode, and the keys (see [In a match](https://github.com/Tau-hub/entity-toolkit/wiki/In-a-match#automatic-mode)), overlay on/off, sounds, the notification-area icon, the new-version check, opening the Live page in your browser when the toolkit starts (on by default: with the automatic start, the page opens each time you launch the game), dry run (saves the scoreboard but never sends it), and the keys.
 
+Every change on the page is saved as soon as you make it (a small *Saved ✓* note appears at the bottom right): there is no save button.
+
 Once you press **Finish setup**, the *Setup* button becomes **⚙ Settings** (top right): same page without the requirements, to update the database, change your name, import levels, set the NightLight token and the options. *Reset the setup* at the bottom brings the first-launch checklist back (your data is kept).
 
 ![Settings page](https://raw.githubusercontent.com/Tau-hub/entity-toolkit/main/docs/images/settings.png)
