@@ -20,6 +20,7 @@ DEFAULTS = {
     "keep_captures": 100,         # keep the last N screenshots taken with the key (0 = none), the oldest are deleted
     "tray": True,                 # icon in the Windows notification area while the toolkit runs (open the pages, quit)
     "check_version": True,        # once a day, look on GitHub whether a newer Entity Toolkit exists (reads one public file, sends nothing)
+    "shrine": True,               # show this week's Shrine of Secrets and flag the perks you do not have (reads NightLight's public list, sends nothing)
     "port": 8765,
 }
 

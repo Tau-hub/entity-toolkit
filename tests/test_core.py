@@ -448,6 +448,43 @@ class TrayMenu(unittest.TestCase):
         self.assertEqual(tray.PAGES, nav)
 
 
+class Autostart(unittest.TestCase):
+    def test_launcher_starts_the_watcher_with_python_or_with_the_exe(self):
+        from entity_toolkit import autostart
+        py = autostart.launcher_text([r"C:\Py thon\pythonw.exe", "-m", "entity_toolkit"], r"C:\tool")
+        self.assertIn('sh.Run """C:\\Py thon\\pythonw.exe"" -m entity_toolkit watch", 0, False', py)
+        exe = autostart.launcher_text([r"C:\My Tools\EntityToolkit.exe"], r"C:\My Tools")
+        self.assertIn('sh.Run """C:\\My Tools\\EntityToolkit.exe"" watch", 0, False', exe)
+        self.assertIn('sh.CurrentDirectory = "C:\\My Tools"', exe)
+
+
+class Shrine(unittest.TestCase):
+    PERKS = {"K": [{"name": "Blood Warden", "owner": "Nightmare", "note": 54, "icon": "bw.png"}, {"name": "Corrupt Intervention", "owner": "Plague", "note": 90, "icon": "ci.png"}],
+             "S": [{"name": "Smash Hit", "owner": "Lee Yun-Jin", "note": 54, "icon": "sh.png"}, {"name": "Kindred", "owner": "", "note": 70, "icon": "k.png"}]}
+
+    def rows(self, names, lv):
+        from entity_toolkit import shrine
+        return {r["name"]: r for r in shrine.describe({"perks": [{"name": n, "shards": 2000, "character": "?"} for n in names]}, self.PERKS, lv)}
+
+    def test_a_good_perk_you_do_not_have_is_worth_it(self):
+        r = self.rows(["corrupt intervention", "Blood Warden", "Smash Hit", "Kindred"], {"killers": {"Nightmare": 0, "Plague": 0}, "survivors": {"Lee Yun-Jin": 2}})
+        self.assertTrue(r["Corrupt Intervention"]["worth"])          # not unlocked, rated 90
+        self.assertFalse(r["Blood Warden"]["worth"])                  # not unlocked but rated below 60
+        self.assertFalse(r["Blood Warden"]["have"])
+        self.assertTrue(r["Smash Hit"]["have"])                       # its survivor is levelled
+        self.assertTrue(r["Kindred"]["have"])                         # a general perk: everyone has it
+        self.assertEqual(r["Smash Hit"]["side"], "S")
+
+    def test_a_perk_missing_from_the_database_is_shown_but_never_flagged(self):
+        r = self.rows(["Brand New Perk"], {"killers": {}, "survivors": {}})["Brand New Perk"]
+        self.assertEqual((r["side"], r["have"], r["worth"]), (None, False, False))
+
+    def test_dates_are_read_as_utc(self):
+        from entity_toolkit import shrine
+        self.assertEqual(shrine._utc("1970-01-02T00:00:00"), 86400)
+        self.assertEqual(shrine._utc("nonsense"), 0)
+
+
 class NewVersion(unittest.TestCase):
     def test_only_a_higher_number_is_newer(self):
         from entity_toolkit import version

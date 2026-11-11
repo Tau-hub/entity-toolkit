@@ -9,7 +9,7 @@ from urllib.parse import quote
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import unquote, urlparse
 
-from . import autostart, config, database, levels, mybuilds, nightlight, paths, perk_types, version, winapi
+from . import autostart, config, database, levels, mybuilds, nightlight, paths, perk_types, shrine, version, winapi
 from .database import patch as patch_info
 
 MIME = {".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8",
@@ -37,6 +37,25 @@ def loadout_data():
         "powers": [{**p, "icon": icon(p["icon"]) if p["icon"] else portrait(p), "portraitUri": portrait(p), "addons": [emb(a) for a in p["addons"]]} for p in extra["powers"]],
         "offerings": {k: [emb(d) for d in v] for k, v in extra["offerings"].items()},
     }
+
+
+def loadout_page_data():
+    """The random-loadout data plus what its filters need: each perk's types, whether you have it (its character is levelled, or it is a
+    general perk), the killers you own, and the perk types of each side."""
+    data = loadout_data()
+    over = perk_types.overrides()
+    lv = levels.load()
+    data["types"] = {}
+    for side, kind in (("K", "killers"), ("S", "survivors")):
+        src = perk_types.resolve_copies(data["perks"][side])
+        types = {p["name"]: perk_types.perk_types(p, side, over) for p in src}
+        for p in data["perks"][side]:
+            p["types"] = types.get(p["name"], [])
+            p["have"] = not p.get("owner") or int(lv[kind].get(p["owner"], 0) or 0) >= 1
+        used = {t for ts in types.values() for t in ts}
+        data["types"][side] = [{"id": t[0], "label": t[1], "group": t[2]} for t in perk_types.TYPES if side in t[3] and t[0] in used]
+    data["ownedKillers"] = [c["name"] for c in levels.characters("killers") if c["owned"]] + [c["short"] for c in levels.characters("killers") if c["owned"]]
+    return data
 
 
 def buildmaker_data():
@@ -155,7 +174,7 @@ def make_handler(hub):
                 return self._api_get(path)
             rel = path.lstrip("/")
             if rel == "loadout.html":
-                html = (paths.WEB / rel).read_text(encoding="utf8").replace("/*DATA*/null", json.dumps(loadout_data(), ensure_ascii=False).replace("</", "<\/"))
+                html = (paths.WEB / rel).read_text(encoding="utf8").replace("/*DATA*/null", json.dumps(loadout_page_data(), ensure_ascii=False).replace("</", "<\/"))
                 return self._send(200, html.encode("utf8"), MIME[".html"])
             if rel in DATA_PAGES:
                 return self._data_page(rel)
@@ -185,7 +204,7 @@ def make_handler(hub):
                 return self._json(hub.snapshot())
             if path == "/api/shell":
                 st = database.STATE
-                return self._json({"setup_done": setup_done(), "version": version.info(),
+                return self._json({"setup_done": setup_done(), "version": version.info(), "shrine": shrine.summary(),
                                    "update": {"running": st["running"], "finished": st["finished"], "changes": len(st["changes"])}})
             if path == "/api/setup":
                 lv = levels.load()
@@ -194,6 +213,8 @@ def make_handler(hub):
             if path == "/api/levels":
                 chars = {k: levels.characters(k) for k in levels.KINDS}
                 return self._json({"ready": any(chars.values()), "characters": chars, "levels": levels.load(), "history": levels.history(), "chapters": levels.chapters(), "backups": levels.backups()})
+            if path == "/api/shrine":
+                return self._json({"shrine": shrine.info()})
             if path == "/api/buildmaker":
                 return self._json(buildmaker_data())
             if path in ("/api/builds/killers", "/api/builds/survivors"):

@@ -47,6 +47,15 @@ function dot() {
   const news = u.finished && u.changes > 0 && u.finished > seen();
   const why = u.running ? "The database is updating…" : news ? `The last update brought ${u.changes} change${u.changes > 1 ? "s" : ""}` : v.newer ? `Entity Toolkit ${v.latest} is available` : "";
   a.classList.toggle("dot", !!why); a.classList.toggle("busy", !!u.running); a.title = why;
+  const s = shell.shrine;
+  for (const [side, kind] of [["K", "killers"], ["S", "survivors"]]) {
+    const link = $bar.querySelector(`a[data-h="priorities.html?kind=${kind}"]`), names = (s && s.worth[side]) || [];
+    if (!link) continue;
+    if (s && link.classList.contains("on")) { try { localStorage.setItem("et-shrine-seen-" + side, s.week); } catch (e) {} }
+    let seenWeek = 0; try { seenWeek = +localStorage.getItem("et-shrine-seen-" + side) || 0; } catch (e) {}
+    const on = names.length > 0 && seenWeek !== s.week;
+    link.classList.toggle("dot", on); link.title = on ? `Shrine of Secrets: ${names.join(", ")} — a perk you do not have` : "";
+  }
 }
 async function loadState() { try { shell = await window.ET_STATE; setupDone = shell.setup_done; } catch (e) {} drawBar(lastHref); }
 setInterval(() => window.etShell && window.etShell.refreshState(), 20000);

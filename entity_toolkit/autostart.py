@@ -25,14 +25,20 @@ def pythonw():
     return shutil.which("pythonw") or str(Path(sys.executable).with_name("pythonw.exe"))
 
 
+def command():
+    """How to start this program again: the .exe itself when packaged, else ``pythonw -m entity_toolkit``."""
+    return [sys.executable] if paths.FROZEN else [pythonw(), "-m", "entity_toolkit"]
+
+
+def launcher_text(cmd, folder):
+    """The Startup-folder script: runs `cmd` + ``watch`` without a window. In VBScript a quote inside a string is written twice."""
+    line = " ".join([f'"{cmd[0]}"'] + cmd[1:] + ["watch"]).replace('"', '""')
+    return f'Set sh = CreateObject("WScript.Shell")\nsh.CurrentDirectory = "{folder}"\nsh.Run "{line}", 0, False\n'
+
+
 def install():
     f = startup_dir() / LAUNCHER
-    f.write_text(
-        'Set sh = CreateObject("WScript.Shell")\n'
-        f'sh.CurrentDirectory = "{paths.ROOT}"\n'
-        f'sh.Run """{pythonw()}"" -m entity_toolkit watch", 0, False\n',
-        encoding="utf8",
-    )
+    f.write_text(launcher_text(command(), paths.ROOT), encoding="utf8")
     return f
 
 
@@ -53,7 +59,7 @@ def watch():
     while True:
         if winapi.game_running():
             log("Game detected: starting Entity Toolkit")
-            code = subprocess.call([pythonw(), "-m", "entity_toolkit", "run"], cwd=str(paths.ROOT))
+            code = subprocess.call(command() + ["run"], cwd=str(paths.ROOT))
             log(f"Entity Toolkit stopped (code {code})")
             while winapi.game_running():  # wait for the game to close before re-arming (avoids restarting a copy that just stopped)
                 time.sleep(5)

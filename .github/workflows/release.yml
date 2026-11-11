@@ -1,0 +1,40 @@
+name: Release
+
+# Pushing a version tag (v0.3.0) builds the Windows .exe on a clean machine and prepares a draft release:
+# the zip, its SHA-256 and a signed statement that the file was built here, from that tag.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write       # create the release
+  id-token: write       # sign the build attestation
+  attestations: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: python -m pip install -r requirements.txt pyinstaller==6.22.3
+      - name: The tag must be the version written in the code
+        shell: bash
+        run: |
+          v=$(python -c "import entity_toolkit; print(entity_toolkit.__version__)")
+          test "v$v" = "$GITHUB_REF_NAME" || { echo "The tag is $GITHUB_REF_NAME but __version__ is $v"; exit 1; }
+      - run: python -m unittest discover -s tests -v
+      - run: python packaging/build.py
+      - uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: dist/EntityToolkit-*-windows.zip
+      - name: Create the draft release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >
+          gh release create "$GITHUB_REF_NAME" dist/EntityToolkit-*-windows.zip dist/SHA256SUMS.txt
+          --draft --verify-tag --title "Entity Toolkit ${GITHUB_REF_NAME#v}" --notes-file dist/RELEASE_NOTES.md --generate-notes

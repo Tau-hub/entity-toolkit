@@ -47,6 +47,9 @@ def start(url, hub, log):
         icon = pystray.Icon("entity_toolkit", _image(), f"Entity Toolkit {__version__}", pystray.Menu(
             *[item(label, _opener(url + page), default=page == "live.html") for page, label in PAGES],
             pystray.Menu.SEPARATOR,
+            item("Today's killer challenge", _opener(url + "app.html#loadout.html?daily=K")),
+            item("Today's survivor challenge", _opener(url + "app.html#loadout.html?daily=S")),
+            pystray.Menu.SEPARATOR,
             item("Settings", _opener(url + "setup.html")),
             pystray.Menu.SEPARATOR,
             item("Quit Entity Toolkit", lambda: hub.quit()),

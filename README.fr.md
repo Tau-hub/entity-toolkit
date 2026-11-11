@@ -21,7 +21,9 @@ Un compagnon **non officiel** pour *Dead by Daylight* (Windows) : voir les perks
 | **Suivi des niveaux** | Une page pour régler où tu en es avec chaque tueur et survivant, tenue à jour automatiquement depuis le tableau de fin. Les actions en masse demandent confirmation et peuvent être annulées. |
 | **Priorités** | Quels personnages monter en priorité, d'après l'avis d'Otzdarva et les stats NightLight. La page affiche aussi les points de sang qui restent à dépenser pour amener tes killers, tes survivants, ou les deux, au niveau 3 (estimation d'environ 1 116 000 par niveau). |
 | **Builds recommandés** | Fiches tueur (builds, tier list des add-ons, combos) et builds survivants, d'Otzdarva et de NightLight. |
-| **Loadout aléatoire** | Tire un loadout aléatoire de tueur (ou de survivant) : pouvoir, add-ons, perks, offrande en option, avec les notes. L'affiche se copie ou se télécharge en image. |
+| **Shrine of Secrets** | Les pages de priorités affichent les quatre perks du Shrine de la semaine et te disent lesquelles tu n'as pas encore et valent tes éclats. |
+| **Loadout aléatoire** | Tire un loadout aléatoire de tueur (ou de survivant) : pouvoir, add-ons, perks, offrande en option, avec les notes. Filtres : seulement ce que tu as, une perk d'un type donné, une note minimale. L'affiche se copie ou se télécharge en image. |
+| **Défi du jour** | Un loadout de tueur et un loadout de survivant par jour, les mêmes pour tout le monde : joue-le, coche-le, garde ta série. |
 | **Création de build** | Enregistre tes propres builds killer et survivant (quatre perks, un nom, les killers concernés). Recherche de perks par nom, killer ou type : « aura », « gen regression », « healing »… |
 | **Mise à jour de la base** | Un bouton télécharge tout depuis les sites communautaires, indique l'étape en cours et ce que le patch a apporté (nouveaux killers, survivants, perks, add-ons, maps…). Elle se rafraîchit aussi toute seule tous les 7 jours en arrière-plan (modifiable). |
 | **Sons** | Un son doux « ok » ou « pas ok » pour savoir sans regarder si la map et les perks ont été lus. |
@@ -41,12 +43,39 @@ Un compagnon **non officiel** pour *Dead by Daylight* (Windows) : voir les perks
 
 ## Prérequis
 
-- Windows 10 ou 11, **Python 3.10 ou plus récent**, Microsoft Edge (utilisé pour la revue NightLight).
+- Windows 10 ou 11 et Microsoft Edge (utilisé pour la revue NightLight). **Python 3.10 ou plus récent** seulement si tu choisis l'installation Python ci-dessous ; le `.exe` n'a besoin de rien d'autre.
 - *Dead by Daylight* en **anglais**, en mode **sans bordure ou fenêtré** (pas en plein écran exclusif).
 - Un **pack de langue anglais** pour l'OCR de Windows : Paramètres → Heure et langue → Langue et région.
 - Testé en **2560×1440** pour le jeu et en **1920×1080** pour les écrans annexes. Toutes les positions sont proportionnelles à la hauteur de l'écran du jeu, mais les autres résolutions n'ont pas été testées : voir [Dépannage](#dépannage).
 
 ## Installation
+
+Il y a deux façons de lancer l'outil. Elles font exactement la même chose : prends celle avec laquelle tu es à l'aise.
+
+### Option A : le `.exe` (sans Python)
+
+1. Ouvre la [dernière release](https://github.com/Tau-hub/entity-toolkit/releases/latest) et télécharge `EntityToolkit-<version>-windows.zip`.
+2. Vérifie le téléchargement (facultatif mais conseillé, voir plus bas).
+3. Dézippe-le où tu veux, dans un dossier où tu peux écrire (Documents, Bureau, un autre disque : pas `Program Files`). Garde `EntityToolkit.exe` et le dossier `_internal` ensemble.
+4. Double-clique sur **`EntityToolkit.exe`**. Il démarre en arrière-plan (le **E** rouge apparaît dans la zone de notification) et ouvre la page **Setup** la première fois.
+
+Tes données vont dans un dossier `data` à côté de `EntityToolkit.exe`. Pour mettre à jour, télécharge la nouvelle release, dézippe-la et déplace ton dossier `data` dedans (si *Start automatically with Windows* est coché, décoche-le puis recoche-le depuis le nouveau dossier).
+
+**Vérifier le téléchargement.** Chaque release est accompagnée de `SHA256SUMS.txt`, et ses notes affichent la même empreinte. Dans PowerShell, dans le dossier où se trouve le zip :
+
+```powershell
+Get-FileHash .\EntityToolkit-<version>-windows.zip -Algorithm SHA256
+```
+
+La valeur doit être celle de `SHA256SUMS.txt`. Sinon, le fichier n'est pas celui qui a été publié : supprime-le. Le zip est construit par GitHub Actions à partir du code source du tag ([release.yml](.github/workflows/release.yml)), pas sur le PC de quelqu'un, et GitHub signe une attestation qui le dit. Avec le [GitHub CLI](https://cli.github.com), tu peux vérifier cette attestation, qui prouve que le fichier sort bien du workflow de ce dépôt :
+
+```bash
+gh attestation verify EntityToolkit-<version>-windows.zip --repo Tau-hub/entity-toolkit
+```
+
+**Avertissements de Windows.** Le `.exe` n'est pas signé avec un certificat payant, donc Windows SmartScreen peut afficher *« Windows a protégé votre ordinateur »* la première fois : **Informations complémentaires → Exécuter quand même**. Les programmes empaquetés de cette façon (PyInstaller) sont aussi parfois signalés à tort par les antivirus. Si tu préfères ne pas faire confiance à un binaire, prends l'option B : elle exécute exactement le même code, que tu peux lire.
+
+### Option B : avec Python
 
 ```bash
 git clone https://github.com/Tau-hub/entity-toolkit
@@ -55,7 +84,7 @@ install.bat
 run.bat
 ```
 
-`install.bat` installe les paquets Python. `run.bat` lance l'outil en arrière-plan et ouvre la page **Setup** la première fois.
+`install.bat` installe les paquets Python. `run.bat` lance l'outil en arrière-plan et ouvre la page **Setup** la première fois. Mise à jour avec `git pull`.
 
 ## Premier lancement : la page Setup
 
@@ -77,7 +106,7 @@ Quand tu appuies sur **Finish setup**, le bouton *Setup* devient **⚙ Settings*
 Tant que l'outil tourne, un petit **E** rouge reste dans la zone de notification de Windows (en bas à droite de la barre des tâches, derrière la flèche **^** si Windows le masque). Il indique que l'outil est allumé, et c'est le moyen le plus rapide de retrouver les pages quand l'onglet du navigateur est fermé :
 
 - **Double-clic** : ouvre la page Live.
-- **Clic droit** : un menu avec toutes les pages (Live, Levels, Killer priorities, Survivor priorities, Killer sheet, Survivor builds, Random loadout, Build creator), puis **Settings**, puis **Quit Entity Toolkit**, qui arrête les raccourcis, l'overlay et les pages locales.
+- **Clic droit** : un menu avec toutes les pages (Live, Levels, Killer priorities, Survivor priorities, Killer sheet, Survivor builds, Random loadout, Build creator), les deux défis du jour, **Settings**, puis **Quit Entity Toolkit**, qui arrête les raccourcis, l'overlay et les pages locales.
 
 Tu peux désactiver l'icône dans les options ; l'outil fonctionne pareil sans elle.
 
@@ -142,6 +171,8 @@ Les actions en masse (tout posséder, régler tous les niveaux, réinitialiser, 
 
 Les pages **Killer priorities** et **Survivor priorities** classent les personnages que tu possèdes selon la valeur de leurs perks (avis d'Otzdarva, popularité et performance NightLight), avec en premier les personnages de niveau 0 qui apportent une perk de premier plan. Une ligne repliée en haut donne les points de sang déjà dépensés et ceux qui restent pour tout amener au niveau 3, pour les tueurs, les survivants et les deux, avec le nombre de personnages et de niveaux concernés. C'est une **estimation** (environ 1 116 000 points de sang par niveau, une bloodweb complète) : le vrai coût dépend de la chance dans la bloodweb.
 
+**Shrine of Secrets.** En haut des deux pages, un encadré montre les quatre perks du Shrine de la semaine, avec leur note et, pour chacune, si tu l'as déjà (son personnage est monté sur la page Levels) ou non. Une perk que tu n'as pas et notée 60/100 ou plus est mise en avant comme valant tes éclats, et un point apparaît sur le bouton des priorités tant que tu n'as pas ouvert la page. La liste vient des données publiques de NightLight, lues une fois au changement de semaine ; désactivable dans Settings.
+
 ## Builds recommandés
 
 ![Fiche tueur](docs/images/killer-sheet.png)
@@ -155,6 +186,16 @@ Tout vient de la base que tu as téléchargée : c'est aussi frais que ta derni�
 ![Loadout aléatoire](docs/images/loadout.png)
 
 Choisis un tueur (ou un survivant, ou **Random killer**) et obtiens un loadout aléatoire : pouvoir, add-ons, quatre perks et une offrande en option, chacun avec sa note. La première visite montre tous les tueurs en portraits ; une fois le tirage fait, ils passent dans une colonne à gauche pour en tirer un autre d'un clic. Relance tout ou une partie, puis copie l'affiche ou télécharge-la en PNG.
+
+**Filtres.** Trois options à côté du bouton Reroll, retenues d'une visite à l'autre :
+
+- **Only what I have** : les perks viennent seulement des personnages que tu as montés sur la page Levels (plus les perks générales), et le tueur aléatoire est un tueur que tu possèdes.
+- **At least one perk of a type** : une des quatre perks est toujours du type choisi (« Healing », « Generator slowdown », « Aura reading »…).
+- **Perks rated 35+ / 60+** : écarte les perks les plus faibles.
+
+Quand une combinaison est impossible (par exemple aucune perk que tu as n'est de ce type), la page dit quel filtre elle a ignoré.
+
+**Défi du jour.** **📅 Daily killer** et **📅 Daily survivor** donnent le loadout du jour : un tueur avec deux add-ons et quatre perks, ou un objet avec deux add-ons et quatre perks. Il est tiré à partir de la date, donc tous ceux qui utilisent l'outil ont le même (avec la même base de données), et il change à minuit UTC. Appuie sur **✓ I played it** une fois joué : le bouton compte les jours d'affilée. Avec *Only what I have* coché, tu as ta propre version du jour, limitée à ce que tu possèdes. L'icône de la zone de notification a un raccourci vers les deux défis.
 
 ## Création de build
 
@@ -180,7 +221,7 @@ Tout ce que l'outil enregistre vit dans le dossier `data/` (ignoré par git) à 
 | `uploads/`, `debug/` | Les tableaux envoyés et les dernières captures gardées pour diagnostiquer |
 | `entity_toolkit.log` | Ce que l'outil a fait |
 
-Réseau : la capture du jeu ne quitte jamais ton PC, sauf le **tableau de fin**, qui part vers NightLight quand tu appuies sur la touche dessus (désactive-le avec *Dry run* dans Settings). **Update database** lit `deadbydaylight.wiki.gg`, `otzdarva-builds.com`, `otzdarva.com`, `otz-addon-tierlist.pages.dev` et `nightlight.gg`. Une fois par jour, l'outil lit aussi un fichier public sur `raw.githubusercontent.com` pour te prévenir quand une nouvelle version existe (rien n'est envoyé ; désactivable dans Settings). Le serveur web local n'écoute que sur `127.0.0.1` et refuse les requêtes venant d'autres sites.
+Réseau : la capture du jeu ne quitte jamais ton PC, sauf le **tableau de fin**, qui part vers NightLight quand tu appuies sur la touche dessus (désactive-le avec *Dry run* dans Settings). **Update database** lit `deadbydaylight.wiki.gg`, `otzdarva-builds.com`, `otzdarva.com`, `otz-addon-tierlist.pages.dev` et `nightlight.gg`. Une fois par jour, l'outil lit aussi un fichier public sur `raw.githubusercontent.com` pour te prévenir quand une nouvelle version existe (rien n'est envoyé ; désactivable dans Settings), et une fois par semaine la liste publique du Shrine of Secrets de NightLight sur `api.nightlight.gg` (rien n'est envoyé, pas de jeton ; désactivable dans Settings). Le serveur web local n'écoute que sur `127.0.0.1` et refuse les requêtes venant d'autres sites.
 
 ## Dépannage
 
@@ -192,6 +233,8 @@ Réseau : la capture du jeu ne quitte jamais ton PC, sauf le **tableau de fin**,
 - **Les noms de la liste du jeu sont illisibles** : l'overlay se rabat alors sur l'ordre du menu.
 
 ## Ligne de commande
+
+Avec le `.exe`, remplace `python -m entity_toolkit` par `EntityToolkit.exe` (il n'a pas de console : regarde `data\entity_toolkit.log` pour voir ce qu'il a fait).
 
 ```text
 python -m entity_toolkit                  démarrer (comme run.bat)
@@ -216,8 +259,12 @@ python -m unittest discover -s tests
 | `nightlight.py`, `review.py` | Envoi, mémoire de la map, revue automatique |
 | `levels.py` | Niveaux, historique, sauvegardes, lecture de la pastille du tableau de fin |
 | `perk_types.py`, `mybuilds.py` | Création de build : ce que fait un perk (plusieurs types par perk), builds enregistrés |
+| `shrine.py`, `version.py`, `tray.py` | Le Shrine de la semaine, la vérification de version, l'icône de la zone de notification |
+| `packaging/` | Le `.exe` : recette PyInstaller et `build.py` (zip + SHA-256) |
 | `database/` | `update-db` : téléchargements du wiki, d'Otzdarva et de NightLight, ce qui a changé (`changes.py`), rafraîchissement automatique |
 | `server.py`, `web/` | Pages locales et API JSON |
+
+**Publier une version.** Change `__version__` dans `entity_toolkit/__init__.py`, commite, puis pousse un tag du même numéro (`git tag v0.3.0`, `git push origin v0.3.0`). Le [workflow de release](.github/workflows/release.yml) lance les tests, construit le `.exe` sur une machine Windows propre, l'atteste et crée une release en **brouillon** avec le zip, `SHA256SUMS.txt` et les notes d'installation : relis-la, puis clique sur *Publish*. Pour construire en local : `pip install pyinstaller`, puis `python packaging/build.py` (résultat dans `dist/`).
 
 Contributions : ouvre d'abord une issue pour tout ce qui est gros (voir aussi [Assistance de l'IA](#assistance-de-lia)).
 

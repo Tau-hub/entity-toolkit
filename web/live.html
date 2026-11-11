@@ -130,7 +130,7 @@ async function poll() {
     if (d.version !== version) { version = d.version; data = d; render(); }
     $("status").classList.remove("off");
   } catch (e) {
-    $("status").textContent = "Entity Toolkit is not running (start it with run.bat)";
+    $("status").textContent = "Entity Toolkit is not running (start it with run.bat or EntityToolkit.exe)";
     $("status").classList.add("off");
     $("status").style.display = "";
   }

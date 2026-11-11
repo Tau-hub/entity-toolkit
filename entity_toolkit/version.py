@@ -6,10 +6,10 @@ import re
 import threading
 import time
 
-from . import __version__, config
+from . import __version__, config, paths
 
 URL = "https://raw.githubusercontent.com/Tau-hub/entity-toolkit/main/entity_toolkit/__init__.py"
-PAGE = "https://github.com/Tau-hub/entity-toolkit"
+PAGE = "https://github.com/Tau-hub/entity-toolkit" + ("/releases/latest" if paths.FROZEN else "")  # the .exe is replaced by downloading the new release
 STATE = {"latest": None, "checked": 0}
 
 
@@ -39,7 +39,7 @@ def check():
 
 
 def info():
-    return {"current": __version__, "latest": STATE["latest"], "newer": newer(STATE["latest"]), "page": PAGE}
+    return {"current": __version__, "latest": STATE["latest"], "newer": newer(STATE["latest"]), "page": PAGE, "exe": paths.FROZEN}
 
 
 def start(log):

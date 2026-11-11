@@ -1,11 +1,17 @@
 """Where things live. Everything the user generates or owns goes in one git-ignored folder (``data/`` by default)."""
 import os
+import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+FROZEN = bool(getattr(sys, "frozen", False))  # True in the packaged EntityToolkit.exe (see packaging/), False when run with Python
+if FROZEN:
+    ROOT = Path(sys.executable).resolve().parent  # the folder holding EntityToolkit.exe: data/ is created next to it
+    BUNDLE = Path(getattr(sys, "_MEIPASS", ROOT))  # where the packaged pages and sounds are
+else:
+    ROOT = BUNDLE = Path(__file__).resolve().parent.parent
 DATA = Path(os.environ.get("ENTITY_TOOLKIT_DATA", ROOT / "data"))
-WEB = ROOT / "web"
-SOUNDS = ROOT / "sounds"
+WEB = BUNDLE / "web"
+SOUNDS = BUNDLE / "sounds"
 
 ICONS = DATA / "icons"                      # perk icons downloaded from the DbD wiki by `update-db`
 LOADOUT = DATA / "loadout_data.json"        # perks (name, icon, description, rating) used for recognition
@@ -22,6 +28,7 @@ LEVELS_BACKUPS = DATA / "levels_backups.json"  # states kept before every bulk c
 PERK_TYPES = DATA / "perk_types.json"       # your corrections of the automatic perk types {"Perk": ["type id", ...]}
 MYBUILDS = DATA / "my_builds.json"           # the builds you saved in the Build creator
 OWNED = DATA / "owned.json"                 # characters you do NOT own: {"killers": [...], "survivors": [...]} (everything is owned by default)
+SHRINE = DATA / "shrine.json"               # this week's Shrine of Secrets (NightLight's public list)
 CONFIG = DATA / "config.json"
 OVERLAY_LAYOUT = DATA / "overlay_layout.json"
 LAST_MATCH = DATA / "last_match.json"       # map remembered between the players menu and the scoreboard

@@ -36,6 +36,16 @@
   .bp th:first-child, .bp td:first-child { text-align:left; }
   .bp td { padding:3px 8px; text-align:right; border-top:1px solid var(--border); } .bp tr.me td:first-child { color:var(--gold); }
   .bp .note { color:var(--muted); font-size:12px; margin:4px 0 2px; }
+  .shrine { max-width:860px; margin:0 auto 12px; border:1px solid var(--border); border-radius:12px; padding:10px 14px; background:var(--panel); }
+  .shrine:empty { display:none; }
+  .shrine h3 { margin:0 0 8px; font-size:14px; font-weight:600; display:flex; gap:10px; align-items:baseline; flex-wrap:wrap; }
+  .shrine h3 small { color:var(--muted); font-weight:400; font-size:12px; }
+  .shrine .four { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:8px; }
+  .sp { display:flex; gap:8px; align-items:center; background:var(--panel2); border:1px solid transparent; border-radius:10px; padding:5px 9px 5px 5px; font-size:12.5px; cursor:help; }
+  .sp img { width:40px; height:40px; object-fit:contain; flex:none; }
+  .sp b { display:block; font-size:13px; } .sp span { color:var(--muted); }
+  .sp.worth { border-color:var(--accent); background:linear-gradient(180deg,#d1243a26,#7d0f1f26); } .sp.worth em { color:var(--gold); font-style:normal; }
+  .sp.have { opacity:.6; } .sp.other { opacity:.75; }
   .banner { margin:18px auto; max-width:760px; background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:14px 18px; color:var(--muted); text-align:center; }
   @media (max-width:640px) { .row { grid-template-columns:28px 56px 1fr; } .lvl { grid-column:1/-1; justify-content:flex-end; } .row img.p { width:56px; height:56px; } }
 </style>
@@ -49,6 +59,7 @@
   <span class="patch" id="patch"></span>
 </header>
 <main>
+  <div class="shrine" id="shrine"></div>
   <details class="bp" id="bp"></details>
   <p class="intro">A perk's rating (out of 100) = 50 % Otzdarva's opinion (★ stars) + 35 % NightLight popularity (usage rank) + 15 % NightLight performance (<span id="rateLbl"></span> compared with the average). Level-0 characters come first only if their best perk rates ≥ 70/100 (their perks are not in the other characters' bloodwebs yet). Levels 1 and 2 weigh the same: the ranking only depends on the summed rating of the perks. Level-3 characters go to the bottom. NightLight period: <span id="nlp"></span>. Hover a perk for details. − / + corrects a level (saved in your data folder; see the <a href="levels.html">Levels</a> page for the whole picture).</p>
   <p class="intro" id="hiddenNote"></p>
@@ -111,6 +122,22 @@ function drawBp() {
   $("bp").open = open;
 }
 
+// This week's Shrine of Secrets: the four perks, and whether you already have them (their character is levelled) or they are worth your shards.
+async function drawShrine() {
+  let s = null;
+  try { s = (await fetch("/api/shrine", { cache: "no-store" }).then((r) => r.json())).shrine; } catch (e) {}
+  if (!s) { $("shrine").innerHTML = ""; return; }
+  const mine = kind === "killers" ? "K" : "S", left = Math.max(0, s.end - Date.now() / 1000), d = Math.floor(left / 86400), h = Math.floor(left % 86400 / 3600);
+  const card = (p) => {
+    const state = !p.side ? "not in the database yet" : p.have ? (p.owner ? `you have it (${esc(p.owner)} is level ${p.level})` : "you have it") : `<em>not unlocked</em> · ${esc(p.owner)} is level 0`;
+    const cls = (p.worth ? " worth" : p.have ? " have" : "") + (p.side && p.side !== mine ? " other" : "");
+    return `<div class="sp${cls}" data-tip="${esc(p.name)}${p.note != null ? ` — rating ${p.note}/100` : ""}\n${p.side === "K" ? "Killer" : p.side === "S" ? "Survivor" : ""} perk${p.owner ? " · " + esc(p.owner) : ""}${p.shards ? ` · ${p.shards} shards` : ""}\n\n${esc(p.desc)}">` +
+      `${p.icon ? `<img src="icons/${encodeURIComponent(p.icon)}" alt="">` : ""}<div><b>${esc(p.name)}</b><span>${p.side === "K" ? "Killer" : p.side === "S" ? "Survivor" : "?"}${p.note != null ? ` · ${p.note}/100` : ""} · ${state}</span></div></div>`;
+  };
+  const worth = s.perks.filter((p) => p.worth);
+  $("shrine").innerHTML = `<h3>Shrine of Secrets this week <small>${worth.length ? `worth your shards: ${worth.map((p) => esc(p.name)).join(", ")} · ` : "nothing you are missing rates 60/100 or more · "}changes in ${d} d ${h} h</small></h3><div class="four">${s.perks.map(card).join("")}</div>`;
+}
+
 function render() {
   drawBp();
   const best = (k) => Math.max(...k.teachables.map((t) => t.score));
@@ -154,6 +181,7 @@ async function init() {
   $("nlp").textContent = DATA.nlPeriod || "?"; $("rateLbl").textContent = DATA.nlRate;
   $("patch").textContent = patchLabel(DATA);
   render();
+  drawShrine();
 }
 document.addEventListener("error", (e) => {
   const i = e.target; if (i.tagName !== "IMG") return;

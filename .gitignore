@@ -9,3 +9,5 @@ venv/
 *.log
 nightlight_token.txt
 Thumbs.db
+build/
+dist/

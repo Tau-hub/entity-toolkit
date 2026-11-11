@@ -21,6 +21,10 @@
   .search::before { content:"⌕"; position:absolute; left:16px; top:50%; transform:translateY(-54%); font-size:20px; color:var(--muted); pointer-events:none; }
   #hint { flex-basis:100%; text-align:center; font-size:13px; letter-spacing:.06em; color:var(--muted); min-height:20px; }
   #hint b { color:var(--gold); } #hint.err { color:#ff6b78; }
+  #cons { flex-basis:100%; text-align:center; font-size:12.5px; color:#e8a33d; min-height:0; }
+  .chk select { max-width:210px; }
+  .side .rb.day { border-color:#c9a46a55; } .side .rb.day small { color:var(--gold); margin-left:4px; }
+  #bDone[hidden] { display:none; } #bDone.ok { color:var(--gold); border-color:var(--gold); cursor:default; }
 
   .stage { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); gap:22px; align-items:start; }
   @media (max-width:900px) { .stage { grid-template-columns:1fr; } }
@@ -91,12 +95,17 @@
   <div class="search"><input id="qK" placeholder="Killer (empty = random) — e.g. nemesis, spirit… or surv" autocomplete="off"><button id="arrow" type="button" title="List of killers">▼</button><div id="dd"></div></div>
   <button class="go" id="bAll">🎲 Reroll</button>
   <label class="chk"><input type="checkbox" id="cOff"> Offering</label>
+  <label class="chk" title="Perks: only those of the characters you have levelled (plus the general perks). Random killer: only the killers you own. Set both on the Levels page."><input type="checkbox" id="cHave"> Only what I have</label>
+  <label class="chk" title="One of the four perks is always of this type">At least one <select id="sType"><option value="">perk of any type</option></select></label>
+  <label class="chk" title="Leaves out the perks rated below this (rating out of 100, see the priorities pages)">Perks rated <select id="sMin"><option value="0">any</option><option value="35">35+</option><option value="60">60+</option></select></label>
   <div id="hint"></div>
+  <div id="cons"></div>
 </div>
 
 <div class="layout landing" id="layout">
 <aside class="side">
   <button class="rb" id="bRandom" type="button">🎲 Random killer</button><button class="rb" id="bSurv" type="button">🧍 Survivor</button>
+  <button class="rb day" id="bDayK" type="button" title="Today's challenge as killer: the same killer, add-ons and perks for everyone, a new one every day">📅 Daily killer<small></small></button><button class="rb day" id="bDayS" type="button" title="Today's challenge as survivor: the same item, add-ons and perks for everyone, a new one every day">📅 Daily survivor<small></small></button>
   <div class="seg" id="sortSeg"><button data-v="release" title="Release date">Release</button><button data-v="az" title="Alphabetical">A–Z</button></div>
   <div class="faces" id="faces"></div>
 </aside>
@@ -107,6 +116,7 @@
       <div class="tools">
         <button class="ghost" id="bCopy">Copy image</button>
         <button class="ghost" id="bSave">Download PNG</button>
+        <button class="ghost" id="bDone" hidden></button>
         <span id="msg"></span>
       </div>
     </div>
@@ -134,8 +144,16 @@ let mode = "K";
 let L = {perks:[], item:null, addons:[], off:null};
 let regions = [], entries = [];
 
-const pick = a => a[Math.floor(Math.random()*a.length)];
-function sample(a, n){ const c=a.slice(), o=[]; while(o.length<n && c.length) o.push(c.splice(Math.floor(Math.random()*c.length),1)[0]); return o; }
+// every draw goes through rnd: Math.random normally, a generator seeded with the date for the daily challenge
+let rnd = Math.random;
+const pick = a => a[Math.floor(rnd()*a.length)];
+function sample(a, n){ const c=a.slice(), o=[]; while(o.length<n && c.length) o.push(c.splice(Math.floor(rnd()*c.length),1)[0]); return o; }
+function seeded(text){  // the same text always gives the same sequence of numbers (xmur3 hash + mulberry32)
+  let h = 1779033703 ^ text.length;
+  for (let i = 0; i < text.length; i++) { h = Math.imul(h ^ text.charCodeAt(i), 3432918353); h = h << 13 | h >>> 19; }
+  let a = h >>> 0;
+  return () => { a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+}
 const esc = s => String(s).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const norm = s => String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]/g,"");
 const poolOf = it => mode === "K" ? it.addons : DATA.itemPools[it.pool];
@@ -157,7 +175,7 @@ function findKiller(query){
 // empty = random killer; else the matching killer; "surv..." = survivor (only if no killer matches)
 function resolve(){
   const text = qK.value.trim();
-  if (!text) return {mode:"K", power:pick(DATA.powers)};
+  if (!text) return {mode:"K", power:pick(killerPool())};
   const p = findKiller(text);
   if (p) return {mode:"K", power:p};
   const q = norm(text);
@@ -192,7 +210,7 @@ const sortedKillers = () => sortMode === "az" ? killers.slice().sort((a,b)=>shor
 function renderFaces(){
   const cur = mode === "K" && L.item ? L.item.kid : null;
   faces.innerHTML = sortedKillers().map(p=>`<button class="face${p.kid===cur?" on":""}" data-k="${p.kid}" title="${esc(p.killer)}"><img src="${p.portraitUri || p.icon}" alt=""><span>${esc(shortName(p))}</span></button>`).join("");
-  bSurv.classList.toggle("on", mode === "S" && !!L.item);
+  bSurv.classList.toggle("on", mode === "S" && !!L.item && !dailyOn);
   document.querySelectorAll("#sortSeg button").forEach(b=>b.classList.toggle("on", b.dataset.v === sortMode));
 }
 faces.onclick = e => { const b = e.target.closest(".face"); if (b) choose(killers.find(p=>p.kid === +b.dataset.k)); };
@@ -225,7 +243,103 @@ qK.onkeydown = e => {
   } else if (e.key === "Escape") closeList();
 };
 
-function rollPerks(){ L.perks = sample(DATA.perks[mode], 4); }
+// ---- filters: only what you have, one perk of a given type, a minimum rating (remembered between visits)
+const OWNED = new Set(DATA.ownedKillers || []);
+const TYPE_LABEL = {};
+(function fillTypes(){
+  const groups = new Map();
+  for (const side of ["K", "S"]) for (const t of (DATA.types || {})[side] || []) {
+    TYPE_LABEL[t.id] = t.label;
+    if (!groups.has(t.group)) groups.set(t.group, new Map());
+    groups.get(t.group).set(t.id, t.label);
+  }
+  sType.innerHTML += [...groups].map(([g, ts]) => `<optgroup label="${esc(g)}">${[...ts].map(([id, label]) => `<option value="${id}">${esc(label)}</option>`).join("")}</optgroup>`).join("");
+  try { const s = JSON.parse(localStorage.getItem("et-loadout-filters") || "{}"); cHave.checked = !!s.have; sType.value = s.type || ""; sMin.value = s.min || "0"; } catch(e){}
+  if (sType.selectedIndex < 0) sType.value = "";
+})();
+const saveFilters = () => { try { localStorage.setItem("et-loadout-filters", JSON.stringify({have:cHave.checked, type:sType.value, min:sMin.value})); } catch(e){} };
+let notes = [];
+function killerPool(){
+  if (!cHave.checked) return DATA.powers;
+  const mine = DATA.powers.filter(p => OWNED.has(p.killer));
+  return mine.length ? mine : DATA.powers;
+}
+function perkPool(side, strict){
+  let pool = DATA.perks[side];
+  if (cHave.checked) {
+    const mine = pool.filter(p => p.have);
+    if (mine.length >= 4) pool = mine; else notes.push(`You have fewer than 4 ${side === "K" ? "killer" : "survivor"} perks according to the Levels page: every perk is used`);
+  }
+  if (strict && +sMin.value) {
+    const good = pool.filter(p => (p.note ?? 0) >= +sMin.value);
+    if (good.length >= 4) pool = good; else notes.push(`Fewer than 4 perks are rated ${sMin.value}+: the rating is ignored`);
+  }
+  return pool;
+}
+function rollPerks(){
+  notes = [];
+  const pool = perkPool(mode, true), type = sType.value;
+  let first = [];
+  if (type) {
+    const fit = pool.filter(p => (p.types || []).includes(type));
+    if (fit.length) first = [pick(fit)]; else notes.push(`No ${mode === "K" ? "killer" : "survivor"} perk of the type “${TYPE_LABEL[type] || type}” fits the other filters: the type is ignored`);
+  }
+  const rest = sample(pool.filter(p => p !== first[0]), 4 - first.length);
+  L.perks = first.concat(rest);
+  if (first.length) { const at = Math.floor(rnd()*4); L.perks.splice(at, 0, L.perks.shift()); }  // the perk of the asked type is not always the first one
+  cons.textContent = notes.join(" · ");
+}
+
+// ---- daily challenge: one loadout per day and per side, drawn from the date so everyone gets the same one
+let dailyOn = null;
+const today = () => new Date().toISOString().slice(0, 10);  // the date in UTC: the challenge changes at the same moment for everyone
+const byName = (a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+const dayLabel = d => new Date(d + "T00:00:00Z").toLocaleDateString("en-GB", {weekday:"short", day:"numeric", month:"short", year:"numeric", timeZone:"UTC"});
+function progress(){ try { return JSON.parse(localStorage.getItem("et-daily") || "{}"); } catch(e){ return {}; } }
+function daily(side){
+  const day = today();
+  notes = [];
+  rnd = seeded(`entity-toolkit|${day}|${side}`);
+  mode = side;
+  if (side === "K") { const ks = killers.filter(p => !cHave.checked || OWNED.has(p.killer)); L.item = pick((ks.length ? ks : killers).slice().sort((a, b) => a.kid - b.kid)); }
+  else L.item = pick(DATA.items.slice().sort(byName));
+  L.addons = sample(poolOf(L.item).slice().sort(byName), 2);
+  L.perks = sample(perkPool(side, false).slice().sort(byName), 4);
+  L.off = pick(DATA.offerings[side].concat(DATA.offerings.B).sort(byName));
+  rnd = Math.random;
+  dailyOn = {side, day};
+  qK.value = ""; closeList();
+  hint.className = "";
+  hint.innerHTML = `Daily ${side === "K" ? "killer" : "survivor"} challenge · <b>${esc(dayLabel(day))}</b> · ` + (cHave.checked ? "your own version (only what you have)" : "the same for everyone today") + " · a new one at midnight UTC";
+  cons.textContent = notes.join(" · ");
+  render();
+}
+function drawDaily(){
+  const p = progress(), day = today();
+  for (const [side, b] of [["K", bDayK], ["S", bDayS]]) {
+    const s = p[side] || {}, done = s.last === day;
+    b.classList.toggle("on", !!dailyOn && dailyOn.side === side);
+    b.querySelector("small").textContent = done ? `✓ ${s.streak} day${s.streak > 1 ? "s" : ""}` : "";
+  }
+  bDone.hidden = !dailyOn;
+  if (dailyOn) {
+    const s = p[dailyOn.side] || {}, done = s.last === dailyOn.day;
+    bDone.classList.toggle("ok", done);
+    bDone.textContent = done ? `✓ Done · ${s.streak} day${s.streak > 1 ? "s" : ""} in a row` : "✓ I played it";
+  }
+}
+bDone.onclick = () => {
+  if (!dailyOn) return;
+  const p = progress(), s = p[dailyOn.side] || {};
+  if (s.last === dailyOn.day) return;
+  const before = new Date(new Date(dailyOn.day + "T00:00:00Z") - 86400000).toISOString().slice(0, 10);
+  p[dailyOn.side] = {last: dailyOn.day, streak: s.last === before ? (s.streak || 0) + 1 : 1};
+  try { localStorage.setItem("et-daily", JSON.stringify(p)); } catch(e){}
+  drawDaily();
+};
+bDayK.onclick = () => daily("K"); bDayS.onclick = () => daily("S");
+cHave.onchange = () => { saveFilters(); if (dailyOn) daily(dailyOn.side); else if (L.item) reroll("perks"); };
+sType.onchange = sMin.onchange = () => { saveFilters(); if (L.item && !dailyOn) reroll("perks"); };
 function rollItem(){
   if (!L.item) return;
   L.addons = sample(poolOf(L.item), 2);
@@ -270,7 +384,8 @@ function lists(){
     el.onmouseenter = e => showTip(tipHtml(get().d, get().kind), e);
     el.onmousemove = moveTip; el.onmouseleave = hideTip;
   });
-  sub.innerHTML = k ? `${L.item.portraitUri ? `<img src="${L.item.portraitUri}" alt="">` : ""}<span>Killer&nbsp;·&nbsp;<b>${esc(L.item.killer)}</b></span>` : "<span>Survivor</span>";
+  const pre = dailyOn ? `Daily challenge&nbsp;·&nbsp;${esc(dayLabel(dailyOn.day))}&nbsp;·&nbsp;` : "";
+  sub.innerHTML = k ? `${L.item.portraitUri ? `<img src="${L.item.portraitUri}" alt="">` : ""}<span>${pre}Killer&nbsp;·&nbsp;<b>${esc(L.item.killer)}</b></span>` : `<span>${pre}Survivor</span>`;
 }
 
 const imgCache = {};
@@ -351,7 +466,8 @@ async function draw(){
   regions = [];
   const g = c.createLinearGradient(0,0,W,H); g.addColorStop(0,"#1f1216"); g.addColorStop(1,"#0c0a0c");
   c.fillStyle = g; c.fillRect(0,0,W,H);
-  c.fillStyle="#f3e9d6"; c.font="700 44px Segoe UI, sans-serif"; c.textAlign="left"; c.fillText("LOADOUT", 40, 74);
+  c.fillStyle="#f3e9d6"; c.font="700 44px Segoe UI, sans-serif"; c.textAlign="left"; c.fillText(dailyOn ? "DAILY CHALLENGE" : "LOADOUT", 40, 74);
+  if (dailyOn) { const w = c.measureText("DAILY CHALLENGE").width; c.fillStyle="#9a8f80"; c.font="500 20px Segoe UI, sans-serif"; c.fillText(dayLabel(dailyOn.day) + (mode === "S" ? " · Survivor" : ""), 56 + w, 72); }
   if (mode === "K") { c.fillStyle="#c9a46a"; c.font="600 24px Segoe UI, sans-serif"; c.textAlign="right"; c.fillText(L.item.killer, W-40, 70); }
   c.strokeStyle="#4a3236"; c.lineWidth=2;
   c.beginPath(); if (cOff.checked) { c.moveTo(640,100); c.lineTo(640,300); } c.moveTo(40,320); c.lineTo(W-40,320); c.stroke();
@@ -378,8 +494,9 @@ cv.onmousemove = e => {
 };
 cv.onmouseleave = hideTip;
 
-async function render(){ layout.classList.remove("landing"); renderFaces(); lists(); await draw(); }
+async function render(){ layout.classList.remove("landing"); renderFaces(); drawDaily(); lists(); await draw(); }
 function reroll(which){
+  dailyOn = null;
   if (which === "all") {
     const r = resolve();
     updateHint();
@@ -400,14 +517,16 @@ bAll.onclick = ()=>reroll("all"); bPerks.onclick = ()=>reroll("perks");
 bItem.onclick = ()=>reroll("item"); bOff.onclick = ()=>reroll("off");
 
 const say = t => { msg.textContent = t; setTimeout(()=>msg.textContent="", 2500); };
-bSave.onclick = ()=>{ const a=document.createElement("a"); a.href=cv.toDataURL("image/png"); a.download="loadout.png"; a.click(); };
+bSave.onclick = ()=>{ const a=document.createElement("a"); a.href=cv.toDataURL("image/png"); a.download = dailyOn ? `daily-${dailyOn.side === "K" ? "killer" : "survivor"}-${dailyOn.day}.png` : "loadout.png"; a.click(); };
 bCopy.onclick = ()=> cv.toBlob(async b=>{
   try { await navigator.clipboard.write([new ClipboardItem({"image/png":b})]); say("Image copied"); }
   catch(e){ say("Copy refused: use Download"); }
 });
 
-renderFaces();
-hint.textContent = "Pick a killer below, roll a random one, or search for one.";
+renderFaces(); drawDaily();
+hint.textContent = "Pick a killer below, roll a random one, search for one, or play today's challenge.";
+const asked = new URLSearchParams(location.search).get("daily");  // loadout.html?daily=K / ?daily=S (the notification-area icon opens these)
+if (asked) daily(asked.toUpperCase() === "S" ? "S" : "K");
 </script>
 </body>
 </html>
