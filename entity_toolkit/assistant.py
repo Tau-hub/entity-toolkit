@@ -240,11 +240,12 @@ class Assistant:
                 img = winapi.grab_game_monitor(self.hwnd)
                 res = self.analyzer.analyze(img)
             known = an.survivor_names()
-            if not read_complete(res["allies"], known):  # something is missing: use the other screenshots taken meanwhile, then what the previous try had read
+            sure = lambda r: read_complete(r["allies"], known) and not any(p["uncertain"] for a in r["allies"] for p in a["perks"])
+            if not sure(res):  # an ally is missing, or a perk is doubtful (something over it): use the other screenshots taken meanwhile, then what the previous try had read
                 for n, frame in enumerate(reversed(self.burst.get() if self.burst else []), 1):  # the latest first: the most likely to differ
-                    log(f"Incomplete reading ({len(res['allies'])} allies): reading another screenshot of the menu ({n})")
+                    log(f"Reading not sure ({len(res['allies'])} allies, {sum(p['uncertain'] for a in res['allies'] for p in a['perks'])} doubtful perks): reading another screenshot of the menu ({n})")
                     res = merge_readings([res, self.analyzer.analyze(frame)], known)
-                    if read_complete(res["allies"], known):
+                    if sure(res):
                         break
                 if not read_complete(res["allies"], known) and self.partial and time.time() - self.partial[1] < 120:
                     res = merge_readings([res, self.partial[0]], known)
