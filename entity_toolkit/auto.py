@@ -24,7 +24,7 @@ from . import ocr, winapi
 
 STRIP = (0.0, 0.04, 0.45, 0.17)   # left, top, right, bottom of the strip holding both titles, as fractions of the game's monitor
 END_EVERY = 2.0                   # seconds between two looks for the scoreboard
-TAB_LOOKS = (0.35, 0.9, 1.6)      # after Tab: when to look for the players menu (it takes a moment to open)
+TAB_LOOKS = (0.1, 0.2, 0.3, 0.42, 0.55, 0.7, 0.9, 1.2, 1.6)  # after Tab: when to look for the players menu. Close together: a quick tap shows it for half a second
 REREAD_AFTER = 300                # once the players menu was read, Tab does not read it again for 5 minutes (you reopen it during the match)
 RESEND_AFTER = 150                # once a scoreboard was handled, another one is not handled for 2.5 minutes (leaving the page and coming back)
 VK_TAB = 0x09
@@ -127,11 +127,21 @@ class Watcher:
         hwnd = winapi.game_in_front()
         if not hwnd or self.ast.busy.locked():
             return 0.03
+        if after_tab:
+            # right after Tab the whole screen is taken at once, so that the picture read is the very one that showed the menu
+            # (a quick tap closes it within half a second)
+            img = winapi.grab_game_monitor(hwnd)
+            if read_kind(strip_of(img)) == "players":
+                self.looks = []
+                self.press(hwnd, "players menu seen", img, False)  # the overlay stays: it is not on the part of the screen that is read
+            elif not self.looks:
+                self.log("Automatic: Tab pressed but the players menu was not seen (closed too fast?): press Tab again, a little longer")
+            return 0.02
         kind = look(hwnd)
         if kind == "players":
             self.confirm = 0
             if want_players(self.ast.players_at, now):
-                # the whole screen is taken at once and checked again: a quick tap on Tab may already have closed the menu,
+                # the whole screen is taken at once and checked again: the menu may have been closed in the meantime,
                 # and reading a screen without the menu would only give the "not ok" sound
                 img = winapi.grab_game_monitor(hwnd)
                 if read_kind(strip_of(img)) == "players":
