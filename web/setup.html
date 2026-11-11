@@ -31,6 +31,8 @@
   #finish { background:none; border:0; }
   .msg { color:var(--muted); font-size:13px; min-height:18px; }
   code { background:var(--panel2); padding:1px 6px; border-radius:6px; font-size:13px; }
+  #saved { position:fixed; right:18px; bottom:18px; z-index:50; background:#0d1a12; border:1px solid #2e7d4f; color:#8fe0ae; border-radius:10px; padding:8px 14px; font-size:13px; opacity:0; transition:opacity .25s; pointer-events:none; }
+  #saved.on { opacity:1; } #saved.err { background:#1f0d10; border-color:var(--accent); color:#ff9aa5; }
 </style>
 <link rel="stylesheet" href="theme.css">
 </head>
@@ -63,7 +65,7 @@
   <section class="step" id="s3">
     <h2><span class="n">3</span>You</h2>
     <p>Your in-game name, exactly as shown on the end-of-match scoreboard: it is how the toolkit finds your row to tick “Me” on NightLight.</p>
-    <div class="row"><input type="text" id="player" placeholder="Your in-game name" autocomplete="off"><button class="sec" id="bPlayer">Save</button><span class="msg" id="plMsg"></span></div>
+    <div class="row"><input type="text" id="player" placeholder="Your in-game name" autocomplete="off"><span class="msg" id="plMsg"></span></div>
   </section>
 
   <section class="step" id="s4">
@@ -90,10 +92,10 @@
     <h2><span class="n">6</span>Options</h2>
     <p><b>How the toolkit is triggered</b></p>
     <div class="row"><label><input type="radio" name="mode" id="oKeyMode"> <b>Hotkey</b>: I press the capture key on the players menu (Tab) and on the scoreboard</label></div>
-    <div class="row"><label><input type="radio" name="mode" id="oAutoMode"> <b>Automatic</b>: no key to press. Tab reads the players menu, and the scoreboard is sent by itself once every survivor has finished</label><span class="msg" id="modeMsg"></span></div>
+    <div class="row"><label><input type="radio" name="mode" id="oAutoMode"> <b>Automatic</b>: no key to press. Tab reads the players menu, and the scoreboard is sent by itself once every survivor has finished</label></div>
     <p>In automatic mode, while the game is in front, the toolkit looks at a thin strip at the top left of the screen every 2 seconds (about 30 ms each time), and a few times right after you press Tab. It is the same screenshot technique as the capture key, nothing more: the game itself is never read. The capture key below keeps working in both modes, for instance to send a scoreboard before everyone has finished. Changing the mode applies within a few seconds, no restart needed.</p>
     <div class="row"><label>Capture key <input type="text" id="kCap" style="min-width:140px"></label><label>Clear-overlay key <input type="text" id="kClr" style="min-width:140px"></label></div>
-    <p>Shortcuts look like <code>alt+numpad7</code>, <code>ctrl+shift+n</code>, <code>f9</code>. Changing them takes effect the next time the program starts.</p>
+    <p>Shortcuts look like <code>alt+numpad7</code>, <code>ctrl+shift+n</code>, <code>f9</code>. A new shortcut takes effect the next time the toolkit starts.</p>
     <div class="row"><label><input type="checkbox" id="oOverlay"> Draw the allies' perks over the game's survivor list (survivor view)</label></div>
     <div class="row"><label><input type="checkbox" id="oHover"> Show a perk's text when the mouse is over its icon (the game frees the mouse when you are hooked or dead)</label></div>
     <div class="row"><label><input type="checkbox" id="oSounds"> Play a small sound: ok / not ok</label></div>
@@ -108,7 +110,7 @@
     <p>When this is on, a tiny watcher starts when you sign in to Windows (it only checks the process list every few seconds). <b>Entity Toolkit starts by itself when Dead by Daylight starts, and closes by itself when Dead by Daylight closes</b>; the watcher then waits for the next launch. Turn it off to start the toolkit by hand with <code>run.bat</code> instead.</p>
     <div class="row"><label>Update the database by itself every <select id="oDays"><option value="0">never</option><option value="1">day</option><option value="3">3 days</option><option value="7">7 days</option><option value="14">14 days</option><option value="30">30 days</option></select></label><span class="msg" id="lastUp"></span></div>
     <p>A patch can add killers, survivors, perks, add-ons or maps. While the toolkit runs, it checks once in a while whether the chosen delay has passed and then refreshes everything in the background (a few MB, no effect on the game). It never does it before you have done the first download yourself.</p>
-    <div class="row"><button class="sec" id="bOpts">Save options</button><span class="msg" id="opMsg"></span></div>
+    <p>Every change on this page is saved as soon as you make it.</p>
   </section>
   <section class="step" id="finish">
     <div class="row" style="justify-content:center"><button class="act" id="bFinish">Finish setup</button></div>
@@ -198,7 +200,7 @@ $("bReset").onclick = async () => {
   if (!confirm("Show the first-launch setup again?\n\nYour downloaded data, levels, builds, NightLight token and options are kept.")) return;
   await post("/api/setup/done", { done: false }); await stateChanged(); window.scrollTo(0, 0);
 };
-$("bPlayer").onclick = async () => { await post("/api/config", { player: $("player").value.trim() }); $("plMsg").textContent = "Saved."; refresh(); };
+$("player").addEventListener("change", async () => { const r = await post("/api/config", { player: $("player").value.trim() }); said(r.error ? "Not saved: " + r.error : "Saved ✓", !!r.error); refresh(); });
 $("bToken").onclick = async () => {
   const t = $("token").value.trim();
   if (!t) { $("tkChip").textContent = "paste a token first"; return; }
@@ -210,18 +212,22 @@ $("oAuto").onchange = async (e) => {
   e.target.checked = r.enabled;
   $("auMsg").textContent = r.error ? "Error: " + r.error : r.enabled ? "On: takes effect at your next Windows sign-in." : "Off.";
 };
-// the mode is saved as soon as it is chosen (no "Save options" needed): the running toolkit picks it up within a few seconds
-$("oKeyMode").onchange = $("oAutoMode").onchange = async () => {
-  const auto = $("oAutoMode").checked, r = await post("/api/config", { auto });
-  $("modeMsg").textContent = r.error ? "Error: " + r.error : auto ? "Saved: automatic mode is on." : "Saved: hotkey mode.";
-};
-$("bOpts").onclick = async () => {
+// Everything is saved as soon as it changes: no button. A small note at the bottom right says so (or gives the error, e.g. an unknown key).
+let savedTimer = 0;
+function said(text, bad) {
+  const el = $("saved");
+  el.textContent = text; el.className = "on" + (bad ? " err" : "");
+  clearTimeout(savedTimer); savedTimer = setTimeout(() => { el.className = ""; }, bad ? 6000 : 1600);
+}
+async function saveOpts() {
   const r = await post("/api/config", { upload: $("oUpload").checked, dry_run: $("oDry").checked, overlay: $("oOverlay").checked, auto: $("oAutoMode").checked, perk_hover: $("oHover").checked, sounds: $("oSounds").checked, open_browser: $("oOpen").checked, tray: $("oTray").checked, check_version: $("oVer").checked, shrine: $("oShrine").checked, auto_update_days: +$("oDays").value, keep_captures: Math.max(0, parseInt($("kKeep").value, 10) || 0), capture_key: $("kCap").value.trim(), clear_key: $("kClr").value.trim() });
-  $("opMsg").textContent = r.error ? "Error: " + r.error : "Saved.";
-};
+  said(r.error ? "Not saved: " + r.error : "Saved ✓", !!r.error);
+}
+for (const id of ["oKeyMode", "oAutoMode", "oUpload", "oDry", "oOverlay", "oHover", "oSounds", "oOpen", "oTray", "oVer", "oShrine", "oDays", "kKeep", "kCap", "kClr"]) $(id).addEventListener("change", saveOpts);
 window.addEventListener("et-show", () => refresh());  // the shell re-shows this page: refresh its data
 mountScan($("scanMount"), { onDone: () => refresh() });
 refresh();
 </script>
+<div id="saved"></div>
 </body>
 </html>
