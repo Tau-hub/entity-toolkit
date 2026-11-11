@@ -102,9 +102,12 @@ class Assistant:
         self.hub.status(msg)
 
     # ----- dispatch -----
-    def handle(self, img):
+    def handle(self, img, quiet=False):
+        """`quiet` (automatic mode): a screen that is neither the menu nor the scoreboard is simply ignored, without a sound."""
         kind = classify(img)
         log(f"Screen recognised: {kind or 'none'}")
+        if quiet and kind is None:
+            return
         threading.Thread(target=captures.save, args=(img.copy(), kind or "other"), daemon=True).start()  # rotation of the last captures, off the critical path
         if kind == "players":
             self.players_at = time.time()
@@ -236,21 +239,23 @@ def run(hub, ast, stop_with_game=True):
     capture, clear = winapi.parse_combo(cfg["capture_key"]), winapi.parse_combo(cfg["clear_key"])
     label = winapi.combo_label(cfg["capture_key"])
 
-    def on_press(hwnd, why=None):
+    def on_press(hwnd, why=None, img=None):
         if not ast.busy.acquire(blocking=False):
             log("Press ignored: a job is already running")
             return
         try:
             log(f"Automatic: {why} (game window {hwnd})" if why else f"{label} pressed (game window {hwnd})")
-            ast.overlay_was_on = ast.overlay.hide() if ast.overlay else False  # removed before the capture: it must not get in the way of reading
-            if ast.overlay_was_on:
-                log("Overlay removed")
-            time.sleep(0.25)
             t0 = time.time()
-            img = winapi.grab_game_monitor(hwnd)
-            log(f"Game screen captured: {img.size[0]}x{img.size[1]} in {time.time() - t0:.2f} s")
+            if img is None:
+                ast.overlay_was_on = ast.overlay.hide() if ast.overlay else False  # removed before the capture: it must not get in the way of reading
+                if ast.overlay_was_on:
+                    log("Overlay removed")
+                time.sleep(0.25)
+                t0 = time.time()
+                img = winapi.grab_game_monitor(hwnd)
+                log(f"Game screen captured: {img.size[0]}x{img.size[1]} in {time.time() - t0:.2f} s")
             ast.hwnd = hwnd
-            ast.handle(img)
+            ast.handle(img, quiet=bool(why))
             log(f"Done in {time.time() - t0:.1f} s")
         except Exception as e:
             import traceback
@@ -311,7 +316,7 @@ def run(hub, ast, stop_with_game=True):
             state.update(on=on, at=time.time())
         return state["on"]
 
-    watcher = auto.Watcher(ast, lambda hwnd, why: threading.Thread(target=on_press, args=(hwnd, why), daemon=True).start(), auto_on, hub.status, log)
+    watcher = auto.Watcher(ast, lambda hwnd, why, img: threading.Thread(target=on_press, args=(hwnd, why, img), daemon=True).start(), auto_on, hub.status, log)
     threading.Thread(target=watcher.run, daemon=True, name="auto").start()
     threading.Thread(target=keys, daemon=True).start()
     threading.Thread(target=watch_game, daemon=True).start()

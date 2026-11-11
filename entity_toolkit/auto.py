@@ -89,7 +89,7 @@ def want_end(end_at, now):
 
 
 class Watcher:
-    """The automatic loop. `press(hwnd, why)` does what the capture key does; `ast` gives the state (busy, players_at, end_at)."""
+    """The automatic loop. `press(hwnd, why, img)` does what the capture key does, on the screenshot `img`; `ast` gives the state (busy, players_at, end_at)."""
 
     def __init__(self, ast, press, enabled, say, log):
         self.ast, self.press, self.enabled, self.say, self.log = ast, press, enabled, say, log
@@ -122,18 +122,23 @@ class Watcher:
         if kind == "players":
             self.confirm = 0
             if want_players(self.ast.players_at, now):
-                self.looks = []
-                self.press(hwnd, "players menu seen")
+                # the whole screen is taken at once and checked again: a quick tap on Tab may already have closed the menu,
+                # and reading a screen without the menu would only give the "not ok" sound
+                img = winapi.grab_game_monitor(hwnd)
+                if read_kind(strip_of(img)) == "players":
+                    self.looks = []
+                    self.press(hwnd, "players menu seen", img)
         elif kind == "end":
             self.looks = []
             if not want_end(self.ast.end_at, now):
                 return 0.03
-            done = survivors_done(winapi.grab_game_monitor(hwnd))
+            img = winapi.grab_game_monitor(hwnd)
+            done = survivors_done(img)
             if all(done):
                 self.confirm += 1
                 if self.confirm >= 2:  # seen finished twice in a row: the page has settled
                     self.confirm, self.told = 0, False
-                    self.press(hwnd, "scoreboard seen, every survivor has finished")
+                    self.press(hwnd, "scoreboard seen, every survivor has finished", img)
                 else:
                     self.next_end = now + 0.7
             else:
