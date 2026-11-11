@@ -47,7 +47,7 @@ Pourquoi l'overlay attend : la liste des survivants du jeu n'est visible qu'une 
 
 Settings → Options commence par un choix : **Hotkey** (par défaut : tu appuies sur la touche de capture, modifiable juste en dessous) ou **Automatic**. En mode automatique, tu n'appuies plus sur la touche de capture :
 
-1. **Au début du match, appuie sur Tab** comme tu le ferais de toute façon. L'outil voit le menu des joueurs, lit les perks et la map, et affiche l'overlay.
+1. **Au début du match, appuie sur Tab et garde le menu ouvert environ une seconde.** L'outil voit le menu des joueurs, lit les perks et la map, et affiche l'overlay. Un appui de moins d'une demi-seconde peut passer inaperçu : il ne se passe alors rien, refais simplement Tab un peu plus longtemps.
 2. **Joue.** Rouvrir Tab ne change rien : l'outil voit les mêmes alliés et garde les perks déjà affichées.
 3. **À la fin, reste deux secondes sur le tableau de fin.** Le tableau part sur NightLight, et l'overlay est retiré, seulement quand le match est terminé pour tout le monde : le jeu dévoile alors les perks de chaque joueur, et l'outil attend que les quatre survivants et le tueur affichent les leurs. Si tu meurs en premier, ou si tu reviens du mode spectateur, le tableau que tu vois cache encore des perks : l'outil attend. Appuie sur la touche de capture si tu veux l'envoyer tout de suite.
 

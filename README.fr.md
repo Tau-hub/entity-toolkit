@@ -16,7 +16,7 @@ Un compagnon **non officiel** pour *Dead by Daylight* (Windows) : voir les perks
 |---|---|
 | **Perks des alliés** (survivant) | Appuie sur la touche de capture dans le menu des joueurs (Tab) : l'outil lit les perks, les noms de personnage et les pseudos de tes trois alliés, les affiche sur la page **Live** (second écran) et les dessine sur la liste des survivants du jeu, devant le bon survivant. |
 | **Texte d'une perk au survol** | Quand le jeu libère la souris (tu es accroché ou mort), passe-la sur une icône de l'overlay : une petite boîte affiche le nom, la note et le texte de la perk. Elle disparaît dès que la souris quitte l'icône. À désactiver dans la page Settings. |
-| **Mode automatique** (facultatif) | Plus aucune touche : Tab lit le menu des joueurs, et le tableau de fin part tout seul une fois le match terminé pour tout le monde. Désactivé par défaut, dans Settings. |
+| **Mode automatique** (facultatif) | Plus aucune touche : Tab (menu ouvert environ une seconde) lit le menu des joueurs, et le tableau de fin part tout seul une fois le match terminé pour tout le monde. Désactivé par défaut, dans Settings. |
 | **Mémoire de la map** (survivant et tueur) | La même touche lit et mémorise la map depuis le menu des joueurs. |
 | **Envoi NightLight** | Même touche sur le tableau de fin de match : il est envoyé à [NightLight](https://nightlight.gg) et la revue est faite pour toi (« Me » coché sur ton pseudo, les autres en Random, map réglée depuis la mémoire, Confirm cliqué). |
 | **Suivi des niveaux** | Une page pour régler où tu en es avec chaque tueur et survivant, tenue à jour automatiquement depuis le tableau de fin. Les actions en masse demandent confirmation et peuvent être annulées. |
@@ -49,7 +49,7 @@ Un compagnon **non officiel** pour *Dead by Daylight* (Windows) : voir les perks
 3. **Tableau de fin, même touche** : le match est envoyé à NightLight.
 4. **Rien d'autre à faire** : le match est validé sur NightLight à ta place (ta ligne cochée, la map renseignée).
 
-Avec le **mode automatique** (Settings), les étapes 1 et 3 ne demandent aucune touche : appuie sur Tab comme d'habitude et le reste se fait tout seul ([comment ça marche](https://github.com/Tau-hub/entity-toolkit/wiki/En-match#mode-automatique)).
+Avec le **mode automatique** (Settings), les étapes 1 et 3 ne demandent aucune touche : appuie sur Tab en **gardant le menu ouvert environ une seconde**, et le reste se fait tout seul ([comment ça marche](https://github.com/Tau-hub/entity-toolkit/wiki/En-match#mode-automatique)).
 
 Les mêmes étapes avec des captures : [En match](https://github.com/Tau-hub/entity-toolkit/wiki/En-match).
 

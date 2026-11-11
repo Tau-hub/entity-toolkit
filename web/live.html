@@ -55,7 +55,7 @@
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const ICONS = "icons/";
-let data = null, version = -1, layout = "columns", sel = 0, mainKey = "", keyLabel = "Alt+Numpad 7";
+let data = null, version = -1, layout = "columns", sel = 0, mainKey = "", keyLabel = "Alt+Numpad 7", autoMode = false;
 try { layout = localStorage.getItem("et-live-layout") || layout; } catch (e) {}
 
 const noteCls = (n) => (n >= 60 ? "good" : n >= 35 ? "mid" : "low");
@@ -87,7 +87,7 @@ function renderDetail(allies) {
 function renderMain() {
   const r = data.result, allies = r ? r.allies : [];
   if (!data.ready) { $("main").innerHTML = `<div class="banner">The perk database is not installed yet. Open <a href="setup.html">Setup</a> and press “Update database” (it takes a few minutes the first time).</div>`; return; }
-  if (!r) { $("main").innerHTML = `<div class="empty">Press ${esc(keyLabel)} on the players menu (Tab) during a match.</div>`; return; }
+  if (!r) { $("main").innerHTML = `<div class="empty">${autoMode ? `Automatic mode: at the start of the match, press Tab and keep the players menu open about one second (${esc(keyLabel)} still works).` : `Press ${esc(keyLabel)} on the players menu (Tab) during a match.`}</div>`; return; }
   if (!allies.length) { $("main").innerHTML = `<div class="empty">No ally detected (players menu open, mouse away from the perks?)</div>`; return; }
   sel = Math.min(sel, allies.length - 1);
   if (layout === "list") {
@@ -126,7 +126,7 @@ async function poll() {
   try {
     const r = await fetch("/api/live", { cache: "no-store" });
     const d = await r.json();
-    keyLabel = d.key || keyLabel;
+    keyLabel = d.key || keyLabel; autoMode = !!d.auto;
     if (d.version !== version) { version = d.version; data = d; render(); }
     $("status").classList.remove("off");
   } catch (e) {
