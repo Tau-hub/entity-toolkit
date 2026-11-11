@@ -120,6 +120,7 @@ class Burst:
                 if auto.read_kind(auto.strip_of(img)) != "players":
                     break  # the menu was closed (or it was not the menu at all): nothing more to take
                 self.frames.append(img)
+                captures.save(img.copy(), f"players-extra{len(self.frames)}")  # kept with the other captures, to see afterwards what was read
             except Exception:
                 break
 
