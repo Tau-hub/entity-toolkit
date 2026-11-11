@@ -14,11 +14,11 @@ An **unofficial** companion for *Dead by Daylight* (Windows): see your teammates
 
 | | |
 |---|---|
-| **Allies' perks** (survivor) | Press the capture key on the Tab players menu: the toolkit reads your three allies' perks, character names and player names, shows them on the **Live** page (second screen) and draws them over the game's survivor list, on the right survivor. |
+| **Allies' perks** (survivor) | On the Tab players menu (with your capture key, or by itself in automatic mode), the toolkit reads your three allies' perks, character names and player names, shows them on the **Live** page (second screen) and draws them over the game's survivor list, on the right survivor. |
 | **Perk text on hover** | When the game frees the mouse (you are hooked or dead), put it on an overlay icon and a small box shows that perk's name, rating and text. It disappears as soon as the mouse leaves the icon. Turn it off in the Settings page. |
 | **Automatic mode** (optional) | No key at all: Tab (menu open about one second) reads the players menu, and the scoreboard is sent by itself once the match is over for everyone. Off by default, in Settings. |
-| **Map memory** (survivor and killer) | The same key reads and remembers the map from the players menu. |
-| **NightLight upload** | Press the same key on the end-of-match scoreboard: it is sent to [NightLight](https://nightlight.gg), the match is reviewed for you ("Me" ticked on your name, everyone else Random, map set from memory, Confirm clicked). |
+| **Map memory** (survivor and killer) | The map is read from the players menu at the same time, and remembered for the upload. |
+| **NightLight upload** | On the end-of-match scoreboard (same key, or by itself in automatic mode), the match is sent to [NightLight](https://nightlight.gg), the match is reviewed for you ("Me" ticked on your name, everyone else Random, map set from memory, Confirm clicked). |
 | **Level tracking** | A page to set how far you got with each killer and survivor, kept up to date automatically from the scoreboard. Bulk changes ask for confirmation and can be undone. |
 | **Priorities** | Which characters are worth levelling next, from Otzdarva's opinion plus NightLight stats. The page also shows the bloodpoints still needed to bring your owned killers, survivors, or both to level 3 (an estimate of about 1,116,000 per level). |
 | **Recommended builds** | Killer sheets (builds, add-on tier list, combos) and survivor builds, from Otzdarva and NightLight. |
@@ -40,14 +40,21 @@ An **unofficial** companion for *Dead by Daylight* (Windows): see your teammates
 - The overlay is a **separate transparent window** laid over the game (click-through, never takes focus), not something drawn inside the game.
 - **No guarantee about anti-cheat.** It behaves like screen-capture tools and Discord's overlay, but only you decide whether you are comfortable running anything next to an online game. Use it at your own risk.
 
-## In a match, in four steps
+## In a match
 
-1. **Tab menu, press the key** (Alt + Numpad 7 by default): the toolkit reads your three allies' perks and the map.
-2. **Close the menu**: each ally's four perks stay drawn next to their portrait, for the whole match. Alt + Numpad 8 removes them.
-3. **Scoreboard, press the same key**: the match is sent to NightLight.
+The toolkit acts at two moments, the start and the end of a match. You choose in Settings how they are triggered: **Hotkey** (a capture key of your choice, Alt + Numpad 7 until you change it) or **Automatic** (no key at all).
+
+| | Hotkey mode | Automatic mode |
+|---|---|---|
+| **Start of the match** | Open the players menu (Tab) and press your capture key | Open the players menu (Tab) and keep it open about one second |
+| **End of the match** | Press your capture key on the scoreboard | Nothing: it is sent once every player's perks are revealed |
+
+1. **Start: the players menu is read.** Your three allies' perks and the map.
+2. **Close the menu**: each ally's four perks stay drawn next to their portrait, for the whole match. Your clear key (Alt + Numpad 8 until you change it) removes them.
+3. **End: the scoreboard is read** and, if you set NightLight up, sent to it.
 4. **Nothing else to do**: the match is reviewed on NightLight for you (your row ticked, the map set).
 
-With the **automatic mode** (Settings), steps 1 and 3 need no key: press Tab and **keep the menu open about one second**, and the rest happens by itself ([how it works](https://github.com/Tau-hub/entity-toolkit/wiki/In-a-match#automatic-mode)).
+How the automatic mode works, what it costs and its limits: [Automatic mode](https://github.com/Tau-hub/entity-toolkit/wiki/In-a-match#automatic-mode).
 
 The same steps with screenshots: [In a match](https://github.com/Tau-hub/entity-toolkit/wiki/In-a-match).
 
@@ -67,12 +74,12 @@ The manual is on the [wiki](https://github.com/Tau-hub/entity-toolkit/wiki):
 | Page | What you will find |
 |---|---|
 | [Installation](https://github.com/Tau-hub/entity-toolkit/wiki/Installation) | Requirements, the `.exe` or Python, checking your download, Windows warnings |
-| [Setup and settings](https://github.com/Tau-hub/entity-toolkit/wiki/Setup-and-settings) | The first-launch checklist, every option, the notification-area icon |
-| [In a match](https://github.com/Tau-hub/entity-toolkit/wiki/In-a-match) | Step by step with screenshots: allies' perks, the overlay, the NightLight upload |
+| [Setup and settings](https://github.com/Tau-hub/entity-toolkit/wiki/Setup-and-settings) | The first-launch setup page by page, hotkey or automatic mode, every option, the notification-area icon |
+| [In a match](https://github.com/Tau-hub/entity-toolkit/wiki/In-a-match) | Step by step with screenshots, in hotkey mode and in automatic mode: allies' perks, the overlay, the NightLight upload |
 | [Levels and priorities](https://github.com/Tau-hub/entity-toolkit/wiki/Levels-and-priorities) | Tracking your levels, who to level next, the Shrine of Secrets alert |
 | [Builds and loadouts](https://github.com/Tau-hub/entity-toolkit/wiki/Builds-and-loadouts) | Recommended builds, random loadout and its filters, the daily challenge, the build creator |
 | [Data and privacy](https://github.com/Tau-hub/entity-toolkit/wiki/Data-and-privacy) | What is stored, where, and what goes over the network |
-| [Troubleshooting](https://github.com/Tau-hub/entity-toolkit/wiki/Troubleshooting) | Screen not recognised, wrong perks, misplaced overlay, NightLight review |
+| [Troubleshooting](https://github.com/Tau-hub/entity-toolkit/wiki/Troubleshooting) | Nothing happens, a missing ally or perk, scoreboard not sent, misplaced overlay, NightLight review |
 | [Command line and development](https://github.com/Tau-hub/entity-toolkit/wiki/Command-line-and-development) | Commands, tests, modules, how a release is made |
 
 ## Credits

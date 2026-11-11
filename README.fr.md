@@ -14,11 +14,11 @@ Un compagnon **non officiel** pour *Dead by Daylight* (Windows) : voir les perks
 
 | | |
 |---|---|
-| **Perks des alliés** (survivant) | Appuie sur la touche de capture dans le menu des joueurs (Tab) : l'outil lit les perks, les noms de personnage et les pseudos de tes trois alliés, les affiche sur la page **Live** (second écran) et les dessine sur la liste des survivants du jeu, devant le bon survivant. |
+| **Perks des alliés** (survivant) | Dans le menu des joueurs (Tab), avec ta touche de capture ou tout seul en mode automatique, l'outil lit les perks, les noms de personnage et les pseudos de tes trois alliés, les affiche sur la page **Live** (second écran) et les dessine sur la liste des survivants du jeu, devant le bon survivant. |
 | **Texte d'une perk au survol** | Quand le jeu libère la souris (tu es accroché ou mort), passe-la sur une icône de l'overlay : une petite boîte affiche le nom, la note et le texte de la perk. Elle disparaît dès que la souris quitte l'icône. À désactiver dans la page Settings. |
 | **Mode automatique** (facultatif) | Plus aucune touche : Tab (menu ouvert environ une seconde) lit le menu des joueurs, et le tableau de fin part tout seul une fois le match terminé pour tout le monde. Désactivé par défaut, dans Settings. |
 | **Mémoire de la map** (survivant et tueur) | La même touche lit et mémorise la map depuis le menu des joueurs. |
-| **Envoi NightLight** | Même touche sur le tableau de fin de match : il est envoyé à [NightLight](https://nightlight.gg) et la revue est faite pour toi (« Me » coché sur ton pseudo, les autres en Random, map réglée depuis la mémoire, Confirm cliqué). |
+| **Envoi NightLight** | Sur le tableau de fin de match (même touche, ou tout seul en mode automatique), le match est envoyé à [NightLight](https://nightlight.gg) et la revue est faite pour toi (« Me » coché sur ton pseudo, les autres en Random, map réglée depuis la mémoire, Confirm cliqué). |
 | **Suivi des niveaux** | Une page pour régler où tu en es avec chaque tueur et survivant, tenue à jour automatiquement depuis le tableau de fin. Les actions en masse demandent confirmation et peuvent être annulées. |
 | **Priorités** | Quels personnages monter en priorité, d'après l'avis d'Otzdarva et les stats NightLight. La page affiche aussi les points de sang qui restent à dépenser pour amener tes killers, tes survivants, ou les deux, au niveau 3 (estimation d'environ 1 116 000 par niveau). |
 | **Builds recommandés** | Fiches tueur (builds, tier list des add-ons, combos) et builds survivants, d'Otzdarva et de NightLight. |
@@ -42,14 +42,21 @@ Un compagnon **non officiel** pour *Dead by Daylight* (Windows) : voir les perks
 - L'overlay est une **fenêtre transparente séparée** posée par-dessus le jeu (les clics la traversent, elle ne prend jamais le focus), et non quelque chose dessiné dans le jeu.
 - **Aucune garantie côté anti-triche.** Il se comporte comme les outils de capture d'écran et l'overlay de Discord, mais c'est à toi de décider si tu es à l'aise avec un programme lancé à côté d'un jeu en ligne. À tes risques.
 
-## En match, en quatre étapes
+## En match
 
-1. **Menu Tab, appuie sur la touche** (Alt + pavé numérique 7 par défaut) : l'outil lit les perks de tes trois alliés et la map.
-2. **Ferme le menu** : les quatre perks de chaque allié restent affichées à côté de son portrait, pendant tout le match. Alt + pavé numérique 8 les retire.
-3. **Tableau de fin, même touche** : le match est envoyé à NightLight.
+L'outil agit à deux moments, le début et la fin d'une partie. Tu choisis dans Settings comment ils se déclenchent : **Hotkey** (une touche de capture de ton choix, Alt + pavé numérique 7 tant que tu ne la changes pas) ou **Automatic** (aucune touche).
+
+| | Mode Hotkey | Mode automatique |
+|---|---|---|
+| **Début de la partie** | Ouvre le menu des joueurs (Tab) et appuie sur ta touche de capture | Ouvre le menu des joueurs (Tab) et garde-le ouvert environ une seconde |
+| **Fin de la partie** | Appuie sur ta touche de capture sur le tableau de fin | Rien : il part quand les perks de tous les joueurs sont dévoilées |
+
+1. **Début : le menu des joueurs est lu.** Les perks de tes trois alliés et la map.
+2. **Ferme le menu** : les quatre perks de chaque allié restent affichées à côté de son portrait, pendant tout le match. Ta touche qui retire l'overlay (Alt + pavé numérique 8 tant que tu ne la changes pas) les efface.
+3. **Fin : le tableau de fin est lu** et, si tu as configuré NightLight, envoyé.
 4. **Rien d'autre à faire** : le match est validé sur NightLight à ta place (ta ligne cochée, la map renseignée).
 
-Avec le **mode automatique** (Settings), les étapes 1 et 3 ne demandent aucune touche : appuie sur Tab en **gardant le menu ouvert environ une seconde**, et le reste se fait tout seul ([comment ça marche](https://github.com/Tau-hub/entity-toolkit/wiki/En-match#mode-automatique)).
+Le fonctionnement du mode automatique, ce qu'il coûte et ses limites : [Mode automatique](https://github.com/Tau-hub/entity-toolkit/wiki/En-match#mode-automatique).
 
 Les mêmes étapes avec des captures : [En match](https://github.com/Tau-hub/entity-toolkit/wiki/En-match).
 
@@ -69,12 +76,12 @@ Le mode d'emploi est sur le [wiki](https://github.com/Tau-hub/entity-toolkit/wik
 | Page | Ce que tu y trouves |
 |---|---|
 | [Installer](https://github.com/Tau-hub/entity-toolkit/wiki/Installer) | Prérequis, le `.exe` ou Python, vérifier le téléchargement, avertissements de Windows |
-| [Configuration](https://github.com/Tau-hub/entity-toolkit/wiki/Configuration) | La checklist du premier lancement, toutes les options, l'icône de la zone de notification |
-| [En match](https://github.com/Tau-hub/entity-toolkit/wiki/En-match) | Pas à pas avec captures : perks des alliés, overlay, envoi NightLight |
+| [Configuration](https://github.com/Tau-hub/entity-toolkit/wiki/Configuration) | Le Setup du premier lancement page par page, mode touche ou automatique, toutes les options, l'icône de la zone de notification |
+| [En match](https://github.com/Tau-hub/entity-toolkit/wiki/En-match) | Pas à pas avec captures, en mode touche et en mode automatique : perks des alliés, overlay, envoi NightLight |
 | [Niveaux et priorités](https://github.com/Tau-hub/entity-toolkit/wiki/Niveaux-et-priorites) | Suivre tes niveaux, qui monter en priorité, l'alerte Shrine of Secrets |
 | [Builds et loadouts](https://github.com/Tau-hub/entity-toolkit/wiki/Builds-et-loadouts) | Builds recommandés, loadout aléatoire et ses filtres, défi du jour, création de build |
 | [Données et vie privée](https://github.com/Tau-hub/entity-toolkit/wiki/Donnees-et-vie-privee) | Ce qui est stocké, où, et ce qui passe par le réseau |
-| [Dépannage](https://github.com/Tau-hub/entity-toolkit/wiki/Depannage) | Écran non reconnu, mauvaises perks, overlay décalé, revue NightLight |
+| [Dépannage](https://github.com/Tau-hub/entity-toolkit/wiki/Depannage) | Rien ne se passe, un allié ou une perk manquant, tableau non envoyé, overlay décalé, revue NightLight |
 | [Ligne de commande et développement](https://github.com/Tau-hub/entity-toolkit/wiki/Ligne-de-commande-et-developpement) | Commandes, tests, modules, comment une version est publiée |
 
 ## Crédits
