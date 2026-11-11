@@ -48,7 +48,7 @@ Why the overlay waits: the game's own survivor list is only visible once the Tab
 Settings → Options starts with a choice: **Hotkey** (the default: you press the capture key, which you can change just below) or **Automatic**. In automatic mode you no longer press the capture key:
 
 1. **At the start of the match, press Tab** as you would anyway. The toolkit sees the players menu, reads the perks and the map, and draws the overlay.
-2. **Play.** Opening Tab again does not read the menu again for 5 minutes.
+2. **Play.** Opening Tab again changes nothing: the toolkit sees the same allies and keeps the perks already shown.
 3. **At the end, stay on the scoreboard a couple of seconds.** The scoreboard is sent to NightLight, and the overlay removed, only when the match is over for everyone: the game then reveals every player's perks, and the toolkit waits until the four survivors and the killer all show theirs. If you die first, or come back from spectating, the scoreboard you see still hides some perks: the toolkit waits. Press the capture key if you want to send it right away.
 
 The capture key and the clear key keep working exactly as before.

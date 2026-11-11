@@ -483,6 +483,15 @@ class AutomaticMode(unittest.TestCase):
         self.assertEqual(auto.rows_revealed(img.resize((1920, 1080))), [True, True, True, False, True])  # positions follow the screen's height
 
 
+class SameMatchAgain(unittest.TestCase):
+    def test_the_same_allies_on_screen_mean_the_same_match(self):
+        self.assertTrue(assistant.still_this_match(["ELLEN RIPLEY", "LARA CROFT", "VEE BOONYASAK"], {"Ellen Ripley", "Lara Croft", "Kwon Tae-Young"}))
+        self.assertFalse(assistant.still_this_match(["ELLEN RIPLEY", "LARA CROFT", "VEE BOONYASAK"], {"Ellen Ripley", "Meg Thomas", "Jake Park"}))
+        self.assertTrue(assistant.still_this_match(["MEG THOMAS", "MEG THOMAS", "MEG THOMAS"], {"Meg Thomas"}))  # three times the same survivor
+        self.assertFalse(assistant.still_this_match(["", ""], {"Meg Thomas"}))                                    # nothing known: read again
+        self.assertFalse(assistant.still_this_match(["ELLEN RIPLEY", "LARA CROFT"], set()))
+
+
 class Autostart(unittest.TestCase):
     def test_launcher_starts_the_watcher_with_python_or_with_the_exe(self):
         from entity_toolkit import autostart

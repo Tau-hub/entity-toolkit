@@ -64,6 +64,13 @@ def same_match(mem_names, now_names):
     return None
 
 
+def still_this_match(known, seen):
+    """Automatic mode, players menu seen again: are the allies already shown (`known`, survivor names) the ones on screen (`seen`)?
+    Two names in common are enough (one when a single name is known: three allies playing the same survivor)."""
+    known, seen = {norm(n) for n in known if n}, {norm(n) for n in seen}
+    return bool(known) and len(known & seen) >= min(2, len(known))
+
+
 def own_row(img, pseudo):
     """Rank (0 = top row, 4 = bottom row) of your name on the scoreboard, read by OCR; None if not found."""
     w, h = img.size
@@ -106,8 +113,18 @@ class Assistant:
         """`quiet` (automatic mode): a screen that is neither the menu nor the scoreboard is simply ignored, without a sound."""
         kind = classify(img)
         log(f"Screen recognised: {kind or 'none'}")
-        if quiet and kind is None:
+        if quiet and kind is None:  # automatic mode: the screen changed in the meantime, nothing to do and nothing to say
+            if self.overlay_was_on and self.overlay and self.cfg["overlay"] and self.last_menu:
+                allies, me, menu, _ = self.last_menu
+                log("Automatic: nothing to read after all: the overlay is put back")
+                self.overlay.watch(allies, me, lambda: winapi.grab_game_monitor(self.hwnd), self.hwnd, menu)
             return
+        if quiet and kind == "players" and self.last_menu and time.time() - self.last_menu[3] < 45 * 60:
+            # automatic mode, menu opened again during the match: when the same allies are on screen, the perks already shown stay as they are
+            if still_this_match([a["survivor"] for a in self.last_menu[0]], names_on_screen(img)):
+                log("Automatic: players menu seen again, same match: the perks already shown are kept")
+                self.players_at = time.time()
+                return
         threading.Thread(target=captures.save, args=(img.copy(), kind or "other"), daemon=True).start()  # rotation of the last captures, off the critical path
         if kind == "players":
             self.players_at = time.time()
@@ -250,16 +267,19 @@ def run(hub, ast, stop_with_game=True):
     capture, clear = winapi.parse_combo(cfg["capture_key"]), winapi.parse_combo(cfg["clear_key"])
     label = winapi.combo_label(cfg["capture_key"])
 
-    def on_press(hwnd, why=None, img=None):
+    def on_press(hwnd, why=None, img=None, clean=True):
+        """`img` + `clean=False` (automatic mode, players menu): read that very screenshot and leave the overlay alone."""
         if not ast.busy.acquire(blocking=False):
             log("Press ignored: a job is already running")
             return
         try:
             log(f"Automatic: {why} (game window {hwnd})" if why else f"{label} pressed (game window {hwnd})")
             t0 = time.time()
-            ast.overlay_was_on = ast.overlay.hide() if ast.overlay else False  # removed before the capture: it must not get in the way of reading, nor end up in the scoreboard sent to NightLight
-            if ast.overlay_was_on:
-                log("Overlay removed")
+            ast.overlay_was_on = False
+            if img is None or clean:
+                ast.overlay_was_on = ast.overlay.hide() if ast.overlay else False  # removed before the capture: it must not get in the way of reading, nor end up in the scoreboard sent to NightLight
+                if ast.overlay_was_on:
+                    log("Overlay removed")
             if img is None or ast.overlay_was_on:  # automatic mode hands over its own screenshot: it is only used when the overlay was not drawn on it
                 time.sleep(0.25)
                 t0 = time.time()
@@ -327,7 +347,7 @@ def run(hub, ast, stop_with_game=True):
             state.update(on=on, at=time.time())
         return state["on"]
 
-    watcher = auto.Watcher(ast, lambda hwnd, why, img: threading.Thread(target=on_press, args=(hwnd, why, img), daemon=True).start(), auto_on, hub.status, log)
+    watcher = auto.Watcher(ast, lambda hwnd, why, img, clean: threading.Thread(target=on_press, args=(hwnd, why, img, clean), daemon=True).start(), auto_on, hub.status, log)
     threading.Thread(target=watcher.run, daemon=True, name="auto").start()
     threading.Thread(target=keys, daemon=True).start()
     threading.Thread(target=watch_game, daemon=True).start()

@@ -98,7 +98,7 @@ def want_end(end_at, now):
 
 
 class Watcher:
-    """The automatic loop. `press(hwnd, why, img)` does what the capture key does, on the screenshot `img`; `ast` gives the state (busy, players_at, end_at)."""
+    """The automatic loop. `press(hwnd, why, img, clean)` does what the capture key does, on the screenshot `img` (`clean`: remove the overlay first); `ast` gives the state (busy, players_at, end_at)."""
 
     def __init__(self, ast, press, enabled, say, log):
         self.ast, self.press, self.enabled, self.say, self.log = ast, press, enabled, say, log
@@ -136,7 +136,7 @@ class Watcher:
                 img = winapi.grab_game_monitor(hwnd)
                 if read_kind(strip_of(img)) == "players":
                     self.looks = []
-                    self.press(hwnd, "players menu seen", img)
+                    self.press(hwnd, "players menu seen", img, False)  # the overlay stays: it is not on the part of the screen that is read
         elif kind == "end":
             self.looks = []
             if not want_end(self.ast.end_at, now):
@@ -147,7 +147,7 @@ class Watcher:
                 self.confirm += 1
                 if self.confirm >= 2:  # seen complete twice in a row: the page has settled
                     self.confirm, self.told = 0, False
-                    self.press(hwnd, "scoreboard seen, every player's perks are revealed", img)
+                    self.press(hwnd, "scoreboard seen, every player's perks are revealed", img, True)  # the overlay is removed and the screen taken again: it must not be on the picture sent
                 else:
                     self.next_end = now + 0.7
             else:
