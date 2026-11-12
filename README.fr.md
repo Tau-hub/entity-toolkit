@@ -4,7 +4,7 @@ Un compagnon **non officiel** pour *Dead by Daylight* (Windows) : voir les perks
 
 [English version](README.md)
 
-> Aucun lien avec Behaviour Interactive, NightLight, Otzdarva ni le wiki DbD. *Dead by Daylight* et ses éléments sont des marques et la propriété de Behaviour Interactive Inc. Aucun élément du jeu, aucune note ni description n'est livré dans ce dépôt : l'outil les télécharge sur ton PC (voir [Données et vie privée](https://github.com/Tau-hub/entity-toolkit/wiki/Donnees-et-vie-privee)).
+> Aucun lien avec Behaviour Interactive, NightLight, Otzdarva ni le wiki DbD. *Dead by Daylight* et ses éléments sont des marques et la propriété de Behaviour Interactive Inc. Les icônes de perks, les descriptions, les builds et les notes dont l'outil a besoin sont livrés avec lui dans le dossier [`seed/`](seed/README.md), qui indique la source et le propriétaire de chaque partie : ils ne sont pas couverts par la licence de ce projet, et sont ensuite tenus à jour sur ton PC.
 
 ![Les perks des alliés dessinés par-dessus la liste des survivants du jeu](docs/images/overlay.jpg)
 
@@ -26,7 +26,8 @@ Un compagnon **non officiel** pour *Dead by Daylight* (Windows) : voir les perks
 | **Loadout aléatoire** | Tire un loadout aléatoire de tueur (ou de survivant) : pouvoir, add-ons, perks, offrande en option, avec les notes. Filtres : seulement ce que tu as, une perk d'un type donné, une note minimale. L'affiche se copie ou se télécharge en image. |
 | **Défi du jour** | Un loadout de tueur et un loadout de survivant par jour, les mêmes pour tout le monde : joue-le, coche-le, garde ta série. |
 | **Création de build** | Enregistre tes propres builds killer et survivant (quatre perks, un nom, les killers concernés). Recherche de perks par nom, killer ou type : « aura », « gen regression », « healing »… |
-| **Mise à jour de la base** | Un bouton télécharge tout depuis les sites communautaires, indique l'étape en cours et ce que le patch a apporté (nouveaux killers, survivants, perks, add-ons, maps…). Elle se rafraîchit aussi toute seule tous les 7 jours en arrière-plan (modifiable). |
+| **Prêt dès l'installation** | Les perks, icônes, maps, builds et notes sont livrés avec l'outil. À chaque démarrage, il vérifie si le jeu a reçu un nouveau patch et les rafraîchit tout seul (seules les nouvelles icônes sont téléchargées) ; il le fait aussi tous les 7 jours. Tout est réglable. |
+| **Se met à jour tout seul** | Quand une nouvelle version d'Entity Toolkit sort, il propose de l'installer : un clic, le téléchargement est vérifié (SHA-256), tes données sont gardées, l'outil redémarre. |
 | **Sons** | Un son doux « ok » ou « pas ok » pour savoir sans regarder si la map et les perks ont été lus. |
 
 ![Page Live](docs/images/live.png)
@@ -86,11 +87,11 @@ Le mode d'emploi est sur le [wiki](https://github.com/Tau-hub/entity-toolkit/wik
 
 ## Crédits
 
-Les builds, les valeurs de perks et la tier list des add-ons viennent d'**Otzdarva** ([otzdarva-builds.com](https://otzdarva-builds.com), [otzdarva.com](https://otzdarva.com)) ; les statistiques de la communauté et l'API d'envoi de **[NightLight](https://nightlight.gg)** ; les données de perks et de maps du **[wiki Dead by Daylight](https://deadbydaylight.wiki.gg)**. Rien n'est redistribué ici : tout est récupéré sur ta machine, et les notes et avis appartiennent à leurs auteurs.
+Les builds, les valeurs de perks et la tier list des add-ons viennent d'**Otzdarva** ([otzdarva-builds.com](https://otzdarva-builds.com), [otzdarva.com](https://otzdarva.com)) ; les statistiques de la communauté et l'API d'envoi de **[NightLight](https://nightlight.gg)** ; les données de perks et de maps du **[wiki Dead by Daylight](https://deadbydaylight.wiki.gg)**. Une copie de ces données est livrée avec l'outil pour qu'il marche dès l'installation ([`seed/`](seed/README.md) dit ce qui vient d'où) ; elles restent la propriété de leurs auteurs, et sont retirées sur demande.
 
 ## Licence
 
-[MIT](LICENSE) pour le code de ce dépôt. Elle ne couvre ni les données tierces téléchargées par l'outil, ni les éléments de *Dead by Daylight*.
+[MIT](LICENSE) pour le code de ce dépôt. Elle ne couvre ni les données tierces que l'outil livre dans [`seed/`](seed/README.md) ou télécharge, ni les éléments de *Dead by Daylight*.
 
 ## Assistance de l'IA
 

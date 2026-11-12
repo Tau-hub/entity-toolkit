@@ -18,7 +18,7 @@ There are two ways to run the toolkit. They do exactly the same thing: pick the 
 3. Unzip it wherever you like, in a folder you can write to (Documents, Desktop, another drive: not `Program Files`). Keep `EntityToolkit.exe` and the `_internal` folder together.
 4. Double-click **`EntityToolkit.exe`**. It starts in the background (the red **E** appears in the notification area) and opens its window on the **Setup** page the first time.
 
-Your data goes in a `data` folder next to `EntityToolkit.exe`. To update, download the new release, unzip it and move your `data` folder into it (if *Start automatically with Windows* is on, untick and tick it again from the new folder).
+Your data goes in a `data` folder next to `EntityToolkit.exe`. Updating is offered by the toolkit itself when a new release is out (see [Setup and settings](https://github.com/Tau-hub/entity-toolkit/wiki/Setup-and-settings)); by hand, unzip the new release over the old one, keeping your `data` folder.
 
 **Checking the download.** Each release comes with `SHA256SUMS.txt`, and its notes show the same fingerprint. In PowerShell, in the folder where the zip is:
 
@@ -43,4 +43,4 @@ install.bat
 run.bat
 ```
 
-`install.bat` installs the Python packages. `run.bat` starts the toolkit in the background and opens its window on the **Setup** page the first time. Update with `git pull`.
+`install.bat` installs the Python packages. `run.bat` starts the toolkit in the background and opens its window on the **Setup** page the first time. The toolkit offers to update itself when a new release is out (it runs `git pull` for you).

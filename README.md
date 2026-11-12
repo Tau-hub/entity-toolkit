@@ -4,7 +4,7 @@
 
 An **unofficial** companion for *Dead by Daylight* (Windows): see your teammates' perks over the game, send your match scoreboard to NightLight with one key, track your character levels, browse recommended builds, and build your own.
 
-> Not affiliated with Behaviour Interactive, NightLight, Otzdarva or the DbD wiki. *Dead by Daylight* and its assets are trademarks / property of Behaviour Interactive Inc. No game asset, rating or description is shipped in this repository: the toolkit downloads them on your PC (see [Data and privacy](https://github.com/Tau-hub/entity-toolkit/wiki/Data-and-privacy)).
+> Not affiliated with Behaviour Interactive, NightLight, Otzdarva or the DbD wiki. *Dead by Daylight* and its assets are trademarks / property of Behaviour Interactive Inc. The perk icons, descriptions, builds and ratings the toolkit needs come with it in the [`seed/`](seed/README.md) folder, which names the source and owner of each part: they are not covered by this project's licence, and are then kept current on your PC.
 
 ![The allies' perks drawn over the game's survivor list](docs/images/overlay.jpg)
 
@@ -26,7 +26,8 @@ An **unofficial** companion for *Dead by Daylight* (Windows): see your teammates
 | **Random loadout** | Roll a random killer (or survivor) loadout: power, add-ons, perks, optional offering, with ratings. Filters: only what you have, one perk of a given type, a minimum rating. Copy or download the poster as an image. |
 | **Daily challenge** | One killer loadout and one survivor loadout per day, the same for everyone: play it, tick it, keep your streak. |
 | **Build creator** | Save your own killer and survivor builds (four perks, a name, the killers it suits). Search perks by name, killer or type: "aura", "gen regression", "healing"… |
-| **Database update** | One button downloads everything from the community sites, shows which step it is on and what the patch brought (new killers, survivors, perks, add-ons, maps…). It also refreshes itself every 7 days in the background (changeable). |
+| **Ready after installing** | The perks, icons, maps, builds and ratings come with the toolkit. At each start it checks whether the game got a new patch and refreshes them by itself (only the new icons are downloaded); it also does so every 7 days. All of it can be changed. |
+| **Updates itself** | When a newer Entity Toolkit is released, it offers to install it: one click, the download is checked (SHA-256), your data is kept, the toolkit restarts. |
 | **Sounds** | A soft "ok" or "not ok" sound so you know without looking whether the map and perks were read. |
 
 ![Live page](docs/images/live.png)
@@ -84,11 +85,11 @@ The manual is on the [wiki](https://github.com/Tau-hub/entity-toolkit/wiki):
 
 ## Credits
 
-Builds, perk values and the add-on tier list come from **Otzdarva** ([otzdarva-builds.com](https://otzdarva-builds.com), [otzdarva.com](https://otzdarva.com)); community statistics and the upload API from **[NightLight](https://nightlight.gg)**; perk and map data from the **[Dead by Daylight wiki](https://deadbydaylight.wiki.gg)**. None of it is redistributed here: it is fetched on your machine, and the ratings and opinions belong to their authors.
+Builds, perk values and the add-on tier list come from **Otzdarva** ([otzdarva-builds.com](https://otzdarva-builds.com), [otzdarva.com](https://otzdarva.com)); community statistics and the upload API from **[NightLight](https://nightlight.gg)**; perk and map data from the **[Dead by Daylight wiki](https://deadbydaylight.wiki.gg)**. A copy of that data ships with the toolkit so that it works right after installing ([`seed/`](seed/README.md) says what comes from where); it stays the property of its authors, and it is removed on request.
 
 ## License
 
-[MIT](LICENSE) for the code of this repository. It does not cover the third-party data the toolkit downloads, nor *Dead by Daylight*'s assets.
+[MIT](LICENSE) for the code of this repository. It does not cover the third-party data the toolkit ships in [`seed/`](seed/README.md) or downloads, nor *Dead by Daylight*'s assets.
 
 ## AI assistance
 

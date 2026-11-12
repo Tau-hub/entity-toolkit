@@ -63,9 +63,9 @@
   </section>
 
   <section class="step" id="s2">
-    <h2><span class="n">2</span>Download the data<button class="act" id="bUpdate" style="margin-left:auto">Update database</button></h2>
-    <p class="wizOnly"><b>Press “Update database”, then Next:</b> the download takes a few minutes and goes on in the background while you fill in the rest.</p>
-    <p>Perk names, descriptions and icons (DbD wiki), map names, Otzdarva's builds and tier list, and NightLight's community stats. Nothing from these sites ships with the toolkit: it is downloaded on your PC, into the <code>data</code> folder. Run it again after a game patch.</p>
+    <h2><span class="n">2</span>The data<button class="act" id="bUpdate" style="margin-left:auto">Update database</button></h2>
+    <p id="seedMsg"></p>
+    <p>Perk names, descriptions and icons (DbD wiki), map names, Otzdarva's builds and tier list, and NightLight's community stats. A copy comes with the toolkit, so there is nothing to wait for; it is then kept current on your PC, in the <code>data</code> folder. The lists and texts are read again at each update, and only the icons you do not have yet are downloaded.</p>
     <div class="db" id="db"></div>
     <p id="patchInfo"></p>
     <div class="msg" id="upMsg"></div>
@@ -124,10 +124,14 @@
     <p>With <i>Start automatically with Windows</i> below, this means the window opens by itself each time you launch Dead by Daylight. It reopens where you left it (your second screen, for instance).</p>
     <div class="row"><label>When I close the window <select id="oClose"><option value="ask">ask me</option><option value="tray">keep the toolkit running in the notification area</option><option value="quit">quit Entity Toolkit</option></select></label></div>
     <div class="row"><label><input type="checkbox" id="oTray"> Show an icon in the Windows notification area while the toolkit runs (open the pages, quit)</label></div>
-    <div class="row"><label><input type="checkbox" id="oVer"> Tell me when a newer Entity Toolkit exists (looks at GitHub once a day, sends nothing)</label><span class="msg" id="verMsg"></span></div>
+    <div class="row"><label><input type="checkbox" id="oVer"> Look for a newer Entity Toolkit at each start (reads GitHub's public release page, sends nothing)</label><span class="msg" id="verMsg"></span></div>
+    <div class="row"><label>When a newer version exists <select id="oUpd"><option value="ask">ask me, then install it for me</option><option value="auto">install it by itself when the game is not running</option><option value="never">only tell me</option></select></label><button class="sec" id="bUpdNow" style="display:none">Update now</button><span class="msg" id="updMsg"></span></div>
+    <p>Installing downloads the release, checks its SHA-256 against the one published with it, replaces the program (never your <code>data</code> folder) and restarts the toolkit. With the Python version from a git clone, it runs <code>git pull</code> and refreshes the packages.</p>
     <div class="row"><label><input type="checkbox" id="oShrine"> Show this week's Shrine of Secrets on the priorities pages and flag the perks I do not have (reads NightLight's public list once a week, sends nothing)</label></div>
     <div class="row"><label><input type="checkbox" id="oAuto"> Start automatically with Windows</label><span class="msg" id="auMsg"></span></div>
     <p>When this is on, a tiny watcher starts when you sign in to Windows (it only checks the process list every few seconds). <b>Entity Toolkit starts by itself when Dead by Daylight starts, and closes by itself when Dead by Daylight closes</b>; the watcher then waits for the next launch. Turn it off to start the toolkit by hand with <code>run.bat</code> instead.</p>
+    <div class="row"><label><input type="checkbox" id="oFirst"> Download the database by itself the first time</label></div>
+    <div class="row"><label><input type="checkbox" id="oPatch"> At each start, check whether the game got a new patch and refresh the database if so</label></div>
     <div class="row"><label>Update the database by itself every <select id="oDays"><option value="0">never</option><option value="1">day</option><option value="3">3 days</option><option value="7">7 days</option><option value="14">14 days</option><option value="30">30 days</option></select></label><span class="msg" id="lastUp"></span></div>
     <p>A patch can add killers, survivors, perks, add-ons or maps. While the toolkit runs, it checks once in a while whether the chosen delay has passed and then refreshes everything in the background (a few MB, no effect on the game). It never does it before you have done the first download yourself.</p>
   </section>
@@ -155,7 +159,7 @@ let polling = false, formLoaded = false, last = null;
 
 // First launch: the sections are shown one at a time, in this order. Next never blocks: everything can be done later in Settings.
 const WIZ = [["s1", "Requirements"], ["s2", "Data"], ["sMode", "Hotkey or automatic"], ["s3", "Your name"], ["s5", "NightLight"], ["s4", "Levels"], ["s6", "Options"], ["finish", "Done"]];
-const HINT = { s2: "The download continues in the background.", s5: "Optional: Next skips it.", s4: "Optional: Next skips it.", s6: "The defaults are fine." };
+const HINT = { s2: "Nothing to do here if it says Ready.", s5: "Optional: Next skips it.", s4: "Optional: Next skips it.", s6: "The defaults are fine." };
 let wiz = 0;
 try { wiz = Math.max(0, Math.min(WIZ.length - 1, +localStorage.getItem("et-setup-step") || 0)); } catch (e) {}
 function showStep(i) {
@@ -171,7 +175,7 @@ function summary(s) {
   const all = Object.values(s.db.installed).every(Boolean);
   const rows = [
     ["Windows text reading (OCR)", s.ocr, s.ocr ? "ready" : "no English language pack found: the toolkit cannot read the game yet"],
-    ["Database", all, all ? "downloaded" : s.db.running ? "downloading in the background…" : "not downloaded yet: go back to “Data”"],
+    ["Database", all, all ? "ready" + (s.db_patch ? " (game patch " + s.db_patch + ")" : "") : s.db.running ? "downloading in the background…" : "not there yet: go back to “Data”"],
     ["Mode", true, s.config.auto ? "automatic (the capture key still works)" : "hotkey: " + s.config.capture_key],
     ["Your name", !!s.config.player, s.config.player || "not set (only needed for NightLight)"],
     ["NightLight", s.token && s.session, s.token && s.session ? (s.config.upload ? "scoreboards are sent" : "set up, but sending is turned off") : s.token ? "token saved, but you have not signed in yet" : "not used: nothing is ever sent"],
@@ -224,8 +228,11 @@ async function refresh() {
     $("player").value = s.config.player;
     $("oUpload").checked = s.config.upload; $("oDry").checked = s.config.dry_run;
     $("oOverlay").checked = s.config.overlay; $("oAutoMode").checked = !!s.config.auto; $("oKeyMode").checked = !s.config.auto; $("oHover").checked = s.config.perk_hover; $("oSounds").checked = s.config.sounds;
-    $("oAuto").checked = s.autostart; $("oOpen").checked = s.config.open_browser; $("oWindow").checked = s.config.window; $("oClose").value = s.config.close_action || "ask"; $("oTray").checked = s.config.tray; $("oVer").checked = s.config.check_version; $("oShrine").checked = s.config.shrine;
-    $("verMsg").innerHTML = s.version.newer ? `Version ${s.version.current} · <b>${s.version.latest} is available</b>: <a href="${s.version.page}" target="_blank" rel="noopener">get it on GitHub</a>${s.version.exe ? " and replace this folder's files (keep your <code>data</code> folder)" : " (or <code>git pull</code>)"}, then restart.` : `Version ${s.version.current}` + (s.version.latest ? " (up to date)" : "");
+    $("oAuto").checked = s.autostart; $("oOpen").checked = s.config.open_browser; $("oWindow").checked = s.config.window; $("oClose").value = s.config.close_action || "ask"; $("oTray").checked = s.config.tray; $("oVer").checked = s.config.check_version; $("oUpd").value = s.config.update_install || "ask"; $("oFirst").checked = s.config.first_download; $("oPatch").checked = s.config.update_on_patch; $("oShrine").checked = s.config.shrine;
+    const v = s.version;
+    $("verMsg").innerHTML = v.newer ? `Version ${v.current} · <b>${v.latest} is available</b> (<a href="${v.page}" target="_blank" rel="noopener">what is new</a>)` : `Version ${v.current}` + (v.latest ? " (up to date)" : "");
+    $("bUpdNow").style.display = v.newer && v.can_install ? "" : "none";
+    $("updMsg").textContent = v.newer && !v.can_install ? "This copy cannot update itself (the source was downloaded as a zip): get the new version from the release page." : "";
     $("oDays").value = String(s.config.auto_update_days);
     $("kKeep").value = s.config.keep_captures;
     $("kCap").value = s.config.capture_key; $("kClr").value = s.config.clear_key;
@@ -233,6 +240,11 @@ async function refresh() {
   $("lastUp").textContent = s.last_update ? "Last full update: " + new Date(s.last_update * 1000).toLocaleString() : "";
   setMode(s.setup_done);
   renderDb(s.db);
+  const day = (t) => new Date(t * 1000).toLocaleDateString();
+  const all = Object.values(s.db.installed).every(Boolean);
+  $("seedMsg").innerHTML = s.db.running ? "" : all
+    ? `<b>Ready:</b> you have the data of ${day(s.last_update)}` + (s.db_patch ? `, for game patch ${s.db_patch}` : "") + (s.seed && s.seed.date >= s.last_update ? " (the copy that came with this version)" : "") + ". It is refreshed by itself when the game gets a new patch; “Update database” does it now."
+    : s.seed ? "The data that comes with the toolkit is being installed…" : "<b>No data yet:</b> the first download starts by itself (a few minutes) and goes on in the background.";
   showStep(wiz);
   const pi = $("patchInfo");
   if (s.patch) {
@@ -271,6 +283,12 @@ $("bToken").onclick = async () => {
   if (!t) { $("tkChip").textContent = "paste a token first"; return; }
   await post("/api/token", { token: t }); $("token").value = ""; refresh();
 };
+$("bUpdNow").onclick = async () => {
+  if (!confirm("Install the new version now?\n\nThe toolkit restarts by itself: do it between two matches.")) return;
+  const r = await post("/api/update/install");
+  $("updMsg").textContent = r.started ? "Updating… the toolkit restarts by itself." : "Could not start the update" + (r.version && r.version.error ? ": " + r.version.error : ".");
+  if (r.started) { const t = setInterval(async () => { try { const x = (await (await fetch("/api/shell", { cache: "no-store" })).json()).version; $("updMsg").textContent = x.error ? "Update failed: " + x.error : "Updating: " + x.step + "…"; if (!x.installing) clearInterval(t); } catch (e) { $("updMsg").textContent = "Restarting…"; clearInterval(t); } }, 1000); }
+};
 $("bLogin").onclick = async () => { await post("/api/login"); $("loMsg").textContent = "A browser window opened: sign in there, it closes by itself."; };
 $("oAuto").onchange = async (e) => {
   const r = await post("/api/autostart", { enabled: e.target.checked });
@@ -285,10 +303,10 @@ function said(text, bad) {
   clearTimeout(savedTimer); savedTimer = setTimeout(() => { el.className = ""; }, bad ? 6000 : 1600);
 }
 async function saveOpts() {
-  const r = await post("/api/config", { upload: $("oUpload").checked, dry_run: $("oDry").checked, overlay: $("oOverlay").checked, auto: $("oAutoMode").checked, perk_hover: $("oHover").checked, sounds: $("oSounds").checked, open_browser: $("oOpen").checked, window: $("oWindow").checked, close_action: $("oClose").value, tray: $("oTray").checked, check_version: $("oVer").checked, shrine: $("oShrine").checked, auto_update_days: +$("oDays").value, keep_captures: Math.max(0, parseInt($("kKeep").value, 10) || 0), capture_key: $("kCap").value.trim(), clear_key: $("kClr").value.trim() });
+  const r = await post("/api/config", { upload: $("oUpload").checked, dry_run: $("oDry").checked, overlay: $("oOverlay").checked, auto: $("oAutoMode").checked, perk_hover: $("oHover").checked, sounds: $("oSounds").checked, open_browser: $("oOpen").checked, window: $("oWindow").checked, close_action: $("oClose").value, tray: $("oTray").checked, check_version: $("oVer").checked, update_install: $("oUpd").value, first_download: $("oFirst").checked, update_on_patch: $("oPatch").checked, shrine: $("oShrine").checked, auto_update_days: +$("oDays").value, keep_captures: Math.max(0, parseInt($("kKeep").value, 10) || 0), capture_key: $("kCap").value.trim(), clear_key: $("kClr").value.trim() });
   said(r.error ? "Not saved: " + r.error : "Saved ✓", !!r.error);
 }
-for (const id of ["oKeyMode", "oAutoMode", "oUpload", "oDry", "oOverlay", "oHover", "oSounds", "oOpen", "oWindow", "oClose", "oTray", "oVer", "oShrine", "oDays", "kKeep", "kCap", "kClr"]) $(id).addEventListener("change", saveOpts);
+for (const id of ["oKeyMode", "oAutoMode", "oUpload", "oDry", "oOverlay", "oHover", "oSounds", "oOpen", "oWindow", "oClose", "oUpd", "oFirst", "oPatch", "oTray", "oVer", "oShrine", "oDays", "kKeep", "kCap", "kClr"]) $(id).addEventListener("change", saveOpts);
 window.addEventListener("et-show", () => refresh());  // the shell re-shows this page: refresh its data
 mountScan($("scanMount"), { onDone: () => refresh() });
 refresh();

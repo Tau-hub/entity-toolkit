@@ -67,7 +67,7 @@ def run(only=None, refresh=False, trigger="manual"):
     }
     result = {}
     before = changes.snapshot()
-    _say(("Automatic update" if trigger == "automatic" else "Update") + f" started: {len(todo)} step{'s' if len(todo) != 1 else ''}. Perks, icons and add-ons are downloaded again; nothing is removed unless the sites dropped it.")
+    _say(("Automatic update" if trigger == "automatic" else "Update") + f" started: {len(todo)} step{'s' if len(todo) != 1 else ''}. The lists and texts are read again; only the icons and pictures you do not have yet are downloaded. Nothing is removed unless the sites dropped it.")
     try:
         for n, key in enumerate(todo, 1):  # builds first: the perk and loadout steps read their ratings / tiers
             with _lock:
@@ -96,6 +96,11 @@ def run(only=None, refresh=False, trigger="manual"):
         if ok and not only:
             cfg = config.load()
             cfg["last_update"] = int(time.time())
+            try:
+                from . import patch
+                cfg["db_patch"] = (patch.load() or {}).get("live") or cfg.get("db_patch") or ""
+            except Exception:
+                pass
             config.save(cfg)
         _say("Update finished." if ok else "Update finished with errors (see above).")
         for cb in ON_FINISH:
@@ -127,16 +132,47 @@ def due():
     return bool(days) and bool(t) and time.time() - t > days * 86400  # never before the first manual download
 
 
+def nothing_installed():
+    return not (paths.LOADOUT.exists() or paths.KILLERS.exists() or paths.MAPS.exists())
+
+
+def patch_changed(live, cfg, stored):
+    """Did the game move to another patch than the one the database was refreshed for? `stored` is the saved patch.json (or None).
+    False when either side is unknown: an update is never started on a guess."""
+    base = cfg.get("db_patch") or (stored or {}).get("live")
+    return bool(live) and bool(base) and live != base
+
+
 def start_auto_update(log=_log):
-    """Background check: refreshes the database by itself when the chosen number of days has passed. Costs one clock comparison every few hours."""
+    """Background checks, so that nobody has to press "Update database":
+     - the very first start downloads everything by itself (the `first_download` setting);
+     - at each start, one request to the Steam announcements tells whether the game got a new patch: if so the database is
+       refreshed (the `update_on_patch` setting);
+     - and it is refreshed anyway when it is older than the chosen number of days (`auto_update_days`)."""
     def loop():
-        time.sleep(60)  # let the program start (and a match begin) before doing anything
+        time.sleep(4)
+        try:
+            if nothing_installed() and config.load().get("first_download") and not STATE["running"]:
+                log("First start: downloading the database in the background (perks, icons, maps, builds)")
+                run(trigger="automatic")
+        except Exception:
+            log(traceback.format_exc())
+        time.sleep(56)  # let the program start (and a match begin) before doing anything else
+        first = True
         while True:
             try:
+                cfg = config.load()
+                if first and cfg.get("update_on_patch") and not nothing_installed() and not STATE["running"]:
+                    from . import patch
+                    live = patch.latest()[0]
+                    if patch_changed(live, cfg, patch.load()):
+                        log(f"The game is now on patch {live} (the database is for {cfg.get('db_patch') or (patch.load() or {}).get('live')}): refreshing it in the background")
+                        run(trigger="automatic")
                 if due() and not STATE["running"]:
                     log("Automatic update: the database is older than the chosen delay, refreshing it in the background")
                     run(trigger="automatic")
-            except Exception:
-                log(traceback.format_exc())
+            except Exception as e:
+                log(f"Automatic database check skipped: {e}")
+            first = False
             time.sleep(6 * 3600)
     threading.Thread(target=loop, daemon=True, name="auto-update").start()

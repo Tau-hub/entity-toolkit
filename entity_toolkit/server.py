@@ -10,7 +10,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import unquote, urlparse
 
 from . import autostart, config, database, levels, mybuilds, nightlight, paths, perk_types, shrine, version, winapi
-from .database import patch as patch_info
+from .database import patch as patch_info, seed as seed_data
 
 MIME = {".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8",
         ".png": "image/png", ".webp": "image/webp", ".jpg": "image/jpeg", ".svg": "image/svg+xml", ".ico": "image/x-icon"}
@@ -221,7 +221,7 @@ def make_handler(hub):
             if path == "/api/setup":
                 lv = levels.load()
                 return self._json({"ocr": _ocr_available(), "token": _token_saved(), "session": _session_saved(), "config": config.load(),
-                                   "db": database.status(), "patch": patch_info.load(), "ratings_patch": _ratings_patch(), "setup_done": setup_done(), "autostart": autostart.installed(), "last_update": database.last_update(), "version": version.info(), "levels_set": sum(1 for k in lv.values() for v in k.values() if v)})
+                                   "db": database.status(), "seed": seed_data.info(), "db_patch": config.load().get("db_patch"), "patch": patch_info.load(), "ratings_patch": _ratings_patch(), "setup_done": setup_done(), "autostart": autostart.installed(), "last_update": database.last_update(), "version": version.info(), "levels_set": sum(1 for k in lv.values() for v in k.values() if v)})
             if path == "/api/levels":
                 chars = {k: levels.characters(k) for k in levels.KINDS}
                 return self._json({"ready": any(chars.values()), "characters": chars, "levels": levels.load(), "history": levels.history(), "chapters": levels.chapters(), "backups": levels.backups()})
@@ -263,6 +263,15 @@ def make_handler(hub):
                 cfg.update({k: v for k, v in body.items() if k in config.DEFAULTS})
                 config.save(cfg)
                 return {"ok": True}
+            if path == "/api/update/install":  # "Update now" in the window, or in Settings
+                from .log import log
+                return {"started": version.install(log, hub.quit), "version": version.info()}
+            if path == "/api/update/check":
+                try:
+                    version.check()
+                except Exception as e:
+                    return {"error": str(e), "version": version.info()}
+                return {"version": version.info()}
             if path == "/api/quit":  # the window was closed with "quit Entity Toolkit"
                 hub.quit()
                 return {"ok": True}

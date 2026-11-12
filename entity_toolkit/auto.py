@@ -87,6 +87,15 @@ def rows_revealed(img):
     return out
 
 
+def same_board(a, b):
+    """Do two screenshots show the same scoreboard? The rows (left half of the screen, without the far left where the overlay is drawn)
+    do not move, so two pictures of the same scoreboard are almost identical there; a window that came over it makes them differ."""
+    def rows(img):
+        w, h = img.size
+        return np.asarray(img.crop((int(w * 0.06), int(h * 0.22), int(w * 0.55), int(h * 0.80))).convert("L").resize((160, 96)), dtype=float)
+    return float(np.abs(rows(a) - rows(b)).mean()) < 6.0
+
+
 def want_players(players_at, now):
     """Look for the players menu? Not when it was read a moment ago for this match."""
     return players_at is None or now - players_at > REREAD_AFTER

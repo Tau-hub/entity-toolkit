@@ -12,6 +12,7 @@ else:
 DATA = Path(os.environ.get("ENTITY_TOOLKIT_DATA", ROOT / "data"))
 WEB = BUNDLE / "web"
 SOUNDS = BUNDLE / "sounds"
+SEED = BUNDLE / "seed"  # the database shipped with the toolkit (see database/seed.py)
 
 ICONS = DATA / "icons"                      # perk icons downloaded from the DbD wiki by `update-db`
 LOADOUT = DATA / "loadout_data.json"        # perks (name, icon, description, rating) used for recognition

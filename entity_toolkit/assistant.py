@@ -190,6 +190,12 @@ class Assistant:
                 log("Automatic: players menu seen again, same match: the perks already shown are kept")
                 self.players_at = time.time()
                 return
+        if quiet and kind == "end" and not all(auto.rows_revealed(img)):
+            # automatic mode: between seeing the finished scoreboard and taking the picture to send, something came over it
+            # (another window, a page change). An incomplete picture is never sent: the scoreboard is looked at again.
+            log(f"Automatic: the scoreboard picture is not complete any more (rows {auto.rows_revealed(img)}): nothing sent, looking again")
+            threading.Thread(target=captures.save, args=(img.copy(), "end-covered"), daemon=True).start()
+            return
         threading.Thread(target=captures.save, args=(img.copy(), kind or "other"), daemon=True).start()  # rotation of the last captures, off the critical path
         if kind == "players":
             self.players_at = time.time()
@@ -370,8 +376,22 @@ def run(hub, ast, stop_with_game=True):
             if img is None or ast.overlay_was_on:  # automatic mode hands over its own screenshot: it is only used when the overlay was not drawn on it
                 time.sleep(0.25)
                 t0 = time.time()
+                seen = img  # automatic mode: the picture on which the finished scoreboard was seen
                 img = winapi.grab_game_monitor(hwnd)
                 log(f"Game screen captured: {img.size[0]}x{img.size[1]} in {time.time() - t0:.2f} s")
+                if why and seen is not None:
+                    # the picture to send must be the scoreboard that was seen, with nothing over it (another window, a page change):
+                    # several are taken, a moment apart, and the first clean one is used
+                    for n in range(4):
+                        if winapi.game_in_front() == hwnd and auto.same_board(seen, img):
+                            break
+                        log(f"Automatic: something is over the scoreboard on that picture: taking another one ({n + 1})")
+                        threading.Thread(target=captures.save, args=(img.copy(), "end-covered"), daemon=True).start()
+                        time.sleep(0.4)
+                        img = winapi.grab_game_monitor(hwnd)
+                    else:
+                        log("Automatic: no clean picture of the scoreboard (another window in front?): nothing sent, looking again")
+                        return
             ast.hwnd = hwnd
             ast.burst = Burst(hwnd)  # a few more screenshots while this one is read (they stop by themselves when it is not the players menu)
             ast.handle(img, quiet=bool(why))

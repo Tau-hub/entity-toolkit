@@ -593,6 +593,75 @@ class NewVersion(unittest.TestCase):
         self.assertEqual(version.read('"""doc"""\n__version__ = "1.4.2"\n'), "1.4.2")
 
 
+class SoftwareUpdate(unittest.TestCase):
+    RELEASE = {"tag_name": "v0.4.1", "html_url": "https://example.org/r", "body": "notes", "assets": [
+        {"name": "EntityToolkit-0.4.1-windows.zip", "browser_download_url": "https://example.org/z"},
+        {"name": "SHA256SUMS.txt", "browser_download_url": "https://example.org/s"}]}
+
+    def test_the_latest_release_gives_the_version_the_zip_and_the_checksums(self):
+        from entity_toolkit import version
+        r = version.read_release(self.RELEASE)
+        self.assertEqual((r["latest"], r["zip"], r["zip_name"], r["sums"]), ("0.4.1", "https://example.org/z", "EntityToolkit-0.4.1-windows.zip", "https://example.org/s"))
+        self.assertTrue(version.newer(r["latest"], "0.4.0"))
+        self.assertIsNone(version.read_release({"tag_name": "v1.0.0", "assets": []})["zip"])  # a release without the zip cannot be installed
+
+    def test_the_checksum_is_the_one_listed_for_that_file(self):
+        from entity_toolkit import version
+        h, other = "a" * 64, "b" * 64
+        sums = f"{other}  Something-else.zip\n{h.upper()}  EntityToolkit-0.4.1-windows.zip\n"
+        self.assertEqual(version.expected_hash(sums, "EntityToolkit-0.4.1-windows.zip"), h)
+        self.assertIsNone(version.expected_hash(sums, "EntityToolkit-0.4.2-windows.zip"))
+        self.assertIsNone(version.expected_hash("not a hash  EntityToolkit-0.4.1-windows.zip", "EntityToolkit-0.4.1-windows.zip"))
+
+    def test_the_swap_script_replaces_the_program_and_never_touches_the_data(self):
+        from entity_toolkit import version
+        bat = version.apply_script("C:/Tools/Entity Toolkit", "C:/Tools/Entity Toolkit/data/update/new/EntityToolkit", watcher="C:/Start/EntityToolkitWatcher.vbs")
+        self.assertIn('robocopy "%NEW%\\_internal" "%ROOT%\\_internal" /MIR', bat)
+        self.assertIn('copy /Y "%NEW%\\EntityToolkit.exe" "%ROOT%\\EntityToolkit.exe"', bat)
+        self.assertIn('start "" "%ROOT%\\EntityToolkit.exe" run', bat)
+        self.assertIn("EntityToolkitWatcher.vbs", bat)
+        self.assertNotIn('"%ROOT%\\data"', bat)       # only _internal is mirrored, never the folder holding data
+        self.assertNotIn('/MIR "%ROOT%"', bat)
+        self.assertLess(bat.index(":wait"), bat.index(":swap"))  # it waits for the program to stop before replacing it
+
+    def test_the_database_is_refreshed_only_when_the_game_patch_really_changed(self):
+        from entity_toolkit import database
+        self.assertTrue(database.patch_changed("10.3.0", {"db_patch": "10.2.2b"}, None))
+        self.assertFalse(database.patch_changed("10.2.2b", {"db_patch": "10.2.2b"}, None))
+        self.assertTrue(database.patch_changed("10.3.0", {}, {"live": "10.2.2b"}))   # older installs: the saved patch file is the reference
+        self.assertFalse(database.patch_changed("10.3.0", {}, None))                  # nothing to compare with: no update on a guess
+        self.assertFalse(database.patch_changed(None, {"db_patch": "10.2.2b"}, None))
+
+
+class ShippedDatabase(unittest.TestCase):
+    def test_it_is_copied_when_there_is_no_database_or_an_older_one(self):
+        from entity_toolkit.database import seed
+        s = {"date": 2000, "patch": "10.2.2b"}
+        self.assertTrue(seed.wanted(s, 0, False))       # first start
+        self.assertTrue(seed.wanted(s, 1500, True))     # the toolkit was updated and ships newer data
+        self.assertFalse(seed.wanted(s, 2500, True))    # your data is more recent (it updated itself since)
+        self.assertFalse(seed.wanted(None, 0, False))   # this copy ships without a database
+
+    def test_only_shared_files_are_shipped_and_personal_ones_are_kept(self):
+        from entity_toolkit.database import seed
+        src, dst = Path(tempfile.mkdtemp()), Path(tempfile.mkdtemp())
+        for name in seed.FILES:
+            (src / name).write_text('{"live": "10.2.2b"}' if name == "patch.json" else "{}", encoding="utf8")
+        for name in seed.FOLDERS:
+            (src / name).mkdir()
+            (src / name / "a.png").write_bytes(b"x")
+        for personal in ("levels.json", "nightlight_token.txt", "my_builds.json"):
+            (src / personal).write_text("secret", encoding="utf8")
+        out = Path(tempfile.mkdtemp()) / "seed"
+        meta = seed.build(src, out, "9.9.9")
+        self.assertEqual(meta["patch"], "10.2.2b")
+        self.assertEqual(sorted(p.name for p in out.iterdir()), sorted(seed.FILES + seed.FOLDERS + ["seed.json"]))
+        (dst / "levels.json").write_text("mine", encoding="utf8")
+        self.assertTrue(seed.install(lambda m: None, source=out, target=dst))
+        self.assertEqual((dst / "levels.json").read_text(encoding="utf8"), "mine")
+        self.assertTrue((dst / "icons" / "a.png").exists())
+
+
 class Hotkeys(unittest.TestCase):
     def test_parse(self):
         self.assertEqual(winapi.parse_combo("alt+numpad7"), [0x12, 0x67])

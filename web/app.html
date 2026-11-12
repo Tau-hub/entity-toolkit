@@ -11,13 +11,14 @@
   #frames { flex:1; min-height:0; position:relative; }
   #frames iframe { position:absolute; inset:0; width:100%; height:100%; border:0; background:transparent; }
   #frames iframe[hidden] { display:none; }
-  #closeAsk { position:fixed; inset:0; z-index:100; display:none; align-items:center; justify-content:center; background:#000c; }
-  #closeAsk.on { display:flex; }
-  #closeAsk .box { background:#14181e; border:1px solid var(--border); border-radius:14px; padding:22px 26px; max-width:460px; box-shadow:0 20px 60px #000c; }
-  #closeAsk h2 { margin:0 0 8px; font-size:18px; } #closeAsk p { color:var(--muted); font-size:14px; margin:0 0 14px; }
-  #closeAsk .btns { display:flex; gap:10px; flex-wrap:wrap; } #closeAsk label { display:flex; gap:8px; align-items:center; font-size:13px; color:var(--muted); margin:14px 0 0; cursor:pointer; }
-  #closeAsk button { border-radius:999px; padding:9px 18px; font:inherit; font-size:14px; cursor:pointer; border:1px solid var(--border); background:var(--panel2); color:var(--text); }
-  #closeAsk button.main { background:linear-gradient(180deg,#d1243a,#7d0f1f); border:0; color:#fff; }
+  #closeAsk, #upAsk { position:fixed; inset:0; z-index:100; display:none; align-items:center; justify-content:center; background:#000c; }
+  #closeAsk.on, #upAsk.on { display:flex; }
+  #upAsk .msg { color:var(--gold); font-size:13px; min-height:18px; margin:10px 0 0; } #upAsk .msg.err { color:#ff9aa5; }
+  #closeAsk .box, #upAsk .box { background:#14181e; border:1px solid var(--border); border-radius:14px; padding:22px 26px; max-width:460px; box-shadow:0 20px 60px #000c; }
+  #closeAsk h2, #upAsk h2 { margin:0 0 8px; font-size:18px; } #closeAsk p, #upAsk p { color:var(--muted); font-size:14px; margin:0 0 14px; }
+  #closeAsk .btns, #upAsk .btns { display:flex; gap:10px; flex-wrap:wrap; } #closeAsk label { display:flex; gap:8px; align-items:center; font-size:13px; color:var(--muted); margin:14px 0 0; cursor:pointer; }
+  #closeAsk button, #upAsk button { border-radius:999px; padding:9px 18px; font:inherit; font-size:14px; cursor:pointer; border:1px solid var(--border); background:var(--panel2); color:var(--text); }
+  #closeAsk button.main, #upAsk button.main { background:linear-gradient(180deg,#d1243a,#7d0f1f); border:0; color:#fff; }
 </style>
 <link rel="stylesheet" href="theme.css">
 </head>
@@ -30,6 +31,12 @@
   <p>You can keep it running without this window: it stays in the notification area (the red E, bottom right) and keeps reading your matches. Or stop it completely.</p>
   <div class="btns"><button class="main" data-a="tray">Keep it running</button><button data-a="quit">Quit Entity Toolkit</button><button data-a="cancel">Cancel</button></div>
   <label><input type="checkbox" id="closeRemember"> Remember my choice (it can be changed in Settings)</label>
+</div></div>
+<div id="upAsk"><div class="box">
+  <h2 id="upTitle">A new version is available</h2>
+  <p id="upText"></p>
+  <div class="btns"><button class="main" data-a="now">Update now</button><button data-a="later">Later</button><button data-a="skip">Skip this version</button></div>
+  <div class="msg" id="upMsg"></div>
 </div></div>
 <script>
 // The shell keeps the navigation bar and one frame per page. Clicking a button only shows the right frame (created the first time),
@@ -70,7 +77,43 @@ function dot() {
     link.classList.toggle("dot", on); link.title = on ? `Shrine of Secrets: ${names.join(", ")} — a perk you do not have` : "";
   }
 }
-async function loadState() { try { shell = await window.ET_STATE; setupDone = shell.setup_done; } catch (e) {} drawBar(lastHref); }
+// A newer Entity Toolkit: offered once per start ("ask" mode), installed on a click; "Skip this version" silences that one.
+const $up = document.getElementById("upAsk");
+let upLater = false, upPoll = 0;
+function offerUpdate() {
+  const v = shell.version || {};
+  if (v.installing) { showUpdate(v); return; }
+  let skipped = ""; try { skipped = localStorage.getItem("et-skip-version") || ""; } catch (e) {}
+  if (!v.newer || v.mode !== "ask" || upLater || skipped === v.latest) return;
+  showUpdate(v);
+}
+function showUpdate(v) {
+  document.getElementById("upTitle").textContent = `Entity Toolkit ${v.latest} is available`;
+  document.getElementById("upText").innerHTML = `You have version ${v.current}. ` + (v.can_install
+    ? (v.kind === "exe" ? "The new version is downloaded, checked (SHA-256) and installed for you; your data is kept. " : "The code is updated with <code>git pull</code> and the Python packages are refreshed. ") + "The toolkit restarts by itself: do it between two matches."
+    : "This copy cannot update itself: get the new version from the release page.") + ` <a href="${v.page}" target="_blank" rel="noopener">What is new</a>`;
+  $up.querySelector('[data-a="now"]').textContent = v.can_install ? "Update now" : "Open the release page";
+  const m = document.getElementById("upMsg");
+  m.className = "msg" + (v.error ? " err" : ""); m.textContent = v.error ? "Update failed: " + v.error : v.installing ? "Updating: " + v.step + "…" : "";
+  $up.querySelectorAll("button").forEach((b) => { b.disabled = !!v.installing; });
+  $up.classList.add("on");
+}
+$up.addEventListener("click", async (e) => {
+  const b = e.target.closest("button[data-a]");
+  if (!b) return;
+  const v = shell.version || {};
+  if (b.dataset.a === "later") { upLater = true; $up.classList.remove("on"); return; }
+  if (b.dataset.a === "skip") { try { localStorage.setItem("et-skip-version", v.latest); } catch (e2) {} $up.classList.remove("on"); return; }
+  if (!v.can_install) { window.open(v.page, "_blank"); upLater = true; $up.classList.remove("on"); return; }
+  const r = await fetch("/api/update/install", { method: "POST", headers: { "Content-Type": "application/json", "X-Requested-With": "EntityToolkit" }, body: "{}" }).then((x) => x.json());
+  shell.version = r.version; showUpdate(shell.version);
+  clearInterval(upPoll);
+  upPoll = setInterval(async () => {
+    try { shell.version = (await fetch("/api/shell", { cache: "no-store" }).then((x) => x.json())).version; showUpdate(shell.version); if (!shell.version.installing) clearInterval(upPoll); }
+    catch (e2) { document.getElementById("upMsg").textContent = "Restarting…"; setTimeout(() => location.reload(), 9000); clearInterval(upPoll); }
+  }, 1000);
+});
+async function loadState() { try { shell = await window.ET_STATE; setupDone = shell.setup_done; } catch (e) {} drawBar(lastHref); offerUpdate(); }
 setInterval(() => window.etShell && window.etShell.refreshState(), 20000);
 const $bar = document.getElementById("bar"), $frames = document.getElementById("frames");
 

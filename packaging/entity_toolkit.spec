@@ -17,6 +17,8 @@ icon = build / "entity_toolkit.ico"
 tray._image().resize((256, 256)).save(icon, sizes=[(16, 16), (32, 32), (48, 48), (256, 256)])
 
 datas = [(str(root / "web"), "web"), (str(root / "sounds" / "ok.wav"), "sounds"), (str(root / "sounds" / "ko.wav"), "sounds"), (str(root / "LICENSE"), ".")]
+if (root / "seed" / "seed.json").exists():  # the database shipped with the toolkit
+    datas.append((str(root / "seed"), "seed"))
 binaries, hidden = [], ["pystray._win32", "clr"]
 for pkg in ("winrt", "playwright", "webview", "clr_loader", "pythonnet"):  # Windows OCR bindings, the browser driver and the window (WebView2 through .NET) are loaded in ways PyInstaller cannot guess
     d, b, h = collect_all(pkg)

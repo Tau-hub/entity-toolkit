@@ -74,6 +74,11 @@ def _serve(demo=False):
     from . import config, server
     from .log import log
     hub = server.Hub()  # no mutex here: `serve` has no hotkeys, so it cannot double-handle a key press; the port check is enough
+    from .database import seed
+    try:
+        seed.install(log)
+    except Exception as e:
+        log(f"The shipped database could not be installed: {e}")
     try:
         url = server.start(hub, config.load()["port"])
     except OSError:
@@ -120,6 +125,11 @@ def _run(open_page, stop_with_game, setup=False):
         _show_running(cfg, "setup.html" if setup else "live.html", open_page or setup)
         return 1
     log(f"Pages: {url}")
+    from .database import seed
+    try:
+        seed.install(log)  # the database shipped with the toolkit, when you have none yet or an older one
+    except Exception as e:
+        log(f"The shipped database could not be installed: {e}")
     ready = server.db_ready()
     ana = None
     if ready:
@@ -138,7 +148,7 @@ def _run(open_page, stop_with_game, setup=False):
     database.ON_FINISH.append(reload_recogniser)
     database.start_auto_update(log)
     from . import shrine, tray, version
-    version.start(log)
+    version.start(log, hub.quit, idle=lambda: not winapi.game_running())
     shrine.start(log)
     from . import window
     ui = window.Launcher(url, hub, log)

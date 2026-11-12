@@ -23,6 +23,10 @@ DEFAULTS = {
     "setup_done": None,           # first-launch setup finished (None = decide from the data: database present and name set)
     "keep_captures": 100,         # keep the last N screenshots taken with the key (0 = none), the oldest are deleted
     "tray": True,                 # icon in the Windows notification area while the toolkit runs (open the pages, quit)
+    "update_install": "ask",      # a newer Entity Toolkit exists: "ask" (offer to install it), "auto" (install it when the game is not running) or "never" (only tell)
+    "first_download": True,       # download the database by itself at the very first start, when this copy ships without one
+    "update_on_patch": True,      # at each start, look whether the game got a new patch and refresh the database if so
+    "db_patch": "",               # the game patch the database was last fully refreshed for (set by the update)
     "check_version": True,        # once a day, look on GitHub whether a newer Entity Toolkit exists (reads one public file, sends nothing)
     "shrine": True,               # show this week's Shrine of Secrets and flag the perks you do not have (reads NightLight's public list, sends nothing)
     "port": 8765,
