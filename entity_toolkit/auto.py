@@ -212,7 +212,7 @@ class Watcher:
                     self.confirm, self.told = 0, False
                     self.press(hwnd, "scoreboard seen, every player's perks are revealed", img, True)  # the overlay is removed and the screen taken again: it must not be on the picture sent
                 else:
-                    self.next_end = now + 0.7
+                    self.next_end = now + 0.3  # quick second look: the picture is sent as soon as it is certain
             else:
                 self.confirm = 0
                 if not self.told:

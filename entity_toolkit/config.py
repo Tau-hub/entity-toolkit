@@ -11,6 +11,7 @@ DEFAULTS = {
     "overlay": True,              # draw the allies' perks over the game's survivor list
     "perk_hover": True,           # show a perk's text when the mouse is over its icon (the game frees the cursor when you are hooked or dead)
     "sounds": True,               # small "ok" / "not ok" sounds
+    "notice": True,               # a short message over the game while the scoreboard is sent ("Sending to NightLight..."), so you can leave the scoreboard at once
     "upload": True,               # send the scoreboard to NightLight when you press the key on it
     "dry_run": False,             # True: save the scoreboard locally but never send it
     "window": True,               # show the pages in the Entity Toolkit window (False: in the default browser)

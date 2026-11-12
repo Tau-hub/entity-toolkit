@@ -118,6 +118,7 @@
     <div class="row"><label><input type="checkbox" id="oOverlay"> Draw the allies' perks over the game's survivor list (survivor view)</label></div>
     <div class="row"><label><input type="checkbox" id="oHover"> Show a perk's text when the mouse is over its icon (the game frees the mouse when you are hooked or dead)</label></div>
     <div class="row"><label><input type="checkbox" id="oSounds"> Play a small sound: ok / not ok</label></div>
+    <div class="row"><label><input type="checkbox" id="oNotice"> Show a short message over the game while the scoreboard is sent (so you can leave it at once)</label></div>
     <div class="row"><label>Keep the last <input type="text" id="kKeep" style="min-width:0;width:70px"> screenshots taken with the key (0 = none)</label></div>
     <p>Every press of the capture key (Tab menu, scoreboard…) is saved in <code>data/captures</code>, the oldest being deleted beyond that number. They stay on your PC: useful to understand a wrong reading.</p>
     <div class="row"><label><input type="checkbox" id="oWindow"> Show the pages in the Entity Toolkit window (untick to use your web browser instead)</label></div>
@@ -233,7 +234,7 @@ async function refresh() {
     formLoaded = true;
     $("player").value = s.config.player;
     $("oUpload").checked = s.config.upload; $("oDry").checked = s.config.dry_run;
-    $("oOverlay").checked = s.config.overlay; $("oAutoMode").checked = !!s.config.auto; $("oKeyMode").checked = !s.config.auto; $("oHover").checked = s.config.perk_hover; $("oSounds").checked = s.config.sounds;
+    $("oOverlay").checked = s.config.overlay; $("oAutoMode").checked = !!s.config.auto; $("oKeyMode").checked = !s.config.auto; $("oHover").checked = s.config.perk_hover; $("oSounds").checked = s.config.sounds; $("oNotice").checked = s.config.notice !== false;
     $("oAuto").checked = s.autostart; $("oOpen").checked = s.config.open_browser; $("oWindow").checked = s.config.window; $("oClose").value = s.config.close_action || "ask"; $("oTray").checked = s.config.tray; $("oVer").checked = s.config.check_version; $("oUpd").value = s.config.update_install || "ask"; $("oFirst").checked = s.config.first_download; $("oPatch").checked = s.config.update_on_patch; $("oShrine").checked = s.config.shrine;
     const v = s.version;
     $("verMsg").innerHTML = v.newer ? `Version ${v.current} · <b>${v.latest} is available</b> (<a href="${v.page}" target="_blank" rel="noopener">what is new</a>)` : `Version ${v.current}` + (v.latest ? " (up to date)" : "");
@@ -309,7 +310,7 @@ function said(text, bad) {
   clearTimeout(savedTimer); savedTimer = setTimeout(() => { el.className = ""; }, bad ? 6000 : 1600);
 }
 async function saveOpts() {
-  const r = await post("/api/config", { upload: $("oUpload").checked, dry_run: $("oDry").checked, overlay: $("oOverlay").checked, auto: $("oAutoMode").checked, perk_hover: $("oHover").checked, sounds: $("oSounds").checked, open_browser: $("oOpen").checked, window: $("oWindow").checked, close_action: $("oClose").value, tray: $("oTray").checked, check_version: $("oVer").checked, update_install: $("oUpd").value, first_download: $("oFirst").checked, update_on_patch: $("oPatch").checked, shrine: $("oShrine").checked, auto_update_days: +$("oDays").value, keep_captures: Math.max(0, parseInt($("kKeep").value, 10) || 0), capture_key: $("kCap").value.trim(), clear_key: $("kClr").value.trim() });
+  const r = await post("/api/config", { upload: $("oUpload").checked, dry_run: $("oDry").checked, overlay: $("oOverlay").checked, auto: $("oAutoMode").checked, perk_hover: $("oHover").checked, sounds: $("oSounds").checked, notice: $("oNotice").checked, open_browser: $("oOpen").checked, window: $("oWindow").checked, close_action: $("oClose").value, tray: $("oTray").checked, check_version: $("oVer").checked, update_install: $("oUpd").value, first_download: $("oFirst").checked, update_on_patch: $("oPatch").checked, shrine: $("oShrine").checked, auto_update_days: +$("oDays").value, keep_captures: Math.max(0, parseInt($("kKeep").value, 10) || 0), capture_key: $("kCap").value.trim(), clear_key: $("kClr").value.trim() });
   said(r.error ? "Not saved: " + r.error : "Saved ✓", !!r.error);
 }
 for (const id of ["oKeyMode", "oAutoMode", "oUpload", "oDry", "oOverlay", "oHover", "oSounds", "oOpen", "oWindow", "oClose", "oUpd", "oFirst", "oPatch", "oTray", "oVer", "oShrine", "oDays", "kKeep", "kCap", "kClr"]) $(id).addEventListener("change", saveOpts);

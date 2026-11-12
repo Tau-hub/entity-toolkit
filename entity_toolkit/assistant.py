@@ -173,6 +173,11 @@ class Assistant:
     def say(self, msg):
         self.hub.status(msg)
 
+    def notify(self, text, seconds=6):
+        """A short message over the game (setting "notice"); "" removes it."""
+        if self.overlay and self.hwnd and self.cfg.get("notice", True):
+            self.overlay.notice(text, self.hwnd, seconds)
+
     # ----- dispatch -----
     def handle(self, img, quiet=False):
         """`quiet` (automatic mode): a screen that is neither the menu nor the scoreboard is simply ignored, without a sound."""
@@ -305,6 +310,11 @@ class Assistant:
             sounds.beep(False)
             self.say("Scoreboard already sent less than 2 minutes ago")
             return
+        if not (cfg["dry_run"] or not cfg["upload"]) and nightlight.have_token():
+            # this picture is good and goes to NightLight: tell it at once (a short blip and a message over the game), so that the scoreboard
+            # can be left now. Everything below works on this picture, never on the screen.
+            sounds.beep("go")
+            self.notify("Sending the scoreboard to NightLight... you can leave it", 60)
         mem = nightlight.recall_map()
         map_name = mem["map"] if mem else None
         if mem:
@@ -334,7 +344,11 @@ class Assistant:
             log("No NightLight API token (data/nightlight_token.txt)")
             return
         self.say("Sending to NightLight...")
-        info = nightlight.upload(img, send=True)
+        try:
+            info = nightlight.upload(img, send=True)
+        except Exception:
+            self.notify("The scoreboard could not be sent to NightLight", 12)
+            raise
         self.last_upload = time.time()
         log(f"Upload OK: {info['url']}")
         self.say("Reviewing the match on NightLight...")
@@ -343,16 +357,19 @@ class Assistant:
         except review.NotLoggedIn as e:
             log(f"NightLight session missing: {e}")
             sounds.beep(False)
+            self.notify("NightLight: not signed in (see Settings)", 12)
             self.say(str(e))
             return
         except Exception as e:
             import traceback
             log("Review failed:\n" + traceback.format_exc())
             sounds.beep(False)
+            self.notify("Uploaded, but finish the review on NightLight by hand", 12)
             self.say(f"Uploaded, but finish the review by hand: {e}  ({info['url']})")
             return
         nightlight.forget_map()  # the map must not be reused for the next match
         sounds.beep(True)
+        self.notify("Match confirmed on NightLight", 4)
         self.say(f"Match confirmed on NightLight · map: {r['map'] or 'not set'}")
         log(f"Match confirmed: {r}")
 

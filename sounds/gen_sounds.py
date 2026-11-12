@@ -34,5 +34,6 @@ def save(name, samples):
 
 
 if __name__ == "__main__":
-    save("ok.wav", note(587, .09, .015) + note(880, .26, .008))
+    save("ok.wav", note(587, .06, .01) + note(880, .15, .008))
+    save("go.wav", note(784, .11, .006))  # one short blip: "got it, sending"
     save("ko.wav", note(392, .10, .015) + note(294, .30, .008))

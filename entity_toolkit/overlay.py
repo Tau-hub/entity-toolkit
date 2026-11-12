@@ -378,6 +378,15 @@ class Overlay:
         else:
             self.log("Overlay hover: off (disabled on the Setup page): the mouse is never checked")
 
+    def notice(self, text, game_hwnd, seconds=6):
+        """A short message at the top of the game window (click-through, never takes the focus), gone after `seconds`; "" removes it."""
+        try:
+            r = wintypes.RECT()
+            user32.GetWindowRect(game_hwnd, ctypes.byref(r))
+            self.q.put(("notice", text, (r.left, r.top, r.right - r.left, r.bottom - r.top), seconds))
+        except Exception:
+            pass
+
     def hide(self):
         was = self.visible or self.pending
         if self.active.is_set():
@@ -503,11 +512,42 @@ class Overlay:
                 w.attributes("-topmost", True)
                 self.tip_shown = (x0, y0)
 
+            note = {}
+
+            def notice(text, rect, seconds):
+                if "w" not in note:
+                    w = tk.Toplevel(root)
+                    w.withdraw()
+                    w.overrideredirect(True)
+                    w.configure(bg="#d1243a")
+                    lab = tk.Label(w, bg="#14161c", fg="#f2ebe0", font=("Segoe UI", 15, "bold"), padx=22, pady=10)
+                    lab.pack(padx=2, pady=2)
+                    note.update(w=w, lab=lab, after=None)
+                if note["after"]:
+                    root.after_cancel(note["after"])
+                    note["after"] = None
+                w = note["w"]
+                if not text:
+                    w.withdraw()
+                    return
+                note["lab"].config(text=text)
+                w.update_idletasks()
+                gl, gt, gw, gh = rect
+                w.geometry(f"+{gl + (gw - w.winfo_reqwidth()) // 2}+{gt + 28}")
+                w.deiconify()
+                hwnd = user32.GetParent(w.winfo_id()) or w.winfo_id()
+                ex = user32.GetWindowLongW(hwnd, GWL_EXSTYLE)
+                user32.SetWindowLongW(hwnd, GWL_EXSTYLE, ex | WS_EX_TRANSPARENT | WS_EX_NOACTIVATE | WS_EX_TOOLWINDOW | WS_EX_LAYERED)
+                w.attributes("-topmost", True)
+                note["after"] = root.after(int(seconds * 1000), w.withdraw)
+
             def poll():
                 try:
                     while True:
                         cmd = self.q.get_nowait()
-                        if cmd[0] == "hide":
+                        if cmd[0] == "notice":
+                            notice(cmd[1], cmd[2], cmd[3])
+                        elif cmd[0] == "hide":
                             tip_hide()
                             root.withdraw()
                             canvas.delete("all")

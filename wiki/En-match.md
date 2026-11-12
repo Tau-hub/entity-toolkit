@@ -29,7 +29,7 @@ L'outil agit à **deux moments** d'une partie : au début, sur le menu des joueu
 
 ![Le tableau de fin de partie envoyé à NightLight (pseudos et chat floutés)](https://raw.githubusercontent.com/Tau-hub/entity-toolkit/main/docs/images/scoreboard.jpg)
 
-**4. La partie est envoyée toute seule à NightLight** (si tu as configuré NightLight). Avec la map lue à l'étape 1, « Me » coché sur ton nom, tous les autres en Random, et confirmée, sans aucun clic de ta part. La partie apparaît ensuite dans ton historique NightLight comme n'importe quel envoi. Pareil dans les deux modes.
+**4. La partie est envoyée toute seule à NightLight** (si tu as configuré NightLight). Dès que l'image du tableau est bonne, un petit bip retentit et un message s'affiche en haut du jeu (*Sending the scoreboard to NightLight... you can leave it*) : **tu peux quitter le tableau tout de suite**, la suite travaille sur l'image déjà prise, et un dernier message t'annonce quand la partie est confirmée. Avec la map lue à l'étape 1, « Me » coché sur ton nom, tous les autres en Random, et confirmée, sans aucun clic de ta part. La partie apparaît ensuite dans ton historique NightLight comme n'importe quel envoi. Pareil dans les deux modes.
 
 ![Le résultat sur NightLight : map renseignée, toi coché « Me », les autres en Random (pseudos floutés)](https://raw.githubusercontent.com/Tau-hub/entity-toolkit/main/docs/images/nightlight.jpg)
 
