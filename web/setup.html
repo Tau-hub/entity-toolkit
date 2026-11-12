@@ -119,8 +119,10 @@
     <div class="row"><label><input type="checkbox" id="oSounds"> Play a small sound: ok / not ok</label></div>
     <div class="row"><label>Keep the last <input type="text" id="kKeep" style="min-width:0;width:70px"> screenshots taken with the key (0 = none)</label></div>
     <p>Every press of the capture key (Tab menu, scoreboard…) is saved in <code>data/captures</code>, the oldest being deleted beyond that number. They stay on your PC: useful to understand a wrong reading.</p>
-    <div class="row"><label><input type="checkbox" id="oOpen"> Open the Live page in my browser when the toolkit starts</label></div>
-    <p>With <i>Start automatically with Windows</i> below, this means the page opens by itself each time you launch Dead by Daylight.</p>
+    <div class="row"><label><input type="checkbox" id="oWindow"> Show the pages in the Entity Toolkit window (untick to use your web browser instead)</label></div>
+    <div class="row"><label><input type="checkbox" id="oOpen"> Open it on the Live page when the toolkit starts</label></div>
+    <p>With <i>Start automatically with Windows</i> below, this means the window opens by itself each time you launch Dead by Daylight. It reopens where you left it (your second screen, for instance).</p>
+    <div class="row"><label>When I close the window <select id="oClose"><option value="ask">ask me</option><option value="tray">keep the toolkit running in the notification area</option><option value="quit">quit Entity Toolkit</option></select></label></div>
     <div class="row"><label><input type="checkbox" id="oTray"> Show an icon in the Windows notification area while the toolkit runs (open the pages, quit)</label></div>
     <div class="row"><label><input type="checkbox" id="oVer"> Tell me when a newer Entity Toolkit exists (looks at GitHub once a day, sends nothing)</label><span class="msg" id="verMsg"></span></div>
     <div class="row"><label><input type="checkbox" id="oShrine"> Show this week's Shrine of Secrets on the priorities pages and flag the perks I do not have (reads NightLight's public list once a week, sends nothing)</label></div>
@@ -222,7 +224,7 @@ async function refresh() {
     $("player").value = s.config.player;
     $("oUpload").checked = s.config.upload; $("oDry").checked = s.config.dry_run;
     $("oOverlay").checked = s.config.overlay; $("oAutoMode").checked = !!s.config.auto; $("oKeyMode").checked = !s.config.auto; $("oHover").checked = s.config.perk_hover; $("oSounds").checked = s.config.sounds;
-    $("oAuto").checked = s.autostart; $("oOpen").checked = s.config.open_browser; $("oTray").checked = s.config.tray; $("oVer").checked = s.config.check_version; $("oShrine").checked = s.config.shrine;
+    $("oAuto").checked = s.autostart; $("oOpen").checked = s.config.open_browser; $("oWindow").checked = s.config.window; $("oClose").value = s.config.close_action || "ask"; $("oTray").checked = s.config.tray; $("oVer").checked = s.config.check_version; $("oShrine").checked = s.config.shrine;
     $("verMsg").innerHTML = s.version.newer ? `Version ${s.version.current} · <b>${s.version.latest} is available</b>: <a href="${s.version.page}" target="_blank" rel="noopener">get it on GitHub</a>${s.version.exe ? " and replace this folder's files (keep your <code>data</code> folder)" : " (or <code>git pull</code>)"}, then restart.` : `Version ${s.version.current}` + (s.version.latest ? " (up to date)" : "");
     $("oDays").value = String(s.config.auto_update_days);
     $("kKeep").value = s.config.keep_captures;
@@ -283,10 +285,10 @@ function said(text, bad) {
   clearTimeout(savedTimer); savedTimer = setTimeout(() => { el.className = ""; }, bad ? 6000 : 1600);
 }
 async function saveOpts() {
-  const r = await post("/api/config", { upload: $("oUpload").checked, dry_run: $("oDry").checked, overlay: $("oOverlay").checked, auto: $("oAutoMode").checked, perk_hover: $("oHover").checked, sounds: $("oSounds").checked, open_browser: $("oOpen").checked, tray: $("oTray").checked, check_version: $("oVer").checked, shrine: $("oShrine").checked, auto_update_days: +$("oDays").value, keep_captures: Math.max(0, parseInt($("kKeep").value, 10) || 0), capture_key: $("kCap").value.trim(), clear_key: $("kClr").value.trim() });
+  const r = await post("/api/config", { upload: $("oUpload").checked, dry_run: $("oDry").checked, overlay: $("oOverlay").checked, auto: $("oAutoMode").checked, perk_hover: $("oHover").checked, sounds: $("oSounds").checked, open_browser: $("oOpen").checked, window: $("oWindow").checked, close_action: $("oClose").value, tray: $("oTray").checked, check_version: $("oVer").checked, shrine: $("oShrine").checked, auto_update_days: +$("oDays").value, keep_captures: Math.max(0, parseInt($("kKeep").value, 10) || 0), capture_key: $("kCap").value.trim(), clear_key: $("kClr").value.trim() });
   said(r.error ? "Not saved: " + r.error : "Saved ✓", !!r.error);
 }
-for (const id of ["oKeyMode", "oAutoMode", "oUpload", "oDry", "oOverlay", "oHover", "oSounds", "oOpen", "oTray", "oVer", "oShrine", "oDays", "kKeep", "kCap", "kClr"]) $(id).addEventListener("change", saveOpts);
+for (const id of ["oKeyMode", "oAutoMode", "oUpload", "oDry", "oOverlay", "oHover", "oSounds", "oOpen", "oWindow", "oClose", "oTray", "oVer", "oShrine", "oDays", "kKeep", "kCap", "kClr"]) $(id).addEventListener("change", saveOpts);
 window.addEventListener("et-show", () => refresh());  // the shell re-shows this page: refresh its data
 mountScan($("scanMount"), { onDone: () => refresh() });
 refresh();

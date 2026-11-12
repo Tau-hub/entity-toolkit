@@ -12,7 +12,7 @@ Au premier lancement, le Setup se fait **une page à la fois**, avec **Next** et
 4. **Your in-game name.** Saisis ton pseudo en jeu exactement comme sur le tableau de fin.
 5. **NightLight** (facultatif). Le lien de la page mène à [nightlight.gg/account/api](https://nightlight.gg/account/api), où tu crées ton jeton d'API ; colle-le, puis connecte-toi une fois dans la fenêtre Edge qu'ouvre le bouton. L'outil ne voit jamais ton mot de passe. Tu n'utilises pas NightLight ? Clique sur **Next** : sans jeton, rien n'est jamais envoyé, même en mode automatique.
 6. **Your character levels** (facultatif). Dépose des captures des écrans de sélection des tueurs et des survivants directement dans la page Setup : l'outil lit quels personnages tu as et leurs niveaux (tu vérifies avant d'enregistrer), ou règle-les à la main sur la page **Levels** (voir plus bas).
-7. **Options.** Les réglages par défaut conviennent à la plupart des joueurs. Overlay oui/non, sons, icône dans la zone de notification, vérification d'une nouvelle version, ouverture de la page Live dans ton navigateur au démarrage de l'outil (activée par défaut : avec le démarrage automatique, la page s'ouvre à chaque lancement du jeu), simulation (enregistre le tableau mais ne l'envoie jamais), l'encadré Shrine of Secrets, le démarrage avec Windows, et la fréquence de mise à jour automatique de la base.
+7. **Options.** Les réglages par défaut conviennent à la plupart des joueurs. Overlay oui/non, sons, icône dans la zone de notification, vérification d'une nouvelle version, fenêtre Entity Toolkit ou navigateur, ouverture sur la page Live au démarrage de l'outil (activée par défaut : avec le démarrage automatique, elle s'ouvre à chaque lancement du jeu), ce que fait la fermeture de la fenêtre, simulation (enregistre le tableau mais ne l'envoie jamais), l'encadré Shrine of Secrets, le démarrage avec Windows, et la fréquence de mise à jour automatique de la base.
 8. **Done.** Un récapitulatif de ce qui est prêt et de ce qui a été passé, puis **Finish setup**, qui ouvre la page Live.
 
 Chaque modification de la page est enregistrée dès que tu la fais (une petite note *Saved ✓* apparaît en bas à droite) : il n'y a pas de bouton d'enregistrement.
@@ -21,9 +21,21 @@ Quand tu appuies sur **Finish setup**, le bouton *Setup* devient **⚙ Settings*
 
 ![Page Settings](https://raw.githubusercontent.com/Tau-hub/entity-toolkit/main/docs/images/settings.png)
 
+### La fenêtre Entity Toolkit
+
+Les pages s'affichent dans une fenêtre à part, comme n'importe quel logiciel : pas de navigateur web, pas d'adresse à taper. Tu peux la déplacer, la redimensionner, la réduire et l'agrandir.
+
+- **Où elle s'ouvre.** La première fois, au milieu de l'écran, à 75 % de sa taille, sur ton second écran si tu en as un (pour ne pas recouvrir le jeu). Ensuite, elle se rouvre là où tu l'as laissée, à la taille que tu lui as donnée.
+- **La fermer.** La première fois, elle demande : **Keep it running** (la fenêtre disparaît, l'outil continue de lire tes parties depuis la zone de notification) ou **Quit Entity Toolkit** (tout s'arrête). Coche *Remember my choice* et elle ne demande plus ; le choix se retrouve dans les options (*When I close the window*).
+- **La retrouver.** Double-clique sur le **E** rouge dans la zone de notification, ou relance le programme : la copie déjà lancée affiche sa fenêtre.
+- **Avec le jeu.** Avec *Start automatically with Windows*, la fenêtre s'ouvre toute seule sur la page Live quand tu lances Dead by Daylight. L'outil s'arrête quand le jeu **et** la fenêtre sont tous les deux fermés.
+- **Tu préfères ton navigateur ?** Décoche *Show the pages in the Entity Toolkit window* dans les options : les pages s'ouvrent alors dans ton navigateur par défaut, comme avant.
+
+Sous le capot, rien n'a changé : la fenêtre affiche les mêmes pages locales, servies par l'outil sur ton PC uniquement, avec le moteur web intégré à Windows (WebView2, celui d'Edge). Si ce moteur est absent, l'outil se rabat tout seul sur ton navigateur.
+
 ### L'icône dans la zone de notification
 
-Tant que l'outil tourne, un petit **E** rouge reste dans la zone de notification de Windows (en bas à droite de la barre des tâches, derrière la flèche **^** si Windows le masque). Il indique que l'outil est allumé, et c'est le moyen le plus rapide de retrouver les pages quand l'onglet du navigateur est fermé :
+Tant que l'outil tourne, un petit **E** rouge reste dans la zone de notification de Windows (en bas à droite de la barre des tâches, derrière la flèche **^** si Windows le masque). Il indique que l'outil est allumé, et c'est le moyen de retrouver la fenêtre une fois que tu l'as fermée :
 
 - **Double-clic** : ouvre la page Live.
 - **Clic droit** : un menu avec toutes les pages (Live, Levels, Killer priorities, Survivor priorities, Killer sheet, Survivor builds, Random loadout, Build creator), les deux défis du jour, **Settings**, puis **Quit Entity Toolkit**, qui arrête l'outil : la touche de capture ou le mode automatique, l'overlay et les pages locales.

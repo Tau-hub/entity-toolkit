@@ -18,6 +18,8 @@ def main(argv=None):
     auto = sub.add_parser("autostart", help="start the toolkit by itself when the game starts (Windows Startup folder)")
     auto.add_argument("action", choices=["install", "remove"])
     sub.add_parser("watch", help="(used by autostart) start the toolkit whenever the game launches")
+    win = sub.add_parser("window", help="(used by the toolkit) the Entity Toolkit window, showing the pages of the running toolkit")
+    win.add_argument("--page", default="live.html")
     serve = sub.add_parser("serve", help="only serve the web pages (no hotkeys, no capture): handy to browse the data without the game")
     serve.add_argument("--demo", action="store_true", help="show a made-up players-menu result on the Live page")
     test = sub.add_parser("test-image", help="analyse a screenshot as if you had pressed the key (dry run, nothing is sent)")
@@ -42,6 +44,9 @@ def main(argv=None):
         else:
             print("Removed." if autostart.remove() else "Nothing to remove.")
         return 0
+    if cmd == "window":
+        from . import window
+        return window.run(a.page)
     if cmd == "watch":
         from . import autostart
         autostart.watch()
@@ -85,6 +90,17 @@ def _serve(demo=False):
     return 0
 
 
+def _show_running(cfg, page, wanted):
+    """Started a second time (a double-click on the program while it runs): the copy already running shows its window."""
+    if not wanted:
+        return
+    try:
+        from . import window
+        window._call(f"http://127.0.0.1:{cfg['port']}", "/api/window/show", {"page": page})
+    except Exception:
+        webbrowser.open(f"http://127.0.0.1:{cfg['port']}/app.html#{page}")
+
+
 def _run(open_page, stop_with_game, setup=False):
     from . import analyzer, assistant, config, overlay, paths, server, winapi
     from .log import log
@@ -92,8 +108,7 @@ def _run(open_page, stop_with_game, setup=False):
     cfg = config.load()
     if not winapi.single_instance():  # e.g. run.bat, then the autostart watcher launching another copy when the game starts
         log("Entity Toolkit is already running: this second copy stops (one copy only, so a key press is handled once)")
-        if setup:
-            webbrowser.open(f"http://127.0.0.1:{cfg['port']}/setup.html")
+        _show_running(cfg, "setup.html" if setup else "live.html", open_page or setup)
         return 1
     if not paths.CONFIG.exists():
         config.save(cfg)
@@ -102,8 +117,7 @@ def _run(open_page, stop_with_game, setup=False):
         url = server.start(hub, cfg["port"])
     except OSError:
         log(f"Entity Toolkit is already running (port {cfg['port']} is busy): stopping this second copy")
-        if setup:
-            webbrowser.open(f"http://127.0.0.1:{cfg['port']}/setup.html")
+        _show_running(cfg, "setup.html" if setup else "live.html", open_page or setup)
         return 1
     log(f"Pages: {url}")
     ready = server.db_ready()
@@ -126,19 +140,23 @@ def _run(open_page, stop_with_game, setup=False):
     from . import shrine, tray, version
     version.start(log)
     shrine.start(log)
-    icon = tray.start(url, hub, log) if cfg["tray"] else None
+    from . import window
+    ui = window.Launcher(url, hub, log)
+    hub.window_open, hub.opener = ui.alive, ui.open
+    icon = tray.start(url, hub, log, ui.open) if cfg["tray"] else None
     label = assistant.run(hub, ast, stop_with_game=stop_with_game)
     log(f"Entity Toolkit ready: {label} · {'dry run' if cfg['dry_run'] or not cfg['upload'] else 'real upload'}")
     if not ready:
         log("The perk database is missing: open the Setup page and press 'Update database'.")
     if setup or not ready:
-        webbrowser.open(url + "setup.html")
+        ui.open("setup.html")
     elif open_page and cfg["open_browser"]:
-        webbrowser.open(url + "live.html")
+        ui.open("live.html")
     try:
         hub.wait()
     except KeyboardInterrupt:
         pass
+    ui.close()
     if icon:
         icon.stop()
     return 0

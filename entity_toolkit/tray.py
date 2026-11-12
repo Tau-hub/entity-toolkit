@@ -35,8 +35,11 @@ def _image():
     return im
 
 
-def start(url, hub, log):
-    """Shows the icon; returns it (call .stop() when leaving) or None when it cannot be shown."""
+def start(url, hub, log, open_page=None):
+    """Shows the icon; returns it (call .stop() when leaving) or None when it cannot be shown.
+    `open_page(page)` shows a page (the Entity Toolkit window, or the browser); without it the browser is used."""
+    show = open_page or (lambda page: webbrowser.open(url + "app.html#" + page))
+    go = lambda page: (lambda: show(page))
     try:
         import pystray
     except Exception:
@@ -45,12 +48,12 @@ def start(url, hub, log):
     try:
         item = pystray.MenuItem
         icon = pystray.Icon("entity_toolkit", _image(), f"Entity Toolkit {__version__}", pystray.Menu(
-            *[item(label, _opener(url + page), default=page == "live.html") for page, label in PAGES],
+            *[item(label, go(page), default=page == "live.html") for page, label in PAGES],
             pystray.Menu.SEPARATOR,
-            item("Today's killer challenge", _opener(url + "app.html#loadout.html?daily=K")),
-            item("Today's survivor challenge", _opener(url + "app.html#loadout.html?daily=S")),
+            item("Today's killer challenge", go("loadout.html?daily=K")),
+            item("Today's survivor challenge", go("loadout.html?daily=S")),
             pystray.Menu.SEPARATOR,
-            item("Settings", _opener(url + "setup.html")),
+            item("Settings", go("setup.html")),
             pystray.Menu.SEPARATOR,
             item("Quit Entity Toolkit", lambda: hub.quit()),
         ))

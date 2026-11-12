@@ -67,7 +67,7 @@ Windows 10 ou 11, le jeu en **anglais** et en mode **fenêtré ou fenêtré sans
 - **Le `.exe`, sans Python.** Télécharge le zip de la [dernière release](https://github.com/Tau-hub/entity-toolkit/releases/latest), dézippe-le, double-clique sur `EntityToolkit.exe`.
 - **Avec Python 3.10+.** `git clone https://github.com/Tau-hub/entity-toolkit`, puis `install.bat` et `run.bat`.
 
-La page **Setup** s'ouvre toute seule et te guide pour le reste. Les détails, comment vérifier l'empreinte SHA-256 du téléchargement et quoi faire de l'avertissement Windows SmartScreen : [Installer](https://github.com/Tau-hub/entity-toolkit/wiki/Installer).
+Entity Toolkit ouvre **sa propre fenêtre** (pas de navigateur, pas d'adresse à taper) sur la page **Setup**, qui te guide pour le reste. Les détails, comment vérifier l'empreinte SHA-256 du téléchargement et quoi faire de l'avertissement Windows SmartScreen : [Installer](https://github.com/Tau-hub/entity-toolkit/wiki/Installer).
 
 ## Documentation
 

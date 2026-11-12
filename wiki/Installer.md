@@ -2,7 +2,7 @@
 
 ## Prérequis
 
-- Windows 10 ou 11 et Microsoft Edge (utilisé pour la revue NightLight). **Python 3.10 ou plus récent** seulement si tu choisis l'installation Python ci-dessous ; le `.exe` n'a besoin de rien d'autre.
+- Windows 10 ou 11 et Microsoft Edge (utilisé pour la revue NightLight ; son moteur web, WebView2, affiche aussi la fenêtre Entity Toolkit et fait partie de Windows 11 et de Windows 10 à jour). **Python 3.10 ou plus récent** seulement si tu choisis l'installation Python ci-dessous ; le `.exe` n'a besoin de rien d'autre.
 - *Dead by Daylight* en **anglais**, en mode **sans bordure ou fenêtré** (pas en plein écran exclusif).
 - Un **pack de langue anglais** pour l'OCR de Windows : Paramètres → Heure et langue → Langue et région.
 - Testé en **2560×1440** pour le jeu et en **1920×1080** pour les écrans annexes. Toutes les positions sont proportionnelles à la hauteur de l'écran du jeu, mais les autres résolutions n'ont pas été testées : voir [Dépannage](https://github.com/Tau-hub/entity-toolkit/wiki/Depannage).
@@ -16,7 +16,7 @@ Il y a deux façons de lancer l'outil. Elles font exactement la même chose : pr
 1. Ouvre la [dernière release](https://github.com/Tau-hub/entity-toolkit/releases/latest) et télécharge `EntityToolkit-<version>-windows.zip`.
 2. Vérifie le téléchargement (facultatif mais conseillé, voir plus bas).
 3. Dézippe-le où tu veux, dans un dossier où tu peux écrire (Documents, Bureau, un autre disque : pas `Program Files`). Garde `EntityToolkit.exe` et le dossier `_internal` ensemble.
-4. Double-clique sur **`EntityToolkit.exe`**. Il démarre en arrière-plan (le **E** rouge apparaît dans la zone de notification) et ouvre la page **Setup** la première fois.
+4. Double-clique sur **`EntityToolkit.exe`**. Il démarre en arrière-plan (le **E** rouge apparaît dans la zone de notification) et ouvre sa fenêtre sur la page **Setup** la première fois.
 
 Tes données vont dans un dossier `data` à côté de `EntityToolkit.exe`. Pour mettre à jour, télécharge la nouvelle release, dézippe-la et déplace ton dossier `data` dedans (si *Start automatically with Windows* est coché, décoche-le puis recoche-le depuis le nouveau dossier).
 
@@ -43,4 +43,4 @@ install.bat
 run.bat
 ```
 
-`install.bat` installe les paquets Python. `run.bat` lance l'outil en arrière-plan et ouvre la page **Setup** la première fois. Mise à jour avec `git pull`.
+`install.bat` installe les paquets Python. `run.bat` lance l'outil en arrière-plan et ouvre sa fenêtre sur la page **Setup** la première fois. Mise à jour avec `git pull`.

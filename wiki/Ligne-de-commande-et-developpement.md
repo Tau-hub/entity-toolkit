@@ -32,6 +32,7 @@ python -m unittest discover -s tests
 | `packaging/` | Le `.exe` : recette PyInstaller et `build.py` (zip + SHA-256) |
 | `database/` | `update-db` : téléchargements du wiki, d'Otzdarva et de NightLight, ce qui a changé (`changes.py`), rafraîchissement automatique |
 | `server.py`, `web/` | Pages locales et API JSON |
+| `window.py` | La fenêtre Entity Toolkit (pywebview / WebView2) qui affiche ces pages, et son lanceur |
 
 **Publier une version.** Change `__version__` dans `entity_toolkit/__init__.py`, commite, puis pousse un tag du même numéro (`git tag v0.3.0`, `git push origin v0.3.0`). Le [workflow de release](https://github.com/Tau-hub/entity-toolkit/blob/main/.github/workflows/release.yml) lance les tests, construit le `.exe` sur une machine Windows propre, l'atteste et crée une release en **brouillon** avec le zip, `SHA256SUMS.txt` et les notes d'installation : relis-la, puis clique sur *Publish*. Le mode d'emploi est dans le dossier `wiki/` : après une modification, `python packaging/publish_wiki.py` le copie vers le wiki. Pour construire en local : `pip install pyinstaller`, puis `python packaging/build.py` (résultat dans `dist/`).
 

@@ -11,6 +11,12 @@
 - **Mode Hotkey :** appuie sur la touche de capture réglée dans Settings (Alt + pavé numérique 7 tant que tu ne la changes pas). Une touche du pavé numérique demande le verrouillage numérique. Un nouveau raccourci ne prend effet qu'après un redémarrage de l'outil.
 - **Mode automatique :** vérifie que Settings indique *Automatic*, et garde le menu des joueurs ouvert environ une seconde. Après un appui de moins d'une demi-seconde, le journal indique *« Tab pressed but the players menu was not seen »* : refais Tab un peu plus longtemps.
 
+### La fenêtre ne s'ouvre pas, ou je l'ai fermée
+
+- Fermée avec *Keep it running* : double-clique sur le **E** rouge dans la zone de notification, ou relance le programme.
+- Si la fenêtre ne peut pas démarrer (le moteur WebView2 manque sur un vieux Windows 10), l'outil ouvre ton navigateur à la place et le dit dans le journal. Installe le *WebView2 Runtime* de Microsoft, ou décoche *Show the pages in the Entity Toolkit window* dans Settings.
+- Elle s'est ouverte hors de l'écran après le débranchement d'un moniteur : elle revient au milieu d'un écran au prochain démarrage.
+
 ### « Screen not recognised » (mode Hotkey)
 
 L'outil cherche les mots *PLAYERS / QUESTS* (menu des joueurs) ou *MATCH SCOREBOARD* en haut à gauche. Vérifie que le jeu est en anglais et que tu as appuyé sur ta touche de capture sur l'un de ces deux écrans. La capture est gardée dans `data/debug/` (`*_unknown.jpg`). En mode automatique, ça ne peut pas arriver : un autre écran est simplement ignoré.

@@ -414,7 +414,7 @@ def run(hub, ast, stop_with_game=True):
                 if not seen:
                     log("Game detected")
                 seen, missing = True, 0
-            elif seen and stop_with_game:
+            elif seen and stop_with_game and not hub.window_open():  # the game is closed, and so is the window: nothing left to do
                 missing += 1
                 if missing >= 2:
                     log("Game closed: stopping")

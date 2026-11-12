@@ -524,6 +524,28 @@ class SeveralScreenshots(unittest.TestCase):
         self.assertFalse(assistant.read_complete(first["allies"], self.KNOWN))
 
 
+class ToolkitWindow(unittest.TestCase):
+    def test_first_opening_is_three_quarters_of_the_screen_in_its_middle(self):
+        from entity_toolkit import window
+        self.assertEqual(window.first_geometry((0, 0, 1920, 1080)), (240, 135, 1440, 810))
+        self.assertEqual(window.first_geometry((-1920, 0, 1920, 1080)), (-1680, 135, 1440, 810))
+
+    def test_a_second_screen_is_preferred_to_the_one_the_game_is_on(self):
+        from entity_toolkit import window
+        main, side = (0, 0, 2560, 1440), (-1920, 180, 1920, 1080)
+        self.assertEqual(window.pick_screen([main, side]), side)
+        self.assertEqual(window.pick_screen([side, main]), side)
+        self.assertEqual(window.pick_screen([main]), main)
+
+    def test_a_remembered_place_is_used_only_if_it_is_still_on_a_screen(self):
+        from entity_toolkit import window
+        screens = [(0, 0, 2560, 1440)]
+        self.assertTrue(window.usable([200, 150, 1100, 700], screens))
+        self.assertFalse(window.usable([-1700, 150, 1100, 700], screens))  # it was on a screen that is no longer plugged in
+        self.assertFalse(window.usable([200, 150, 90, 40], screens))        # not a real window size
+        self.assertFalse(window.usable(None, screens))
+
+
 class Autostart(unittest.TestCase):
     def test_launcher_starts_the_watcher_with_python_or_with_the_exe(self):
         from entity_toolkit import autostart

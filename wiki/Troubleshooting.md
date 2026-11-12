@@ -11,6 +11,12 @@
 - **Hotkey mode:** press the capture key set in Settings (Alt + Numpad 7 until you change it). A numpad key needs NumLock on. A new shortcut only takes effect after the toolkit is restarted.
 - **Automatic mode:** check that Settings says *Automatic*, and keep the players menu open about one second. After a tap shorter than half a second the log says *"Tab pressed but the players menu was not seen"*: press Tab again, a little longer.
 
+### The window does not open, or I closed it
+
+- Closed with *Keep it running*: double-click the red **E** in the notification area, or start the program again.
+- If the window cannot start (the WebView2 engine is missing on an old Windows 10), the toolkit opens your browser instead and says so in the log. Install the *WebView2 Runtime* from Microsoft, or untick *Show the pages in the Entity Toolkit window* in Settings.
+- It opened off-screen after unplugging a monitor: it goes back to the middle of a screen at the next start.
+
 ### "Screen not recognised" (hotkey mode)
 
 The toolkit looks for the words *PLAYERS / QUESTS* (players menu) or *MATCH SCOREBOARD* at the top left. Check that the game is in English and that you pressed your capture key on one of those two screens. The capture is saved in `data/debug/` (`*_unknown.jpg`). In automatic mode this cannot happen: another screen is simply ignored.

@@ -14,6 +14,7 @@ Tout ce que l'outil enregistre vit dans le dossier `data/`, à côté du code ou
 | `shrine.json` | Le Shrine of Secrets de la semaine, lu sur la liste publique de NightLight |
 | `nightlight_token.txt` | Ton jeton d'API NightLight. Envoyé **uniquement** à `api.nightlight.gg` |
 | `nightlight_profile/` | Le profil Edge qui garde ta session NightLight |
+| `window_profile/`, `entity_toolkit.ico` | Ce que la fenêtre Entity Toolkit retient (tes filtres, ta série du défi du jour…) et son icône |
 | `uploads/`, `debug/` | Les tableaux envoyés et les dernières captures gardées pour diagnostiquer |
 | `entity_toolkit.log` | Ce que l'outil a fait |
 

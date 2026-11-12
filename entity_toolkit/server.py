@@ -101,6 +101,18 @@ class Hub:
         self.lock = threading.Lock()
         self.state = {"version": 0, "status": "Waiting for the capture key", "result": None}
         self.stop = threading.Event()
+        self.goto = None                 # page the open window is asked to show (taken by the window, once)
+        self.window_open = lambda: False  # replaced by the launcher: is the Entity Toolkit window open?
+        self.opener = None               # replaced by the launcher: shows a page (window or browser)
+
+    def window_goto(self, page):
+        with self.lock:
+            self.goto = page
+
+    def take_goto(self):
+        with self.lock:
+            page, self.goto = self.goto, None
+        return page
 
     def _set(self, **kw):
         with self.lock:
@@ -213,6 +225,8 @@ def make_handler(hub):
             if path == "/api/levels":
                 chars = {k: levels.characters(k) for k in levels.KINDS}
                 return self._json({"ready": any(chars.values()), "characters": chars, "levels": levels.load(), "history": levels.history(), "chapters": levels.chapters(), "backups": levels.backups()})
+            if path == "/api/window":
+                return self._json({"goto": hub.take_goto()})
             if path == "/api/shrine":
                 return self._json({"shrine": shrine.info()})
             if path == "/api/buildmaker":
@@ -249,6 +263,13 @@ def make_handler(hub):
                 cfg.update({k: v for k, v in body.items() if k in config.DEFAULTS})
                 config.save(cfg)
                 return {"ok": True}
+            if path == "/api/quit":  # the window was closed with "quit Entity Toolkit"
+                hub.quit()
+                return {"ok": True}
+            if path == "/api/window/show":  # a second launch of the program: show what is already running
+                if hub.opener:
+                    hub.opener(str(body.get("page") or "live.html"))
+                return {"ok": bool(hub.opener)}
             if path == "/api/setup/done":
                 cfg = config.load()
                 cfg["setup_done"] = bool(body.get("done"))

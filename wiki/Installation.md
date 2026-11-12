@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- Windows 10 or 11 and Microsoft Edge (used for the NightLight review). **Python 3.10 or newer** only if you choose the Python install below; the `.exe` needs nothing else.
+- Windows 10 or 11 and Microsoft Edge (used for the NightLight review; its web engine, WebView2, also draws the Entity Toolkit window and is part of Windows 11 and of up-to-date Windows 10). **Python 3.10 or newer** only if you choose the Python install below; the `.exe` needs nothing else.
 - *Dead by Daylight* in **English**, in **borderless or windowed** mode (not exclusive fullscreen).
 - An **English language pack** for Windows OCR: Settings → Time & language → Language & region.
 - Tested at **2560×1440** for the game and **1920×1080** side screens. Every position is proportional to the game screen's height, but other resolutions have not been tested: see [Troubleshooting](https://github.com/Tau-hub/entity-toolkit/wiki/Troubleshooting).
@@ -16,7 +16,7 @@ There are two ways to run the toolkit. They do exactly the same thing: pick the 
 1. Open the [latest release](https://github.com/Tau-hub/entity-toolkit/releases/latest) and download `EntityToolkit-<version>-windows.zip`.
 2. Check the download (optional but recommended, see below).
 3. Unzip it wherever you like, in a folder you can write to (Documents, Desktop, another drive: not `Program Files`). Keep `EntityToolkit.exe` and the `_internal` folder together.
-4. Double-click **`EntityToolkit.exe`**. It starts in the background (the red **E** appears in the notification area) and opens the **Setup** page the first time.
+4. Double-click **`EntityToolkit.exe`**. It starts in the background (the red **E** appears in the notification area) and opens its window on the **Setup** page the first time.
 
 Your data goes in a `data` folder next to `EntityToolkit.exe`. To update, download the new release, unzip it and move your `data` folder into it (if *Start automatically with Windows* is on, untick and tick it again from the new folder).
 
@@ -43,4 +43,4 @@ install.bat
 run.bat
 ```
 
-`install.bat` installs the Python packages. `run.bat` starts the toolkit in the background and opens the **Setup** page the first time. Update with `git pull`.
+`install.bat` installs the Python packages. `run.bat` starts the toolkit in the background and opens its window on the **Setup** page the first time. Update with `git pull`.

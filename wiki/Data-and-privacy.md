@@ -14,6 +14,7 @@ Everything the toolkit stores lives in the `data/` folder next to the code, or n
 | `shrine.json` | This week's Shrine of Secrets, as read from NightLight's public list |
 | `nightlight_token.txt` | Your NightLight API token. Sent **only** to `api.nightlight.gg` |
 | `nightlight_profile/` | The Edge profile holding your NightLight session |
+| `window_profile/`, `entity_toolkit.ico` | What the Entity Toolkit window remembers (your filters, your daily-challenge streak…) and its icon |
 | `uploads/`, `debug/` | The scoreboards sent and the last captures kept to diagnose problems |
 | `entity_toolkit.log` | What the toolkit did |
 
