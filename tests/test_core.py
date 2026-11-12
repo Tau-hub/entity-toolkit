@@ -688,3 +688,16 @@ class Hotkeys(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class WindowOwner(unittest.TestCase):
+    def test_process_alive(self):
+        import os
+        import subprocess
+        import sys
+        from entity_toolkit import window
+        self.assertTrue(window.process_alive(os.getpid()))
+        p = subprocess.Popen([sys.executable, "-c", "pass"])
+        p.wait()
+        self.assertFalse(window.process_alive(p.pid))
+

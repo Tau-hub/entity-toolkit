@@ -20,6 +20,7 @@ def main(argv=None):
     sub.add_parser("watch", help="(used by autostart) start the toolkit whenever the game launches")
     win = sub.add_parser("window", help="(used by the toolkit) the Entity Toolkit window, showing the pages of the running toolkit")
     win.add_argument("--page", default="live.html")
+    win.add_argument("--owner", type=int, default=0, help="process id of the toolkit that opened the window: the window closes when it is gone")
     serve = sub.add_parser("serve", help="only serve the web pages (no hotkeys, no capture): handy to browse the data without the game")
     serve.add_argument("--demo", action="store_true", help="show a made-up players-menu result on the Live page")
     test = sub.add_parser("test-image", help="analyse a screenshot as if you had pressed the key (dry run, nothing is sent)")
@@ -46,7 +47,7 @@ def main(argv=None):
         return 0
     if cmd == "window":
         from . import window
-        return window.run(a.page)
+        return window.run(a.page, a.owner)
     if cmd == "watch":
         from . import autostart
         autostart.watch()

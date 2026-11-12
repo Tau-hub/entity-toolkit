@@ -8,6 +8,7 @@ Without the `pywebview` package, or if the window cannot start, the pages open i
 """
 import importlib.util
 import json
+import os
 import subprocess
 import sys
 import threading
@@ -102,9 +103,32 @@ class _Api:
         return True
 
 
-def run(page="live.html"):
-    """The window program itself. Returns when the window is closed."""
+def process_alive(pid):
+    """Is the process `pid` still running?"""
+    import ctypes
+    k = ctypes.windll.kernel32
+    k.OpenProcess.restype = ctypes.c_void_p
+    h = k.OpenProcess(0x00100000, False, int(pid))  # SYNCHRONIZE
+    if not h:
+        return False
+    try:
+        return k.WaitForSingleObject(ctypes.c_void_p(h), 0) == 0x102  # WAIT_TIMEOUT: still running
+    finally:
+        k.CloseHandle(ctypes.c_void_p(h))
+
+
+def run(page="live.html", owner=0):
+    """The window program itself. Returns when the window is closed. `owner`: the toolkit that opened it; the window goes with it
+    (a toolkit killed and started again must not leave its window behind: two windows, one of them dead)."""
     import webview
+    from . import winapi
+
+    for _ in range(20):  # one window only: an older one is closing (its toolkit is gone), wait for it
+        if winapi.single_instance("EntityToolkitWindow"):
+            break
+        time.sleep(0.5)
+    else:
+        return 0
 
     own_identity()
     cfg = config.load()
@@ -157,6 +181,10 @@ def run(page="live.html"):
         misses = 0
         while True:
             time.sleep(0.5)
+            if owner and not process_alive(owner):
+                state["decided"] = state["decided"] or "tray"
+                win.destroy()
+                return
             try:
                 o = _call(base, "/api/window")
                 misses = 0
@@ -220,7 +248,7 @@ class Launcher:
                 return
             from . import autostart
             try:
-                self.proc = subprocess.Popen(autostart.command() + ["window", "--page", page], cwd=str(paths.ROOT))
+                self.proc = subprocess.Popen(autostart.command() + ["window", "--page", page, "--owner", str(os.getpid())], cwd=str(paths.ROOT))
                 threading.Thread(target=self._watch, args=(self.proc, page, time.time()), daemon=True).start()
             except Exception as e:
                 self.log(f"The window could not be started ({e}): opening the browser instead")
