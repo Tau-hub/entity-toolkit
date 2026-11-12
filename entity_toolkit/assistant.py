@@ -314,7 +314,7 @@ class Assistant:
             # this picture is good and goes to NightLight: tell it at once (a short blip and a message over the game), so that the scoreboard
             # can be left now. Everything below works on this picture, never on the screen.
             sounds.beep("go")
-            self.notify("Sending the scoreboard to NightLight... you can leave it", 60)
+            self.notify("Uploading...", 90)
         mem = nightlight.recall_map()
         map_name = mem["map"] if mem else None
         if mem:
@@ -369,7 +369,7 @@ class Assistant:
             return
         nightlight.forget_map()  # the map must not be reused for the next match
         sounds.beep(True)
-        self.notify("Match confirmed on NightLight", 4)
+        self.notify("Uploaded", 3)
         self.say(f"Match confirmed on NightLight · map: {r['map'] or 'not set'}")
         log(f"Match confirmed: {r}")
 

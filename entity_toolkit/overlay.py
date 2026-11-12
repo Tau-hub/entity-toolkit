@@ -379,7 +379,7 @@ class Overlay:
             self.log("Overlay hover: off (disabled on the Setup page): the mouse is never checked")
 
     def notice(self, text, game_hwnd, seconds=6):
-        """A short message at the top of the game window (click-through, never takes the focus), gone after `seconds`; "" removes it."""
+        """A small message at the top left of the game window (click-through, never takes the focus), gone after `seconds`; "" removes it."""
         try:
             r = wintypes.RECT()
             user32.GetWindowRect(game_hwnd, ctypes.byref(r))
@@ -520,8 +520,8 @@ class Overlay:
                     w.withdraw()
                     w.overrideredirect(True)
                     w.configure(bg="#d1243a")
-                    lab = tk.Label(w, bg="#14161c", fg="#f2ebe0", font=("Segoe UI", 15, "bold"), padx=22, pady=10)
-                    lab.pack(padx=2, pady=2)
+                    lab = tk.Label(w, bg="#14161c", fg="#f2ebe0", font=("Segoe UI", 10, "bold"), padx=9, pady=3)
+                    lab.pack(padx=1, pady=1)
                     note.update(w=w, lab=lab, after=None)
                 if note["after"]:
                     root.after_cancel(note["after"])
@@ -533,7 +533,7 @@ class Overlay:
                 note["lab"].config(text=text)
                 w.update_idletasks()
                 gl, gt, gw, gh = rect
-                w.geometry(f"+{gl + (gw - w.winfo_reqwidth()) // 2}+{gt + 28}")
+                w.geometry(f"+{gl + 14}+{gt + 14}")
                 w.deiconify()
                 hwnd = user32.GetParent(w.winfo_id()) or w.winfo_id()
                 ex = user32.GetWindowLongW(hwnd, GWL_EXSTYLE)

@@ -29,7 +29,7 @@ The toolkit acts at **two moments** of a match: at the start, on the players men
 
 ![The end-of-match scoreboard sent to NightLight (player names and chat blurred)](https://raw.githubusercontent.com/Tau-hub/entity-toolkit/main/docs/images/scoreboard.jpg)
 
-**4. The match is uploaded to NightLight by itself** (if you set NightLight up). As soon as the scoreboard picture is good, a short blip sounds and a message appears at the top of the game (*Sending the scoreboard to NightLight... you can leave it*): **you can leave the scoreboard right away**, everything after that works on the picture already taken, and a last message tells you when the match is confirmed. It is sent with the map read in step 1, "Me" ticked on your name, everyone else set to Random, and confirmed, with no click from you. The match then appears in your NightLight history like any other upload. Same thing in both modes.
+**4. The match is uploaded to NightLight by itself** (if you set NightLight up). As soon as the scoreboard picture is good, a short blip sounds and a small *Uploading...* box appears at the top left of the game: **you can leave the scoreboard right away**, everything after that works on the picture already taken, and a last message tells you when the match is confirmed. It is sent with the map read in step 1, "Me" ticked on your name, everyone else set to Random, and confirmed, with no click from you. The match then appears in your NightLight history like any other upload. Same thing in both modes.
 
 ![The result on NightLight: map filled in, you ticked as "Me", everyone else Random (player names blurred)](https://raw.githubusercontent.com/Tau-hub/entity-toolkit/main/docs/images/nightlight.jpg)
 
