@@ -250,9 +250,12 @@ class Assistant:
             if not sure(res):  # an ally is missing, or a perk is doubtful (something over it): use the other screenshots taken meanwhile, then what the previous try had read
                 for n, frame in enumerate(reversed(self.burst.get() if self.burst else []), 1):  # the latest first: the most likely to differ
                     log(f"Reading not sure ({len(res['allies'])} allies, {sum(p['uncertain'] for a in res['allies'] for p in a['perks'])} doubtful perks): reading another screenshot of the menu ({n})")
+                    before = [(a["row"], a["survivor"], a["player"], [p.get("name") for p in a["perks"]]) for a in res["allies"]]
                     res = merge_readings([res, self.analyzer.analyze(frame)], known)
                     if sure(res):
                         break
+                    if n >= 2 and before == [(a["row"], a["survivor"], a["player"], [p.get("name") for p in a["perks"]]) for a in res["allies"]]:
+                        break  # another screenshot changed nothing: the others will not either (a survivor the database does not know, say)
                 if not read_complete(res["allies"], known) and self.partial and time.time() - self.partial[1] < 120:
                     res = merge_readings([res, self.partial[0]], known)
                 log(f"After putting the readings together: {[(a['row'], a['survivor']) for a in res['allies']]}")

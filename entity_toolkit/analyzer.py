@@ -13,7 +13,7 @@ MIN_SCORE = 0.78   # below: the perk is flagged "to check"
 EMPTY_ROW = 0.60   # every perk of a row below this score: empty row (no player)
 
 # Survivors that may be missing from the wiki data (recent chapters): completed here when needed
-EXTRA_SURVIVORS = ["Claire Redfield", "Daryl Dixon", "Jonathan Byers", "James Sunderland", "Maria", "Sienna Shaw", "Aestri Yazar", "Baermar Uraz"]
+EXTRA_SURVIVORS = ["Claire Redfield", "Daryl Dixon", "Jonathan Byers", "James Sunderland", "Maria", "Sienna Shaw", "Aestri Yazar", "Baermar Uraz", "A2"]
 
 
 def survivor_names():
