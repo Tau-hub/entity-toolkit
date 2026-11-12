@@ -89,7 +89,7 @@ The manual is on the [wiki](https://github.com/Tau-hub/entity-toolkit/wiki):
 
 The data the toolkit uses was collected from these community sources, which deserve the credit:
 
-- **[Dead by Daylight Wiki](https://deadbydaylight.wiki.gg)** and its contributors: perk, add-on, item, offering and power names and descriptions, the icons and portraits, map and realm names, as the wiki publishes them. The wiki's content is the game's, shared by the community.
+- **[Dead by Daylight Wiki](https://deadbydaylight.wiki.gg)** and its contributors: perk, add-on, item, offering and power names and descriptions, the icons and portraits, map and realm names, as the wiki publishes them. Its text and images are published under [Creative Commons Attribution-NonCommercial-ShareAlike 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) (credit, non-commercial, share-alike): the data from the wiki that ships in [`seed/`](seed/README.md) stays under those terms, not the MIT licence.
 - **Otzdarva** ([otzdarva-builds.com](https://otzdarva-builds.com), [otzdarva.com](https://otzdarva.com)): builds, perk values and the add-on tier list.
 - **[NightLight](https://nightlight.gg)**: community statistics, most played builds, map ids, and the upload API.
 - **Steam**: the announcements the toolkit reads to know which patch the game is on.

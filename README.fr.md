@@ -91,7 +91,7 @@ Le mode d'emploi est sur le [wiki](https://github.com/Tau-hub/entity-toolkit/wik
 
 Les données que l'outil utilise ont été récupérées auprès de ces sources communautaires, à qui revient le mérite :
 
-- **[Dead by Daylight Wiki](https://deadbydaylight.wiki.gg)** et ses contributeurs : noms et descriptions des perks, add-ons, objets, offrandes et pouvoirs, icônes et portraits, noms des maps et des royaumes, tels que le wiki les publie. Le contenu du wiki est celui du jeu, partagé par la communauté.
+- **[Dead by Daylight Wiki](https://deadbydaylight.wiki.gg)** et ses contributeurs : noms et descriptions des perks, add-ons, objets, offrandes et pouvoirs, icônes et portraits, noms des maps et des royaumes, tels que le wiki les publie. Ses textes et images sont publiés sous [Creative Commons Attribution - Pas d’utilisation commerciale - Partage dans les mêmes conditions 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) (mention, usage non commercial, partage à l'identique) : les données du wiki livrées dans [`seed/`](seed/README.md) restent soumises à ces conditions, pas à la licence MIT.
 - **Otzdarva** ([otzdarva-builds.com](https://otzdarva-builds.com), [otzdarva.com](https://otzdarva.com)) : les builds, les valeurs de perks et la tier list des add-ons.
 - **[NightLight](https://nightlight.gg)** : les statistiques de la communauté, les builds les plus joués, les identifiants de maps, et l'API d'envoi.
 - **Steam** : les annonces que l'outil lit pour savoir sur quel patch est le jeu.
