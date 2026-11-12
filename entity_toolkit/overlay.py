@@ -520,7 +520,7 @@ class Overlay:
                     w.withdraw()
                     w.overrideredirect(True)
                     w.configure(bg="#d1243a")
-                    lab = tk.Label(w, bg="#14161c", fg="#f2ebe0", font=("Segoe UI", 10, "bold"), padx=9, pady=3)
+                    lab = tk.Label(w, bg="#14161c", fg="#f2ebe0", font=("Segoe UI", 8), padx=6, pady=1)
                     lab.pack(padx=1, pady=1)
                     note.update(w=w, lab=lab, after=None)
                 if note["after"]:
@@ -533,7 +533,7 @@ class Overlay:
                 note["lab"].config(text=text)
                 w.update_idletasks()
                 gl, gt, gw, gh = rect
-                w.geometry(f"+{gl + 14}+{gt + 14}")
+                w.geometry(f"+{gl + 8}+{gt + 8}")
                 w.deiconify()
                 hwnd = user32.GetParent(w.winfo_id()) or w.winfo_id()
                 ex = user32.GetWindowLongW(hwnd, GWL_EXSTYLE)
