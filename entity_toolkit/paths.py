@@ -23,6 +23,7 @@ SURVIVOR_BUILDS = DATA / "survivor_builds.json"
 PATCH = DATA / "patch.json"                 # the game's current live patch (Steam news)
 MAPS = DATA / "maps.json"                   # map and realm names (wiki)
 NL_MAPS = DATA / "nl_maps.json"             # NightLight map ids
+SKINS = DATA / "skins.json"                 # names of the alternate character models (skins that rename a character, e.g. A2 for Yui Kimura)
 LEVELS = DATA / "levels.json"               # character levels {"killers": {...}, "survivors": {...}}
 LEVELS_HISTORY = DATA / "levels_history.json"
 LEVELS_BACKUPS = DATA / "levels_backups.json"  # states kept before every bulk change, so a mistake can be undone

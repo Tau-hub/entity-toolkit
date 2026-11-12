@@ -16,7 +16,7 @@ STEPS = [
     ("builds", "Builds, tier list and ratings (Otzdarva, NightLight)"),
     ("perks", "Perk names, descriptions and icons (DbD wiki)"),
     ("loadout", "Random-loadout data: powers, add-ons, items, offerings (DbD wiki)"),
-    ("maps", "Map and realm names (DbD wiki)"),
+    ("maps", "Map and realm names, alternate character models (DbD wiki)"),
     ("nl_maps", "NightLight map ids"),
 ]
 
@@ -62,7 +62,7 @@ def run(only=None, refresh=False, trigger="manual"):
         "builds": lambda: builds.main(_say),
         "perks": lambda: perks.main(_say, refresh=refresh),
         "loadout": lambda: loadout.main(_say, refresh=refresh),
-        "maps": lambda: maps.wiki_maps(_say),
+        "maps": lambda: (maps.wiki_maps(_say), maps.wiki_skins(_say)),
         "nl_maps": lambda: maps.nightlight_maps(_say),
     }
     result = {}

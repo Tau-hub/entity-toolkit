@@ -13,7 +13,7 @@ import time
 
 from .. import config, paths
 
-FILES = ["loadout_data.json", "loadout_extra.json", "killers.json", "survivors.json", "survivor_builds.json", "maps.json", "nl_maps.json", "patch.json"]
+FILES = ["loadout_data.json", "loadout_extra.json", "killers.json", "survivors.json", "survivor_builds.json", "maps.json", "skins.json", "nl_maps.json", "patch.json"]
 FOLDERS = ["icons", "images"]
 
 

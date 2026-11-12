@@ -22,6 +22,10 @@ def survivor_names():
         names = [s["name"] for s in data["killers"] if s["name"] != "The Troupe"]  # (the "killers" key holds the survivors too)
     except Exception:
         names = []
+    try:  # skins that rename a survivor (A2 on Yui Kimura...): the game's menu shows their name
+        names += [s for v in json.loads(paths.SKINS.read_text(encoding="utf8"))["survivors"].values() for s in v]
+    except Exception:
+        pass
     return names + [n for n in EXTRA_SURVIVORS if n not in names]
 
 

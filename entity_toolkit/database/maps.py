@@ -20,6 +20,31 @@ def wiki_maps(log=print):
     return out
 
 
+def wiki_skins(log=print):
+    """The alternate character models of every survivor and killer ("Alternate Character Models" section of each character's wiki page):
+    skins that show another name in the game (A2 on Yui Kimura, Jonathan Byers on Steve Harrington...). {"survivors": {character: [names]}, "killers": {...}}."""
+    out = {"survivors": {}, "killers": {}}
+    for kind, f in (("survivors", paths.SURVIVORS), ("killers", paths.KILLERS)):
+        try:
+            names = [s["name"] for s in json.loads(f.read_text(encoding="utf8"))["killers"] if s["name"] != "The Troupe"]  # (the "killers" key holds the survivors too)
+        except Exception:
+            continue
+        for n in names:
+            try:
+                text = api(action="parse", page=n, prop="wikitext", redirects=1)["parse"]["wikitext"]["*"]
+            except Exception:
+                continue
+            m = re.search(r"=== Alternate Character Models ===(.*?)(?:\n== |\Z)", text, re.S)
+            skins = re.findall(r"^\* \[\[([^\]|]+)", m.group(1), re.M) if m else []
+            if skins:
+                out[kind][n] = skins
+    if not out["survivors"] and not out["killers"]:
+        raise RuntimeError("no alternate character model found (the wiki's layout may have changed)")
+    paths.SKINS.write_text(json.dumps(out, ensure_ascii=False), encoding="utf8")
+    log(f"Alternate character models: {sum(map(len, out['survivors'].values()))} for survivors, {sum(map(len, out['killers'].values()))} for killers")
+    return out
+
+
 def _get(url):
     return urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": BROWSER_UA}), timeout=60).read().decode("utf8", "replace")
 
