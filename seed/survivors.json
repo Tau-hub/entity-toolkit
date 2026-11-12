@@ -1,0 +1,3572 @@
+{
+ "patch": "10.2.1",
+ "nlPeriod": "2026-10-12 → 2026-11-09",
+ "nlRate": "escapes",
+ "killers": [
+  {
+   "name": "Dwight Fairfield",
+   "short": "Dwight Fairfield",
+   "slug": "dwightfairfield",
+   "portrait": "images/S01_DwightFairfield_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/3d/S01_DwightFairfield_Portrait.png",
+   "availableIn": "Base Game",
+   "teachables": [
+    {
+     "name": "Bond",
+     "value": 780,
+     "stars": 3,
+     "nl": {
+      "pick": 7.28,
+      "rate": 35.1,
+      "games": 2752,
+      "avgRate": 36.6,
+      "tier": "veryhigh",
+      "usage": 0.9395604395604396,
+      "perf": 0.4241571384180052
+     },
+     "score": 783,
+     "icon": "images/IconPerks_bond.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a0/IconPerks_bond.png",
+     "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of all other Survivors are revealed to you within 20/28/36 metres."
+    },
+    {
+     "name": "Prove Thyself",
+     "value": 540,
+     "stars": 2,
+     "nl": {
+      "pick": 4.9,
+      "rate": 35.17,
+      "games": 1851,
+      "avgRate": 36.6,
+      "tier": "high",
+      "usage": 0.9010989010989011,
+      "perf": 0.4276571384180052
+     },
+     "score": 650,
+     "icon": "images/IconPerks_proveThyself.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/0f/IconPerks_proveThyself.png",
+     "desc": "Increases the Repair speed by a stack-able 6/8/10 % per other Survivor within 4 metres of your location, up to a maximum of 18/24/30 %.\nProve Thyself extends its effect to all Survivors within its range.\nSurvivors can only be affected by one instance of Prove Thyself at a time."
+    },
+    {
+     "name": "Leader",
+     "value": 555,
+     "stars": 2,
+     "nl": {
+      "pick": 1.12,
+      "rate": 34.2,
+      "games": 424,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.554945054945055,
+      "perf": 0.37915713841800525
+     },
+     "score": 529,
+     "icon": "images/IconPerks_leader.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/3d/IconPerks_leader.png",
+     "desc": "All other Survivors within 10 metres of your location benefit from the following effect:\nIncreases their Action speeds for Cleansing, Gate-Opening, Healing, Sabotaging, Unhooking, and Unlocking by 20/25/30 %.\nThis effect lingers for 15 seconds after leaving its Area of Effect.\nSurvivors can only be affected by one instance of Leader at a time."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Base Game"
+  },
+  {
+   "name": "Meg Thomas",
+   "short": "Meg Thomas",
+   "slug": "megthomas",
+   "portrait": "images/S02_MegThomas_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/35/S02_MegThomas_Portrait.png",
+   "availableIn": "Base Game",
+   "teachables": [
+    {
+     "name": "Quick & Quiet",
+     "value": 200,
+     "stars": 1,
+     "nl": {
+      "pick": 3.78,
+      "rate": 33.61,
+      "games": 1431,
+      "avgRate": 36.6,
+      "tier": "high",
+      "usage": 0.8681318681318682,
+      "perf": 0.34965713841800505
+     },
+     "score": 456,
+     "icon": "images/IconPerks_quickAndQuiet.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/14/IconPerks_quickAndQuiet.png",
+     "desc": "When performing a Rushed action to vault across Pallets or Windows, or to enter or exit Lockers, Quick & Quiet triggers its effect:\nSuppresses all noises related to those interactions and the accompanying Loud Noise Notification.\nQuick & Quiet has a cool-down of 25/20/15 seconds."
+    },
+    {
+     "name": "Sprint Burst",
+     "value": 979,
+     "stars": 3,
+     "nl": {
+      "pick": 5.63,
+      "rate": 35.79,
+      "games": 2129,
+      "avgRate": 36.6,
+      "tier": "high",
+      "usage": 0.9120879120879121,
+      "perf": 0.45865713841800504
+     },
+     "score": 878,
+     "icon": "images/IconPerks_sprintBurst.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/e4/IconPerks_sprintBurst.png",
+     "desc": "Starting to run triggers Sprint Burst:\nGrants a +50 % Haste Status Effect for 2 seconds.\nSprint Burst cannot be used while Exhausted.\nSprint Burst causes the Exhausted Status Effect for 60/50/40 seconds."
+    },
+    {
+     "name": "Adrenaline",
+     "value": 444,
+     "stars": 2,
+     "nl": {
+      "pick": 7.16,
+      "rate": 36.47,
+      "games": 2706,
+      "avgRate": 36.6,
+      "tier": "veryhigh",
+      "usage": 0.9340659340659341,
+      "perf": 0.49265713841800507
+     },
+     "score": 623,
+     "icon": "images/IconPerks_adrenaline.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f7/IconPerks_adrenaline.png",
+     "desc": "Once the Exit Gates are powered, Adrenaline activates and triggers the following effects:\nHeals you to the next Health State.\nGrants a +50 % Haste Status Effect for 4 seconds.\nAdrenaline can be used while Exhausted and ignores an existing Status Effect.\nAdrenaline causes the Exhausted Status Effect for 60/50/40 seconds after use."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Base Game"
+  },
+  {
+   "name": "Claudette Morel",
+   "short": "Claudette Morel",
+   "slug": "claudettemorel",
+   "portrait": "images/S03_ClaudetteMorel_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/c2/S03_ClaudetteMorel_Portrait.png",
+   "availableIn": "Base Game",
+   "teachables": [
+    {
+     "name": "Empathy",
+     "value": 600,
+     "stars": 2,
+     "nl": {
+      "pick": 2.01,
+      "rate": 33.73,
+      "games": 759,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.7472527472527473,
+      "perf": 0.35565713841800495
+     },
+     "score": 615,
+     "icon": "images/IconPerks_empathy.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/ae/IconPerks_empathy.png",
+     "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of injured or dying Survivors are revealed to you within 64/96/128 metres."
+    },
+    {
+     "name": "Botany Knowledge",
+     "value": 777,
+     "stars": 3,
+     "nl": {
+      "pick": 4.68,
+      "rate": 37.78,
+      "games": 1771,
+      "avgRate": 36.6,
+      "tier": "high",
+      "usage": 0.8956043956043956,
+      "perf": 0.5581571384180052
+     },
+     "score": 786,
+     "icon": "images/IconPerks_botanyKnowledge.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/1e/IconPerks_botanyKnowledge.png",
+     "desc": "You benefit from the following permanent effect:\nIncreases your Healing speed by 30/40/50 %."
+    },
+    {
+     "name": "Self-Care",
+     "value": 365,
+     "stars": 2,
+     "nl": {
+      "pick": 3.43,
+      "rate": 40.4,
+      "games": 1297,
+      "avgRate": 36.6,
+      "tier": "high",
+      "usage": 0.8516483516483516,
+      "perf": 0.6891571384180051
+     },
+     "score": 584,
+     "icon": "images/IconPerks_self-Care.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/b2/IconPerks_self-Care.png",
+     "desc": "Unlocks the Self-Care ability:\nGrants the ability to self-heal without needing a Med-Kit at 25/30/35 % of the regular Healing speed."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Base Game"
+  },
+  {
+   "name": "Jake Park",
+   "short": "Jake Park",
+   "slug": "jakepark",
+   "portrait": "images/S04_JakePark_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/18/S04_JakePark_Portrait.png",
+   "availableIn": "Base Game",
+   "teachables": [
+    {
+     "name": "Iron Will",
+     "value": 458,
+     "stars": 2,
+     "nl": {
+      "pick": 9.66,
+      "rate": 35.2,
+      "games": 3653,
+      "avgRate": 36.6,
+      "tier": "veryhigh",
+      "usage": 0.9615384615384616,
+      "perf": 0.42915713841800524
+     },
+     "score": 630,
+     "icon": "images/IconPerks_ironWill.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/58/IconPerks_ironWill.png",
+     "desc": "While injured, you benefit from the following effects:\nReduces the volume of Grunts of Pain by 80/90/100 %.\nIron Will cannot be used while Exhausted, but does not cause the Status Effect."
+    },
+    {
+     "name": "Calm Spirit",
+     "value": 555,
+     "stars": 2,
+     "nl": {
+      "pick": 1.36,
+      "rate": 37.74,
+      "games": 514,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.6318681318681318,
+      "perf": 0.5561571384180052
+     },
+     "score": 582,
+     "icon": "images/IconPerks_calmSpirit.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/6c/IconPerks_calmSpirit.png",
+     "desc": "You experience the following effects during a Trial:\nNearby Crows no longer fly off and alert others to your presence, unless you come within touching distance.\nSuppresses the urge to scream from any cause at all times.\nSuppresses all noises related to interacting with the following Props:\nChests\nTotems\nIncreases the Action speeds for Blessing, Cleansing, and Unlocking by 8/9/10 %."
+    },
+    {
+     "name": "Saboteur",
+     "value": 378,
+     "stars": 2,
+     "nl": {
+      "pick": 1.58,
+      "rate": 29.6,
+      "games": 598,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.6813186813186813,
+      "perf": 0.14915713841800515
+     },
+     "score": 450,
+     "icon": "images/IconPerks_saboteur.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/0e/IconPerks_saboteur.png",
+     "desc": "Unlocks potential in your Aura-reading ability:\nWhile the Killer is carrying another Survivor, the Auras of all Hooks within 56 metres of their original Pick-up location are revealed to you:\nThe Auras of normal Hooks are white.\nThe Auras of Scourge Hooks are yellow.\nUnlocks the ability to sabotage Hooks without Toolboxes:\nIncreases the Sabotage speed without a Toolbox by +30 %.\nThis effect has a cool-down of 70/65/60 seconds after use."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Base Game"
+  },
+  {
+   "name": "Nea Karlsson",
+   "short": "Nea Karlsson",
+   "slug": "neakarlsson",
+   "portrait": "images/S05_NeaKarlsson_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/e6/S05_NeaKarlsson_Portrait.png",
+   "availableIn": "Base Game",
+   "teachables": [
+    {
+     "name": "Balanced Landing",
+     "value": 840,
+     "stars": 3,
+     "nl": {
+      "pick": 4.23,
+      "rate": 41.53,
+      "games": 1599,
+      "avgRate": 36.6,
+      "tier": "high",
+      "usage": 0.8736263736263736,
+      "perf": 0.7456571384180052
+     },
+     "score": 838,
+     "icon": "images/IconPerks_balancedLanding.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/5e/IconPerks_balancedLanding.png",
+     "desc": "While falling from height, you benefit from the following effects:\nSuppresses all noises related to falling and landing.\nReduces the duration of the Stagger upon landing by -75 %.\nGrants a +50 % Haste Status Effect for 3 seconds.\nBalanced Landing cannot be used while Exhausted.\nBalanced Landing causes the Exhausted Status Effect for 60/50/40 seconds after use."
+    },
+    {
+     "name": "Urban Evasion",
+     "value": 199,
+     "stars": 1,
+     "nl": {
+      "pick": 1.85,
+      "rate": 35.1,
+      "games": 698,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.7362637362637363,
+      "perf": 0.4241571384180052
+     },
+     "score": 421,
+     "icon": "images/IconPerks_urbanEvasion.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/c7/IconPerks_urbanEvasion.png",
+     "desc": "You benefit from the following permanent effect:\nIncreases your Movement speed while crouched by 90/95/100 %."
+    },
+    {
+     "name": "Streetwise",
+     "value": 222,
+     "stars": 1,
+     "nl": {
+      "pick": 0.22,
+      "rate": 34.52,
+      "games": 84,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.17582417582417587,
+      "perf": 0.5
+     },
+     "score": 248,
+     "icon": "images/IconPerks_streetwise.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/ff/IconPerks_streetwise.png",
+     "desc": "Any Items with Charges you retrieve from Chests benefit from the following primary effect:\nIncreases their Charges permanently by 60/70/80 %.\nWhenever your currently equipped Item is depleted for the first time, Streetwise triggers its secondary effect:\nThe Aura of the Killer is revealed to you for 8 seconds."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Base Game"
+  },
+  {
+   "name": "David King",
+   "short": "David King",
+   "slug": "davidking",
+   "portrait": "images/S10_DavidKing_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/2/2a/S10_DavidKing_Portrait.png",
+   "availableIn": "Base Game",
+   "teachables": [
+    {
+     "name": "We're Gonna Live Forever",
+     "value": 777,
+     "stars": 3,
+     "nl": {
+      "pick": 5.69,
+      "rate": 36.05,
+      "games": 2150,
+      "avgRate": 36.6,
+      "tier": "high",
+      "usage": 0.9175824175824175,
+      "perf": 0.47165713841800494
+     },
+     "score": 781,
+     "icon": "images/IconPerks_wereGonnaLiveForever.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/b8/IconPerks_wereGonnaLiveForever.png",
+     "desc": "Your few friends deserve the best protection.\nYou benefit from the following effect when healing a dying Survivor:\nIncreases your Healing speed by +100 %.\nAny dying Survivor you heal back to the Injured State benefits from the following effect:\nGrants the Endurance Status Effect for 6/8/10 seconds.\nThis effect can only be triggered once every 30 seconds."
+    },
+    {
+     "name": "Dead Hard",
+     "value": 850,
+     "stars": 3,
+     "nl": {
+      "pick": 20.86,
+      "rate": 39.86,
+      "games": 7888,
+      "avgRate": 36.6,
+      "tier": "veryhigh",
+      "usage": 0.989010989010989,
+      "perf": 0.662157138418005
+     },
+     "score": 871,
+     "icon": "images/IconPerks_deadHard.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/75/IconPerks_deadHard.png",
+     "desc": "After being unhooked by any means, Dead Hard activates:While injured and running, press the Active Ability button to trigger the following effect:\nGrants the Endurance Status Effect for 0.5 seconds.\nDead Hard cannot be used while Exhausted.\nDead Hard causes the Exhausted Status Effect for 60/50/40 seconds."
+    },
+    {
+     "name": "No Mither",
+     "value": 1,
+     "stars": 1,
+     "nl": {
+      "pick": 0.32,
+      "rate": 34.43,
+      "games": 122,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.2362637362637363,
+      "perf": 0.5
+     },
+     "score": 158,
+     "icon": "images/IconPerks_noMither.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f5/IconPerks_noMither.png",
+     "desc": "You suffer permanently from the Broken Status Effect in exchange for the following benefits:\nSuppresses the creation of Pools of Blood.\nSuppresses your Grunts of Pain while in the Injured State or in the Dying State.\nUnlocks the Self-Recovery ability, allowing you to fully recover from the Dying State:\nIncreases the Recovery speed by 15/20/25 %."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Base Game"
+  },
+  {
+   "name": "Bill Overbeck",
+   "short": "Bill Overbeck",
+   "slug": "billoverbeck",
+   "portrait": "images/S08_BillOverbeck_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/9c/S08_BillOverbeck_Portrait.png",
+   "availableIn": "Base Game",
+   "teachables": [
+    {
+     "name": "Left Behind",
+     "value": 555,
+     "stars": 2,
+     "nl": {
+      "pick": 1.3,
+      "rate": 37.14,
+      "games": 490,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.6098901098901099,
+      "perf": 0.5261571384180052
+     },
+     "score": 570,
+     "icon": "images/IconPerks_leftBehind.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/c3/IconPerks_leftBehind.png",
+     "desc": "Once you are the Last Survivor Standing, Left Behind activates:\nThe Aura of the Hatch is revealed to you within 24/28/32 metres."
+    },
+    {
+     "name": "Borrowed Time",
+     "value": 560,
+     "stars": 2,
+     "nl": {
+      "pick": 0.65,
+      "rate": 33.47,
+      "games": 245,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.39560439560439564,
+      "perf": 0.34265713841800505
+     },
+     "score": 470,
+     "icon": "images/IconPerks_borrowedTime.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a3/IconPerks_borrowedTime.png",
+     "desc": "Whenever you unhook another Survivor, they benefit from the following effects:\nExtends the duration of the Endurance Status Effect by 6/8/10 seconds to 16/18/20 seconds.\nEndurance is cancelled prematurely when performing a Conspicuous Action of any kind.\nExtends the duration of the Haste Status Effect by +10 seconds to 20 seconds."
+    },
+    {
+     "name": "Unbreakable",
+     "value": 999,
+     "stars": 3,
+     "nl": {
+      "pick": 7.47,
+      "rate": 34.75,
+      "games": 2826,
+      "avgRate": 36.6,
+      "tier": "veryhigh",
+      "usage": 0.945054945054945,
+      "perf": 0.4066571384180051
+     },
+     "score": 892,
+     "icon": "images/IconPerks_unbreakable.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/4a/IconPerks_unbreakable.png",
+     "desc": "Whenever you are put in the Dying State by the Killer, Unbreakable activates:\nIncreases your Recovery speed by 25/30/35 %.\nUnlocks the Self-Recovery ability, allowing you to fully recover from the Dying State.\nThis ability can only be used once per Trial."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Base Game"
+  },
+  {
+   "name": "Ace Visconti",
+   "short": "Ace Visconti",
+   "slug": "acevisconti",
+   "portrait": "images/S07_AceVisconti_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/b9/S07_AceVisconti_Portrait.png",
+   "availableIn": "\"Maddening Darkness\" DLC Pack",
+   "teachables": [
+    {
+     "name": "Open-Handed",
+     "value": 777,
+     "stars": 3,
+     "nl": {
+      "pick": 0.59,
+      "rate": 40.09,
+      "games": 222,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.37362637362637363,
+      "perf": 0.6736571384180052
+     },
+     "score": 621,
+     "icon": "images/IconPerks_open-Handed.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/5d/IconPerks_open-Handed.png",
+     "desc": "All Survivors benefit from the following permanent effect:\nIncreases the radius of all Aura-reading abilities by 8/12/16 metres.\nOpen-Handed only affects Auras that emanate from the Survivor causing them.\nSurvivors can only be affected by one instance of Open-Handed at a time."
+    },
+    {
+     "name": "Up the Ante",
+     "value": 31,
+     "stars": 1,
+     "nl": {
+      "pick": 0.12,
+      "rate": 31.11,
+      "games": 45,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.07692307692307687,
+      "perf": 0.5
+     },
+     "score": 117,
+     "icon": "images/IconPerks_upTheAnte.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a3/IconPerks_upTheAnte.png",
+     "desc": "Unlocks the ability to attempt Self-Unhooks during the first Hook Stage for all Survivors.\nFor every Survivor still in the Trial, Up the Ante is granted +1 Token:\nIncreases the Luck at succeeding Self-Unhook attempts for all Survivors by a stack-able 1/2/3 % per Token, up to a maximum of 3/6/9 %."
+    },
+    {
+     "name": "Ace in the Hole",
+     "value": 100,
+     "stars": 1,
+     "nl": {
+      "pick": 0.36,
+      "rate": 33.33,
+      "games": 138,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.2912087912087912,
+      "perf": 0.5
+     },
+     "score": 227,
+     "icon": "images/IconPerks_aceInTheHole.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/2/24/IconPerks_aceInTheHole.png",
+     "desc": "Causes all regular Items you retrieve from a Chest to come equipped with 1 to 2 Add-ons:\nFirst Slot: 100 % chance to be equipped with an Add-on of Visceral Rarity or lower.\nSecond Slot: 50/75/100 % chance to be equipped with an Add-on of Uncommon Rarity or lower.\nAce in the Hole prevents any attached Add-ons on your currently held Item to be consumed upon escaping the Trial."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Maddening Darkness"
+  },
+  {
+   "name": "Feng Min",
+   "short": "Feng Min",
+   "slug": "fengmin",
+   "portrait": "images/S09_FengMin_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a3/S09_FengMin_Portrait.png",
+   "availableIn": "\"Maddening Darkness\" DLC Pack",
+   "teachables": [
+    {
+     "name": "Technician",
+     "value": 29,
+     "stars": 1,
+     "nl": {
+      "pick": 1.12,
+      "rate": 27.25,
+      "games": 422,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.5384615384615384,
+      "perf": 0.031657138418005104
+     },
+     "score": 208,
+     "icon": "images/IconPerks_technician.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/62/IconPerks_technician.png",
+     "desc": "While repairing a Generator, the following effects apply:\nReduces the audible range of all noises related to the Repair interaction by -16 metres.\nIncreases the Progression penalty incurred when failing a Skill Check by 4/3/2 %.\nSuppresses the explosion of the Generator and the Loud Noise Notification usually triggered by that."
+    },
+    {
+     "name": "Lithe",
+     "value": 776,
+     "stars": 3,
+     "nl": {
+      "pick": 24.92,
+      "rate": 36.41,
+      "games": 9424,
+      "avgRate": 36.6,
+      "tier": "veryhigh",
+      "usage": 1.0,
+      "perf": 0.48965713841800496
+     },
+     "score": 812,
+     "icon": "images/IconPerks_lithe.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/cc/IconPerks_lithe.png",
+     "desc": "Whenever you perform a Rushed Vault action, Lithe triggers its effect:\nGrants a +50 % Haste Status Effect for 3 seconds.\nLithe cannot be used while Exhausted.\nLithe causes the Exhausted Status Effect for 60/50/40 seconds."
+    },
+    {
+     "name": "Alert",
+     "value": 670,
+     "stars": 3,
+     "nl": {
+      "pick": 2.12,
+      "rate": 33.88,
+      "games": 800,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.7692307692307692,
+      "perf": 0.36315713841800523
+     },
+     "score": 659,
+     "icon": "images/IconPerks_alert.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/71/IconPerks_alert.png",
+     "desc": "Whenever the Killer performs the Break or Damage Action, Alert triggers:\nTheir Aura is revealed to you for 3/4/5 seconds."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Maddening Darkness"
+  },
+  {
+   "name": "Laurie Strode",
+   "short": "Laurie Strode",
+   "slug": "lauriestrode",
+   "portrait": "images/S06_LaurieStrode_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/04/S06_LaurieStrode_Portrait.png",
+   "availableIn": "\"Halloween\" DLC",
+   "teachables": [
+    {
+     "name": "Sole Survivor",
+     "value": 777,
+     "stars": 3,
+     "nl": {
+      "pick": 2.36,
+      "rate": 42.33,
+      "games": 893,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.8076923076923077,
+      "perf": 0.785657138418005
+     },
+     "score": 789,
+     "icon": "images/IconPerks_soleSurvivor.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/8e/IconPerks_soleSurvivor.png",
+     "desc": "Identical to Down to the Last."
+    },
+    {
+     "name": "Object of Obsession",
+     "value": 11,
+     "stars": 1,
+     "nl": {
+      "pick": 1.27,
+      "rate": 31.54,
+      "games": 482,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.6043956043956045,
+      "perf": 0.24615713841800507
+     },
+     "score": 254,
+     "icon": "images/IconPerks_objectOfObsession.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/2/2b/IconPerks_objectOfObsession.png",
+     "desc": "Identical to Bound by Obsession."
+    },
+    {
+     "name": "Decisive Strike",
+     "value": 999,
+     "stars": 3,
+     "nl": {
+      "pick": 19.77,
+      "rate": 39.27,
+      "games": 7476,
+      "avgRate": 36.6,
+      "tier": "veryhigh",
+      "usage": 0.978021978021978,
+      "perf": 0.6326571384180053
+     },
+     "score": 937,
+     "icon": "images/IconPerks_decisiveStrike.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_decisiveStrike.png",
+     "desc": "Identical to Will to Live."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Halloween"
+  },
+  {
+   "name": "Quentin Smith",
+   "short": "Quentin Smith",
+   "slug": "quentinsmith",
+   "portrait": "images/S11_QuentinSmith_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/40/S11_QuentinSmith_Portrait.png",
+   "availableIn": "\"Nightmare on Elm Street\" DLC",
+   "teachables": [
+    {
+     "name": "Wake Up!",
+     "value": 400,
+     "stars": 2,
+     "nl": {
+      "pick": 0.74,
+      "rate": 38.85,
+      "games": 278,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.42307692307692313,
+      "perf": 0.6116571384180052
+     },
+     "score": 440,
+     "icon": "images/IconPerks_wakeUp.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/fd/IconPerks_wakeUp.png",
+     "desc": "Unlocks potential in your Aura-reading ability.\nOnce all Generators are completed, Wake Up! activates:\nThe Auras of the Exit Gate Switches are revealed to you permanently while within 128 metres.\nYour Aura is revealed to all other Survivors within 128 metres while you are opening an Exit Gate.\nIncreases your Gate-Opening speed by 8/9/10 % and by an additional #effect for each Survivor still alive in the Trial up to a maximum of 68/69/70 %."
+    },
+    {
+     "name": "Pharmacy",
+     "value": 777,
+     "stars": 3,
+     "nl": {
+      "pick": 0.21,
+      "rate": 31.25,
+      "games": 80,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.15934065934065933,
+      "perf": 0.5
+     },
+     "score": 520,
+     "icon": "images/IconPerks_pharmacy.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f1/IconPerks_pharmacy.png",
+     "desc": "While unlocking a Chest, you benefit from the following effects:\nIncreases the Unlocking and Rummaging speeds by 75/100/125 %.\nReduces the audible range of all noises related to the Unlocking interaction by -12 metres.\nGuarantees an Emergency Med-Kit after completing the interaction.\nYou can rummage each chest 1 time."
+    },
+    {
+     "name": "Vigil",
+     "value": 555,
+     "stars": 2,
+     "nl": {
+      "pick": 1.41,
+      "rate": 31.89,
+      "games": 533,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.6538461538461539,
+      "perf": 0.26365713841800514
+     },
+     "score": 546,
+     "icon": "images/IconPerks_vigil.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/46/IconPerks_vigil.png",
+     "desc": "You recover 20/25/30 % faster from the following:\nThe Exhausted Status Effect.\nVigil extends its effect to all Survivors within 16 metres of your location and lingers for 15 seconds after leaving its Area of Effect.\nSurvivors can only be affected by one instance of Vigil at a time."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Nightmare on Elm Street"
+  },
+  {
+   "name": "David Tapp",
+   "short": "David Tapp",
+   "slug": "davidtapp",
+   "portrait": "images/S12_DavidTapp_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/d/d2/S12_DavidTapp_Portrait.png",
+   "availableIn": "\"The Saw Chapter\" DLC",
+   "teachables": [
+    {
+     "name": "Tenacity",
+     "value": 222,
+     "stars": 1,
+     "nl": {
+      "pick": 0.95,
+      "rate": 33.15,
+      "games": 359,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.48351648351648346,
+      "perf": 0.32665713841800503
+     },
+     "score": 329,
+     "icon": "images/IconPerks_tenacity.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/9d/IconPerks_tenacity.png",
+     "desc": "Your ferocious tenacity in dire situations allows you to benefit from the following effects while in the Dying State:\nGrants the ability to recover while crawling.\nGrants a 30/40/50 % Haste Status Effect.\nReduces the volume of Grunts of Pain by -75 %.\nBlocks your Aura from being read."
+    },
+    {
+     "name": "Detective's Hunch",
+     "value": 568,
+     "stars": 2,
+     "nl": {
+      "pick": 0.25,
+      "rate": 35.48,
+      "games": 93,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.19780219780219777,
+      "perf": 0.5
+     },
+     "score": 429,
+     "icon": "images/IconPerks_detectivesHunch.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/7b/IconPerks_detectivesHunch.png",
+     "desc": "Unlocks potential in your Aura-reading ability.\nWhenever a Generator is completed, Detective's Hunch triggers its effect:\nThe Auras of the following objects within 32/48/64 metres of your location are revealed to you for 20 seconds:\nChests\nGenerators\nTotems"
+    },
+    {
+     "name": "Stake Out",
+     "value": 447,
+     "stars": 2,
+     "nl": {
+      "pick": 1.12,
+      "rate": 35.14,
+      "games": 424,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.543956043956044,
+      "perf": 0.4261571384180051
+     },
+     "score": 478,
+     "icon": "images/IconPerks_stakeOut.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/cd/IconPerks_stakeOut.png",
+     "desc": "Staying in the Terror Radius and within 24 metres of the Killer without being chased grants +1 Token every 15 seconds, up to a maximum of 2/3/4 Tokens.\nWhile performing a skilful interaction that can trigger Skill Checks, you benefit from the following effects:\nReplaces regular Skill Checks with special Skill Checks.\nThese Skill Checks grant +4 % more progress on success.\nSucceeding or missing a special Skill Check consumes -1 Token."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "The Saw"
+  },
+  {
+   "name": "Kate Denson",
+   "short": "Kate Denson",
+   "slug": "katedenson",
+   "portrait": "images/S13_KateDenson_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/9c/S13_KateDenson_Portrait.png",
+   "availableIn": "\"Maddening Darkness\" DLC Pack",
+   "teachables": [
+    {
+     "name": "Dance With Me",
+     "value": 555,
+     "stars": 2,
+     "nl": {
+      "pick": 1.34,
+      "rate": 31.03,
+      "games": 506,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.6263736263736264,
+      "perf": 0.22065713841800516
+     },
+     "score": 530,
+     "icon": "images/IconPerks_danceWithMe.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/17/IconPerks_danceWithMe.png",
+     "desc": "When performing a Rushed action to vault a Window or exit a Locker, Dance With Me triggers its effect:\nSuppresses the creation of your Scratch Marks for 5 seconds.\nDance With Me has a cool-down of 20/20/15 seconds."
+    },
+    {
+     "name": "Windows of Opportunity",
+     "value": 966,
+     "stars": 3,
+     "nl": {
+      "pick": 8.05,
+      "rate": 33.9,
+      "games": 3044,
+      "avgRate": 36.6,
+      "tier": "veryhigh",
+      "usage": 0.9560439560439561,
+      "perf": 0.364157138418005
+     },
+     "score": 873,
+     "icon": "images/IconPerks_windowsOfOpportunity.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/17/IconPerks_windowsOfOpportunity.png",
+     "desc": "Unlocks potential in your Aura-reading ability.\nThe Auras of Windows are revealed to you within 24 metres.\nYou vault Windows +10 % faster.\nWindows of Opportunity goes on a 40/35/30 seconds cool-down when you vault a Window."
+    },
+    {
+     "name": "Boil Over",
+     "value": 222,
+     "stars": 1,
+     "nl": {
+      "pick": 2.06,
+      "rate": 30.98,
+      "games": 778,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.7582417582417582,
+      "perf": 0.2181571384180051
+     },
+     "score": 409,
+     "icon": "images/IconPerks_boilOver.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f5/IconPerks_boilOver.png",
+     "desc": "You are a battler and do everything to escape a foe's grasp.\nWhile being carried by the Killer, the following effects apply:\nIncreases the strength of the Struggle Effects on the Killer from your Wiggling by 60/70/80 %.\nSuppresses the ability of the Killer to read the Auras of all Hooks within 16 metres.\nGrants +33 % of your current Wiggle progression upon landing, if the Killer drops from height."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Maddening Darkness"
+  },
+  {
+   "name": "Adam Francis",
+   "short": "Adam Francis",
+   "slug": "adamfrancis",
+   "portrait": "images/S14_AdamFrancis_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a5/S14_AdamFrancis_Portrait.png",
+   "availableIn": "\"Maddening Darkness\" DLC Pack",
+   "teachables": [
+    {
+     "name": "Diversion",
+     "value": 90,
+     "stars": 1,
+     "nl": {
+      "pick": 0.6,
+      "rate": 37.17,
+      "games": 226,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.3791208791208791,
+      "perf": 0.5276571384180052
+     },
+     "score": 257,
+     "icon": "images/IconPerks_diversion.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a6/IconPerks_diversion.png",
+     "desc": "After staying in the Terror Radius without being chased for 30/25/20 seconds, Diversion activates.\nWhile active, press the Active Ability button while crouched and motionless to throw a pebble in the direction you are facing:\nCreates a distraction for the Killer at its landing location 20 metres away:\nTriggers a Loud Noise Notification.\nCreates fake Scratch Marks.\nDiversion deactivates after use."
+    },
+    {
+     "name": "Deliverance",
+     "value": 970,
+     "stars": 3,
+     "nl": {
+      "pick": 2.15,
+      "rate": 37.44,
+      "games": 812,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.7747252747252747,
+      "perf": 0.541157138418005
+     },
+     "score": 838,
+     "icon": "images/IconPerks_deliverance.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/7e/IconPerks_deliverance.png",
+     "desc": "After safely unhooking another Survivor, Deliverance activates:\nGrants the ability to perform a successful Self-Unhook at any point during the first Hook Stage.\nCauses the Broken Status Effect for 160/140/120 seconds after unhooking yourself.\nDeliverance cannot be used during the second Hook Stage or if you are hooked as the Last Survivor Standing.\nDeliverance is disabled for the remainder of the Trial after use."
+    },
+    {
+     "name": "Autodidact",
+     "value": 10,
+     "stars": 1,
+     "nl": {
+      "pick": 1.36,
+      "rate": 33.79,
+      "games": 515,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.6373626373626373,
+      "perf": 0.35865713841800506
+     },
+     "score": 282,
+     "icon": "images/IconPerks_autodidact.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/96/IconPerks_autodidact.png",
+     "desc": "Succeeding a Skill Check while healing another Survivor grants +1 Token, up to a maximum of 3/4/5 Tokens:\nSuppresses Great Healing Skill Checks.\nCauses Good Healing Skill Checks to grant Healing progress based on the number of accumulated Tokens:\n0 Tokens: -15 %.\n1 Token: +0 %.\n2 Tokens: +15 %.\n3 Tokens: +30 % (limit of Tier I).\n4 Tokens: +45 % (limit of Tier II).\n5 Tokens: +60 % (limit of Tier III).\nAutodidact is inactive when healing using a Med-Kit."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Maddening Darkness"
+  },
+  {
+   "name": "Jeff Johansen",
+   "short": "Jeff Johansen",
+   "slug": "jeffjohansen",
+   "portrait": "images/S15_JeffJohansen_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/81/S15_JeffJohansen_Portrait.png",
+   "availableIn": "\"Old Wounds\" DLC Pack",
+   "teachables": [
+    {
+     "name": "Breakdown",
+     "value": 466,
+     "stars": 2,
+     "nl": {
+      "pick": 0.24,
+      "rate": 38.46,
+      "games": 91,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.1923076923076923,
+      "perf": 0.5
+     },
+     "score": 376,
+     "icon": "images/IconPerks_breakdown.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/6c/IconPerks_breakdown.png",
+     "desc": "After you are unhooked by any means, Breakdown triggers its effects:\nInstantly breaks that Hook.\nIncreases its Auto-Repair timer to 180 seconds.\nThe Aura of the Killer is revealed to you for 4/5/6 seconds."
+    },
+    {
+     "name": "Aftercare",
+     "value": 350,
+     "stars": 2,
+     "nl": {
+      "pick": 0.33,
+      "rate": 38.21,
+      "games": 123,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.25274725274725274,
+      "perf": 0.5
+     },
+     "score": 339,
+     "icon": "images/IconPerks_aftercare.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/0d/IconPerks_aftercare.png",
+     "desc": "Unlocks potential in your Aura-reading ability:\nYou see the Auras of the 1/2/3  most recent Survivor(s) that helped you or vice versa:\nRescued from a Hook.\nCompleted a Healing action on.\nThey also see your Aura.\nAftercare resets its effects when you are hooked by the Killer."
+    },
+    {
+     "name": "Distortion",
+     "value": 444,
+     "stars": 2,
+     "nl": {
+      "pick": 1.63,
+      "rate": 37.82,
+      "games": 616,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.6923076923076923,
+      "perf": 0.5601571384180051
+     },
+     "score": 549,
+     "icon": "images/IconPerks_distortion.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/41/IconPerks_distortion.png",
+     "desc": "Start the Trial with 1 Token.\nWhenever the Killer attempts to read your Aura, Distortion automatically consumes -1 Token to trigger the following effects for 8/10/12 seconds:\nBlocks your Aura from being read.\nSuppresses the creation of your Scratch Marks.\nDistortion recharges +1 Token every 15 seconds of being chased by the Killer, and can hold 2 Tokens.\nDistortion does not trigger its effects while in the Dying State."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Old Wounds"
+  },
+  {
+   "name": "Jane Romero",
+   "short": "Jane Romero",
+   "slug": "janeromero",
+   "portrait": "images/S16_JaneRomero_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/80/S16_JaneRomero_Portrait.png",
+   "availableIn": "\"Old Wounds\" DLC Pack",
+   "teachables": [
+    {
+     "name": "Solidarity",
+     "value": 555,
+     "stars": 2,
+     "nl": {
+      "pick": 0.62,
+      "rate": 30.47,
+      "games": 233,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.3846153846153846,
+      "perf": 0.19265713841800503
+     },
+     "score": 441,
+     "icon": "images/IconPerks_solidarity.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/9e/IconPerks_solidarity.png",
+     "desc": "While injured, healing another Survivor causes Solidarity to apply the following effects:\nGrants the ability to passively heal yourself while healing other Survivors.\nReduces your Personal Healing speed to 65/70/75 % of your Altruistic Healing speed."
+    },
+    {
+     "name": "Poised",
+     "value": 777,
+     "stars": 3,
+     "nl": {
+      "pick": 0.95,
+      "rate": 33.8,
+      "games": 358,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.478021978021978,
+      "perf": 0.35915713841800495
+     },
+     "score": 610,
+     "icon": "images/IconPerks_poised.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/52/IconPerks_poised.png",
+     "desc": "Whenever a Generator is completed, Poised triggers its primary effect:\nSuppresses the creation of your Scratch Marks for 20/25/30 seconds.\nWhenever you start repairing a Generator for the first time, Poised triggers its secondary effect:\nThe Aura of the Killer is revealed to you for 8 seconds."
+    },
+    {
+     "name": "Head On",
+     "value": 402,
+     "stars": 2,
+     "nl": {
+      "pick": 4.55,
+      "rate": 31.34,
+      "games": 1720,
+      "avgRate": 36.6,
+      "tier": "high",
+      "usage": 0.8791208791208791,
+      "perf": 0.23615713841800512
+     },
+     "score": 544,
+     "icon": "images/IconPerks_headOn.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/cb/IconPerks_headOn.png",
+     "desc": "After hiding in a Locker for 3 seconds, Head On activates.\nWhile active, hold the Sprint button while exiting the Locker to trigger its effect:\nCauses you to forcefully launch yourself from the Locker, stunning the Killer if they are too close to it:\nHas a Stun range of 2.5 metres.\nHas a Stun duration of 3 seconds.\nTriggers a Loud Noise Notification for the Killer upon missing.\nHead On cannot be used while Exhausted.\nHead On causes the Exhausted Status Effect for 60/50/40 seconds on a successful stun."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Old Wounds"
+  },
+  {
+   "name": "Ash Williams",
+   "short": "Ash Williams",
+   "slug": "ashwilliams",
+   "portrait": "images/S17_AshWilliams_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/91/S17_AshWilliams_Portrait.png",
+   "availableIn": "\"Ash vs The Evil Dead\" DLC",
+   "teachables": [
+    {
+     "name": "Flip-Flop",
+     "value": 60,
+     "stars": 1,
+     "nl": {
+      "pick": 1.19,
+      "rate": 33.18,
+      "games": 449,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.5824175824175823,
+      "perf": 0.3281571384180051
+     },
+     "score": 283,
+     "icon": "images/IconPerks_flip-Flop.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/31/IconPerks_flip-Flop.png",
+     "desc": "Recovering in the Dying State also charges the Wiggle Meter at 50 % of the Recovery rate and up to a maximum of 40/45/50 % of Wiggle Progression."
+    },
+    {
+     "name": "Buckle Up",
+     "value": 222,
+     "stars": 1,
+     "nl": {
+      "pick": 0.12,
+      "rate": 38.64,
+      "games": 44,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.08241758241758246,
+      "perf": 0.5
+     },
+     "score": 215,
+     "icon": "images/IconPerks_buckleUp.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/74/IconPerks_buckleUp.png",
+     "desc": "Whenever you are healing a dying Survivor, Buckle Up activates:\nDuring the Healing action, you and the dying Survivor benefit from the following primary effect:\nThe Aura of the Killer is revealed to you both.\nAfter completing the Healing action, the other Survivor benefits from the following secondary effects for 3/4/5 seconds:\nSuppresses the creation of their Scratch Marks.\nGrants them a +50 % Haste Status Effect.\nBuckle Up does not cause the Exhausted Status Effect."
+    },
+    {
+     "name": "Mettle of Man",
+     "value": 222,
+     "stars": 1,
+     "nl": {
+      "pick": 0.39,
+      "rate": 31.54,
+      "games": 149,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.30219780219780223,
+      "perf": 0.5
+     },
+     "score": 292,
+     "icon": "images/IconPerks_mettleOfMan.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/52/IconPerks_mettleOfMan.png",
+     "desc": "After triggering a third Protection Hit by any means, Mettle of Man activates:\nWhile in the Injured State, Mettle of Man shields you from the next attack that would put you into the Dying State.\nAfter healing back to full health by any means, Mettle of Man reveals your Aura to the Killer whenever you are farther than 12/14/16 metres from their location.\nMettle of Man deactivates after entering the Dying State by any means.\nIncreases your chance of becoming the initial  Obsession by increasing the default value by +100 %.\nThe Killer can only be obsessed with one Survivor at a time."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Ash vs The Evil Dead"
+  },
+  {
+   "name": "Steve Harrington",
+   "short": "Steve Harrington",
+   "slug": "steveharrington",
+   "portrait": "images/S19_SteveHarrington_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/e8/S19_SteveHarrington_Portrait.png",
+   "availableIn": "\"Stranger Things\" DLC",
+   "teachables": [
+    {
+     "name": "Babysitter",
+     "value": 350,
+     "stars": 2,
+     "nl": {
+      "pick": 0.93,
+      "rate": 35.33,
+      "games": 351,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.4725274725274725,
+      "perf": 0.435657138418005
+     },
+     "score": 406,
+     "icon": "images/IconPerks_babysitter.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/d/db/IconPerks_babysitter.png",
+     "desc": "Whenever you unhook another Survivor, you benefit from the following effect:\nThe Aura of the Killer is revealed to you for 8 seconds.\nThe unhooked Survivor benefits from the following effects instead for 20/25/30 seconds:\nSuppresses the creation of their Scratch Marks and Pools of Blood.\nIncreases the strength of their Haste Status Effect by +10 %."
+    },
+    {
+     "name": "Camaraderie",
+     "value": 444,
+     "stars": 2,
+     "nl": {
+      "pick": 0.07,
+      "rate": 39.29,
+      "games": 28,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.03296703296703296,
+      "perf": 0.5
+     },
+     "score": 309,
+     "icon": "images/IconPerks_camaraderie.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/1d/IconPerks_camaraderie.png",
+     "desc": "If you are hooked and enter the Struggle Phase, Camaraderie activates:\nPauses the Struggle Phase timer for 26/30/34 seconds as soon as any Survivor comes within 16 metres of your Hook."
+    },
+    {
+     "name": "Second Wind",
+     "value": 444,
+     "stars": 2,
+     "nl": {
+      "pick": 0.47,
+      "rate": 33.9,
+      "games": 177,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.3351648351648352,
+      "perf": 0.364157138418005
+     },
+     "score": 394,
+     "icon": "images/IconPerks_secondWind.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/97/IconPerks_secondWind.png",
+     "desc": "When you heal another Survivor for the equivalent of 1 Health State, Second Wind activates:\nThe next time you are unhooked or unhook yourself, you suffer from the Broken Status Effect until Second Wind deactivates.\nYou are automatically healed 1 Health State after 28/24/20 seconds.\nWhile Second Wind is active, the following conditions will deactivate it:\nSuccessfully being healed by Second Wind.\nBeing put into the Dying State before the timer elapses.\nSecond Wind does not activate if you already suffer from the Broken Status Effect."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Stranger Things"
+  },
+  {
+   "name": "Nancy Wheeler",
+   "short": "Nancy Wheeler",
+   "slug": "nancywheeler",
+   "portrait": "images/S18_NancyWheeler_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/70/S18_NancyWheeler_Portrait.png",
+   "availableIn": "\"Stranger Things\" DLC",
+   "teachables": [
+    {
+     "name": "Better Together",
+     "value": 490,
+     "stars": 2,
+     "nl": {
+      "pick": 0.22,
+      "rate": 25.61,
+      "games": 82,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.17032967032967028,
+      "perf": 0.5
+     },
+     "score": 380,
+     "icon": "images/IconPerks_betterTogether.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/02/IconPerks_betterTogether.png",
+     "desc": "While repairing any Generator, you and the other Survivors benefit from the following primary effect:\nThe Aura of that Generator is revealed to all Survivors and highlighted in yellow.\nWhenever the Killer downs another Survivor while you are repairing, you benefit from the following secondary effect:\nThe Auras of all Survivors are revealed to you for 20/25/30 seconds."
+    },
+    {
+     "name": "Fixated",
+     "value": 490,
+     "stars": 2,
+     "nl": {
+      "pick": 3.1,
+      "rate": 31.83,
+      "games": 1172,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.8406593406593407,
+      "perf": 0.26065713841800503
+     },
+     "score": 579,
+     "icon": "images/IconPerks_fixated.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/7c/IconPerks_fixated.png",
+     "desc": "You benefit from the following permanent effects:\nIncreases your Walking speed by 10/15/20 %.\nUnlocks the ability to see your own Scratch Marks."
+    },
+    {
+     "name": "Inner Strength",
+     "value": 889,
+     "stars": 3,
+     "nl": {
+      "pick": 2.43,
+      "rate": 36.56,
+      "games": 919,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.8131868131868132,
+      "perf": 0.49715713841800524
+     },
+     "score": 804,
+     "icon": "images/IconPerks_innerStrength.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/47/IconPerks_innerStrength.png",
+     "desc": "After cleansing a Totem of any kind, Inner Strength activates.\nWhile active, hiding inside a Locker for 10/9/8 seconds triggers the following effect:\nHeals you to the next Health State.\nInner Strength deactivates after use.\nInner Strength cannot be used while suffering from the Broken Status Effect."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Stranger Things"
+  },
+  {
+   "name": "Yui Kimura",
+   "short": "Yui Kimura",
+   "slug": "yuikimura",
+   "portrait": "images/S20_YuiKimura_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/13/S20_YuiKimura_Portrait.png",
+   "availableIn": "\"Old Wounds\" DLC Pack",
+   "teachables": [
+    {
+     "name": "Any Means Necessary",
+     "value": 555,
+     "stars": 2,
+     "nl": {
+      "pick": 1.18,
+      "rate": 36.02,
+      "games": 447,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.5769230769230769,
+      "perf": 0.47015713841800527
+     },
+     "score": 550,
+     "icon": "images/IconPerks_anyMeansNecessary.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/79/IconPerks_anyMeansNecessary.png",
+     "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of dropped Pallets in the environment are revealed to you.\nWhile standing next to a dropped Pallet, press and hold the Active Ability button to trigger the following effect:\nResets the Pallet to its upright position over 5/4/3 seconds."
+    },
+    {
+     "name": "Lucky Break",
+     "value": 910,
+     "stars": 3,
+     "nl": {
+      "pick": 1.31,
+      "rate": 35.22,
+      "games": 494,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.6208791208791209,
+      "perf": 0.43015713841800507
+     },
+     "score": 737,
+     "icon": "images/IconPerks_luckyBreak.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a7/IconPerks_luckyBreak.png",
+     "desc": "Whenever you are in the Injured State, Lucky Break activates:\nSuppresses the creation of Pools of Blood and Scratch Marks for up to 40/50/60 seconds.\nWhenever you are healing another Survivor, Lucky Break recharges by the same amount of time spent performing the Healing action, up to its initial maximum.\nLucky Break deactivates once its timer runs out or whenever your Health State updates to any other but the Injured State."
+    },
+    {
+     "name": "Breakout",
+     "value": 300,
+     "stars": 1,
+     "nl": {
+      "pick": 1.63,
+      "rate": 25.69,
+      "games": 615,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.6868131868131868,
+      "perf": 0.0
+     },
+     "score": 391,
+     "icon": "images/IconPerks_breakout.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/d/d0/IconPerks_breakout.png",
+     "desc": "While within 5 metres of the Killer carrying another Survivor, the following effects apply:\nGrants you a 6/8/10 % Haste Status Effect.\nIncreases the Wiggling speed of the carried Survivor by +25 %.\nSurvivors can only be affected by one instance of Breakout at a time."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Old Wounds"
+  },
+  {
+   "name": "Zarina Kassir",
+   "short": "Zarina Kassir",
+   "slug": "zarinakassir",
+   "portrait": "images/S21_ZarinaKassir_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/d/d9/S21_ZarinaKassir_Portrait.png",
+   "availableIn": "\"Old Wounds\" DLC Pack",
+   "teachables": [
+    {
+     "name": "Off the Record",
+     "value": 777,
+     "stars": 3,
+     "nl": {
+      "pick": 1.17,
+      "rate": 39.82,
+      "games": 442,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.5714285714285714,
+      "perf": 0.6601571384180052
+     },
+     "score": 688,
+     "icon": "images/IconPerks_offTheRecord.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/9e/IconPerks_offTheRecord.png",
+     "desc": "After being unhooked or unhooking yourself, Off the Record activates for 30/35/40 seconds:\nBlocks your Aura from being revealed.\nSuppresses your Grunts of Pain while in the Injured State.\nSuppresses the creation of your Scratch Marks.\nGrants the Endurance Status Effect.\nEndurance is cancelled prematurely when performing a Conspicuous Action of any kind.\nOff the Record deactivates prematurely and is disabled for the remainder of the Trial upon powering the Exit Gates."
+    },
+    {
+     "name": "Red Herring",
+     "value": 14,
+     "stars": 1,
+     "nl": {
+      "pick": 0.11,
+      "rate": 53.49,
+      "games": 43,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.0714285714285714,
+      "perf": 0.5
+     },
+     "score": 107,
+     "icon": "images/IconPerks_redHerring.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/1c/IconPerks_redHerring.png",
+     "desc": "After repairing a Generator for at least 1 second, Red Herring triggers its primary effect:\nThe Aura of that Generator is highlighted to you in yellow.\nThe highlight persists until either of the following occurs:\nThe Generator is completed.\nYou start repairing a different Generator.\nYou enter a Locker.\nWhen entering a Locker, Red Herring triggers its secondary effect:\nTriggers a Loud Noise Notification for the Killer on the highlighted Generator.\nRed Herring has a cool-down of 25/20/15 seconds."
+    },
+    {
+     "name": "For the People",
+     "value": 555,
+     "stars": 2,
+     "nl": {
+      "pick": 0.98,
+      "rate": 38.11,
+      "games": 370,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.4945054945054945,
+      "perf": 0.574657138418005
+     },
+     "score": 537,
+     "icon": "images/IconPerks_forThePeople.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/31/IconPerks_forThePeople.png",
+     "desc": "While healthy and healing another Survivor without using a Med-Kit, press the Active Ability button to trigger the following effects:\nTrade 1 Health State with the other Survivor:\nInstantly heals them to the Injured State, if they were dying or suffering from the Deep Wound Status Effect.\nInstantly heals them to full health, if they were injured.\nYou yourself become injured and suffer from the Broken Status Effect for 80/70/60 seconds.\nYou become the Killer's Obsession, if not already.\nReduces your chance of becoming the initial  Obsession by reducing the default value by -100 %.\nThe Killer can only be obsessed with one Survivor at a time."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Old Wounds"
+  },
+  {
+   "name": "Cheryl Mason",
+   "short": "Cheryl Mason",
+   "slug": "cherylmason",
+   "portrait": "images/S22_CherylMason_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/1d/S22_CherylMason_Portrait.png",
+   "availableIn": "\"Silent Hill\" DLC",
+   "teachables": [
+    {
+     "name": "Soul Guard",
+     "value": 334,
+     "stars": 2,
+     "nl": {
+      "pick": 1.27,
+      "rate": 30.98,
+      "games": 481,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.5989010989010989,
+      "perf": 0.2181571384180051
+     },
+     "score": 410,
+     "icon": "images/IconPerks_soulGuard.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a5/IconPerks_soulGuard.png",
+     "desc": "Whenever you heal or recover from the Dying State, Soul Guard triggers its primary effect:\nGrants the Endurance Status Effect for 4/6/8 seconds.\nEndurance is cancelled prematurely when performing a Conspicuous Action of any kind.\nThis ability has a cool-down of 30 seconds.\nWhile suffering from the Cursed Status Effect, Soul Guard applies its secondary effect:\nUnlocks the Self-Recovery ability, allowing you to fully recover from the Dying State.."
+    },
+    {
+     "name": "Blood Pact",
+     "value": 555,
+     "stars": 2,
+     "nl": {
+      "pick": 0.15,
+      "rate": 35.71,
+      "games": 56,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.1208791208791209,
+      "perf": 0.5
+     },
+     "score": 395,
+     "icon": "images/IconPerks_bloodPact.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/c9/IconPerks_bloodPact.png",
+     "desc": "It is as if a latent part of yourself has awakened.\nYou feel like you can reach out beyond yourself for assistance.\nWhen either you or the Obsession become injured by any means, Blood Pact activates:\nYour Auras are constantly revealed to one another.\nCompleting a Healing Action on the Obsession or having them complete one on yourself, grants both of you a 5/6/7 % Haste Status Effect.\nThis effect lasts for as long as you both remain within 16 metres of one another.\nIf you are the Obsession, getting Hooked will cause an another Survivor to become the Obsession.\nReduces your chance of becoming the initial  Obsession by reducing the default value by -100 %.\nThe Killer can only be obsessed with one Survivor at a time."
+    },
+    {
+     "name": "Repressed Alliance",
+     "value": 15,
+     "stars": 1,
+     "nl": {
+      "pick": 0.18,
+      "rate": 38.81,
+      "games": 67,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.14835164835164838,
+      "perf": 0.5
+     },
+     "score": 134,
+     "icon": "images/IconPerks_repressedAlliance.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/31/IconPerks_repressedAlliance.png",
+     "desc": "You are accustomed to being hunted by malicious forces, and you have begun using it to your advantage.\nAfter repairing Generators for a total of 40/35/30 seconds, Repressed Alliance activates:\nPress the Active Ability button to call upon The Entity to block the Generator you are currently repairing for 15 seconds, after which Repressed Alliance deactivates.\nThe Aura of the blocked Generator is revealed to all Survivors in white.\nRepressed Alliance can only be triggered when no other Survivors are repairing your Generator."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Silent Hill"
+  },
+  {
+   "name": "Felix Richter",
+   "short": "Felix Richter",
+   "slug": "felixrichter",
+   "portrait": "images/S23_FelixRichter_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/9e/S23_FelixRichter_Portrait.png",
+   "availableIn": "\"Macabre Tales\" DLC Pack",
+   "teachables": [
+    {
+     "name": "Visionary",
+     "value": 444,
+     "stars": 2,
+     "nl": {
+      "pick": 0.13,
+      "rate": 29.41,
+      "games": 51,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.09890109890109888,
+      "perf": 0.5
+     },
+     "score": 332,
+     "icon": "images/IconPerks_visionary.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/7c/IconPerks_visionary.png",
+     "desc": "You benefit from the following permanent effect:\nThe Auras of Generators are revealed to you within 32 metres.\nVisionary is temporarily deactivated for 20/18/16 seconds whenever a Generator is completed."
+    },
+    {
+     "name": "Desperate Measures",
+     "value": 567,
+     "stars": 2,
+     "nl": {
+      "pick": 1.2,
+      "rate": 36.2,
+      "games": 453,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.5879120879120879,
+      "perf": 0.4791571384180052
+     },
+     "score": 561,
+     "icon": "images/IconPerks_desperateMeasures.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/84/IconPerks_desperateMeasures.png",
+     "desc": "Whenever any Survivor, including yourself, is not in the Healthy State, Desperate Measures activates:\nIncreases your Action speeds for Healing and Unhooking by a stack-able 16/18/20 % per injured, dying, or hooked Survivor, up to a maximum of 64/72/80 %."
+    },
+    {
+     "name": "Built to Last",
+     "value": 512,
+     "stars": 2,
+     "nl": {
+      "pick": 2.91,
+      "rate": 38.33,
+      "games": 1101,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.8351648351648352,
+      "perf": 0.585657138418005
+     },
+     "score": 636,
+     "icon": "images/IconPerks_builtToLast.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/3b/IconPerks_builtToLast.png",
+     "desc": "While hiding inside a Locker with a depleted Item equipped, Built to Last triggers the following effect after 12/10/8 seconds:\nRecharges the Item to one of the following percentages:\nFirst time: 99 %.\nSecond time: 66 %.\nThird time: 33 %.\nBuilt to Last is disabled for the remainder of the Trial after triggering its effect for the third time."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Macabre Tales"
+  },
+  {
+   "name": "Élodie Rakoto",
+   "short": "Élodie Rakoto",
+   "slug": "elodierakoto",
+   "portrait": "images/S24_ElodieRakoto_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/d/de/S24_ElodieRakoto_Portrait.png",
+   "availableIn": "\"Macabre Tales\" DLC Pack",
+   "teachables": [
+    {
+     "name": "Appraisal",
+     "value": 50,
+     "stars": 1,
+     "nl": {
+      "pick": 0.34,
+      "rate": 37.8,
+      "games": 127,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.2857142857142857,
+      "perf": 0.5
+     },
+     "score": 200,
+     "icon": "images/IconPerks_appraisal.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/c1/IconPerks_appraisal.png",
+     "desc": "Start the Trial with 4 Tokens.\nWhile standing next to an unlocked and empty Chest, press and hold the Interaction button to perform the Rummage action:\nGrants the ability to retrieve an extra Item from that Chest.\nThis consumes -1 Token and is limited to twice per Chest.\nIncreases the Rummaging speed by 40/60/80 %."
+    },
+    {
+     "name": "Deception",
+     "value": 32,
+     "stars": 1,
+     "nl": {
+      "pick": 2.21,
+      "rate": 33.09,
+      "games": 837,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.7857142857142857,
+      "perf": 0.32365713841800525
+     },
+     "score": 340,
+     "icon": "images/IconPerks_deception.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/eb/IconPerks_deception.png",
+     "desc": "Press and hold the Sprint button while interacting with a Locker for the following effects:\nSuppresses the creation of your Scratch Marks and Pools of Blood for 5 seconds.\nCauses you to run past the targeted Locker, instead of entering it.\nCauses its doors to swiftly open and close again, feining you having entered it in a rush.\nTriggers a Loud Noise Notification for the Killer at its location.\nDeception has a cool-down of 25/20/15 seconds."
+    },
+    {
+     "name": "Power Struggle",
+     "value": 570,
+     "stars": 2,
+     "nl": {
+      "pick": 0.87,
+      "rate": 34.15,
+      "games": 328,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.4505494505494505,
+      "perf": 0.376657138418005
+     },
+     "score": 499,
+     "icon": "images/IconPerks_powerStruggle.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/4b/IconPerks_powerStruggle.png",
+     "desc": "Whenever you are in the Dying State, you benefit from the following primary effect:\nThe Auras of upright Pallets are revealed to you.\nAfter reaching 25/20/15 % of Wiggle progression, Power Struggle unlocks the following secondary effect:\nGrants the ability to drop a nearby Pallet while being carried by the Killer.\nStuns the Killer and causes them to release you from their grasp.\nPower Struggle deactivates after use."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Macabre Tales"
+  },
+  {
+   "name": "Lee Yun-Jin",
+   "short": "Lee Yun-Jin",
+   "slug": "leeyunjin",
+   "portrait": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f7/S25_Yun-JinLee_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f7/S25_Yun-JinLee_Portrait.png",
+   "availableIn": "\"Macabre Tales\" DLC Pack",
+   "teachables": [
+    {
+     "name": "Fast Track",
+     "value": 555,
+     "stars": 2,
+     "nl": {
+      "pick": 0.8,
+      "rate": 31.91,
+      "games": 304,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.4285714285714286,
+      "perf": 0.2646571384180051
+     },
+     "score": 467,
+     "icon": "images/IconPerks_fastTrack.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/75/IconPerks_fastTrack.png",
+     "desc": "Whenever you unhook a Survivor, Fast Track is granted 1 Token, up to a maximum of 1/2/3 Token(s)\nSucceeding a Great Repair Skill Check consumes all accumulated Tokens.\nPermanently reduces the Repair Charges requirement of that Generator by 5 charges per Token."
+    },
+    {
+     "name": "Smash Hit",
+     "value": 552,
+     "stars": 2,
+     "nl": {
+      "pick": 1.09,
+      "rate": 37.86,
+      "games": 412,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.5164835164835164,
+      "perf": 0.5621571384180051
+     },
+     "score": 541,
+     "icon": "images/IconPerks_smashHit.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/e0/IconPerks_smashHit.png",
+     "desc": "Whenever you stun the Killer with a Pallet , Smash Hit triggers its effect:\nGrants a +50 % Haste Status Effect for 4 seconds.\nSmash Hit cannot be used while Exhausted.\nSmash Hit causes the Exhausted Status Effect for 30/25/20 seconds."
+    },
+    {
+     "name": "Self-Preservation",
+     "value": 777,
+     "stars": 3,
+     "nl": {
+      "pick": 1.15,
+      "rate": 38.11,
+      "games": 433,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.5659340659340659,
+      "perf": 0.574657138418005
+     },
+     "score": 673,
+     "icon": "images/IconPerks_self-Preservation.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/43/IconPerks_self-Preservation.png",
+     "desc": "Whenever another Survivor is hooked, Self-Preservation triggers its effect: \nGrants the Elusive Status Effect for 13/14/15 seconds"
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Macabre Tales"
+  },
+  {
+   "name": "Jill Valentine",
+   "short": "Jill Valentine",
+   "slug": "jillvalentine",
+   "portrait": "images/S26_JillValentine_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/d/db/S26_JillValentine_Portrait.png",
+   "availableIn": "\"Resident Evil\" DLC",
+   "teachables": [
+    {
+     "name": "Counterforce",
+     "value": 76,
+     "stars": 1,
+     "nl": {
+      "pick": 0.59,
+      "rate": 37.22,
+      "games": 223,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.36813186813186816,
+      "perf": 0.530157138418005
+     },
+     "score": 246,
+     "icon": "images/IconPerks_counterforce.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/d/d1/IconPerks_counterforce.png",
+     "desc": "You benefit from the following permanent effect:\nIncreases the default value of your Cleansing speed to 125 %.\nWhenever you cleanse a Totem, Counterforce triggers the following effects:\nIncreases your Cleansing speed by a stack-able +25 %.\nThe Aura of the Totem farthest from your current location is revealed to you for 10/12/14 seconds."
+    },
+    {
+     "name": "Resurgence",
+     "value": 777,
+     "stars": 3,
+     "nl": {
+      "pick": 7.98,
+      "rate": 41.93,
+      "games": 3019,
+      "avgRate": 36.6,
+      "tier": "veryhigh",
+      "usage": 0.9505494505494505,
+      "perf": 0.7656571384180051
+     },
+     "score": 836,
+     "icon": "images/IconPerks_resurgence.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f3/IconPerks_resurgence.png",
+     "desc": "After you are unhooked by any means, Resurgence triggers the following effect:\nGrants you 50/60/70 % of Healing progression."
+    },
+    {
+     "name": "Blast Mine",
+     "value": 550,
+     "stars": 2,
+     "nl": {
+      "pick": 4.56,
+      "rate": 35.28,
+      "games": 1726,
+      "avgRate": 36.6,
+      "tier": "high",
+      "usage": 0.8846153846153846,
+      "perf": 0.4331571384180052
+     },
+     "score": 650,
+     "icon": "images/IconPerks_blastMine.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/1c/IconPerks_blastMine.png",
+     "desc": "After repairing Generators for the equivalent of 40 % of Progression, Blast Mine activates.\nWhile active, press the Active Ability button while standing next to a Generator to install a trap to it with a countdown of 100/110/120 seconds:\nTrips half-way through the Killer attempting to damage the Trapped Generator:\nStuns the Killer for 4 seconds.\nBlinds all Players within 12.5 metres of the Trapped Generator.\nThe trap is deactivated after its countdown has elapsed or it is tripped.\nThe Auras of Trapped Generators are revealed to all Survivors in yellow."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Resident Evil"
+  },
+  {
+   "name": "Leon Scott Kennedy",
+   "short": "Leon Scott Kennedy",
+   "slug": "leonscottkennedy",
+   "portrait": "images/S27_LeonScottKennedy_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/7d/S27_LeonScottKennedy_Portrait.png",
+   "availableIn": "\"Resident Evil\" DLC",
+   "teachables": [
+    {
+     "name": "Bite the Bullet",
+     "value": 50,
+     "stars": 1,
+     "nl": {
+      "pick": 0.54,
+      "rate": 38.73,
+      "games": 204,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.3571428571428571,
+      "perf": 0.605657138418005
+     },
+     "score": 241,
+     "icon": "images/IconPerks_biteTheBullet.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a5/IconPerks_biteTheBullet.png",
+     "desc": "Pain hurts you as much as anyone, but you would prefer others do not know that.\nWhen healing yourself or another Survivor, you benefit from the following effects:\nSuppresses all noises related to Healing and Grunts of Pain.\nFailed Healing Skill Checks do not trigger a Loud Noise Notification.\nReduces the Penalty to 3/2/1 % of the total Progression."
+    },
+    {
+     "name": "Flashbang",
+     "value": 491,
+     "stars": 2,
+     "nl": {
+      "pick": 2.73,
+      "rate": 31.13,
+      "games": 1031,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.8241758241758241,
+      "perf": 0.22565713841800505
+     },
+     "score": 568,
+     "icon": "images/IconPerks_flashbang.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/d/db/IconPerks_flashbang.png",
+     "desc": "You have adapted to a world in chaos and making what you can from the debris.\nAfter repairing Generators for a total of 50/45/40 %, Flashbang activates:\nPress the Active Ability button while hiding inside a Locker to craft a Flash Grenade.\nFlashbang deactivates after use."
+    },
+    {
+     "name": "Rookie Spirit",
+     "value": 555,
+     "stars": 2,
+     "nl": {
+      "pick": 0.09,
+      "rate": 30.3,
+      "games": 33,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.05494505494505497,
+      "perf": 0.5
+     },
+     "score": 372,
+     "icon": "images/IconPerks_rookieSpirit.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/2/2f/IconPerks_rookieSpirit.png",
+     "desc": "You keep a careful eye on objectives when they are slipping away.\nWhile repairing Generators, succeed 5/4/3  Good or Great Skill Checks to activate Rookie Spirit for the remainder of the Trial:\nThe Auras of any regressing Generators are revealed to you until they stop regressing by any means."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Resident Evil"
+  },
+  {
+   "name": "Mikaela Reid",
+   "short": "Mikaela Reid",
+   "slug": "mikaelareid",
+   "portrait": "images/S28_MikaelaReid_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/3f/S28_MikaelaReid_Portrait.png",
+   "availableIn": "\"Macabre Tales\" DLC Pack",
+   "teachables": [
+    {
+     "name": "Clairvoyance",
+     "value": 222,
+     "stars": 1,
+     "nl": {
+      "pick": 0.3,
+      "rate": 37.39,
+      "games": 115,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.21978021978021978,
+      "perf": 0.5
+     },
+     "score": 263,
+     "icon": "images/IconPerks_clairvoyance.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/91/IconPerks_clairvoyance.png",
+     "desc": "After cleansing or blessing a Totem, Clairvoyance activates.\nWhile active, press and hold the Use Item button when empty-handed to unlock your full Aura-reading potential:\nThe Auras of the following objects within 64 metres are revealed to you for as long as you uphold the interaction, up to a maximum of 10/11/12 seconds:\nChests\nExit Gate Switches\nGenerators\nHatch\nHooks"
+    },
+    {
+     "name": "Boon: Circle of Healing",
+     "value": 444,
+     "stars": 2,
+     "nl": {
+      "pick": 2.25,
+      "rate": 39.58,
+      "games": 849,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.7967032967032968,
+      "perf": 0.648157138418005
+     },
+     "score": 598,
+     "icon": "images/IconPerks_boonCircleOfHealing.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/54/IconPerks_boonCircleOfHealing.png",
+     "desc": "A Boon that offers comfort amidst the terror.\nPress and hold the Active Ability button on a Dull or Hex Totem to bless it and create a Boon Totem.\nAll Survivors within 24 metres hear soft chimes ringing out and benefit from its Boon Effects:\nIncreases the Altruistic Healing speeds by 50/75/100 % when not using a Med-Kit.\nIf a Survivor is injured, their Aura is revealed to all other Survivors.\nSurvivors can only be affected by one instance of Boon: Circle of Healing at a time.\nOnly one Totem can be blessed by your Boon Perks at a time and all of their effects are active on the same Boon Totem."
+    },
+    {
+     "name": "Boon: Shadow Step",
+     "value": 390,
+     "stars": 2,
+     "nl": {
+      "pick": 2.04,
+      "rate": 40.6,
+      "games": 771,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.7527472527472527,
+      "perf": 0.6991571384180052
+     },
+     "score": 564,
+     "icon": "images/IconPerks_boonShadowStep.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/c7/IconPerks_boonShadowStep.png",
+     "desc": "A Boon that conceals the truth.\nPress and hold the Active Ability button on a Dull or Hex Totem to bless it and create a Boon Totem.\nAll Survivors within 24 metres hear soft chimes ringing out and benefit from its Boon Effects:\nScratch Marks are suppressed.\nAuras are hidden from The Killer.\nBoth effects linger for 2/3/4 seconds after leaving the Boon Totem's range.\nOnly one Totem can be blessed by your Boon Perks at a time and all of their effects are active on the same Boon Totem."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Macabre Tales"
+  },
+  {
+   "name": "Jonah Vasquez",
+   "short": "Jonah Vasquez",
+   "slug": "jonahvasquez",
+   "portrait": "images/S29_JonahVasquez_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/37/S29_JonahVasquez_Portrait.png",
+   "availableIn": "\"Endless Hunt\" DLC Pack",
+   "teachables": [
+    {
+     "name": "Overcome",
+     "value": 703,
+     "stars": 3,
+     "nl": {
+      "pick": 1.54,
+      "rate": 42.47,
+      "games": 584,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.6758241758241759,
+      "perf": 0.792657138418005
+     },
+     "score": 707,
+     "icon": "images/IconPerks_overcome.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/82/IconPerks_overcome.png",
+     "desc": "Whenever you enter the Injured State from full health, Overcome triggers its effect:\nExtends the duration of the On-hit Sprint boost by +2 seconds.\nOvercome cannot be used while Exhausted.\nOvercome causes the Exhausted Status Effect for 60/50/40 seconds."
+    },
+    {
+     "name": "Corrective Action",
+     "value": 444,
+     "stars": 2,
+     "nl": {
+      "pick": 0.17,
+      "rate": 40,
+      "games": 65,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.13736263736263732,
+      "perf": 0.5
+     },
+     "score": 345,
+     "icon": "images/IconPerks_correctiveAction.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/4f/IconPerks_correctiveAction.png",
+     "desc": "You start the Trial with 1/2/3 Token(s) and succeeding a Great Skill Check grants +1 Token, up to a maximum of 5 Tokens.\nWhile any other Survivor performs a skilful interaction that can trigger Skill Checks, they benefit from the following effects:\nConverts any Failed Skill Check into a Good Skill Check.\nThis consumes -1 Token.\nThe Aura of that Survivor is revealed to you for 6 seconds.\nCorrective Action does not apply to special Skill Checks."
+    },
+    {
+     "name": "Boon: Exponential",
+     "value": 370,
+     "stars": 2,
+     "nl": {
+      "pick": 1.76,
+      "rate": 36.69,
+      "games": 665,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.7197802197802198,
+      "perf": 0.503657138418005
+     },
+     "score": 513,
+     "icon": "images/IconPerks_boonExponential.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/76/IconPerks_boonExponential.png",
+     "desc": "Press and hold the Active Ability button on a Dull or Hex Totem to bless it and create a Boon Totem.\nAll Survivors within 24 metres hear soft chimes ringing out and benefit from its Boon Effects:\nIncreases the Recovery speed while in the Dying State by 90/95/100 %.\nUnlocks the Self-Recovery ability, allowing them to fully recover from the Dying State.\nOnly one Totem can be blessed by your Boon Perks at a time and all of their effects are active on the same Boon Totem."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Endless Hunt"
+  },
+  {
+   "name": "Yoichi Asakawa",
+   "short": "Yoichi Asakawa",
+   "slug": "yoichiasakawa",
+   "portrait": "images/S30_YoichiAsakawa_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/af/S30_YoichiAsakawa_Portrait.png",
+   "availableIn": "\"Sadako Rising\" DLC",
+   "teachables": [
+    {
+     "name": "Parental Guidance",
+     "value": 480,
+     "stars": 2,
+     "nl": {
+      "pick": 0.28,
+      "rate": 42.31,
+      "games": 104,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.2142857142857143,
+      "perf": 0.5
+     },
+     "score": 390,
+     "icon": "images/IconPerks_parentalGuidance.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/46/IconPerks_parentalGuidance.png",
+     "desc": "After stunning the Killer by any means, Parental Guidance triggers its effect:\nSuppresses your Grunts of Pain and the creation of Scratch Marks and Pools of Blood for 5/6/7 seconds."
+    },
+    {
+     "name": "Empathic Connection",
+     "value": 459,
+     "stars": 2,
+     "nl": {
+      "pick": 1.03,
+      "rate": 38.92,
+      "games": 388,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.5054945054945055,
+      "perf": 0.6151571384180052
+     },
+     "score": 499,
+     "icon": "images/IconPerks_empathicConnection.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/14/IconPerks_empathicConnection.png",
+     "desc": "You benefit from the following permanent primary effect:\nIncreases your Altruistic Healing speed by 30/35/40 %.\nWhenever any other Survivor is injured, Empathic Connection applies its secondary effect:\nYour Aura as a potential Healer is revealed to them."
+    },
+    {
+     "name": "Boon: Dark Theory",
+     "value": 150,
+     "stars": 1,
+     "nl": {
+      "pick": 0.45,
+      "rate": 32.94,
+      "games": 170,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.31868131868131866,
+      "perf": 0.31615713841800497
+     },
+     "score": 234,
+     "icon": "images/IconPerks_boonDarkTheory.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/60/IconPerks_boonDarkTheory.png",
+     "desc": "Press and hold the Active Ability button on a Dull or Hex Totem to bless it and create a Boon Totem.\nAll Survivors within 24 metres hear soft chimes ringing out and benefit from its Boon Effects:\nGrants a +3 % Haste Status Effect.\nThis effect lingers for 2/3/4 seconds after leaving the Boon Totem's range.\nOnly one Totem can be blessed by your Boon Perks at a time and all of their effects are active on the same Boon Totem."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Sadako Rising"
+  },
+  {
+   "name": "Haddie Kaur",
+   "short": "Haddie Kaur",
+   "slug": "haddiekaur",
+   "portrait": "images/S31_HaddieKaur_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/e7/S31_HaddieKaur_Portrait.png",
+   "availableIn": "\"Endless Hunt\" DLC Pack",
+   "teachables": [
+    {
+     "name": "Inner Focus",
+     "value": 444,
+     "stars": 2,
+     "nl": {
+      "pick": 0.34,
+      "rate": 36.92,
+      "games": 130,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.2802197802197802,
+      "perf": 0.5
+     },
+     "score": 395,
+     "icon": "images/IconPerks_innerFocus.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/7e/IconPerks_innerFocus.png",
+     "desc": "You have honed your ability to see through the haze of the Ravage.\nGrants the ability to see the Scratch Marks of other Survivors.\nWhenever another Survivor loses a Health State due to the Killer, the Aura of the latter is revealed to your for 6/8/10 seconds."
+    },
+    {
+     "name": "Residual Manifest",
+     "value": 17,
+     "stars": 1,
+     "nl": {
+      "pick": 0.53,
+      "rate": 34,
+      "games": 200,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.3516483516483516,
+      "perf": 0.3691571384180051
+     },
+     "score": 187,
+     "icon": "images/IconPerks_residualManifest.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/d/d0/IconPerks_residualManifest.png",
+     "desc": "A lifetime of chasing the darkness has taught you that the best disinfectant is light.\nAfter a successful Killer Blind, the Killer suffers from the Blindness Status Effect for 20/25/30 seconds.\nResidual Manifest grants the ability to rummage through an opened Chest once per Trial and will guarantee a basic Flashlight."
+    },
+    {
+     "name": "Overzealous",
+     "value": 506,
+     "stars": 2,
+     "nl": {
+      "pick": 0.96,
+      "rate": 39.84,
+      "games": 364,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.48901098901098905,
+      "perf": 0.6611571384180053
+     },
+     "score": 524,
+     "icon": "images/IconPerks_overzealous.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/99/IconPerks_overzealous.png",
+     "desc": "Fighting back against the Ravage motivates and inspires you.\nAfter cleansing or blessing a Totem, Overzealous activates:\nDull Totem: Increases your Repair speed by 8/9/10 %.\nHex Totem: Increases your Repair speed by 16/18/20 %.\nOverzealous deactivates after losing a Health State by any means."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Endless Hunt"
+  },
+  {
+   "name": "Ada Wong",
+   "short": "Ada Wong",
+   "slug": "adawong",
+   "portrait": "images/S32_AdaWong_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/5e/S32_AdaWong_Portrait.png",
+   "availableIn": "\"Resident Evil: Project W\" DLC",
+   "teachables": [
+    {
+     "name": "Wiretap",
+     "value": 802,
+     "stars": 3,
+     "nl": {
+      "pick": 1.12,
+      "rate": 34.83,
+      "games": 422,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.5494505494505495,
+      "perf": 0.410657138418005
+     },
+     "score": 655,
+     "icon": "images/IconPerks_wiretap.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/2/23/IconPerks_wiretap.png",
+     "desc": "After repairing a Generator for the equivalent of 40 % of Progression, Wiretap activates.\nWhile active, press the Active Ability button while standing next to a Generator to install a listening device to it with a countdown of 100/110/120 seconds:\nReveals the Aura of the Killer coming within 14 metres of the Bugged Generator to all Survivors.\nThe listening device is deactivated after its countdown has elapsed or the Bugged Generator is damaged.\nThe Auras of Bugged Generators are revealed to all Survivors in yellow."
+    },
+    {
+     "name": "Reactive Healing",
+     "value": 452,
+     "stars": 2,
+     "nl": {
+      "pick": 0.27,
+      "rate": 34.31,
+      "games": 102,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.20879120879120883,
+      "perf": 0.5
+     },
+     "score": 374,
+     "icon": "images/IconPerks_reactiveHealing.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/5a/IconPerks_reactiveHealing.png",
+     "desc": "Whenever another Survivor within 32 metres of your location loses a Health State by any means while you are in the Injured State, you benefit from the following effect:\nGrants 40/45/50 % of your missing Healing Progression towards your Health Bar."
+    },
+    {
+     "name": "Low Profile",
+     "value": 10,
+     "stars": 1,
+     "nl": {
+      "pick": 0.15,
+      "rate": 44.64,
+      "games": 56,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.12637362637362637,
+      "perf": 0.5
+     },
+     "score": 124,
+     "icon": "images/IconPerks_lowProfile.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/fb/IconPerks_lowProfile.png",
+     "desc": "Whenever you are the only Survivor in the Trial not currently incapacitated by either being downed, carried, or hooked, Low Profile activates:\nSuppresses your Grunts of Pain and the creation of Pools of Blood and Scratch Marks for 70/80/90 seconds.\nLow Profile deactivates after use and only accounts for Survivors still participating in the Trial."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Resident Evil: Project W"
+  },
+  {
+   "name": "Rebecca Chambers",
+   "short": "Rebecca Chambers",
+   "slug": "rebeccachambers",
+   "portrait": "images/S33_RebeccaChambers_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/fd/S33_RebeccaChambers_Portrait.png",
+   "availableIn": "\"Resident Evil: Project W\" DLC",
+   "teachables": [
+    {
+     "name": "Better than New",
+     "value": 555,
+     "stars": 2,
+     "nl": {
+      "pick": 0.19,
+      "rate": 45.71,
+      "games": 70,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.15384615384615385,
+      "perf": 0.5
+     },
+     "score": 407,
+     "icon": "images/IconPerks_betterThanNew.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/b1/IconPerks_betterThanNew.png",
+     "desc": "Completing a Healing action on another Survivor grants them the following benefits until they receive damage again:\nIncreases their Action speeds for Blessing, Cleansing, Healing, and Unlocking by 40/45/50 %."
+    },
+    {
+     "name": "Reassurance",
+     "value": 555,
+     "stars": 2,
+     "nl": {
+      "pick": 0.9,
+      "rate": 45.43,
+      "games": 339,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.46153846153846156,
+      "perf": 0.9406571384180051
+     },
+     "score": 580,
+     "icon": "images/IconPerks_reassurance.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/5b/IconPerks_reassurance.png",
+     "desc": "While within 6 metres of a hooked Survivor, press the Active Ability button to trigger the following effects for 20/25/30 seconds:\nPauses the Sacrifice Process.\nThis also pauses the Struggle Skill Checks for Survivors in the Struggle Phase.\nCauses the outline of that Survivor to be highlighted in white.\nReassurance can only be used once per Survivor per Hook Instance."
+    },
+    {
+     "name": "Hyperfocus",
+     "value": 222,
+     "stars": 1,
+     "nl": {
+      "pick": 7.14,
+      "rate": 40.17,
+      "games": 2701,
+      "avgRate": 36.6,
+      "tier": "veryhigh",
+      "usage": 0.9285714285714286,
+      "perf": 0.6776571384180052
+     },
+     "score": 538,
+     "icon": "images/IconPerks_hyperfocus.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/5d/IconPerks_hyperfocus.png",
+     "desc": "Succeeding a Great Skill Check while repairing or healing grants +1 Token, up to a maximum of 6 Tokens:\nIncreases the Skill Check Trigger odds and Pointer-Rotation speed by +4 % per Token each, up to a maximum of +24 %.\nIncreases the Skill Check Bonus progression by 10/20/30 % of its base value per Token, up to a maximum of 60/120/180 %.\nHyperfocus loses all Tokens after succeeding just a Good Skill Check, failing one, or if the action is interrupted by any means."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Resident Evil: Project W"
+  },
+  {
+   "name": "Vittorio Toscano",
+   "short": "Vittorio Toscano",
+   "slug": "vittoriotoscano",
+   "portrait": "images/S34_VittorioToscano_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/39/S34_VittorioToscano_Portrait.png",
+   "availableIn": "\"Endless Hunt\" DLC Pack",
+   "teachables": [
+    {
+     "name": "Potential Energy",
+     "value": 57,
+     "stars": 1,
+     "nl": {
+      "pick": 1.47,
+      "rate": 32.49,
+      "games": 554,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.6593406593406593,
+      "perf": 0.2936571384180052
+     },
+     "score": 303,
+     "icon": "images/IconPerks_potentialEnergy.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/07/IconPerks_potentialEnergy.png",
+     "desc": "While repairing a Generator, press the Active Ability button to Store Potential Energy:\nRepair Charges no longer progress the Generator and are instead converted into Tokens:\nGain 1 Token for the equivalent of 1 % Progression, up to a maximum of 10/15/20 Tokens.\nFailed Repair Skill Checks incur a penalty depending on how many Tokens have been accumulated:\nNot at Token Limit: Reduces the number of accumulated Tokens by -20 %.\nAt Token Limit: Regresses the Generator by -10 %.\nHaving accumulated at least 1 Token, press the Active Ability button again on the same or a different Generator to Release Potential Energy:\nConsumes all accumulated Tokens.\nInstantly progresses that Generator by +1 % per Token.\nPotential Energy deactivates after use or losing a Health State by any means, and will lose all accumulated Tokens in case of the latter."
+    },
+    {
+     "name": "Fogwise",
+     "value": 444,
+     "stars": 2,
+     "nl": {
+      "pick": 1.4,
+      "rate": 40.68,
+      "games": 531,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.6483516483516483,
+      "perf": 0.7031571384180051
+     },
+     "score": 555,
+     "icon": "images/IconPerks_fogwise.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/90/IconPerks_fogwise.png",
+     "desc": "Unlocks potential in your Aura-reading ability while repairing Generators:\nThe Aura of the Killer is revealed to you for 4/5/6 seconds after succeeding a Great Repair Skill Check."
+    },
+    {
+     "name": "Quick Gambit",
+     "value": 555,
+     "stars": 2,
+     "nl": {
+      "pick": 1.31,
+      "rate": 35.15,
+      "games": 495,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.6153846153846154,
+      "perf": 0.426657138418005
+     },
+     "score": 557,
+     "icon": "images/IconPerks_quickGambit.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f7/IconPerks_quickGambit.png",
+     "desc": "While being chased by the Killer, the following effects apply:\nThe Auras of other Survivors are revealed to you.\nIncreases the Repair speed of other Survivors by 3/4/5 %.\nQuick Gambit has a cool-down of 40 seconds upon losing a Health State."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Endless Hunt"
+  },
+  {
+   "name": "Thalita Lyra",
+   "short": "Thalita Lyra",
+   "slug": "thalitalyra",
+   "portrait": "images/S35_ThalitaLyra_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/96/S35_ThalitaLyra_Portrait.png",
+   "availableIn": "\"Endless Hunt\" DLC Pack",
+   "teachables": [
+    {
+     "name": "Friendly Competition",
+     "value": 1,
+     "stars": 1,
+     "nl": {
+      "pick": 0.33,
+      "rate": 32,
+      "games": 125,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.2582417582417582,
+      "perf": 0.5
+     },
+     "score": 166,
+     "icon": "images/IconPerks_friendlyCompetition.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/4c/IconPerks_friendlyCompetition.png",
+     "desc": "Each time you complete a Generator together with at least one other Survivor, Friendly Competition activates:\nIncreases the Repair speed of all participating Survivors, including yourself, by +10 % for 80/85/90 seconds."
+    },
+    {
+     "name": "Teamwork: Power of Two",
+     "value": 28,
+     "stars": 1,
+     "nl": {
+      "pick": 0.13,
+      "rate": 33.33,
+      "games": 48,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.09340659340659341,
+      "perf": 0.5
+     },
+     "score": 122,
+     "icon": "images/IconPerks_teamworkPowerOfTwo.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/2/2b/IconPerks_teamworkPowerOfTwo.png",
+     "desc": "Whenever you finish healing another Survivor, Teamwork: Power of Two activates, and both you and the healed Survivor benefit from the following effect:\nGrants a +5 % Haste Status Effect for as long as you stay within 8/12/16 metres of one another.\nThis effect lingers for 4 seconds once out of range and resumes upon re-entering it before that timer elapses.\nSurvivors can only be affected by one instance of Teamwork: Power of Two at a time."
+    },
+    {
+     "name": "Cut Loose",
+     "value": 75,
+     "stars": 1,
+     "nl": {
+      "pick": 0.1,
+      "rate": 32.43,
+      "games": 37,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.06043956043956045,
+      "perf": 0.5
+     },
+     "score": 134,
+     "icon": "images/IconPerks_cutLoose.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/02/IconPerks_cutLoose.png",
+     "desc": "After performing a Rushed Vault action while being chased, Cut Loose activates for 4/5/6 seconds:\nSuppresses all noises related to the Rushed Vault action, including the Loud Noise Notification for the Killer.\nWhile active, performing another Rushed Vault action resets the timer each time.\nCut Loose has a cool-down of 45 seconds after use and the timer has elapsed."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Endless Hunt"
+  },
+  {
+   "name": "Renato Lyra",
+   "short": "Renato Lyra",
+   "slug": "renatolyra",
+   "portrait": "images/S36_RenatoLyra_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/69/S36_RenatoLyra_Portrait.png",
+   "availableIn": "\"Endless Hunt\" DLC Pack",
+   "teachables": [
+    {
+     "name": "Blood Rush",
+     "value": 444,
+     "stars": 2,
+     "nl": {
+      "pick": 0.11,
+      "rate": 35.71,
+      "games": 42,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.06593406593406592,
+      "perf": 0.5
+     },
+     "score": 320,
+     "icon": "images/IconPerks_bloodRush.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/2/2c/IconPerks_bloodRush.png",
+     "desc": "After being unhooked by any means, Blood Rush activates for 40/50/60 seconds.\nWhile active, press the Active Ability button to trigger the following effect:\nInstantly recover from an existing Exhausted Status Effect.\nBlood Rush does not cause the Exhausted Status Effect.\nBlood Rush is deactivated prematurely when performing a Conspicuous Action.\nBlood Rush deactivates after use and is disabled for the remainder of the Trial once the Exit Gates are powered."
+    },
+    {
+     "name": "Teamwork: Collective Stealth",
+     "value": 27,
+     "stars": 1,
+     "nl": {
+      "pick": 0.08,
+      "rate": 35.48,
+      "games": 31,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.04395604395604391,
+      "perf": 0.5
+     },
+     "score": 104,
+     "icon": "images/IconPerks_teamworkCollectiveStealth.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a0/IconPerks_teamworkCollectiveStealth.png",
+     "desc": "Whenever another Survivor finishes healing you, Teamwork: Collective Stealth activates, and both you and the Survivor who healed you benefit from the following effect:\nSuppresses your Scratch Marks for as long as you stay within 8/12/16 metres of one another.\nThis effect lingers for 4 seconds once out of range and resumes upon re-entering it before that timer elapses.\nSurvivors can only be affected by one instance of Teamwork: Collective Stealth at a time."
+    },
+    {
+     "name": "Background Player",
+     "value": 444,
+     "stars": 2,
+     "nl": {
+      "pick": 3.52,
+      "rate": 32.23,
+      "games": 1331,
+      "avgRate": 36.6,
+      "tier": "high",
+      "usage": 0.8571428571428572,
+      "perf": 0.28065713841800494
+     },
+     "score": 564,
+     "icon": "images/IconPerks_backgroundPlayer.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/e8/IconPerks_backgroundPlayer.png",
+     "desc": "Whenever the Killer picks up any other Survivor in the Dying State, Background Player activates for 10 seconds.\nWhile active, starting to run triggers the following effect:\nGrants a +50 % Haste Status Effect for 5 seconds.\nBackground Player cannot be used while Exhausted.\nBackground Player causes the Exhausted Status Effect for 30/25/20 seconds after use."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Endless Hunt"
+  },
+  {
+   "name": "Gabriel Soma",
+   "short": "Gabriel Soma",
+   "slug": "gabrielsoma",
+   "portrait": "images/S37_GabrielSoma_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/64/S37_GabrielSoma_Portrait.png",
+   "availableIn": "\"End Transmission\" DLC",
+   "teachables": [
+    {
+     "name": "Troubleshooter",
+     "value": 466,
+     "stars": 2,
+     "nl": {
+      "pick": 0.56,
+      "rate": 41.51,
+      "games": 212,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.3626373626373627,
+      "perf": 0.744657138418005
+     },
+     "score": 472,
+     "icon": "images/IconPerks_troubleshooter.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/0d/IconPerks_troubleshooter.png",
+     "desc": "When you are chased by the Killer, Troubleshooter activates:\nThe Aura of the Generator with the most progress is revealed to you.\nThe Aura of the Killer is revealed to you for 4/5/6 seconds after dropping a Pallet.\nThese effects linger for 6/8/10 seconds after ending the Chase, after which Troubleshooter deactivates."
+    },
+    {
+     "name": "Made for This",
+     "value": 378,
+     "stars": 2,
+     "nl": {
+      "pick": 3.1,
+      "rate": 39.93,
+      "games": 1172,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.8461538461538461,
+      "perf": 0.6656571384180051
+     },
+     "score": 585,
+     "icon": "images/IconPerks_madeForThis.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/c0/IconPerks_madeForThis.png",
+     "desc": "Whenever you are in the Injured State, Made for This activates.\nWhile active, completing a Healing action on another Survivor triggers the following primary effect:\nGrants the Endurance Status Effect for 6/8/10 seconds.\nEndurance is cancelled prematurely when performing a Conspicuous Action of any kind.\nWhile active and suffering from the Deep Wound Status Effect, running triggers the following secondary effect:\nGrants a 1/2/3 % Haste Status Effect."
+    },
+    {
+     "name": "Scavenger",
+     "value": 222,
+     "stars": 1,
+     "nl": {
+      "pick": 1.26,
+      "rate": 48.95,
+      "games": 478,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.5934065934065934,
+      "perf": 1.0
+     },
+     "score": 469,
+     "icon": "images/IconPerks_scavenger.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/c6/IconPerks_scavenger.png",
+     "desc": "While holding a depleted Toolbox, Scavenger activates:\nSucceeding at Great Repairing Skill Checks grants 1 Token, up to a maximum of 5 Tokens.\nReaching the maximum number of Tokens automatically consumes them and fully recharges the Toolbox.\nRecharging a Toolbox will reduce your Repair speed by -50 % for the next 40/35/30 seconds.\nScavenger grants the ability to rummage through an opened Chest once per Trial and will guarantee a basic Toolbox."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "End Transmission"
+  },
+  {
+   "name": "Nicolas Cage",
+   "short": "Nicolas Cage",
+   "slug": "nicolascage",
+   "portrait": "images/S38_NicolasCage_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/b7/S38_NicolasCage_Portrait.png",
+   "availableIn": "\"Nicolas Cage\" DLC",
+   "teachables": [
+    {
+     "name": "Dramaturgy",
+     "value": 458,
+     "stars": 2,
+     "nl": {
+      "pick": 2.85,
+      "rate": 39.03,
+      "games": 1076,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.8296703296703296,
+      "perf": 0.6206571384180052
+     },
+     "score": 613,
+     "icon": "images/IconPerks_dramaturgy.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/85/IconPerks_dramaturgy.png",
+     "desc": "Whenever you are at full health, Dramaturgy activates.\nWhile active, press the Active Ability button while running to run with knees high for 0.5 seconds before benefitting from the following primary effect:\nGrants a +25 Haste Status Effect for 2 seconds.\nAfterwards, Dramaturgy triggers any one of the following secondary effects, but never the same one twice in a row:\nGrants a second instance of the primary Haste Status Effect.\nInflicts the Exposed Status Effect for 12 seconds.\nCauses you to scream.\nGrants a randomly selected Rare Item pre-equipped with a random selection of Add-ons.\nThis causes you to automatically drop any previously held Item.\nDramaturgy cannot be used while Exhausted.\nDramaturgy causes the Exhausted Status Effect for 60/50/40 seconds."
+    },
+    {
+     "name": "Scene Partner",
+     "value": 21,
+     "stars": 1,
+     "nl": {
+      "pick": 1.11,
+      "rate": 32.78,
+      "games": 421,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.532967032967033,
+      "perf": 0.3081571384180052
+     },
+     "score": 243,
+     "icon": "images/IconPerks_scenePartner.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/b4/IconPerks_scenePartner.png",
+     "desc": "Whenever you are inside the Terror Radius, Scene Partner activates:\nLooking at the Killer causes you to scream, which reveals their Aura for 4/5/6 seconds.\nThere is a chance of 50 % that you will scream again, extending the Aura-reveal duration by another +2 seconds.\nScene Partner has a cool-down of 40 seconds."
+    },
+    {
+     "name": "Plot Twist",
+     "value": 904,
+     "stars": 3,
+     "nl": {
+      "pick": 4.56,
+      "rate": 38.4,
+      "games": 1724,
+      "avgRate": 36.6,
+      "tier": "high",
+      "usage": 0.8901098901098901,
+      "perf": 0.589157138418005
+     },
+     "score": 852,
+     "icon": "images/IconPerks_plotTwist.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/ac/IconPerks_plotTwist.png",
+     "desc": "Whenever you are in the Injured State, Plot Twist activates.\nWhile active, press the Active Ability button while crouching and stationary to trigger the following primary effects:\nSilently enter the Dying State without notifying the Killer.\nSuppresses your Grunts of Pain and the creation of Pools of Blood.\nUnlocks the Self-Recovery ability, allowing you to fully recover from the Dying State:\nIncreases the Recovery speed by +25 %.\nAfter self-recovering from the Dying State, you benefit from the following secondary effects:\nInstantly heals you to full health.\nGrants a +50 % Haste Status Effect for 2/3/4 seconds.\nPlot Twist is disabled after recovering by any means, but can be reactivated once more upon powering the Exit Gates."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Nicolas Cage"
+  },
+  {
+   "name": "Ellen Ripley",
+   "short": "Ellen Ripley",
+   "slug": "ellenripley",
+   "portrait": "images/S39_EllenRipley_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/15/S39_EllenRipley_Portrait.png",
+   "availableIn": "\"Alien\" DLC",
+   "teachables": [
+    {
+     "name": "Chemical Trap",
+     "value": 511,
+     "stars": 2,
+     "nl": {
+      "pick": 1.09,
+      "rate": 34.38,
+      "games": 413,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.5274725274725275,
+      "perf": 0.38815713841800525
+     },
+     "score": 499,
+     "icon": "images/IconPerks_chemicalTrap.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/9a/IconPerks_chemicalTrap.png",
+     "desc": "After repairing Generators for a total of 20 %, Chemical Trap activates:\nPress the Active Ability button while near a dropped Pallet to install a Trap, which stays active for 40/50/60 seconds.\nWhen the Killer breaks the Trapped Pallet, its Trap explodes, spraying the Killer with a chemical compound:\nCauses the Killer to suffer from a -50 % Hindered Status Effect for 4 seconds.\nChemical Trap deactivates after triggering successfully or once the timer runs out.\nThe Auras of Trapped Pallets are revealed to all Survivors in yellow."
+    },
+    {
+     "name": "Light-Footed",
+     "value": 12,
+     "stars": 1,
+     "nl": {
+      "pick": 0.44,
+      "rate": 40.72,
+      "games": 167,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.3131868131868132,
+      "perf": 0.7051571384180051
+     },
+     "score": 221,
+     "icon": "images/IconPerks_light-Footed.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/e5/IconPerks_light-Footed.png",
+     "desc": "Whenever you are healthy, Light-Footed activates:\nSuppresses the sound of your footsteps while running.\nLight-Footed has a cool-down of 14/12/10 seconds after performing a Rush Vault action."
+    },
+    {
+     "name": "Lucky Star",
+     "value": 601,
+     "stars": 2,
+     "nl": {
+      "pick": 0.21,
+      "rate": 38.75,
+      "games": 80,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.1648351648351648,
+      "perf": 0.5
+     },
+     "score": 433,
+     "icon": "images/IconPerks_luckyStar.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/08/IconPerks_luckyStar.png",
+     "desc": "While hiding inside a Locker, you benefit from the following effect:\nSuppresses your Grunts of Pain.\nAfter exiting the Locker you benefit from the following effects for 30 seconds:\nSuppresses your Grunts of Pain and the creation of Pools of Blood.\nThe Auras of all other Survivors are revealed to you.\nThe Aura of the nearest Generator is revealed to you and highlighted in yellow.\nLucky Star has a cool-down of 35/30/25 seconds."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Alien"
+  },
+  {
+   "name": "Alan Wake",
+   "short": "Alan Wake",
+   "slug": "alanwake",
+   "portrait": "images/S40_AlanWake_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/43/S40_AlanWake_Portrait.png",
+   "availableIn": "\"Alan Wake\" DLC",
+   "teachables": [
+    {
+     "name": "Champion of Light",
+     "value": 510,
+     "stars": 2,
+     "nl": {
+      "pick": 1.83,
+      "rate": 31.11,
+      "games": 691,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.7252747252747253,
+      "perf": 0.22465713841800505
+     },
+     "score": 543,
+     "icon": "images/IconPerks_championOfLight.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/bb/IconPerks_championOfLight.png",
+     "desc": "While shining a Flashlight, Champion of Light triggers its primary effect:\nGrants a +50 % Haste Status Effect.\nAfter blinding the Killer by any means, Champion of Light triggers its secondary effect:\nCauses the Killer to suffer from a -20 % Hindered Status Effect for 6 seconds.\nThis effect does not stack.\nChampion of Light applies a cool-down of 60/50/40 seconds after blinding the Killer."
+    },
+    {
+     "name": "Boon: Illumination",
+     "value": 555,
+     "stars": 2,
+     "nl": {
+      "pick": 0.37,
+      "rate": 41.43,
+      "games": 140,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.29670329670329665,
+      "perf": 0.5
+     },
+     "score": 457,
+     "icon": "images/IconPerks_boonIllumination.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/8c/IconPerks_boonIllumination.png",
+     "desc": "Press and hold the Active Ability button on a Dull or Hex Totem to bless it and create a Boon Totem.\nAll Survivors within 24 metres hear soft chimes ringing out and benefit from its Boon Effects:\nThe Auras of all Chests and Generators are highlighted to you in blue.\nIncreases your Blessing action speed by 150/175/200 % while you have a lit Boon Totem.\nSurvivors can only be affected by one instance of Boon: Illumination at a time.\nOnly one Totem can be blessed by your Boon Perks at a time and all of their effects are active on the same Boon Totem."
+    },
+    {
+     "name": "Deadline",
+     "value": 33,
+     "stars": 1,
+     "nl": {
+      "pick": 0.12,
+      "rate": 25,
+      "games": 44,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.08791208791208793,
+      "perf": 0.5
+     },
+     "score": 122,
+     "icon": "images/IconPerks_deadline.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/1c/IconPerks_deadline.png",
+     "desc": "Whenever you are in the Injured State, Deadline activates:\nIncreases the Odds of triggering Skill Checks by 6/8/10 % while repairing or healing.\nCauses Skill Checks to appear in random places.\nReduces the penalty for missed Skill Checks by -50 %."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Alan Wake"
+  },
+  {
+   "name": "Sable Ward",
+   "short": "Sable Ward",
+   "slug": "sableward",
+   "portrait": "images/S41_SableWard_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/9c/S41_SableWard_Portrait.png",
+   "availableIn": "\"All Things Wicked\" DLC",
+   "teachables": [
+    {
+     "name": "Invocation: Weaving Spiders",
+     "value": 4,
+     "stars": 1,
+     "nl": {
+      "pick": 0.34,
+      "rate": 28.91,
+      "games": 128,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.2637362637362637,
+      "perf": 0.5
+     },
+     "score": 169,
+     "icon": "images/IconPerks_invocationWeavingSpiders.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/07/IconPerks_invocationWeavingSpiders.png",
+     "desc": "When in the Basement near the circle, press the Active Ability button to begin the Invocation, which takes 60 seconds to complete.\nDuring an Invocation, your Aura is revealed to all other Survivors and they can join in, accelerating the process by +100 %, if they too have an Invocation Perk equipped, or by +50 %, if they have not.\nOnce the Invocation is completed, the following effects apply:\nPermanently reduces the Repair Charges requirement of all Generators in the Trial by 8/9/10 Charges.\nYou automatically enter the Injured State from any previous Health State, and suffer from the Broken Status Effect for the remainder of the Trial.\nCompleting this Invocation disables all other instances of Invocation: Weaving Spiders for the remainder of the Trial."
+    },
+    {
+     "name": "Strength in Shadows",
+     "value": 666,
+     "stars": 2,
+     "nl": {
+      "pick": 1.05,
+      "rate": 37.94,
+      "games": 398,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.510989010989011,
+      "perf": 0.566157138418005
+     },
+     "score": 597,
+     "icon": "images/IconPerks_strengthInShadows.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/e2/IconPerks_strengthInShadows.png",
+     "desc": "Whenever you are inside the Basement, Strength in Shadows activates:\nUnlocks the Strength in Shadows ability, allowing you to self-heal without needing a Med-Kit at 70 % of the normal Healing speed.\nUpon finishing a heal in the Basement, the Aura of the Killer is revealed to you for 6/8/10 seconds."
+    },
+    {
+     "name": "Wicked",
+     "value": 666,
+     "stars": 2,
+     "nl": {
+      "pick": 0.39,
+      "rate": 38.1,
+      "games": 147,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.3076923076923077,
+      "perf": 0.5
+     },
+     "score": 516,
+     "icon": "images/IconPerks_wicked.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/8f/IconPerks_wicked.png",
+     "desc": "After you are unhooked by any means, Wicked triggers the following effect:\nThe Aura of the Killer is revealed to you for 16/18/20 seconds.\nWhile hooked inside the Basement, Wicked potentially triggers the following effect:\nFirst Hook Stage: 100 % to succeed an attempted Self-Unhook.\nSecond Hook Stage:  Does not trigger the effect.\nLast Survivor Standing:  Does not trigger the effect."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "All Things Wicked"
+  },
+  {
+   "name": "The Troupe",
+   "short": "The Troupe",
+   "slug": "thetroupe",
+   "portrait": "images/S42_TheTroupe_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/e0/S42_TheTroupe_Portrait.png",
+   "availableIn": "\"Dungeons & Dragons\" DLC",
+   "teachables": [
+    {
+     "name": "Bardic Inspiration",
+     "value": 222,
+     "stars": 1,
+     "nl": {
+      "pick": 1.69,
+      "rate": 38.81,
+      "games": 639,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.7032967032967032,
+      "perf": 0.6096571384180052
+     },
+     "score": 449,
+     "icon": "images/IconPerks_bardicInspiration.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/d/d8/IconPerks_bardicInspiration.png",
+     "desc": "It's time to give your audience a show.\nWill you bring the house down or will you choke?\nPress the Active Ability button while standing and motionless to enter the Performance interaction that lasts up to 15 seconds and empowers other Survivors within 16 metres of your location.\nThe empowering effect depends on the result of you rolling a d20 and lasts for 90 seconds after completing the Performance:\n1: You scream, but without notifying the Killer.\n2 - 10: Skill Checks grant +1 % Progression.\n11 - 19: Skill Checks grant +2 % Progression.\n20: Skill Checks grant +3 % Progression.\nBardic Inspiration has a cool-down of 110/100/90 seconds after completing the Performance or cancelling it."
+    },
+    {
+     "name": "Mirrored Illusion",
+     "value": 222,
+     "stars": 1,
+     "nl": {
+      "pick": 0.26,
+      "rate": 43,
+      "games": 100,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.20329670329670335,
+      "perf": 0.5
+     },
+     "score": 257,
+     "icon": "images/IconPerks_mirroredIllusion.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/97/IconPerks_mirroredIllusion.png",
+     "desc": "A familiar spell made unfamiliar in this corrupted landscape.\nAfter repairing Generators for a total of 20 %, Mirrored Illusion activates:\nPress the Active Ability button when next to either a Chest, Exit Gate, Generator, or a Totem to spawn a Static Illusion that lasts for 40/50/60 seconds.\nMirrored Illusion deactivates after triggering successfully."
+    },
+    {
+     "name": "Still Sight",
+     "value": 555,
+     "stars": 2,
+     "nl": {
+      "pick": 0.18,
+      "rate": 37.31,
+      "games": 67,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.1428571428571429,
+      "perf": 0.5
+     },
+     "score": 403,
+     "icon": "images/IconPerks_stillSight.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/b6/IconPerks_stillSight.png",
+     "desc": "After standing still for 4/3/2 seconds, Still Sight activates:\nThe following Auras are revealed to you within 24 meters:\nKiller\nChests\nGenerators\nStill Sight deactivates once you start moving again."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Dungeons & Dragons"
+  },
+  {
+   "name": "Lara Croft",
+   "short": "Lara Croft",
+   "slug": "laracroft",
+   "portrait": "images/S43_LaraCroft_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/63/S43_LaraCroft_Portrait.png",
+   "availableIn": "\"Tomb Raider\" DLC",
+   "teachables": [
+    {
+     "name": "Finesse",
+     "value": 777,
+     "stars": 3,
+     "nl": {
+      "pick": 10.61,
+      "rate": 34.75,
+      "games": 4011,
+      "avgRate": 36.6,
+      "tier": "veryhigh",
+      "usage": 0.967032967032967,
+      "perf": 0.4066571384180051
+     },
+     "score": 788,
+     "icon": "images/IconPerks_finesse.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/fc/IconPerks_finesse.png",
+     "desc": "The threat of danger can motivate any creature to strengthen its resolve.\nWhenever you are healthy, Finesse activates:\nIncreases your Vaulting speed for a Fast Vault by +20 %.\nFinesse has a cool-down of 40/35/30 seconds after performing a Fast Vault."
+    },
+    {
+     "name": "Hardened",
+     "value": 222,
+     "stars": 1,
+     "nl": {
+      "pick": 0.3,
+      "rate": 27.68,
+      "games": 112,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.22527472527472525,
+      "perf": 0.5
+     },
+     "score": 265,
+     "icon": "images/IconPerks_hardened.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/fe/IconPerks_hardened.png",
+     "desc": "Live long enough, and survival will run in your blood.\nAfter unlocking a Chest and either blessing or cleansing a Totem, Hardened activates:\nSuppresses the urge to scream from any cause and instead causes the Aura of the Killer to be revealed to you for 3/4/5 seconds."
+    },
+    {
+     "name": "Specialist",
+     "value": 222,
+     "stars": 1,
+     "nl": {
+      "pick": 0.24,
+      "rate": 23.33,
+      "games": 90,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.18681318681318682,
+      "perf": 0.5
+     },
+     "score": 251,
+     "icon": "images/IconPerks_specialist.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/ae/IconPerks_specialist.png",
+     "desc": "Adventure. Exploration. Excavation.\nYou are in your element.\nWhenever you unlock or rummage through a Chest, Specialist gains +1 Token, up to a maximum of 6 Tokens:\nSucceeding a Great Repair Skill Check while repairing a Generator consumes all Tokens.\nPermanently reduces the Repair Charges requirement of that Generator by 2/3/4 Charges per Token, up to a maximum of 12/18/24 Charges."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Tomb Raider"
+  },
+  {
+   "name": "Trevor Belmont",
+   "short": "Trevor Belmont",
+   "slug": "trevorbelmont",
+   "portrait": "images/S44_TrevorBelmont_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f8/S44_TrevorBelmont_Portrait.png",
+   "availableIn": "\"Castlevania\" DLC",
+   "teachables": [
+    {
+     "name": "Exultation",
+     "value": 222,
+     "stars": 1,
+     "nl": {
+      "pick": 0.34,
+      "rate": 33.33,
+      "games": 129,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.2692307692307693,
+      "perf": 0.5
+     },
+     "score": 280,
+     "icon": "images/IconPerks_Exultation.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/2/22/IconPerks_Exultation.png",
+     "desc": "While holding an Item, stunning the Killer by dropping a Pallet causes the following effects:\nRecharges the Item by +75 %.\nUpgrades its Rarity to the next available Tier.\nExultation has a cool-down of 30/25/20 seconds."
+    },
+    {
+     "name": "Eyes of Belmont",
+     "value": 444,
+     "stars": 2,
+     "nl": {
+      "pick": 0.46,
+      "rate": 31.03,
+      "games": 174,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.3296703296703297,
+      "perf": 0.22065713841800516
+     },
+     "score": 371,
+     "icon": "images/IconPerks_EyesOfBelmont.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/2/25/IconPerks_EyesOfBelmont.png",
+     "desc": "Whenever a Generator is completed, the Aura of the Killer is revealed to you for 1/2/3 seconds.\nExtends the duration of all instances of the Killer's Aura being revealed to you by +2 seconds.\nEyes of Belmont benefits from its own effect."
+    },
+    {
+     "name": "Moment of Glory",
+     "value": 777,
+     "stars": 3,
+     "nl": {
+      "pick": 0.74,
+      "rate": 41.01,
+      "games": 278,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.41758241758241754,
+      "perf": 0.719657138418005
+     },
+     "score": 643,
+     "icon": "images/IconPerks_MomentOfGlory.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/98/IconPerks_MomentOfGlory.png",
+     "desc": "After performing the Unlocking or Rummaging action on Chests a total of 1 time, Moment of Glory activates:\nWhen you become injured, you instantly suffer from the Broken Status Effect.\nYou are automatically healed 1 Health State after 80/70/60 seconds.\nThis effect is cancelled prematurely if you enter the Dying State.\nMoment of Glory does not activate if you already suffer from the Broken Status Effect.\nMoment of Glory deactivates after healing you."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Castlevania"
+  },
+  {
+   "name": "Taurie Cain",
+   "short": "Taurie Cain",
+   "slug": "tauriecain",
+   "portrait": "images/S45_TaurieCain_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/72/S45_TaurieCain_Portrait.png",
+   "availableIn": "\"Doomed Course\" DLC",
+   "teachables": [
+    {
+     "name": "Clean Break",
+     "value": 555,
+     "stars": 2,
+     "nl": {
+      "pick": 0.22,
+      "rate": 35.71,
+      "games": 84,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.18131868131868134,
+      "perf": 0.5
+     },
+     "score": 416,
+     "icon": "images/IconPerks_cleanBreak.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/b3/IconPerks_cleanBreak.png",
+     "desc": "After completing a Healing action on another Survivor, Clean Break activates.\nPress the Active Ability button while being healed by another Survivor to trigger the following effects:\nSuffer from the Broken Status Effect.\nYou are automatically healed 1 Health State after 75/60/45 seconds.\nThis effect is cancelled prematurely if you enter the Dying State.\nClean Break does not activate if you already suffer from Broken.\nClean Break deactivates after healing you."
+    },
+    {
+     "name": "Invocation: Treacherous Crows",
+     "value": 300,
+     "stars": 1,
+     "nl": {
+      "pick": 0.07,
+      "rate": 23.08,
+      "games": 26,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.027472527472527486,
+      "perf": 0.5
+     },
+     "score": 235,
+     "icon": "images/IconPerks_invocationTreacherousCrows.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a8/IconPerks_invocationTreacherousCrows.png",
+     "desc": "When in the Basement near the circle, press the Active Ability button to begin the Invocation, which takes 60 seconds to complete.\nDuring an Invocation, your Aura is revealed to all other Survivors and they can join in, accelerating the process by +100 %, if they too have an Invocation Perk equipped, or by +50 %, if they have not.\nOnce the Invocation is completed, the following effects apply:\nWhenever the Killer scares a Crow while a Survivor is inside their Terror Radius, their Aura is revealed to all Survivors for 1/1.5/2 seconds.\nYou automatically enter the Injured State from any previous Health State, and suffer from the Broken Status Effect for the remainder of the Trial."
+    },
+    {
+     "name": "Shoulder the Burden",
+     "value": 777,
+     "stars": 3,
+     "nl": {
+      "pick": 1.48,
+      "rate": 40.79,
+      "games": 559,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.6648351648351649,
+      "perf": 0.708657138418005
+     },
+     "score": 728,
+     "icon": "images/IconPerks_shoulderTheBurden.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/3a/IconPerks_shoulderTheBurden.png",
+     "desc": "Once per Trial, and while you are not on Death Hook, press the Active Ability button while standing in front of a Hooked Survivor to unhook them and trigger the following effects:\nTrade 1 Hook Stage with the other Survivor to their benefit.\nCauses you to scream, become injured if healthy and suffer from the Broken Status Effect for 160/140/120 seconds."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Doomed Course"
+  },
+  {
+   "name": "Orela Rose",
+   "short": "Orela Rose",
+   "slug": "orelarose",
+   "portrait": "images/S46_OrelaRose_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ef/S46_OrelaRose_Portrait.png",
+   "availableIn": "\"Steady Pulse\" DLC",
+   "teachables": [
+    {
+     "name": "Do No Harm",
+     "value": 555,
+     "stars": 2,
+     "nl": {
+      "pick": 0.81,
+      "rate": 38.11,
+      "games": 307,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.44505494505494503,
+      "perf": 0.574657138418005
+     },
+     "score": 520,
+     "icon": "images/T_UI_iconsPerks_DoNoHarm.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/1e/T_UI_iconsPerks_DoNoHarm.png",
+     "desc": "When healing another Survivor, depending on their accumulated Hook Stages, you benefit from the following effects:\nIncreases your Altruistic Healing speed by 30/35/40 % per Hook Stage, up to a maximum of 60/70/80 %.\nIncreases the Progression bonus of Great Healing Skill Checks by +3 % per Hook Stage, up to a maximum of +6 %.\nIncreases the odds of triggering a Skill Check by +5 % per Hook Stage, up to a maximum of +5 %Max."
+    },
+    {
+     "name": "Duty of Care",
+     "value": 444,
+     "stars": 2,
+     "nl": {
+      "pick": 0.16,
+      "rate": 28.81,
+      "games": 59,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.13186813186813184,
+      "perf": 0.5
+     },
+     "score": 343,
+     "icon": "images/T_UI_iconsPerks_DutyOfCare.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/2/29/T_UI_iconsPerks_DutyOfCare.png",
+     "desc": "While healthy, taking a Protection Hit causes all other Survivors within 12 metres of your location to benefit from the following effect:\nGrants them a +25 % Haste Status Effect for 4/5/6 seconds."
+    },
+    {
+     "name": "Rapid Response",
+     "value": 222,
+     "stars": 1,
+     "nl": {
+      "pick": 0.06,
+      "rate": 30.43,
+      "games": 23,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.016483516483516536,
+      "perf": 0.5
+     },
+     "score": 192,
+     "icon": "images/T_UI_iconsPerks_RapidResponse.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/b0/T_UI_iconsPerks_RapidResponse.png",
+     "desc": "Whenever you become afflicted by the Exhausted Status Effect, Rapid Response triggers its effect:\nThe Aura of the Killer is revealed to you for 2 seconds.\nPerform a Rushed action to exit a Locker to voluntarily trigger the Status Effect for 30/25/20 seconds.\nRapid Response cannot be used to override an existing Exhausted Status Effect."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Steady Pulse"
+  },
+  {
+   "name": "Rick Grimes",
+   "short": "Rick Grimes",
+   "slug": "rickgrimes",
+   "portrait": "images/S47_RickGrimes_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/01/S47_RickGrimes_Portrait.png",
+   "availableIn": "\"The Walking Dead\" DLC",
+   "teachables": [
+    {
+     "name": "Apocalyptic Ingenuinity",
+     "value": 555,
+     "stars": 2,
+     "nl": {
+      "pick": 0.14,
+      "rate": 44.23,
+      "games": 52,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.10989010989010994,
+      "perf": 0.5
+     },
+     "score": 391,
+     "icon": "images/IconPerks_apocalypticIngenuity.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/60/IconPerks_apocalypticIngenuity.png",
+     "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of broken Pallets are revealed to you within 24/28/32 metres.\nAfter unlocking or rummaging through 1 Chest, Apocalyptic Ingenuity gains a special ability.\nWhile standing next to the location of a broken Pallet, press and hold the Active Ability button for 3 seconds to use it:\nRebuilds it as a Fragile Pallet.\nFragile Pallets instantly break when dropped."
+    },
+    {
+     "name": "Come and Get Me!",
+     "value": 222,
+     "stars": 1,
+     "nl": {
+      "pick": 0.07,
+      "rate": 36,
+      "games": 25,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.038461538461538436,
+      "perf": 0.5
+     },
+     "score": 200,
+     "icon": "images/IconPerks_comeAndGetMe.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a9/IconPerks_comeAndGetMe.png",
+     "desc": "After unhooking a Survivor, while crouched and stationary, press the Active Ability button to trigger the following effects:\nSuppresses the creation of Grunts of Pain, Pools of Blood, and Scratch Marks for all injured or dying Survivors within 24 metres of your location for the next 10/12.5/15 seconds.\nCauses you to scream and reveal your Aura to the Killer for 5 seconds."
+    },
+    {
+     "name": "Teamwork: Toughen Up",
+     "value": 222,
+     "stars": 1,
+     "nl": {
+      "pick": 0.06,
+      "rate": 22.73,
+      "games": 22,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.02197802197802201,
+      "perf": 0.5
+     },
+     "score": 194,
+     "icon": "images/IconPerks_teamworkToughenUp.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/07/IconPerks_teamworkToughenUp.png",
+     "desc": "While injured, whenever another Survivor within 24 metres of your location blinds the Killer by any means or stuns them using a Pallet, Teamwork: Toughen Up triggers its effect:\nSuppresses your Grunts of Pain, and the creation of Pools of Blood and Scratch Marks for 20/25/30 seconds."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "The Walking Dead"
+  },
+  {
+   "name": "Michonne Grimes",
+   "short": "Michonne Grimes",
+   "slug": "michonnegrimes",
+   "portrait": "images/S48_MichonneGrimes_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/36/S48_MichonneGrimes_Portrait.png",
+   "availableIn": "\"The Walking Dead\" DLC",
+   "teachables": [
+    {
+     "name": "Conviction",
+     "value": 777,
+     "stars": 3,
+     "nl": {
+      "pick": 2.16,
+      "rate": 32.02,
+      "games": 815,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.7802197802197802,
+      "perf": 0.27015713841800526
+     },
+     "score": 702,
+     "icon": "images/IconPerks_conviction.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/c9/IconPerks_conviction.png",
+     "desc": "After having completed a Healing action on another Survivor, whenever you are in the Dying State, Conviction activates.\nWhile active, press the Active Ability button after reaching at least 25 % Recovery progress to trigger the following effects:\nUnlocks the Self-Recovery ability, allowing you to fully recover from the Dying State.\nInflicts the Broken Status Effect.\nCauses you to automatically re-enter the Dying State after 20/25/30 seconds."
+    },
+    {
+     "name": "Last Stand",
+     "value": 222,
+     "stars": 1,
+     "nl": {
+      "pick": 1.49,
+      "rate": 33.33,
+      "games": 564,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.6703296703296704,
+      "perf": 0.33565713841800504
+     },
+     "score": 396,
+     "icon": "images/IconPerks_lastStand.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a7/IconPerks_lastStand.png",
+     "desc": "After staying in the Terror Radius without being chased for 120/105/90 seconds, Last Stand activates.\nWhile active, perform a Rushed Vault action to trigger its effect:\nStuns the Killer for 3 seconds, if they are within 2.5 metres of that Vault location.\nLast Stand is disabled for the remainder of the Trial after use."
+    },
+    {
+     "name": "Teamwork: Throw Down",
+     "value": 222,
+     "stars": 1,
+     "nl": {
+      "pick": 0.13,
+      "rate": 28,
+      "games": 50,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.10439560439560436,
+      "perf": 0.5
+     },
+     "score": 223,
+     "icon": "images/IconPerks_teamworkThrowDown.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/7c/IconPerks_teamworkThrowDown.png",
+     "desc": "Whenever you blind the Killer by any means or stun them using a Pallet, Teamwork: Throw Down triggers its effect:\nGrants the Endurance Status Effect to all other injured Survivors within 24 metres of your location for 6/8/10 seconds."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "The Walking Dead"
+  },
+  {
+   "name": "Vee Boonyasak",
+   "short": "Vee Boonyasak",
+   "slug": "veeboonyasak",
+   "portrait": "images/S49_VeeBoonyasak_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/77/S49_VeeBoonyasak_Portrait.png",
+   "availableIn": "\"Sinister Grace\" DLC",
+   "teachables": [
+    {
+     "name": "Ghost Notes",
+     "value": 444,
+     "stars": 2,
+     "nl": {
+      "pick": 0.81,
+      "rate": 37.38,
+      "games": 305,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.4340659340659341,
+      "perf": 0.5381571384180053
+     },
+     "score": 455,
+     "icon": "images/IconPerks_GhostNotes.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/b9/IconPerks_GhostNotes.png",
+     "desc": "While suffering from the Exhausted Status Effect, you benefit from the following effects:\nCauses your Scratch Marks to disappear +50 % faster.\nIncreases your Recovery rate from that Status Effect by 5/7.5/10 %.\nGhost Notes does not cause the Exhausted Status Effect."
+    },
+    {
+     "name": "One-two-three-four!",
+     "value": 222,
+     "stars": 1,
+     "nl": {
+      "pick": 1.9,
+      "rate": 38.91,
+      "games": 717,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.7417582417582418,
+      "perf": 0.614657138418005
+     },
+     "score": 463,
+     "icon": "images/IconPerks_OneTwoThreeFour.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/93/IconPerks_OneTwoThreeFour.png",
+     "desc": "While standing and idle, press the Active Ability button to start a Performance:\nLasts for up to 15 seconds.\nEmpowers Survivors within 16 metres of your location.\nTriggers continuous Skill Checks.\nAfter successfully completing the Performance, empowered Survivors performing Healing or Repairing actions benefit from the following effect for 90 seconds:\nIncreases the chances of triggering Skill Checks by +20 %.\nOne-Two-Three-Four! has a cool-down of 110/100/90 seconds after cancelling or completing the Performance."
+    },
+    {
+     "name": "Road Life",
+     "value": 777,
+     "stars": 3,
+     "nl": {
+      "pick": 1.68,
+      "rate": 41.35,
+      "games": 636,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.6978021978021978,
+      "perf": 0.7366571384180052
+     },
+     "score": 744,
+     "icon": "images/IconPerks_RoadLife.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/d/df/IconPerks_RoadLife.png",
+     "desc": "While injured and repairing a Generator, regular Skill Checks have the following effects:\nGain +1 Token for Great Repair Skill Checks.\nGain 0 Tokens for Good Repair Skill Checks.\nLose -1 Token for Failed Repair Skill Checks.\nOnce you accumulate 6/5/4 Tokens, consume all Tokens to benefit from the following effect:\nUnlocks the ability to heal yourself\nIncreases your Self-Healing speed by +10 % until you stop healing and for 4 seconds after."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Sinister Grace"
+  },
+  {
+   "name": "Dustin Henderson",
+   "short": "Dustin Henderson",
+   "slug": "dustinhenderson",
+   "portrait": "images/S50_DustinHenderson_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/e0/S50_DustinHenderson_Portrait.png",
+   "availableIn": "\"Stranger Things Chapter 2\" DLC",
+   "teachables": [
+    {
+     "name": "Bada Bada Boom",
+     "value": 222,
+     "stars": 1,
+     "nl": {
+      "pick": 0.14,
+      "rate": 28.85,
+      "games": 52,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.11538461538461542,
+      "perf": 0.5
+     },
+     "score": 226,
+     "icon": "images/IconsPerks_BadaBadaBoom.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/55/IconsPerks_BadaBadaBoom.png",
+     "desc": "After completing 20 % worth of Generator repairs, Bada Bada Boom activates:\nWhile active, press Active Ability button next to a window to install a Trap, which stays active for up to 40/50/60 seconds.\nThe Trap tiggers when the Killer performs a vault through the window, causing the Killer to suffer from a -50 % Hindered Status Effect for 6 seconds.\nBada Bada Boom deactives after triggering successfully or once the timer runs out.\nThe Auras of Trapped Windows are revealed to all Survivors in yellow."
+    },
+    {
+     "name": "Change of Plan",
+     "value": 555,
+     "stars": 2,
+     "nl": {
+      "pick": 0.09,
+      "rate": 35.29,
+      "games": 34,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.0494505494505495,
+      "perf": 0.5
+     },
+     "score": 370,
+     "icon": "images/IconsPerks_ChangeOfPlan.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/40/IconsPerks_ChangeOfPlan.png",
+     "desc": "You start the Trial with 2 Tokens.\nWhile hiding inside a Locker and holding a non-event Toolbox, press Active Ability button to spend 1 Token and transform your Toolbox into a Med-Kit of the same rarity with a random add-on of the same rarity.\nThe new Med-kit has 80/90/100 % of its charges."
+    },
+    {
+     "name": "Teamwork: Full Circuit",
+     "value": 222,
+     "stars": 1,
+     "nl": {
+      "pick": 0.31,
+      "rate": 32.76,
+      "games": 116,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.23076923076923073,
+      "perf": 0.5
+     },
+     "score": 267,
+     "icon": "images/IconsPerks_TeamworkFullCircuit.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/fc/IconsPerks_TeamworkFullCircuit.png",
+     "desc": "For each Survivor repairing a generator with you, the size of the good Skill Check zone is increased by 15/20/25 %.\nWhile repairing with at least 1 other Survivor, you repair 5 % faster."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Stranger Things Chapter 2"
+  },
+  {
+   "name": "Eleven",
+   "short": "Eleven",
+   "slug": "eleven",
+   "portrait": "images/S51_Eleven_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/74/S51_Eleven_Portrait.png",
+   "availableIn": "\"Stranger Things Chapter 2\" DLC",
+   "teachables": [
+    {
+     "name": "Extrasensory Perception",
+     "value": 900,
+     "stars": 3,
+     "nl": {
+      "pick": 0.65,
+      "rate": 43.44,
+      "games": 244,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.39010989010989006,
+      "perf": 0.841157138418005
+     },
+     "score": 713,
+     "icon": "images/IconsPerks_ExtrasensoryPerception.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/96/IconsPerks_ExtrasensoryPerception.png",
+     "desc": "Crouch for 4 seconds to activate this perk. While active:\nYou see the Auras of Survivors, the Killer, and a variety of objects. These are revealed in an expanding 44 meter radius..\nRevealed objects include Chests, Exit Gate, Generators, Hatch, Items, Pallets, Totems, and Windows.\nYou gain Elusive and Oblivious Status Effects\nWhen you stop crouching, or after 11 seconds, all effects of this perk end and it enters a 60/50/40 seconds cool-down."
+    },
+    {
+     "name": "Teamwork: Soft-Spoken",
+     "value": 222,
+     "stars": 1,
+     "nl": {
+      "pick": 0.34,
+      "rate": 32.81,
+      "games": 128,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.27472527472527475,
+      "perf": 0.5
+     },
+     "score": 282,
+     "icon": "images/IconsPerks_TeamworkSoftSpoken.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/4f/IconsPerks_TeamworkSoftSpoken.png",
+     "desc": "For each other Survivor repairing a Generator with you, the range at which the Generator's repair noise is heard is reduced by 15/20/25 %.\nWhile repairing with at least 1 other Survivor, you repair 5 % faster."
+    },
+    {
+     "name": "We See You",
+     "value": 555,
+     "stars": 2,
+     "nl": {
+      "pick": 0.5,
+      "rate": 37.57,
+      "games": 189,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.34615384615384615,
+      "perf": 0.5476571384180051
+     },
+     "score": 481,
+     "icon": "images/IconsPerks_WeSeeYou.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/50/IconsPerks_WeSeeYou.png",
+     "desc": "Gain a token when the Killer reveals your Aura.\nWhen you have 4 tokens, they are all consumed, and the Killer's aura is revealed to you and all other Survivors for 10/12.5/15 seconds.\nThis perk has a 10-second cool-down when gaining a token."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Stranger Things Chapter 2"
+  },
+  {
+   "name": "Kwon Tae-Young",
+   "short": "Kwon Tae-Young",
+   "slug": "kwontaeyoung",
+   "portrait": "images/S52_KwonTae-young_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/93/S52_KwonTae-young_Portrait.png",
+   "availableIn": "In-Game Store",
+   "teachables": [
+    {
+     "name": "A Place For Us",
+     "value": 444,
+     "stars": 2,
+     "nl": {
+      "pick": 0.45,
+      "rate": 34.88,
+      "games": 172,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.32417582417582413,
+      "perf": 0.4131571384180052
+     },
+     "score": 398,
+     "icon": "images/IconsPerks_aPlaceForUs.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/8f/IconsPerks_aPlaceForUs.png",
+     "desc": "While healing an another Survivor, both you and the healed Survivor gain Elusive Status Effect.\nWhen you finish healing the Obsession, both you and the Obsession gain Elusive Status Effect for 20/25/30 seconds.\nReduces your chance of becoming the initial  Obsession by reducing the default value by -100 %.\nThe Killer can only be obsessed with one Survivor at a time."
+    },
+    {
+     "name": "Five Moves Ahead",
+     "value": 888,
+     "stars": 3,
+     "nl": {
+      "pick": 18.33,
+      "rate": 38.48,
+      "games": 6931,
+      "avgRate": 36.6,
+      "tier": "veryhigh",
+      "usage": 0.9725274725274725,
+      "perf": 0.593157138418005
+     },
+     "score": 874,
+     "icon": "images/IconsPerks_FiveMovesAhead.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/fe/IconsPerks_FiveMovesAhead.png",
+     "desc": "This perk activates while you are being chased by the Killer or are inside the Killer's Terror Radius:\nAfter you drop a Pallet, you start moving 50 % earlier.\nSee the auras of the 5 closest Pallets.\nThis perk goes on a 40/35/30 seconds cool-down when you drop a Pallet while this perk is activated."
+    },
+    {
+     "name": "Flow State",
+     "value": 555,
+     "stars": 2,
+     "nl": {
+      "pick": 2.59,
+      "rate": 40.76,
+      "games": 979,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.8186813186813187,
+      "perf": 0.707157138418005
+     },
+     "score": 670,
+     "icon": "images/IconsPerks_FlowState.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/37/IconsPerks_FlowState.png",
+     "desc": "Whenever a Generator is completed, gain a token, up to 5.\nFor each token:\nBless and cleanse Totems 13/14/15 % faster.\nHeal 13/14/15 % faster.\nUnhook Survivors 13/14/15 % faster."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "In-Game Store"
+  },
+  {
+   "name": "Shane Wiigwaas",
+   "short": "Shane Wiigwaas",
+   "slug": "shanewiigwaas",
+   "portrait": "images/S53_ShaneWiigwaas_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/0d/S53_ShaneWiigwaas_Portrait.png",
+   "availableIn": "\"The Life Road\" DLC",
+   "teachables": [
+    {
+     "name": "Cross-Examination",
+     "value": 444,
+     "stars": 2,
+     "nl": {
+      "pick": 0.48,
+      "rate": 32.6,
+      "games": 181,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.34065934065934067,
+      "perf": 0.2991571384180052
+     },
+     "score": 386,
+     "icon": "images/T_UI_iconsPerks_CrossExamination.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/42/T_UI_iconsPerks_CrossExamination.png",
+     "desc": "While inside the Killer's Terror Radius and not being chased, you can see Light Marks the Killer leaves behind while moving. Light Marks have a duration of 10 seconds.\nWhile standing on a Light Mark, gain Elusive Status Effect. This lingers for 3/4/5 seconds."
+    },
+    {
+     "name": "Lend a Hand",
+     "value": 555,
+     "stars": 2,
+     "nl": {
+      "pick": 0.66,
+      "rate": 38.8,
+      "games": 250,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.4010989010989011,
+      "perf": 0.609157138418005
+     },
+     "score": 510,
+     "icon": "images/T_UI_iconsPerks_LendaHand.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/94/T_UI_iconsPerks_LendaHand.png",
+     "desc": "Cleansing or Blessing a Totem activates this perk:\nOnce per Survivor, while healing a Survivor, press Activate Ability 2 to give the healed Survivor 2/3/4  permanent healing charges."
+    },
+    {
+     "name": "Wide Open Throttle",
+     "value": 222,
+     "stars": 1,
+     "nl": {
+      "pick": 0.81,
+      "rate": 30.07,
+      "games": 306,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.43956043956043955,
+      "perf": 0.17265713841800512
+     },
+     "score": 291,
+     "icon": "images/T_UI_iconsPerks_WideOpenThrottle.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/96/T_UI_iconsPerks_WideOpenThrottle.png",
+     "desc": "Fast-vaulting a Pallet triggers the following effects:\nGain 10/12.5/15 % Haste Status Effect for 3 seconds.\nThe Pallet is immediately reset, blocked by the Entity and revealed to all Survivors for 60 seconds.\nThis perk then goes on a 60 second cool-down."
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "The Life Road"
+  },
+  {
+   "name": "Aurora Stardotter",
+   "short": "Aurora Stardotter",
+   "slug": "aurorastardotter",
+   "portrait": "images/S54_AuroraStardotter_Portrait.png",
+   "portrait2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ed/S54_AuroraStardotter_Portrait.png",
+   "availableIn": "\"Chorus of Sin\" DLC",
+   "teachables": [
+    {
+     "name": "Boon: Steadfast",
+     "value": 222,
+     "stars": 1,
+     "nl": {
+      "pick": 1.37,
+      "rate": 37.96,
+      "games": 519,
+      "avgRate": 36.6,
+      "tier": "average",
+      "usage": 0.6428571428571428,
+      "perf": 0.5671571384180052
+     },
+     "score": 421,
+     "icon": "images/T_UI_iconsPerks_BoonSteadfast.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f2/T_UI_iconsPerks_BoonSteadfast.png",
+     "desc": "Press and hold the Active Ability button on a Dull or Hex Totem to bless it and create a Boon Totem.\nAll Survivors within 24 metres hear soft chimes ringing out and benefit from its Boon Effects:\nGenerators within this Boon's range:\nRegress -50 % slower.\nSurvivors repair them +8/9/10 % faster.\nSurvivors see their auras while inside the Boon's range.\nSurvivors can only be affected by one instance of Boon: Steadfast at a time.\nOnly one Totem can be blessed by your Boon Perks at a time and all of their effects are active on the same Boon Totem."
+    },
+    {
+     "name": "Fruits of Your Labor",
+     "value": 444,
+     "stars": 2,
+     "nl": {
+      "pick": 0.33,
+      "rate": 39.68,
+      "games": 126,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.24725274725274726,
+      "perf": 0.5
+     },
+     "score": 384,
+     "icon": "images/T_UI_iconsPerks_FruitsOfYourLabor.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/c6/T_UI_iconsPerks_FruitsOfYourLabor.png",
+     "desc": "Whenever a Generator is completed, gain a token.\nWhenever you finish repairing a Generator, for each token this perk has:\nGain +5 % Haste Status Effect for 2 seconds.\nGain 10/15/20 % healing progress."
+    },
+    {
+     "name": "Salvation's Cry",
+     "value": 444,
+     "stars": 2,
+     "nl": {
+      "pick": 0.32,
+      "rate": 43.8,
+      "games": 121,
+      "avgRate": 36.6,
+      "tier": "low",
+      "usage": 0.2417582417582418,
+      "perf": 0.5
+     },
+     "score": 382,
+     "icon": "images/T_UI_iconsPerks_SalvationsCry.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/62/T_UI_iconsPerks_SalvationsCry.png",
+     "desc": "When the Killer starts chasing you:\nYou see the auras of other Survivors for 1/2/3 seconds.\nSurvivors not being chased see your aura for 5 seconds\nSurvivors not being chased see the Killer's aura for 5 seconds"
+    }
+   ],
+   "nlBuilds": [],
+   "chapter": "Chorus of Sin"
+  }
+ ],
+ "universal": []
+}

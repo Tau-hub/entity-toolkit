@@ -1,0 +1,2097 @@
+{
+ "patch": "10.2.1",
+ "nlPeriod": "2026-10-12 → 2026-11-09",
+ "nl": [
+  {
+   "perks": [
+    {
+     "icon": "images/IconPerks_resilience.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_resilience.png",
+     "desc": "Whenever you are in the Injured State, Resilience activates:\nIncreases the Action speeds for the following interactions by 7/8/9 %:\nBlessing or Cleansing Totems.\nHealing yourself or other Survivors.\nOpening Exit Gates.\nRepairing Generators.\nSabotaging Hooks.\nSearching Chests.\nUnhooking other Survivors.\nVaulting Windows.",
+     "name": "Resilience"
+    },
+    {
+     "icon": "images/IconPerks_decisiveStrike.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_decisiveStrike.png",
+     "desc": "Identical to Will to Live.",
+     "name": "Decisive Strike"
+    },
+    {
+     "icon": "images/IconPerks_deadHard.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/75/IconPerks_deadHard.png",
+     "desc": "After being unhooked by any means, Dead Hard activates:While injured and running, press the Active Ability button to trigger the following effect:\nGrants the Endurance Status Effect for 0.5 seconds.\nDead Hard cannot be used while Exhausted.\nDead Hard causes the Exhausted Status Effect for 60/50/40 seconds.",
+     "name": "Dead Hard"
+    },
+    {
+     "icon": "images/IconsPerks_FiveMovesAhead.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/fe/IconsPerks_FiveMovesAhead.png",
+     "desc": "This perk activates while you are being chased by the Killer or are inside the Killer's Terror Radius:\nAfter you drop a Pallet, you start moving 50 % earlier.\nSee the auras of the 5 closest Pallets.\nThis perk goes on a 40/35/30 seconds cool-down when you drop a Pallet while this perk is activated.",
+     "name": "Five Moves Ahead"
+    }
+   ],
+   "usage": 8.02,
+   "rate": 41.76,
+   "wins": 251,
+   "games": 601
+  },
+  {
+   "perks": [
+    {
+     "icon": "images/IconPerks_resilience.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_resilience.png",
+     "desc": "Whenever you are in the Injured State, Resilience activates:\nIncreases the Action speeds for the following interactions by 7/8/9 %:\nBlessing or Cleansing Totems.\nHealing yourself or other Survivors.\nOpening Exit Gates.\nRepairing Generators.\nSabotaging Hooks.\nSearching Chests.\nUnhooking other Survivors.\nVaulting Windows.",
+     "name": "Resilience"
+    },
+    {
+     "icon": "images/IconPerks_lithe.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/cc/IconPerks_lithe.png",
+     "desc": "Whenever you perform a Rushed Vault action, Lithe triggers its effect:\nGrants a +50 % Haste Status Effect for 3 seconds.\nLithe cannot be used while Exhausted.\nLithe causes the Exhausted Status Effect for 60/50/40 seconds.",
+     "name": "Lithe"
+    },
+    {
+     "icon": "images/IconPerks_windowsOfOpportunity.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/17/IconPerks_windowsOfOpportunity.png",
+     "desc": "Unlocks potential in your Aura-reading ability.\nThe Auras of Windows are revealed to you within 24 metres.\nYou vault Windows +10 % faster.\nWindows of Opportunity goes on a 40/35/30 seconds cool-down when you vault a Window.",
+     "name": "Windows of Opportunity"
+    },
+    {
+     "icon": "images/IconPerks_finesse.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/fc/IconPerks_finesse.png",
+     "desc": "The threat of danger can motivate any creature to strengthen its resolve.\nWhenever you are healthy, Finesse activates:\nIncreases your Vaulting speed for a Fast Vault by +20 %.\nFinesse has a cool-down of 40/35/30 seconds after performing a Fast Vault.",
+     "name": "Finesse"
+    }
+   ],
+   "usage": 6.68,
+   "rate": 29.34,
+   "wins": 147,
+   "games": 501
+  },
+  {
+   "perks": [
+    {
+     "icon": "images/IconPerks_resilience.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_resilience.png",
+     "desc": "Whenever you are in the Injured State, Resilience activates:\nIncreases the Action speeds for the following interactions by 7/8/9 %:\nBlessing or Cleansing Totems.\nHealing yourself or other Survivors.\nOpening Exit Gates.\nRepairing Generators.\nSabotaging Hooks.\nSearching Chests.\nUnhooking other Survivors.\nVaulting Windows.",
+     "name": "Resilience"
+    },
+    {
+     "icon": "images/IconPerks_lithe.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/cc/IconPerks_lithe.png",
+     "desc": "Whenever you perform a Rushed Vault action, Lithe triggers its effect:\nGrants a +50 % Haste Status Effect for 3 seconds.\nLithe cannot be used while Exhausted.\nLithe causes the Exhausted Status Effect for 60/50/40 seconds.",
+     "name": "Lithe"
+    },
+    {
+     "icon": "images/IconPerks_finesse.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/fc/IconPerks_finesse.png",
+     "desc": "The threat of danger can motivate any creature to strengthen its resolve.\nWhenever you are healthy, Finesse activates:\nIncreases your Vaulting speed for a Fast Vault by +20 %.\nFinesse has a cool-down of 40/35/30 seconds after performing a Fast Vault.",
+     "name": "Finesse"
+    },
+    {
+     "icon": "images/IconsPerks_FiveMovesAhead.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/fe/IconsPerks_FiveMovesAhead.png",
+     "desc": "This perk activates while you are being chased by the Killer or are inside the Killer's Terror Radius:\nAfter you drop a Pallet, you start moving 50 % earlier.\nSee the auras of the 5 closest Pallets.\nThis perk goes on a 40/35/30 seconds cool-down when you drop a Pallet while this perk is activated.",
+     "name": "Five Moves Ahead"
+    }
+   ],
+   "usage": 5.6,
+   "rate": 39.29,
+   "wins": 165,
+   "games": 420
+  },
+  {
+   "perks": [
+    {
+     "icon": "images/IconPerks_hope.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/18/IconPerks_hope.png",
+     "desc": "Once the Exit Gates are powered, Hope activates for the remainder of the Trial:\nGrants a 3/4/5 % Haste Status Effect.",
+     "name": "Hope"
+    },
+    {
+     "icon": "images/IconPerks_decisiveStrike.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_decisiveStrike.png",
+     "desc": "Identical to Will to Live.",
+     "name": "Decisive Strike"
+    },
+    {
+     "icon": "images/IconPerks_resurgence.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f3/IconPerks_resurgence.png",
+     "desc": "After you are unhooked by any means, Resurgence triggers the following effect:\nGrants you 50/60/70 % of Healing progression.",
+     "name": "Resurgence"
+    },
+    {
+     "icon": "images/IconsPerks_FiveMovesAhead.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/fe/IconsPerks_FiveMovesAhead.png",
+     "desc": "This perk activates while you are being chased by the Killer or are inside the Killer's Terror Radius:\nAfter you drop a Pallet, you start moving 50 % earlier.\nSee the auras of the 5 closest Pallets.\nThis perk goes on a 40/35/30 seconds cool-down when you drop a Pallet while this perk is activated.",
+     "name": "Five Moves Ahead"
+    }
+   ],
+   "usage": 4.8,
+   "rate": 82.22,
+   "wins": 296,
+   "games": 360
+  },
+  {
+   "perks": [
+    {
+     "icon": "images/IconPerks_boonCircleOfHealing.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/54/IconPerks_boonCircleOfHealing.png",
+     "desc": "A Boon that offers comfort amidst the terror.\nPress and hold the Active Ability button on a Dull or Hex Totem to bless it and create a Boon Totem.\nAll Survivors within 24 metres hear soft chimes ringing out and benefit from its Boon Effects:\nIncreases the Altruistic Healing speeds by 50/75/100 % when not using a Med-Kit.\nIf a Survivor is injured, their Aura is revealed to all other Survivors.\nSurvivors can only be affected by one instance of Boon: Circle of Healing at a time.\nOnly one Totem can be blessed by your Boon Perks at a time and all of their effects are active on the same Boon Totem.",
+     "name": "Boon: Circle of Healing"
+    },
+    {
+     "icon": "images/IconPerks_boonShadowStep.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/c7/IconPerks_boonShadowStep.png",
+     "desc": "A Boon that conceals the truth.\nPress and hold the Active Ability button on a Dull or Hex Totem to bless it and create a Boon Totem.\nAll Survivors within 24 metres hear soft chimes ringing out and benefit from its Boon Effects:\nScratch Marks are suppressed.\nAuras are hidden from The Killer.\nBoth effects linger for 2/3/4 seconds after leaving the Boon Totem's range.\nOnly one Totem can be blessed by your Boon Perks at a time and all of their effects are active on the same Boon Totem.",
+     "name": "Boon: Shadow Step"
+    },
+    {
+     "icon": "images/IconPerks_boonExponential.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/76/IconPerks_boonExponential.png",
+     "desc": "Press and hold the Active Ability button on a Dull or Hex Totem to bless it and create a Boon Totem.\nAll Survivors within 24 metres hear soft chimes ringing out and benefit from its Boon Effects:\nIncreases the Recovery speed while in the Dying State by 90/95/100 %.\nUnlocks the Self-Recovery ability, allowing them to fully recover from the Dying State.\nOnly one Totem can be blessed by your Boon Perks at a time and all of their effects are active on the same Boon Totem.",
+     "name": "Boon: Exponential"
+    },
+    {
+     "icon": "images/T_UI_iconsPerks_BoonSteadfast.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f2/T_UI_iconsPerks_BoonSteadfast.png",
+     "desc": "Press and hold the Active Ability button on a Dull or Hex Totem to bless it and create a Boon Totem.\nAll Survivors within 24 metres hear soft chimes ringing out and benefit from its Boon Effects:\nGenerators within this Boon's range:\nRegress -50 % slower.\nSurvivors repair them +8/9/10 % faster.\nSurvivors see their auras while inside the Boon's range.\nSurvivors can only be affected by one instance of Boon: Steadfast at a time.\nOnly one Totem can be blessed by your Boon Perks at a time and all of their effects are active on the same Boon Totem.",
+     "name": "Boon: Steadfast"
+    }
+   ],
+   "usage": 4.71,
+   "rate": 35.98,
+   "wins": 127,
+   "games": 353
+  },
+  {
+   "perks": [
+    {
+     "icon": "images/IconPerks_resilience.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_resilience.png",
+     "desc": "Whenever you are in the Injured State, Resilience activates:\nIncreases the Action speeds for the following interactions by 7/8/9 %:\nBlessing or Cleansing Totems.\nHealing yourself or other Survivors.\nOpening Exit Gates.\nRepairing Generators.\nSabotaging Hooks.\nSearching Chests.\nUnhooking other Survivors.\nVaulting Windows.",
+     "name": "Resilience"
+    },
+    {
+     "icon": "images/IconPerks_deadHard.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/75/IconPerks_deadHard.png",
+     "desc": "After being unhooked by any means, Dead Hard activates:While injured and running, press the Active Ability button to trigger the following effect:\nGrants the Endurance Status Effect for 0.5 seconds.\nDead Hard cannot be used while Exhausted.\nDead Hard causes the Exhausted Status Effect for 60/50/40 seconds.",
+     "name": "Dead Hard"
+    },
+    {
+     "icon": "images/IconPerks_finesse.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/fc/IconPerks_finesse.png",
+     "desc": "The threat of danger can motivate any creature to strengthen its resolve.\nWhenever you are healthy, Finesse activates:\nIncreases your Vaulting speed for a Fast Vault by +20 %.\nFinesse has a cool-down of 40/35/30 seconds after performing a Fast Vault.",
+     "name": "Finesse"
+    },
+    {
+     "icon": "images/IconsPerks_FiveMovesAhead.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/fe/IconsPerks_FiveMovesAhead.png",
+     "desc": "This perk activates while you are being chased by the Killer or are inside the Killer's Terror Radius:\nAfter you drop a Pallet, you start moving 50 % earlier.\nSee the auras of the 5 closest Pallets.\nThis perk goes on a 40/35/30 seconds cool-down when you drop a Pallet while this perk is activated.",
+     "name": "Five Moves Ahead"
+    }
+   ],
+   "usage": 4.0,
+   "rate": 40.0,
+   "wins": 120,
+   "games": 300
+  },
+  {
+   "perks": [
+    {
+     "icon": "images/IconPerks_resilience.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_resilience.png",
+     "desc": "Whenever you are in the Injured State, Resilience activates:\nIncreases the Action speeds for the following interactions by 7/8/9 %:\nBlessing or Cleansing Totems.\nHealing yourself or other Survivors.\nOpening Exit Gates.\nRepairing Generators.\nSabotaging Hooks.\nSearching Chests.\nUnhooking other Survivors.\nVaulting Windows.",
+     "name": "Resilience"
+    },
+    {
+     "icon": "images/IconPerks_decisiveStrike.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_decisiveStrike.png",
+     "desc": "Identical to Will to Live.",
+     "name": "Decisive Strike"
+    },
+    {
+     "icon": "images/IconPerks_deadHard.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/75/IconPerks_deadHard.png",
+     "desc": "After being unhooked by any means, Dead Hard activates:While injured and running, press the Active Ability button to trigger the following effect:\nGrants the Endurance Status Effect for 0.5 seconds.\nDead Hard cannot be used while Exhausted.\nDead Hard causes the Exhausted Status Effect for 60/50/40 seconds.",
+     "name": "Dead Hard"
+    },
+    {
+     "icon": "images/IconPerks_plotTwist.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/ac/IconPerks_plotTwist.png",
+     "desc": "Whenever you are in the Injured State, Plot Twist activates.\nWhile active, press the Active Ability button while crouching and stationary to trigger the following primary effects:\nSilently enter the Dying State without notifying the Killer.\nSuppresses your Grunts of Pain and the creation of Pools of Blood.\nUnlocks the Self-Recovery ability, allowing you to fully recover from the Dying State:\nIncreases the Recovery speed by +25 %.\nAfter self-recovering from the Dying State, you benefit from the following secondary effects:\nInstantly heals you to full health.\nGrants a +50 % Haste Status Effect for 2/3/4 seconds.\nPlot Twist is disabled after recovering by any means, but can be reactivated once more upon powering the Exit Gates.",
+     "name": "Plot Twist"
+    }
+   ],
+   "usage": 3.36,
+   "rate": 45.63,
+   "wins": 115,
+   "games": 252
+  },
+  {
+   "perks": [
+    {
+     "icon": "images/IconPerks_dejaVu.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/89/IconPerks_dejaVu.png",
+     "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of whichever 3 Generators are currently in closest proximity to one another are revealed to you.\nIncreases your Repair speed on those Generators by 4/5/6 %.",
+     "name": "Deja Vu"
+    },
+    {
+     "icon": "images/IconPerks_resilience.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_resilience.png",
+     "desc": "Whenever you are in the Injured State, Resilience activates:\nIncreases the Action speeds for the following interactions by 7/8/9 %:\nBlessing or Cleansing Totems.\nHealing yourself or other Survivors.\nOpening Exit Gates.\nRepairing Generators.\nSabotaging Hooks.\nSearching Chests.\nUnhooking other Survivors.\nVaulting Windows.",
+     "name": "Resilience"
+    },
+    {
+     "icon": "images/IconPerks_lithe.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/cc/IconPerks_lithe.png",
+     "desc": "Whenever you perform a Rushed Vault action, Lithe triggers its effect:\nGrants a +50 % Haste Status Effect for 3 seconds.\nLithe cannot be used while Exhausted.\nLithe causes the Exhausted Status Effect for 60/50/40 seconds.",
+     "name": "Lithe"
+    },
+    {
+     "icon": "images/IconPerks_windowsOfOpportunity.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/17/IconPerks_windowsOfOpportunity.png",
+     "desc": "Unlocks potential in your Aura-reading ability.\nThe Auras of Windows are revealed to you within 24 metres.\nYou vault Windows +10 % faster.\nWindows of Opportunity goes on a 40/35/30 seconds cool-down when you vault a Window.",
+     "name": "Windows of Opportunity"
+    }
+   ],
+   "usage": 3.31,
+   "rate": 31.85,
+   "wins": 79,
+   "games": 248
+  },
+  {
+   "perks": [
+    {
+     "icon": "images/IconPerks_resilience.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_resilience.png",
+     "desc": "Whenever you are in the Injured State, Resilience activates:\nIncreases the Action speeds for the following interactions by 7/8/9 %:\nBlessing or Cleansing Totems.\nHealing yourself or other Survivors.\nOpening Exit Gates.\nRepairing Generators.\nSabotaging Hooks.\nSearching Chests.\nUnhooking other Survivors.\nVaulting Windows.",
+     "name": "Resilience"
+    },
+    {
+     "icon": "images/IconPerks_decisiveStrike.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_decisiveStrike.png",
+     "desc": "Identical to Will to Live.",
+     "name": "Decisive Strike"
+    },
+    {
+     "icon": "images/IconPerks_deadHard.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/75/IconPerks_deadHard.png",
+     "desc": "After being unhooked by any means, Dead Hard activates:While injured and running, press the Active Ability button to trigger the following effect:\nGrants the Endurance Status Effect for 0.5 seconds.\nDead Hard cannot be used while Exhausted.\nDead Hard causes the Exhausted Status Effect for 60/50/40 seconds.",
+     "name": "Dead Hard"
+    },
+    {
+     "icon": "images/IconPerks_finesse.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/fc/IconPerks_finesse.png",
+     "desc": "The threat of danger can motivate any creature to strengthen its resolve.\nWhenever you are healthy, Finesse activates:\nIncreases your Vaulting speed for a Fast Vault by +20 %.\nFinesse has a cool-down of 40/35/30 seconds after performing a Fast Vault.",
+     "name": "Finesse"
+    }
+   ],
+   "usage": 3.05,
+   "rate": 40.17,
+   "wins": 92,
+   "games": 229
+  },
+  {
+   "perks": [
+    {
+     "icon": "images/IconPerks_dejaVu.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/89/IconPerks_dejaVu.png",
+     "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of whichever 3 Generators are currently in closest proximity to one another are revealed to you.\nIncreases your Repair speed on those Generators by 4/5/6 %.",
+     "name": "Deja Vu"
+    },
+    {
+     "icon": "images/IconPerks_decisiveStrike.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_decisiveStrike.png",
+     "desc": "Identical to Will to Live.",
+     "name": "Decisive Strike"
+    },
+    {
+     "icon": "images/IconPerks_lithe.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/cc/IconPerks_lithe.png",
+     "desc": "Whenever you perform a Rushed Vault action, Lithe triggers its effect:\nGrants a +50 % Haste Status Effect for 3 seconds.\nLithe cannot be used while Exhausted.\nLithe causes the Exhausted Status Effect for 60/50/40 seconds.",
+     "name": "Lithe"
+    },
+    {
+     "icon": "images/IconPerks_windowsOfOpportunity.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/17/IconPerks_windowsOfOpportunity.png",
+     "desc": "Unlocks potential in your Aura-reading ability.\nThe Auras of Windows are revealed to you within 24 metres.\nYou vault Windows +10 % faster.\nWindows of Opportunity goes on a 40/35/30 seconds cool-down when you vault a Window.",
+     "name": "Windows of Opportunity"
+    }
+   ],
+   "usage": 2.81,
+   "rate": 70.62,
+   "wins": 149,
+   "games": 211
+  },
+  {
+   "perks": [
+    {
+     "icon": "images/IconPerks_resilience.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_resilience.png",
+     "desc": "Whenever you are in the Injured State, Resilience activates:\nIncreases the Action speeds for the following interactions by 7/8/9 %:\nBlessing or Cleansing Totems.\nHealing yourself or other Survivors.\nOpening Exit Gates.\nRepairing Generators.\nSabotaging Hooks.\nSearching Chests.\nUnhooking other Survivors.\nVaulting Windows.",
+     "name": "Resilience"
+    },
+    {
+     "icon": "images/IconPerks_decisiveStrike.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_decisiveStrike.png",
+     "desc": "Identical to Will to Live.",
+     "name": "Decisive Strike"
+    },
+    {
+     "icon": "images/IconPerks_lithe.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/cc/IconPerks_lithe.png",
+     "desc": "Whenever you perform a Rushed Vault action, Lithe triggers its effect:\nGrants a +50 % Haste Status Effect for 3 seconds.\nLithe cannot be used while Exhausted.\nLithe causes the Exhausted Status Effect for 60/50/40 seconds.",
+     "name": "Lithe"
+    },
+    {
+     "icon": "images/IconsPerks_FiveMovesAhead.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/fe/IconsPerks_FiveMovesAhead.png",
+     "desc": "This perk activates while you are being chased by the Killer or are inside the Killer's Terror Radius:\nAfter you drop a Pallet, you start moving 50 % earlier.\nSee the auras of the 5 closest Pallets.\nThis perk goes on a 40/35/30 seconds cool-down when you drop a Pallet while this perk is activated.",
+     "name": "Five Moves Ahead"
+    }
+   ],
+   "usage": 2.11,
+   "rate": 43.04,
+   "wins": 68,
+   "games": 158
+  },
+  {
+   "perks": [
+    {
+     "icon": "images/IconPerks_dejaVu.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/89/IconPerks_dejaVu.png",
+     "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of whichever 3 Generators are currently in closest proximity to one another are revealed to you.\nIncreases your Repair speed on those Generators by 4/5/6 %.",
+     "name": "Deja Vu"
+    },
+    {
+     "icon": "images/IconPerks_stakeOut.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/cd/IconPerks_stakeOut.png",
+     "desc": "Staying in the Terror Radius and within 24 metres of the Killer without being chased grants +1 Token every 15 seconds, up to a maximum of 2/3/4 Tokens.\nWhile performing a skilful interaction that can trigger Skill Checks, you benefit from the following effects:\nReplaces regular Skill Checks with special Skill Checks.\nThese Skill Checks grant +4 % more progress on success.\nSucceeding or missing a special Skill Check consumes -1 Token.",
+     "name": "Stake Out"
+    },
+    {
+     "icon": "images/IconPerks_builtToLast.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/3b/IconPerks_builtToLast.png",
+     "desc": "While hiding inside a Locker with a depleted Item equipped, Built to Last triggers the following effect after 12/10/8 seconds:\nRecharges the Item to one of the following percentages:\nFirst time: 99 %.\nSecond time: 66 %.\nThird time: 33 %.\nBuilt to Last is disabled for the remainder of the Trial after triggering its effect for the third time.",
+     "name": "Built to Last"
+    },
+    {
+     "icon": "images/IconPerks_hyperfocus.png",
+     "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/5d/IconPerks_hyperfocus.png",
+     "desc": "Succeeding a Great Skill Check while repairing or healing grants +1 Token, up to a maximum of 6 Tokens:\nIncreases the Skill Check Trigger odds and Pointer-Rotation speed by +4 % per Token each, up to a maximum of +24 %.\nIncreases the Skill Check Bonus progression by 10/20/30 % of its base value per Token, up to a maximum of 60/120/180 %.\nHyperfocus loses all Tokens after succeeding just a Good Skill Check, failing one, or if the action is interrupted by any means.",
+     "name": "Hyperfocus"
+    }
+   ],
+   "usage": 1.89,
+   "rate": 25.35,
+   "wins": 36,
+   "games": 142
+  }
+ ],
+ "otz": [
+  {
+   "name": "Solo Survivor",
+   "builds": [
+    {
+     "name": "Beginner Starter Build",
+     "notes": [
+      "Only uses basic perks available to all Survivors in the bloodweb.",
+      "Kindred (and possibly We'll Make It) give useful info and healing speed when unhooking others. If you see your team mates safely going for the unhook, then you can stay on gens instead and repair some of them faster with Déjà Vu.",
+      "Premonition and Dark Sense help you keep an eye on the Killer and will also reveal points of safety occasionally. If you're targeted often after being unhooked, you can run the perk Will to Live (also called Decisive Strike) to have some protection while you're most vulnerable.",
+      "The perk \"Down to the Last\" (also known as Sole Survivor) can also be a good replacement if you find yourself as the final Survivor and want to improve your chances to escape by opening the hatch."
+     ],
+     "perks": [
+      {
+       "name": "Kindred",
+       "icon": "images/IconPerks_kindred.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a8/IconPerks_kindred.png",
+       "desc": "Unlocks potential in your Aura-reading ability.\nWhenever any Survivor is hooked, Kindred activates and applies the following effects:\nThe Aura of the Killer is revealed to all Survivors whenever the Killer comes within 14/15/16 metres of the Hook.\nIf you are the Hooked Survivor, the Auras of all Survivors are revealed to each other.\nIf you are not the Hooked Survivor, the Auras of all other Survivors are only revealed to you.",
+       "alts": []
+      },
+      {
+       "name": "Premonition",
+       "icon": "images/IconPerks_premonition.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/39/IconPerks_premonition.png",
+       "desc": "While not being chased, looking in the Killer's direction within a range of 32 metres triggers Premonition:\nTriggers an audio cue\nReveals the Killer's aura for 3 seconds.\nPremonition has a cool-down of 55/50/45 seconds.",
+       "alts": [
+        {
+         "name": "We'll Make It",
+         "icon": "images/IconPerks_wellMakeIt.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/8a/IconPerks_wellMakeIt.png",
+         "desc": "After unhooking another Survivor, We'll Make It activates for 70/80/90 seconds:\nIncreases your Altruistic Healing speed by +100 %."
+        }
+       ]
+      },
+      {
+       "name": "Déjà Vu",
+       "icon": "images/IconPerks_dejaVu.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/89/IconPerks_dejaVu.png",
+       "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of whichever 3 Generators are currently in closest proximity to one another are revealed to you.\nIncreases your Repair speed on those Generators by 4/5/6 %.",
+       "alts": []
+      },
+      {
+       "name": "Dark Sense",
+       "icon": "images/IconPerks_darkSense.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/92/IconPerks_darkSense.png",
+       "desc": "Unlocks potential in your Aura-reading ability.\nWhenever a Generator is completed, Dark Sense activates:\nWhen the Killer gets within 24 metres of you, Dark Sense activates for 13/14/15 seconds:\nYou see the Killer's aura.\nYou see auras of other Survivors.\nYou see the auras of Pallets and Windows within 32 metres.\nDark Sense deactivates after use.",
+       "alts": [
+        {
+         "name": "Will to Live",
+         "icon": "images/IconPerks_decisiveStrike.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_decisiveStrike.png",
+         "desc": "Using whatever is at hand, you stab your aggressor in an ultimate attempt to escape.\nAfter being unhooked or unhooking yourself, Will to Live activates for the next 40/50/60 seconds:\nWhen grabbed or picked up by the Killer, succeed a Skill Check to stab the Killer and escape from their grasp.\nStuns the Killer for 4 seconds.\nCauses you to become the next Obsession.\nWill to Live is deactivated once the Exit Gates are powered.\nWill to Live is disabled for the remainder of the Trial after use.\nWill to Live is deactivated prematurely when performing a Conspicuous Action.\nIncreases your chance of becoming the initial  Obsession by increasing the default value by +100 %.\nThe Killer can only be obsessed with one Survivor at a time."
+        },
+        {
+         "name": "Down to the Last",
+         "icon": "images/IconPerks_soleSurvivor_noLicense.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/ca/IconPerks_soleSurvivor_noLicense.png",
+         "desc": "As more of your friends fall to the Killer, you become shrouded in isolation and the Killer's Aura-reading abilities towards you are disrupted.\nWhenever you are hooked or you repair a Generator, Down to the Last gains 1 Token, up to a maximum of 6 Tokens:\nFor each Token, other Survivors open Exit Gates +10 % faster.\nWhen you are the Last Survivor Standing and have at least 3 Tokens, you benefit from the following effects:\nGain the ability to open the Hatch without the need of a Key.\nFor each Token, your aura is hidden from the Killer for 6/8/10 seconds.\nIncreases your chance of becoming the initial  Obsession by increasing the default value by +100 %.\nThe Killer can only be obsessed with one Survivor at a time."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Beginner Solo Build",
+     "notes": [
+      "This is a simple and beginner-friendly build that only uses teachable perks from one character, Feng Min. You can further improve this build with the more advanced perks listed as alternatives.",
+      "Unlocking Kwon Tae-Young for his perk \"Five Moves Ahead\" can be a good idea. This perk can replace Dark Sense and improve the overall stregth of this build. Using \"Alert\" from Feng Min is also a good idea, since it can warn you every time a pallet has been broken by the Killer, helping you keep track of what resources are still available.",
+      "\"Will to Live\" is great if you're being tunneled after you're unhooked, so practice hitting that skill check which will allow you to break free! If you're running Lithe, you can use it on a nearby window or dropped pallet immediately after escaping the Killer's grasp to have a much better chance at a good chase.",
+      "This build is overall very flexible but it doesn't give you any option to self-heal. Bringing a med-kit with it is recommended."
+     ],
+     "perks": [
+      {
+       "name": "Kindred",
+       "icon": "images/IconPerks_kindred.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a8/IconPerks_kindred.png",
+       "desc": "Unlocks potential in your Aura-reading ability.\nWhenever any Survivor is hooked, Kindred activates and applies the following effects:\nThe Aura of the Killer is revealed to all Survivors whenever the Killer comes within 14/15/16 metres of the Hook.\nIf you are the Hooked Survivor, the Auras of all Survivors are revealed to each other.\nIf you are not the Hooked Survivor, the Auras of all other Survivors are only revealed to you.",
+       "alts": [
+        {
+         "name": "Bond",
+         "icon": "images/IconPerks_bond.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a0/IconPerks_bond.png",
+         "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of all other Survivors are revealed to you within 20/28/36 metres."
+        },
+        {
+         "name": "Aftercare",
+         "icon": "images/IconPerks_aftercare.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/0d/IconPerks_aftercare.png",
+         "desc": "Unlocks potential in your Aura-reading ability:\nYou see the Auras of the 1/2/3  most recent Survivor(s) that helped you or vice versa:\nRescued from a Hook.\nCompleted a Healing action on.\nThey also see your Aura.\nAftercare resets its effects when you are hooked by the Killer."
+        },
+        {
+         "name": "Empathy",
+         "icon": "images/IconPerks_empathy.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/ae/IconPerks_empathy.png",
+         "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of injured or dying Survivors are revealed to you within 64/96/128 metres."
+        }
+       ]
+      },
+      {
+       "name": "Dark Sense",
+       "icon": "images/IconPerks_darkSense.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/92/IconPerks_darkSense.png",
+       "desc": "Unlocks potential in your Aura-reading ability.\nWhenever a Generator is completed, Dark Sense activates:\nWhen the Killer gets within 24 metres of you, Dark Sense activates for 13/14/15 seconds:\nYou see the Killer's aura.\nYou see auras of other Survivors.\nYou see the auras of Pallets and Windows within 32 metres.\nDark Sense deactivates after use.",
+       "alts": [
+        {
+         "name": "Windows of Opportunity",
+         "icon": "images/IconPerks_windowsOfOpportunity.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/17/IconPerks_windowsOfOpportunity.png",
+         "desc": "Unlocks potential in your Aura-reading ability.\nThe Auras of Windows are revealed to you within 24 metres.\nYou vault Windows +10 % faster.\nWindows of Opportunity goes on a 40/35/30 seconds cool-down when you vault a Window."
+        },
+        {
+         "name": "Alert",
+         "icon": "images/IconPerks_alert.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/71/IconPerks_alert.png",
+         "desc": "Whenever the Killer performs the Break or Damage Action, Alert triggers:\nTheir Aura is revealed to you for 3/4/5 seconds."
+        },
+        {
+         "name": "Five Moves Ahead",
+         "icon": "images/IconsPerks_FiveMovesAhead.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/fe/IconsPerks_FiveMovesAhead.png",
+         "desc": "This perk activates while you are being chased by the Killer or are inside the Killer's Terror Radius:\nAfter you drop a Pallet, you start moving 50 % earlier.\nSee the auras of the 5 closest Pallets.\nThis perk goes on a 40/35/30 seconds cool-down when you drop a Pallet while this perk is activated."
+        }
+       ]
+      },
+      {
+       "name": "Lithe",
+       "icon": "images/IconPerks_lithe.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/cc/IconPerks_lithe.png",
+       "desc": "Whenever you perform a Rushed Vault action, Lithe triggers its effect:\nGrants a +50 % Haste Status Effect for 3 seconds.\nLithe cannot be used while Exhausted.\nLithe causes the Exhausted Status Effect for 60/50/40 seconds.",
+       "alts": [
+        {
+         "name": "Sprint Burst",
+         "icon": "images/IconPerks_sprintBurst.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/e4/IconPerks_sprintBurst.png",
+         "desc": "Starting to run triggers Sprint Burst:\nGrants a +50 % Haste Status Effect for 2 seconds.\nSprint Burst cannot be used while Exhausted.\nSprint Burst causes the Exhausted Status Effect for 60/50/40 seconds."
+        },
+        {
+         "name": "Resilience",
+         "icon": "images/IconPerks_resilience.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_resilience.png",
+         "desc": "Whenever you are in the Injured State, Resilience activates:\nIncreases the Action speeds for the following interactions by 7/8/9 %:\nBlessing or Cleansing Totems.\nHealing yourself or other Survivors.\nOpening Exit Gates.\nRepairing Generators.\nSabotaging Hooks.\nSearching Chests.\nUnhooking other Survivors.\nVaulting Windows."
+        },
+        {
+         "name": "Balanced Landing",
+         "icon": "images/IconPerks_balancedLanding.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/5e/IconPerks_balancedLanding.png",
+         "desc": "While falling from height, you benefit from the following effects:\nSuppresses all noises related to falling and landing.\nReduces the duration of the Stagger upon landing by -75 %.\nGrants a +50 % Haste Status Effect for 3 seconds.\nBalanced Landing cannot be used while Exhausted.\nBalanced Landing causes the Exhausted Status Effect for 60/50/40 seconds after use."
+        },
+        {
+         "name": "Dead Hard",
+         "icon": "images/IconPerks_deadHard.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/75/IconPerks_deadHard.png",
+         "desc": "After being unhooked by any means, Dead Hard activates:While injured and running, press the Active Ability button to trigger the following effect:\nGrants the Endurance Status Effect for 0.5 seconds.\nDead Hard cannot be used while Exhausted.\nDead Hard causes the Exhausted Status Effect for 60/50/40 seconds."
+        }
+       ]
+      },
+      {
+       "name": "Will to Live",
+       "icon": "images/IconPerks_decisiveStrike.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_decisiveStrike.png",
+       "desc": "Using whatever is at hand, you stab your aggressor in an ultimate attempt to escape.\nAfter being unhooked or unhooking yourself, Will to Live activates for the next 40/50/60 seconds:\nWhen grabbed or picked up by the Killer, succeed a Skill Check to stab the Killer and escape from their grasp.\nStuns the Killer for 4 seconds.\nCauses you to become the next Obsession.\nWill to Live is deactivated once the Exit Gates are powered.\nWill to Live is disabled for the remainder of the Trial after use.\nWill to Live is deactivated prematurely when performing a Conspicuous Action.\nIncreases your chance of becoming the initial  Obsession by increasing the default value by +100 %.\nThe Killer can only be obsessed with one Survivor at a time.",
+       "alts": [
+        {
+         "name": "Off the Record",
+         "icon": "images/IconPerks_offTheRecord.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/9e/IconPerks_offTheRecord.png",
+         "desc": "After being unhooked or unhooking yourself, Off the Record activates for 30/35/40 seconds:\nBlocks your Aura from being revealed.\nSuppresses your Grunts of Pain while in the Injured State.\nSuppresses the creation of your Scratch Marks.\nGrants the Endurance Status Effect.\nEndurance is cancelled prematurely when performing a Conspicuous Action of any kind.\nOff the Record deactivates prematurely and is disabled for the remainder of the Trial upon powering the Exit Gates."
+        },
+        {
+         "name": "Slippery Meat",
+         "icon": "images/IconPerks_slipperyMeat.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/03/IconPerks_slipperyMeat.png",
+         "desc": "You have developed an efficient way to get off Hooks.\nOther Survivors unhook you 90/95/100 % faster.\nIncreases the Haste granted by Unhook Protections by +5 %."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Advanced Solo Build",
+     "notes": [
+      "Slightly more optimized version of the Beginner Solo build. This one assumes that you're slightly more experienced and don't need the info from Kindred as much.",
+      "Five Moves Ahead is a slightly stronger version of Windows that also helps you move faster after dropping a pallet. Lithe and Will To Live (Decisive Strike) are still a great combo to use if you're being tunneled off hook.",
+      "Your fourth perk Resurgence helps you get healed very quickly after being unhooked but can be easily replaced by any strong perk of your choice. Check the alternative perks for a few fun suggestions."
+     ],
+     "perks": [
+      {
+       "name": "Five Moves Ahead",
+       "icon": "images/IconsPerks_FiveMovesAhead.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/fe/IconsPerks_FiveMovesAhead.png",
+       "desc": "This perk activates while you are being chased by the Killer or are inside the Killer's Terror Radius:\nAfter you drop a Pallet, you start moving 50 % earlier.\nSee the auras of the 5 closest Pallets.\nThis perk goes on a 40/35/30 seconds cool-down when you drop a Pallet while this perk is activated.",
+       "alts": [
+        {
+         "name": "Windows of Opportunity",
+         "icon": "images/IconPerks_windowsOfOpportunity.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/17/IconPerks_windowsOfOpportunity.png",
+         "desc": "Unlocks potential in your Aura-reading ability.\nThe Auras of Windows are revealed to you within 24 metres.\nYou vault Windows +10 % faster.\nWindows of Opportunity goes on a 40/35/30 seconds cool-down when you vault a Window."
+        },
+        {
+         "name": "Dark Sense",
+         "icon": "images/IconPerks_darkSense.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/92/IconPerks_darkSense.png",
+         "desc": "Unlocks potential in your Aura-reading ability.\nWhenever a Generator is completed, Dark Sense activates:\nWhen the Killer gets within 24 metres of you, Dark Sense activates for 13/14/15 seconds:\nYou see the Killer's aura.\nYou see auras of other Survivors.\nYou see the auras of Pallets and Windows within 32 metres.\nDark Sense deactivates after use."
+        },
+        {
+         "name": "Alert",
+         "icon": "images/IconPerks_alert.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/71/IconPerks_alert.png",
+         "desc": "Whenever the Killer performs the Break or Damage Action, Alert triggers:\nTheir Aura is revealed to you for 3/4/5 seconds."
+        },
+        {
+         "name": "Any Means Necessary",
+         "icon": "images/IconPerks_anyMeansNecessary.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/79/IconPerks_anyMeansNecessary.png",
+         "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of dropped Pallets in the environment are revealed to you.\nWhile standing next to a dropped Pallet, press and hold the Active Ability button to trigger the following effect:\nResets the Pallet to its upright position over 5/4/3 seconds."
+        }
+       ]
+      },
+      {
+       "name": "Will to Live",
+       "icon": "images/IconPerks_decisiveStrike.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_decisiveStrike.png",
+       "desc": "Using whatever is at hand, you stab your aggressor in an ultimate attempt to escape.\nAfter being unhooked or unhooking yourself, Will to Live activates for the next 40/50/60 seconds:\nWhen grabbed or picked up by the Killer, succeed a Skill Check to stab the Killer and escape from their grasp.\nStuns the Killer for 4 seconds.\nCauses you to become the next Obsession.\nWill to Live is deactivated once the Exit Gates are powered.\nWill to Live is disabled for the remainder of the Trial after use.\nWill to Live is deactivated prematurely when performing a Conspicuous Action.\nIncreases your chance of becoming the initial  Obsession by increasing the default value by +100 %.\nThe Killer can only be obsessed with one Survivor at a time.",
+       "alts": [
+        {
+         "name": "Off the Record",
+         "icon": "images/IconPerks_offTheRecord.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/9e/IconPerks_offTheRecord.png",
+         "desc": "After being unhooked or unhooking yourself, Off the Record activates for 30/35/40 seconds:\nBlocks your Aura from being revealed.\nSuppresses your Grunts of Pain while in the Injured State.\nSuppresses the creation of your Scratch Marks.\nGrants the Endurance Status Effect.\nEndurance is cancelled prematurely when performing a Conspicuous Action of any kind.\nOff the Record deactivates prematurely and is disabled for the remainder of the Trial upon powering the Exit Gates."
+        }
+       ]
+      },
+      {
+       "name": "Lithe",
+       "icon": "images/IconPerks_lithe.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/cc/IconPerks_lithe.png",
+       "desc": "Whenever you perform a Rushed Vault action, Lithe triggers its effect:\nGrants a +50 % Haste Status Effect for 3 seconds.\nLithe cannot be used while Exhausted.\nLithe causes the Exhausted Status Effect for 60/50/40 seconds.",
+       "alts": [
+        {
+         "name": "Dead Hard",
+         "icon": "images/IconPerks_deadHard.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/75/IconPerks_deadHard.png",
+         "desc": "After being unhooked by any means, Dead Hard activates:While injured and running, press the Active Ability button to trigger the following effect:\nGrants the Endurance Status Effect for 0.5 seconds.\nDead Hard cannot be used while Exhausted.\nDead Hard causes the Exhausted Status Effect for 60/50/40 seconds."
+        },
+        {
+         "name": "Balanced Landing",
+         "icon": "images/IconPerks_balancedLanding.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/5e/IconPerks_balancedLanding.png",
+         "desc": "While falling from height, you benefit from the following effects:\nSuppresses all noises related to falling and landing.\nReduces the duration of the Stagger upon landing by -75 %.\nGrants a +50 % Haste Status Effect for 3 seconds.\nBalanced Landing cannot be used while Exhausted.\nBalanced Landing causes the Exhausted Status Effect for 60/50/40 seconds after use."
+        },
+        {
+         "name": "Overcome",
+         "icon": "images/IconPerks_overcome.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/82/IconPerks_overcome.png",
+         "desc": "Whenever you enter the Injured State from full health, Overcome triggers its effect:\nExtends the duration of the On-hit Sprint boost by +2 seconds.\nOvercome cannot be used while Exhausted.\nOvercome causes the Exhausted Status Effect for 60/50/40 seconds."
+        },
+        {
+         "name": "Sprint Burst",
+         "icon": "images/IconPerks_sprintBurst.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/e4/IconPerks_sprintBurst.png",
+         "desc": "Starting to run triggers Sprint Burst:\nGrants a +50 % Haste Status Effect for 2 seconds.\nSprint Burst cannot be used while Exhausted.\nSprint Burst causes the Exhausted Status Effect for 60/50/40 seconds."
+        }
+       ]
+      },
+      {
+       "name": "Resurgence",
+       "icon": "images/IconPerks_resurgence.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f3/IconPerks_resurgence.png",
+       "desc": "After you are unhooked by any means, Resurgence triggers the following effect:\nGrants you 50/60/70 % of Healing progression.",
+       "alts": [
+        {
+         "name": "Road Life",
+         "icon": "images/IconPerks_RoadLife.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/d/df/IconPerks_RoadLife.png",
+         "desc": "While injured and repairing a Generator, regular Skill Checks have the following effects:\nGain +1 Token for Great Repair Skill Checks.\nGain 0 Tokens for Good Repair Skill Checks.\nLose -1 Token for Failed Repair Skill Checks.\nOnce you accumulate 6/5/4 Tokens, consume all Tokens to benefit from the following effect:\nUnlocks the ability to heal yourself\nIncreases your Self-Healing speed by +10 % until you stop healing and for 4 seconds after."
+        },
+        {
+         "name": "Adrenaline",
+         "icon": "images/IconPerks_adrenaline.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f7/IconPerks_adrenaline.png",
+         "desc": "Once the Exit Gates are powered, Adrenaline activates and triggers the following effects:\nHeals you to the next Health State.\nGrants a +50 % Haste Status Effect for 4 seconds.\nAdrenaline can be used while Exhausted and ignores an existing Status Effect.\nAdrenaline causes the Exhausted Status Effect for 60/50/40 seconds after use."
+        },
+        {
+         "name": "Unbreakable",
+         "icon": "images/IconPerks_unbreakable.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/4a/IconPerks_unbreakable.png",
+         "desc": "Whenever you are put in the Dying State by the Killer, Unbreakable activates:\nIncreases your Recovery speed by 25/30/35 %.\nUnlocks the Self-Recovery ability, allowing you to fully recover from the Dying State.\nThis ability can only be used once per Trial."
+        },
+        {
+         "name": "Poised",
+         "icon": "images/IconPerks_poised.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/52/IconPerks_poised.png",
+         "desc": "Whenever a Generator is completed, Poised triggers its primary effect:\nSuppresses the creation of your Scratch Marks for 20/25/30 seconds.\nWhenever you start repairing a Generator for the first time, Poised triggers its secondary effect:\nThe Aura of the Killer is revealed to you for 8 seconds."
+        },
+        {
+         "name": "Déjà Vu",
+         "icon": "images/IconPerks_dejaVu.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/89/IconPerks_dejaVu.png",
+         "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of whichever 3 Generators are currently in closest proximity to one another are revealed to you.\nIncreases your Repair speed on those Generators by 4/5/6 %."
+        },
+        {
+         "name": "Pharmacy",
+         "icon": "images/IconPerks_pharmacy.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f1/IconPerks_pharmacy.png",
+         "desc": "While unlocking a Chest, you benefit from the following effects:\nIncreases the Unlocking and Rummaging speeds by 75/100/125 %.\nReduces the audible range of all noises related to the Unlocking interaction by -12 metres.\nGuarantees an Emergency Med-Kit after completing the interaction.\nYou can rummage each chest 1 time."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Solo Escapist Build",
+     "notes": [
+      "This build prioritizes your own survival but it still provides solid effects that will help the whole team in the process. Your first two perks help to finish completing generators and bouncing back into the game after being unhooked. Both of these things grant tokens to your third perk, \"Down to the Last\".",
+      "Down to the Last (also known as Sole Survivor) allows you to open the hatch after the Killer has closed it when you're the only one left. It also provides a buff to your team's exit gate opening speed if you all survivor until the endgame.",
+      "Adrenaline will guarantee that you're healthy in both of the scenarios above, since it also triggers when the hatch is closed! You can replace it with a med-kit or any other healing perk of your choice.",
+      "Struggling to find the hatch? Use an offering to make it spawn in a fixed location or try the perk \"Left Behind\" from Bill Overbeck!"
+     ],
+     "perks": [
+      {
+       "name": "Déjà Vu",
+       "icon": "images/IconPerks_dejaVu.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/89/IconPerks_dejaVu.png",
+       "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of whichever 3 Generators are currently in closest proximity to one another are revealed to you.\nIncreases your Repair speed on those Generators by 4/5/6 %.",
+       "alts": [
+        {
+         "name": "Bond",
+         "icon": "images/IconPerks_bond.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a0/IconPerks_bond.png",
+         "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of all other Survivors are revealed to you within 20/28/36 metres."
+        },
+        {
+         "name": "Kindred",
+         "icon": "images/IconPerks_kindred.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a8/IconPerks_kindred.png",
+         "desc": "Unlocks potential in your Aura-reading ability.\nWhenever any Survivor is hooked, Kindred activates and applies the following effects:\nThe Aura of the Killer is revealed to all Survivors whenever the Killer comes within 14/15/16 metres of the Hook.\nIf you are the Hooked Survivor, the Auras of all Survivors are revealed to each other.\nIf you are not the Hooked Survivor, the Auras of all other Survivors are only revealed to you."
+        },
+        {
+         "name": "Poised",
+         "icon": "images/IconPerks_poised.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/52/IconPerks_poised.png",
+         "desc": "Whenever a Generator is completed, Poised triggers its primary effect:\nSuppresses the creation of your Scratch Marks for 20/25/30 seconds.\nWhenever you start repairing a Generator for the first time, Poised triggers its secondary effect:\nThe Aura of the Killer is revealed to you for 8 seconds."
+        }
+       ]
+      },
+      {
+       "name": "Resurgence",
+       "icon": "images/IconPerks_resurgence.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f3/IconPerks_resurgence.png",
+       "desc": "After you are unhooked by any means, Resurgence triggers the following effect:\nGrants you 50/60/70 % of Healing progression.",
+       "alts": [
+        {
+         "name": "Will to Live",
+         "icon": "images/IconPerks_decisiveStrike.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_decisiveStrike.png",
+         "desc": "Using whatever is at hand, you stab your aggressor in an ultimate attempt to escape.\nAfter being unhooked or unhooking yourself, Will to Live activates for the next 40/50/60 seconds:\nWhen grabbed or picked up by the Killer, succeed a Skill Check to stab the Killer and escape from their grasp.\nStuns the Killer for 4 seconds.\nCauses you to become the next Obsession.\nWill to Live is deactivated once the Exit Gates are powered.\nWill to Live is disabled for the remainder of the Trial after use.\nWill to Live is deactivated prematurely when performing a Conspicuous Action.\nIncreases your chance of becoming the initial  Obsession by increasing the default value by +100 %.\nThe Killer can only be obsessed with one Survivor at a time."
+        }
+       ]
+      },
+      {
+       "name": "Down to the Last",
+       "icon": "images/IconPerks_soleSurvivor_noLicense.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/ca/IconPerks_soleSurvivor_noLicense.png",
+       "desc": "As more of your friends fall to the Killer, you become shrouded in isolation and the Killer's Aura-reading abilities towards you are disrupted.\nWhenever you are hooked or you repair a Generator, Down to the Last gains 1 Token, up to a maximum of 6 Tokens:\nFor each Token, other Survivors open Exit Gates +10 % faster.\nWhen you are the Last Survivor Standing and have at least 3 Tokens, you benefit from the following effects:\nGain the ability to open the Hatch without the need of a Key.\nFor each Token, your aura is hidden from the Killer for 6/8/10 seconds.\nIncreases your chance of becoming the initial  Obsession by increasing the default value by +100 %.\nThe Killer can only be obsessed with one Survivor at a time.",
+       "alts": []
+      },
+      {
+       "name": "Adrenaline",
+       "icon": "images/IconPerks_adrenaline.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f7/IconPerks_adrenaline.png",
+       "desc": "Once the Exit Gates are powered, Adrenaline activates and triggers the following effects:\nHeals you to the next Health State.\nGrants a +50 % Haste Status Effect for 4 seconds.\nAdrenaline can be used while Exhausted and ignores an existing Status Effect.\nAdrenaline causes the Exhausted Status Effect for 60/50/40 seconds after use.",
+       "alts": [
+        {
+         "name": "Left Behind",
+         "icon": "images/IconPerks_leftBehind.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/c3/IconPerks_leftBehind.png",
+         "desc": "Once you are the Last Survivor Standing, Left Behind activates:\nThe Aura of the Hatch is revealed to you within 24/28/32 metres."
+        },
+        {
+         "name": "Inner Strength",
+         "icon": "images/IconPerks_innerStrength.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/47/IconPerks_innerStrength.png",
+         "desc": "After cleansing a Totem of any kind, Inner Strength activates.\nWhile active, hiding inside a Locker for 10/9/8 seconds triggers the following effect:\nHeals you to the next Health State.\nInner Strength deactivates after use.\nInner Strength cannot be used while suffering from the Broken Status Effect."
+        },
+        {
+         "name": "Self-Care",
+         "icon": "images/IconPerks_self-Care.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/b2/IconPerks_self-Care.png",
+         "desc": "Unlocks the Self-Care ability:\nGrants the ability to self-heal without needing a Med-Kit at 25/30/35 % of the regular Healing speed."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Gen Rush Solo Build",
+     "notes": [
+      "A build focused on gen speed and efficiency but that still keeps you safe by giving you fast heals and awareness.",
+      "Remember, you don't leave any scratchmarks for 30 seconds after you (or anyone) completes a generator.",
+      "Don't have a toolbox or Felix unlocked? Feel free to swap Built to Last for one of the alternative perks. Road Life can also replace any of the perks in this build if you're confident in your ability to hit great skill checks.",
+      "Look up the video \"The 2nd Otzdarva Law\" on Youtube if you want to see this build explained and in action."
+     ],
+     "perks": [
+      {
+       "name": "Déjà Vu",
+       "icon": "images/IconPerks_dejaVu.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/89/IconPerks_dejaVu.png",
+       "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of whichever 3 Generators are currently in closest proximity to one another are revealed to you.\nIncreases your Repair speed on those Generators by 4/5/6 %.",
+       "alts": []
+      },
+      {
+       "name": "Poised",
+       "icon": "images/IconPerks_poised.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/52/IconPerks_poised.png",
+       "desc": "Whenever a Generator is completed, Poised triggers its primary effect:\nSuppresses the creation of your Scratch Marks for 20/25/30 seconds.\nWhenever you start repairing a Generator for the first time, Poised triggers its secondary effect:\nThe Aura of the Killer is revealed to you for 8 seconds.",
+       "alts": []
+      },
+      {
+       "name": "Resurgence",
+       "icon": "images/IconPerks_resurgence.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f3/IconPerks_resurgence.png",
+       "desc": "After you are unhooked by any means, Resurgence triggers the following effect:\nGrants you 50/60/70 % of Healing progression.",
+       "alts": [
+        {
+         "name": "Will to Live",
+         "icon": "images/IconPerks_decisiveStrike.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_decisiveStrike.png",
+         "desc": "Using whatever is at hand, you stab your aggressor in an ultimate attempt to escape.\nAfter being unhooked or unhooking yourself, Will to Live activates for the next 40/50/60 seconds:\nWhen grabbed or picked up by the Killer, succeed a Skill Check to stab the Killer and escape from their grasp.\nStuns the Killer for 4 seconds.\nCauses you to become the next Obsession.\nWill to Live is deactivated once the Exit Gates are powered.\nWill to Live is disabled for the remainder of the Trial after use.\nWill to Live is deactivated prematurely when performing a Conspicuous Action.\nIncreases your chance of becoming the initial  Obsession by increasing the default value by +100 %.\nThe Killer can only be obsessed with one Survivor at a time."
+        },
+        {
+         "name": "Road Life",
+         "icon": "images/IconPerks_RoadLife.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/d/df/IconPerks_RoadLife.png",
+         "desc": "While injured and repairing a Generator, regular Skill Checks have the following effects:\nGain +1 Token for Great Repair Skill Checks.\nGain 0 Tokens for Good Repair Skill Checks.\nLose -1 Token for Failed Repair Skill Checks.\nOnce you accumulate 6/5/4 Tokens, consume all Tokens to benefit from the following effect:\nUnlocks the ability to heal yourself\nIncreases your Self-Healing speed by +10 % until you stop healing and for 4 seconds after."
+        }
+       ]
+      },
+      {
+       "name": "Built to Last",
+       "icon": "images/IconPerks_builtToLast.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/3b/IconPerks_builtToLast.png",
+       "desc": "While hiding inside a Locker with a depleted Item equipped, Built to Last triggers the following effect after 12/10/8 seconds:\nRecharges the Item to one of the following percentages:\nFirst time: 99 %.\nSecond time: 66 %.\nThird time: 33 %.\nBuilt to Last is disabled for the remainder of the Trial after triggering its effect for the third time.",
+       "alts": [
+        {
+         "name": "Adrenaline",
+         "icon": "images/IconPerks_adrenaline.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f7/IconPerks_adrenaline.png",
+         "desc": "Once the Exit Gates are powered, Adrenaline activates and triggers the following effects:\nHeals you to the next Health State.\nGrants a +50 % Haste Status Effect for 4 seconds.\nAdrenaline can be used while Exhausted and ignores an existing Status Effect.\nAdrenaline causes the Exhausted Status Effect for 60/50/40 seconds after use."
+        },
+        {
+         "name": "Prove Thyself",
+         "icon": "images/IconPerks_proveThyself.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/0f/IconPerks_proveThyself.png",
+         "desc": "Increases the Repair speed by a stack-able 6/8/10 % per other Survivor within 4 metres of your location, up to a maximum of 18/24/30 %.\nProve Thyself extends its effect to all Survivors within its range.\nSurvivors can only be affected by one instance of Prove Thyself at a time."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Simple Chest Build",
+     "notes": [
+      "Plunderer's Instinct shows the auras of all chests and indirectly reveals the location of the basement. Remember to stay away from it during chase against certain Killers that are good at defending it, such as Cannibal or Trapper!",
+      "Your second perk will help to heal you consistently, by either finding med-kits (Pharmacy) or triggering a passive self-heal (Moment of Glory).",
+      "Your third and fourth perk provide awareness about your team and available resources. Got an extra med-kit? Give it to a team mate!",
+      "This build only uses teachable from Quentin Smith, but any of the alternative perks also work well!"
+     ],
+     "perks": [
+      {
+       "name": "Plunderer's Instinct",
+       "icon": "images/IconPerks_plunderersInstinct.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/2/28/IconPerks_plunderersInstinct.png",
+       "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of the following objects are revealed to you:\nClosed Chests located in the environment.\nItems sitting inside opened Chests.\nItems dropped in the environment.\nIncreases the chances of finding rarer Items inside Chests by +50 %.\nIncreases the unlocking speed of Chests by 150/175/200 %.",
+       "alts": []
+      },
+      {
+       "name": "Pharmacy",
+       "icon": "images/IconPerks_pharmacy.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f1/IconPerks_pharmacy.png",
+       "desc": "While unlocking a Chest, you benefit from the following effects:\nIncreases the Unlocking and Rummaging speeds by 75/100/125 %.\nReduces the audible range of all noises related to the Unlocking interaction by -12 metres.\nGuarantees an Emergency Med-Kit after completing the interaction.\nYou can rummage each chest 1 time.",
+       "alts": [
+        {
+         "name": "Moment of Glory",
+         "icon": "images/IconPerks_MomentOfGlory.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/98/IconPerks_MomentOfGlory.png",
+         "desc": "After performing the Unlocking or Rummaging action on Chests a total of 1 time, Moment of Glory activates:\nWhen you become injured, you instantly suffer from the Broken Status Effect.\nYou are automatically healed 1 Health State after 80/70/60 seconds.\nThis effect is cancelled prematurely if you enter the Dying State.\nMoment of Glory does not activate if you already suffer from the Broken Status Effect.\nMoment of Glory deactivates after healing you."
+        }
+       ]
+      },
+      {
+       "name": "Dark Sense",
+       "icon": "images/IconPerks_darkSense.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/92/IconPerks_darkSense.png",
+       "desc": "Unlocks potential in your Aura-reading ability.\nWhenever a Generator is completed, Dark Sense activates:\nWhen the Killer gets within 24 metres of you, Dark Sense activates for 13/14/15 seconds:\nYou see the Killer's aura.\nYou see auras of other Survivors.\nYou see the auras of Pallets and Windows within 32 metres.\nDark Sense deactivates after use.",
+       "alts": [
+        {
+         "name": "Alert",
+         "icon": "images/IconPerks_alert.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/71/IconPerks_alert.png",
+         "desc": "Whenever the Killer performs the Break or Damage Action, Alert triggers:\nTheir Aura is revealed to you for 3/4/5 seconds."
+        },
+        {
+         "name": "Apocalyptic Ingenuity",
+         "icon": "images/IconPerks_apocalypticIngenuity.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/60/IconPerks_apocalypticIngenuity.png",
+         "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of broken Pallets are revealed to you within 24/28/32 metres.\nAfter unlocking or rummaging through 1 Chest, Apocalyptic Ingenuity gains a special ability.\nWhile standing next to the location of a broken Pallet, press and hold the Active Ability button for 3 seconds to use it:\nRebuilds it as a Fragile Pallet.\nFragile Pallets instantly break when dropped."
+        },
+        {
+         "name": "Premonition",
+         "icon": "images/IconPerks_premonition.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/39/IconPerks_premonition.png",
+         "desc": "While not being chased, looking in the Killer's direction within a range of 32 metres triggers Premonition:\nTriggers an audio cue\nReveals the Killer's aura for 3 seconds.\nPremonition has a cool-down of 55/50/45 seconds."
+        }
+       ]
+      },
+      {
+       "name": "Kindred",
+       "icon": "images/IconPerks_kindred.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a8/IconPerks_kindred.png",
+       "desc": "Unlocks potential in your Aura-reading ability.\nWhenever any Survivor is hooked, Kindred activates and applies the following effects:\nThe Aura of the Killer is revealed to all Survivors whenever the Killer comes within 14/15/16 metres of the Hook.\nIf you are the Hooked Survivor, the Auras of all Survivors are revealed to each other.\nIf you are not the Hooked Survivor, the Auras of all other Survivors are only revealed to you.",
+       "alts": [
+        {
+         "name": "Bond",
+         "icon": "images/IconPerks_bond.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a0/IconPerks_bond.png",
+         "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of all other Survivors are revealed to you within 20/28/36 metres."
+        },
+        {
+         "name": "Empathy",
+         "icon": "images/IconPerks_empathy.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/ae/IconPerks_empathy.png",
+         "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of injured or dying Survivors are revealed to you within 64/96/128 metres."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Super Aura Build",
+     "notes": [
+      "A build focused on extending the aura range of Kindred, revealing the Killer from an absurdly long range anytime someone is on the hook, sometimes for the whole team!",
+      "Thanks to Bond's incredible range, you'll often be able to see what your entire team is doing even when nobody is on the hook. Use this info to lead the Killer away from your team!",
+      "This builds can be put together just with teachables from Ace Visconti if you ignore the perk \"Bond\", but feel free to experiment or try one of the suggested alternative perks to make it stronger!",
+      "Keep in mind that some aura perks such as Wiretap are NOT affected by Open-Handed."
+     ],
+     "perks": [
+      {
+       "name": "Open-Handed",
+       "icon": "images/IconPerks_open-Handed.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/5d/IconPerks_open-Handed.png",
+       "desc": "All Survivors benefit from the following permanent effect:\nIncreases the radius of all Aura-reading abilities by 8/12/16 metres.\nOpen-Handed only affects Auras that emanate from the Survivor causing them.\nSurvivors can only be affected by one instance of Open-Handed at a time.",
+       "alts": []
+      },
+      {
+       "name": "Kindred",
+       "icon": "images/IconPerks_kindred.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a8/IconPerks_kindred.png",
+       "desc": "Unlocks potential in your Aura-reading ability.\nWhenever any Survivor is hooked, Kindred activates and applies the following effects:\nThe Aura of the Killer is revealed to all Survivors whenever the Killer comes within 14/15/16 metres of the Hook.\nIf you are the Hooked Survivor, the Auras of all Survivors are revealed to each other.\nIf you are not the Hooked Survivor, the Auras of all other Survivors are only revealed to you.",
+       "alts": []
+      },
+      {
+       "name": "We'll Make It",
+       "icon": "images/IconPerks_wellMakeIt.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/8a/IconPerks_wellMakeIt.png",
+       "desc": "After unhooking another Survivor, We'll Make It activates for 70/80/90 seconds:\nIncreases your Altruistic Healing speed by +100 %.",
+       "alts": [
+        {
+         "name": "Resilience",
+         "icon": "images/IconPerks_resilience.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_resilience.png",
+         "desc": "Whenever you are in the Injured State, Resilience activates:\nIncreases the Action speeds for the following interactions by 7/8/9 %:\nBlessing or Cleansing Totems.\nHealing yourself or other Survivors.\nOpening Exit Gates.\nRepairing Generators.\nSabotaging Hooks.\nSearching Chests.\nUnhooking other Survivors.\nVaulting Windows."
+        },
+        {
+         "name": "Resurgence",
+         "icon": "images/IconPerks_resurgence.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f3/IconPerks_resurgence.png",
+         "desc": "After you are unhooked by any means, Resurgence triggers the following effect:\nGrants you 50/60/70 % of Healing progression."
+        }
+       ]
+      },
+      {
+       "name": "Bond",
+       "icon": "images/IconPerks_bond.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a0/IconPerks_bond.png",
+       "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of all other Survivors are revealed to you within 20/28/36 metres.",
+       "alts": [
+        {
+         "name": "Will to Live",
+         "icon": "images/IconPerks_decisiveStrike.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_decisiveStrike.png",
+         "desc": "Using whatever is at hand, you stab your aggressor in an ultimate attempt to escape.\nAfter being unhooked or unhooking yourself, Will to Live activates for the next 40/50/60 seconds:\nWhen grabbed or picked up by the Killer, succeed a Skill Check to stab the Killer and escape from their grasp.\nStuns the Killer for 4 seconds.\nCauses you to become the next Obsession.\nWill to Live is deactivated once the Exit Gates are powered.\nWill to Live is disabled for the remainder of the Trial after use.\nWill to Live is deactivated prematurely when performing a Conspicuous Action.\nIncreases your chance of becoming the initial  Obsession by increasing the default value by +100 %.\nThe Killer can only be obsessed with one Survivor at a time."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Self Reliable Build",
+     "notes": [
+      "A build focused on always being able to heal, recover and find objectives without any help.",
+      "After being unhooked or if you lose the Killer, head to the basement for a chance to heal yourself with \"Strength in Shadows\". Your perk \"Off the Record\" will keep you stealthy if you've been unhooked recently."
+     ],
+     "perks": [
+      {
+       "name": "Off the Record",
+       "icon": "images/IconPerks_offTheRecord.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/9e/IconPerks_offTheRecord.png",
+       "desc": "After being unhooked or unhooking yourself, Off the Record activates for 30/35/40 seconds:\nBlocks your Aura from being revealed.\nSuppresses your Grunts of Pain while in the Injured State.\nSuppresses the creation of your Scratch Marks.\nGrants the Endurance Status Effect.\nEndurance is cancelled prematurely when performing a Conspicuous Action of any kind.\nOff the Record deactivates prematurely and is disabled for the remainder of the Trial upon powering the Exit Gates.",
+       "alts": [
+        {
+         "name": "Will to Live",
+         "icon": "images/IconPerks_decisiveStrike.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_decisiveStrike.png",
+         "desc": "Using whatever is at hand, you stab your aggressor in an ultimate attempt to escape.\nAfter being unhooked or unhooking yourself, Will to Live activates for the next 40/50/60 seconds:\nWhen grabbed or picked up by the Killer, succeed a Skill Check to stab the Killer and escape from their grasp.\nStuns the Killer for 4 seconds.\nCauses you to become the next Obsession.\nWill to Live is deactivated once the Exit Gates are powered.\nWill to Live is disabled for the remainder of the Trial after use.\nWill to Live is deactivated prematurely when performing a Conspicuous Action.\nIncreases your chance of becoming the initial  Obsession by increasing the default value by +100 %.\nThe Killer can only be obsessed with one Survivor at a time."
+        },
+        {
+         "name": "Self-Preservation",
+         "icon": "images/IconPerks_self-Preservation.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/43/IconPerks_self-Preservation.png",
+         "desc": "Whenever another Survivor is hooked, Self-Preservation triggers its effect: \nGrants the Elusive Status Effect for 13/14/15 seconds"
+        }
+       ]
+      },
+      {
+       "name": "Strength in Shadows",
+       "icon": "images/IconPerks_strengthInShadows.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/e2/IconPerks_strengthInShadows.png",
+       "desc": "Whenever you are inside the Basement, Strength in Shadows activates:\nUnlocks the Strength in Shadows ability, allowing you to self-heal without needing a Med-Kit at 70 % of the normal Healing speed.\nUpon finishing a heal in the Basement, the Aura of the Killer is revealed to you for 6/8/10 seconds.",
+       "alts": [
+        {
+         "name": "Self-Care",
+         "icon": "images/IconPerks_self-Care.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/b2/IconPerks_self-Care.png",
+         "desc": "Unlocks the Self-Care ability:\nGrants the ability to self-heal without needing a Med-Kit at 25/30/35 % of the regular Healing speed."
+        },
+        {
+         "name": "Road Life",
+         "icon": "images/IconPerks_RoadLife.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/d/df/IconPerks_RoadLife.png",
+         "desc": "While injured and repairing a Generator, regular Skill Checks have the following effects:\nGain +1 Token for Great Repair Skill Checks.\nGain 0 Tokens for Good Repair Skill Checks.\nLose -1 Token for Failed Repair Skill Checks.\nOnce you accumulate 6/5/4 Tokens, consume all Tokens to benefit from the following effect:\nUnlocks the ability to heal yourself\nIncreases your Self-Healing speed by +10 % until you stop healing and for 4 seconds after."
+        }
+       ]
+      },
+      {
+       "name": "Déjà Vu",
+       "icon": "images/IconPerks_dejaVu.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/89/IconPerks_dejaVu.png",
+       "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of whichever 3 Generators are currently in closest proximity to one another are revealed to you.\nIncreases your Repair speed on those Generators by 4/5/6 %.",
+       "alts": [
+        {
+         "name": "Kindred",
+         "icon": "images/IconPerks_kindred.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a8/IconPerks_kindred.png",
+         "desc": "Unlocks potential in your Aura-reading ability.\nWhenever any Survivor is hooked, Kindred activates and applies the following effects:\nThe Aura of the Killer is revealed to all Survivors whenever the Killer comes within 14/15/16 metres of the Hook.\nIf you are the Hooked Survivor, the Auras of all Survivors are revealed to each other.\nIf you are not the Hooked Survivor, the Auras of all other Survivors are only revealed to you."
+        },
+        {
+         "name": "Wicked",
+         "icon": "images/IconPerks_wicked.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/8f/IconPerks_wicked.png",
+         "desc": "After you are unhooked by any means, Wicked triggers the following effect:\nThe Aura of the Killer is revealed to you for 16/18/20 seconds.\nWhile hooked inside the Basement, Wicked potentially triggers the following effect:\nFirst Hook Stage: 100 % to succeed an attempted Self-Unhook.\nSecond Hook Stage:  Does not trigger the effect.\nLast Survivor Standing:  Does not trigger the effect."
+        }
+       ]
+      },
+      {
+       "name": "Unbreakable",
+       "icon": "images/IconPerks_unbreakable.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/4a/IconPerks_unbreakable.png",
+       "desc": "Whenever you are put in the Dying State by the Killer, Unbreakable activates:\nIncreases your Recovery speed by 25/30/35 %.\nUnlocks the Self-Recovery ability, allowing you to fully recover from the Dying State.\nThis ability can only be used once per Trial.",
+       "alts": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Advanced Builds",
+   "builds": [
+    {
+     "name": "Chase Oriented Build",
+     "notes": [
+      "A build with heavy emphasis on vault speed and information related to pallets & windows.",
+      "Pre-dropping pallets becomes much stronger with this build; you can make a lot more distance if the Killer chooses to break it, vault it back very quickly with Finesse or even benefit from the aura reveal if you're running Troubleshooter.",
+      "Even with the ability to vault faster, dont' forget to stay unpredictable! The extra speed won't help you if the Killer can always guess what you'll do next."
+     ],
+     "perks": [
+      {
+       "name": "Windows of Opportunity",
+       "icon": "images/IconPerks_windowsOfOpportunity.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/17/IconPerks_windowsOfOpportunity.png",
+       "desc": "Unlocks potential in your Aura-reading ability.\nThe Auras of Windows are revealed to you within 24 metres.\nYou vault Windows +10 % faster.\nWindows of Opportunity goes on a 40/35/30 seconds cool-down when you vault a Window.",
+       "alts": [
+        {
+         "name": "Troubleshooter",
+         "icon": "images/IconPerks_troubleshooter.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/0d/IconPerks_troubleshooter.png",
+         "desc": "When you are chased by the Killer, Troubleshooter activates:\nThe Aura of the Generator with the most progress is revealed to you.\nThe Aura of the Killer is revealed to you for 4/5/6 seconds after dropping a Pallet.\nThese effects linger for 6/8/10 seconds after ending the Chase, after which Troubleshooter deactivates."
+        },
+        {
+         "name": "Alert",
+         "icon": "images/IconPerks_alert.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/71/IconPerks_alert.png",
+         "desc": "Whenever the Killer performs the Break or Damage Action, Alert triggers:\nTheir Aura is revealed to you for 3/4/5 seconds."
+        }
+       ]
+      },
+      {
+       "name": "Five Moves Ahead",
+       "icon": "images/IconsPerks_FiveMovesAhead.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/fe/IconsPerks_FiveMovesAhead.png",
+       "desc": "This perk activates while you are being chased by the Killer or are inside the Killer's Terror Radius:\nAfter you drop a Pallet, you start moving 50 % earlier.\nSee the auras of the 5 closest Pallets.\nThis perk goes on a 40/35/30 seconds cool-down when you drop a Pallet while this perk is activated.",
+       "alts": []
+      },
+      {
+       "name": "Finesse",
+       "icon": "images/IconPerks_finesse.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/fc/IconPerks_finesse.png",
+       "desc": "The threat of danger can motivate any creature to strengthen its resolve.\nWhenever you are healthy, Finesse activates:\nIncreases your Vaulting speed for a Fast Vault by +20 %.\nFinesse has a cool-down of 40/35/30 seconds after performing a Fast Vault.",
+       "alts": [
+        {
+         "name": "Resilience",
+         "icon": "images/IconPerks_resilience.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_resilience.png",
+         "desc": "Whenever you are in the Injured State, Resilience activates:\nIncreases the Action speeds for the following interactions by 7/8/9 %:\nBlessing or Cleansing Totems.\nHealing yourself or other Survivors.\nOpening Exit Gates.\nRepairing Generators.\nSabotaging Hooks.\nSearching Chests.\nUnhooking other Survivors.\nVaulting Windows."
+        }
+       ]
+      },
+      {
+       "name": "Lithe",
+       "icon": "images/IconPerks_lithe.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/cc/IconPerks_lithe.png",
+       "desc": "Whenever you perform a Rushed Vault action, Lithe triggers its effect:\nGrants a +50 % Haste Status Effect for 3 seconds.\nLithe cannot be used while Exhausted.\nLithe causes the Exhausted Status Effect for 60/50/40 seconds.",
+       "alts": [
+        {
+         "name": "Spine Chill",
+         "icon": "images/IconPerks_spineChill.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/57/IconPerks_spineChill.png",
+         "desc": "An unnatural tingle warns you of impending doom.\nWhenever the Killer is within 40 metres of your location and is looking at you, Spine Chill activates:\nYou are notified.\nYou cannot scream for 12 seconds.\nYou vault +10 % faster for 12 seconds.\nSpine Chill then goes on a 40/35/30 seconds cool-down."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Basement Build",
+     "notes": [
+      "Use your first perk to reach (or locate) the basement in chase reliably. You can also use an offering to spawn it in a fixed location, which will briefly reveal it at the start of the match.",
+      "If hooked in basement, Wicked allows you to self-unhook 100% consistently, often denying use of strong Scourge Hook perks from the Killer. You can bait a basement hook during the endgame, which many Killers will be happy to take!",
+      "Then, escape safely with Will to Live or heal quickly with Resurgence if you have a med-kit. Do be careful with Killers that can quickly double-tap you on your way out such as Huntress or Cannibal, however.",
+      "Try telling your team mates that you'll do this in the pre-game chat, if possible!"
+     ],
+     "perks": [
+      {
+       "name": "Overcome",
+       "icon": "images/IconPerks_overcome.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/82/IconPerks_overcome.png",
+       "desc": "Whenever you enter the Injured State from full health, Overcome triggers its effect:\nExtends the duration of the On-hit Sprint boost by +2 seconds.\nOvercome cannot be used while Exhausted.\nOvercome causes the Exhausted Status Effect for 60/50/40 seconds.",
+       "alts": [
+        {
+         "name": "Sprint Burst",
+         "icon": "images/IconPerks_sprintBurst.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/e4/IconPerks_sprintBurst.png",
+         "desc": "Starting to run triggers Sprint Burst:\nGrants a +50 % Haste Status Effect for 2 seconds.\nSprint Burst cannot be used while Exhausted.\nSprint Burst causes the Exhausted Status Effect for 60/50/40 seconds."
+        },
+        {
+         "name": "Plunderer's Instinct",
+         "icon": "images/IconPerks_plunderersInstinct.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/2/28/IconPerks_plunderersInstinct.png",
+         "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of the following objects are revealed to you:\nClosed Chests located in the environment.\nItems sitting inside opened Chests.\nItems dropped in the environment.\nIncreases the chances of finding rarer Items inside Chests by +50 %.\nIncreases the unlocking speed of Chests by 150/175/200 %."
+        }
+       ]
+      },
+      {
+       "name": "Wicked",
+       "icon": "images/IconPerks_wicked.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/8f/IconPerks_wicked.png",
+       "desc": "After you are unhooked by any means, Wicked triggers the following effect:\nThe Aura of the Killer is revealed to you for 16/18/20 seconds.\nWhile hooked inside the Basement, Wicked potentially triggers the following effect:\nFirst Hook Stage: 100 % to succeed an attempted Self-Unhook.\nSecond Hook Stage:  Does not trigger the effect.\nLast Survivor Standing:  Does not trigger the effect.",
+       "alts": []
+      },
+      {
+       "name": "Will to Live",
+       "icon": "images/IconPerks_decisiveStrike.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_decisiveStrike.png",
+       "desc": "Using whatever is at hand, you stab your aggressor in an ultimate attempt to escape.\nAfter being unhooked or unhooking yourself, Will to Live activates for the next 40/50/60 seconds:\nWhen grabbed or picked up by the Killer, succeed a Skill Check to stab the Killer and escape from their grasp.\nStuns the Killer for 4 seconds.\nCauses you to become the next Obsession.\nWill to Live is deactivated once the Exit Gates are powered.\nWill to Live is disabled for the remainder of the Trial after use.\nWill to Live is deactivated prematurely when performing a Conspicuous Action.\nIncreases your chance of becoming the initial  Obsession by increasing the default value by +100 %.\nThe Killer can only be obsessed with one Survivor at a time.",
+       "alts": [
+        {
+         "name": "Resurgence",
+         "icon": "images/IconPerks_resurgence.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f3/IconPerks_resurgence.png",
+         "desc": "After you are unhooked by any means, Resurgence triggers the following effect:\nGrants you 50/60/70 % of Healing progression."
+        }
+       ]
+      },
+      {
+       "name": "Five Moves Ahead",
+       "icon": "images/IconsPerks_FiveMovesAhead.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/fe/IconsPerks_FiveMovesAhead.png",
+       "desc": "This perk activates while you are being chased by the Killer or are inside the Killer's Terror Radius:\nAfter you drop a Pallet, you start moving 50 % earlier.\nSee the auras of the 5 closest Pallets.\nThis perk goes on a 40/35/30 seconds cool-down when you drop a Pallet while this perk is activated.",
+       "alts": [
+        {
+         "name": "Unbreakable",
+         "icon": "images/IconPerks_unbreakable.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/4a/IconPerks_unbreakable.png",
+         "desc": "Whenever you are put in the Dying State by the Killer, Unbreakable activates:\nIncreases your Recovery speed by 25/30/35 %.\nUnlocks the Self-Recovery ability, allowing you to fully recover from the Dying State.\nThis ability can only be used once per Trial."
+        },
+        {
+         "name": "Inner Strength",
+         "icon": "images/IconPerks_innerStrength.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/47/IconPerks_innerStrength.png",
+         "desc": "After cleansing a Totem of any kind, Inner Strength activates.\nWhile active, hiding inside a Locker for 10/9/8 seconds triggers the following effect:\nHeals you to the next Health State.\nInner Strength deactivates after use.\nInner Strength cannot be used while suffering from the Broken Status Effect."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Locker Info Build",
+     "notes": [
+      "Go inside a locker slowly and then come out quickly! Thanks to \"Quick & Quiet\" you won't make any noise. Doing this will activate \"Lucky Star\" and \"Rapid Response\" showing you the auras of your team mates, the Killer and the nearest generator!",
+      "Your fourth perk, Inner Strength, can also turn lockers into healing stations if you've cleansed a totem. There's many other great alternatives depending on your playstyle and the item you're bringing."
+     ],
+     "perks": [
+      {
+       "name": "Lucky Star",
+       "icon": "images/IconPerks_luckyStar.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/08/IconPerks_luckyStar.png",
+       "desc": "While hiding inside a Locker, you benefit from the following effect:\nSuppresses your Grunts of Pain.\nAfter exiting the Locker you benefit from the following effects for 30 seconds:\nSuppresses your Grunts of Pain and the creation of Pools of Blood.\nThe Auras of all other Survivors are revealed to you.\nThe Aura of the nearest Generator is revealed to you and highlighted in yellow.\nLucky Star has a cool-down of 35/30/25 seconds.",
+       "alts": []
+      },
+      {
+       "name": "Quick & Quiet",
+       "icon": "images/IconPerks_quickAndQuiet.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/14/IconPerks_quickAndQuiet.png",
+       "desc": "When performing a Rushed action to vault across Pallets or Windows, or to enter or exit Lockers, Quick & Quiet triggers its effect:\nSuppresses all noises related to those interactions and the accompanying Loud Noise Notification.\nQuick & Quiet has a cool-down of 25/20/15 seconds.",
+       "alts": []
+      },
+      {
+       "name": "Rapid Response",
+       "icon": "images/T_UI_iconsPerks_RapidResponse.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/b0/T_UI_iconsPerks_RapidResponse.png",
+       "desc": "Whenever you become afflicted by the Exhausted Status Effect, Rapid Response triggers its effect:\nThe Aura of the Killer is revealed to you for 2 seconds.\nPerform a Rushed action to exit a Locker to voluntarily trigger the Status Effect for 30/25/20 seconds.\nRapid Response cannot be used to override an existing Exhausted Status Effect.",
+       "alts": [
+        {
+         "name": "Will to Live",
+         "icon": "images/IconPerks_decisiveStrike.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_decisiveStrike.png",
+         "desc": "Using whatever is at hand, you stab your aggressor in an ultimate attempt to escape.\nAfter being unhooked or unhooking yourself, Will to Live activates for the next 40/50/60 seconds:\nWhen grabbed or picked up by the Killer, succeed a Skill Check to stab the Killer and escape from their grasp.\nStuns the Killer for 4 seconds.\nCauses you to become the next Obsession.\nWill to Live is deactivated once the Exit Gates are powered.\nWill to Live is disabled for the remainder of the Trial after use.\nWill to Live is deactivated prematurely when performing a Conspicuous Action.\nIncreases your chance of becoming the initial  Obsession by increasing the default value by +100 %.\nThe Killer can only be obsessed with one Survivor at a time."
+        }
+       ]
+      },
+      {
+       "name": "Inner Strength",
+       "icon": "images/IconPerks_innerStrength.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/47/IconPerks_innerStrength.png",
+       "desc": "After cleansing a Totem of any kind, Inner Strength activates.\nWhile active, hiding inside a Locker for 10/9/8 seconds triggers the following effect:\nHeals you to the next Health State.\nInner Strength deactivates after use.\nInner Strength cannot be used while suffering from the Broken Status Effect.",
+       "alts": [
+        {
+         "name": "Dance With Me",
+         "icon": "images/IconPerks_danceWithMe.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/17/IconPerks_danceWithMe.png",
+         "desc": "When performing a Rushed action to vault a Window or exit a Locker, Dance With Me triggers its effect:\nSuppresses the creation of your Scratch Marks for 5 seconds.\nDance With Me has a cool-down of 20/20/15 seconds."
+        },
+        {
+         "name": "Head On",
+         "icon": "images/IconPerks_headOn.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/cb/IconPerks_headOn.png",
+         "desc": "After hiding in a Locker for 3 seconds, Head On activates.\nWhile active, hold the Sprint button while exiting the Locker to trigger its effect:\nCauses you to forcefully launch yourself from the Locker, stunning the Killer if they are too close to it:\nHas a Stun range of 2.5 metres.\nHas a Stun duration of 3 seconds.\nTriggers a Loud Noise Notification for the Killer upon missing.\nHead On cannot be used while Exhausted.\nHead On causes the Exhausted Status Effect for 60/50/40 seconds on a successful stun."
+        },
+        {
+         "name": "Built to Last",
+         "icon": "images/IconPerks_builtToLast.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/3b/IconPerks_builtToLast.png",
+         "desc": "While hiding inside a Locker with a depleted Item equipped, Built to Last triggers the following effect after 12/10/8 seconds:\nRecharges the Item to one of the following percentages:\nFirst time: 99 %.\nSecond time: 66 %.\nThird time: 33 %.\nBuilt to Last is disabled for the remainder of the Trial after triggering its effect for the third time."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Disappear & Heal Build",
+     "notes": [
+      "After being damaged, you'll start leaving no scratchmarks/blood thanks to Lucky Break and create tons of distance with Overcome.",
+      "Use this opportunity to break line of sight and follow an unpredictable path. The Killer is likely to lose you, especially around large buildings or indoor maps! Be careful with Killers that can reveal you with Killer Instinct or other methods.",
+      "If you've opened a chest already, you'll start healing passively thanks to Moment of Glory. If not, you can get healed by a team mate or find a chest to start the process.",
+      "If you don't use Moment of Glory, be sure to bring a med-kit or some perk to help you get healed fast so that you keep Lucky Break's effects for longer."
+     ],
+     "perks": [
+      {
+       "name": "Lucky Break",
+       "icon": "images/IconPerks_luckyBreak.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a7/IconPerks_luckyBreak.png",
+       "desc": "Whenever you are in the Injured State, Lucky Break activates:\nSuppresses the creation of Pools of Blood and Scratch Marks for up to 40/50/60 seconds.\nWhenever you are healing another Survivor, Lucky Break recharges by the same amount of time spent performing the Healing action, up to its initial maximum.\nLucky Break deactivates once its timer runs out or whenever your Health State updates to any other but the Injured State.",
+       "alts": []
+      },
+      {
+       "name": "Overcome",
+       "icon": "images/IconPerks_overcome.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/82/IconPerks_overcome.png",
+       "desc": "Whenever you enter the Injured State from full health, Overcome triggers its effect:\nExtends the duration of the On-hit Sprint boost by +2 seconds.\nOvercome cannot be used while Exhausted.\nOvercome causes the Exhausted Status Effect for 60/50/40 seconds.",
+       "alts": [
+        {
+         "name": "Iron Will",
+         "icon": "images/IconPerks_ironWill.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/58/IconPerks_ironWill.png",
+         "desc": "While injured, you benefit from the following effects:\nReduces the volume of Grunts of Pain by 80/90/100 %.\nIron Will cannot be used while Exhausted, but does not cause the Status Effect."
+        }
+       ]
+      },
+      {
+       "name": "Moment of Glory",
+       "icon": "images/IconPerks_MomentOfGlory.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/98/IconPerks_MomentOfGlory.png",
+       "desc": "After performing the Unlocking or Rummaging action on Chests a total of 1 time, Moment of Glory activates:\nWhen you become injured, you instantly suffer from the Broken Status Effect.\nYou are automatically healed 1 Health State after 80/70/60 seconds.\nThis effect is cancelled prematurely if you enter the Dying State.\nMoment of Glory does not activate if you already suffer from the Broken Status Effect.\nMoment of Glory deactivates after healing you.",
+       "alts": [
+        {
+         "name": "Resurgence",
+         "icon": "images/IconPerks_resurgence.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f3/IconPerks_resurgence.png",
+         "desc": "After you are unhooked by any means, Resurgence triggers the following effect:\nGrants you 50/60/70 % of Healing progression."
+        }
+       ]
+      },
+      {
+       "name": "Plunderer's Instinct",
+       "icon": "images/IconPerks_plunderersInstinct.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/2/28/IconPerks_plunderersInstinct.png",
+       "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of the following objects are revealed to you:\nClosed Chests located in the environment.\nItems sitting inside opened Chests.\nItems dropped in the environment.\nIncreases the chances of finding rarer Items inside Chests by +50 %.\nIncreases the unlocking speed of Chests by 150/175/200 %.",
+       "alts": [
+        {
+         "name": "Calm Spirit",
+         "icon": "images/IconPerks_calmSpirit.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/6c/IconPerks_calmSpirit.png",
+         "desc": "You experience the following effects during a Trial:\nNearby Crows no longer fly off and alert others to your presence, unless you come within touching distance.\nSuppresses the urge to scream from any cause at all times.\nSuppresses all noises related to interacting with the following Props:\nChests\nTotems\nIncreases the Action speeds for Blessing, Cleansing, and Unlocking by 8/9/10 %."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Anti-Tunnel Stun Build",
+     "notes": [
+      "Being tunneled? Go down (or use Plot Twist) under a pallet! After stunning the Killer with Will to Live (also known as Decisive Strike), you can immediately drop the pallet and trigger the effects of Smash Hit to make distance (even if the Killer doesn't visually get stunned).",
+      "The combination of Five Moves Ahead and Smash Hit is also very solid in general, allowing you to reliably find pallets and create tons of distance if you manage to stun the Killer with one.",
+      "Already have a med-kit to heal yourself? Feel free to consider one of the alternative 4th perks."
+     ],
+     "perks": [
+      {
+       "name": "Will to Live",
+       "icon": "images/IconPerks_decisiveStrike.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_decisiveStrike.png",
+       "desc": "Using whatever is at hand, you stab your aggressor in an ultimate attempt to escape.\nAfter being unhooked or unhooking yourself, Will to Live activates for the next 40/50/60 seconds:\nWhen grabbed or picked up by the Killer, succeed a Skill Check to stab the Killer and escape from their grasp.\nStuns the Killer for 4 seconds.\nCauses you to become the next Obsession.\nWill to Live is deactivated once the Exit Gates are powered.\nWill to Live is disabled for the remainder of the Trial after use.\nWill to Live is deactivated prematurely when performing a Conspicuous Action.\nIncreases your chance of becoming the initial  Obsession by increasing the default value by +100 %.\nThe Killer can only be obsessed with one Survivor at a time.",
+       "alts": []
+      },
+      {
+       "name": "Smash Hit",
+       "icon": "images/IconPerks_smashHit.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/e0/IconPerks_smashHit.png",
+       "desc": "Whenever you stun the Killer with a Pallet , Smash Hit triggers its effect:\nGrants a +50 % Haste Status Effect for 4 seconds.\nSmash Hit cannot be used while Exhausted.\nSmash Hit causes the Exhausted Status Effect for 30/25/20 seconds.",
+       "alts": []
+      },
+      {
+       "name": "Five Moves Ahead",
+       "icon": "images/IconsPerks_FiveMovesAhead.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/fe/IconsPerks_FiveMovesAhead.png",
+       "desc": "This perk activates while you are being chased by the Killer or are inside the Killer's Terror Radius:\nAfter you drop a Pallet, you start moving 50 % earlier.\nSee the auras of the 5 closest Pallets.\nThis perk goes on a 40/35/30 seconds cool-down when you drop a Pallet while this perk is activated.",
+       "alts": []
+      },
+      {
+       "name": "Plot Twist",
+       "icon": "images/IconPerks_plotTwist.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/ac/IconPerks_plotTwist.png",
+       "desc": "Whenever you are in the Injured State, Plot Twist activates.\nWhile active, press the Active Ability button while crouching and stationary to trigger the following primary effects:\nSilently enter the Dying State without notifying the Killer.\nSuppresses your Grunts of Pain and the creation of Pools of Blood.\nUnlocks the Self-Recovery ability, allowing you to fully recover from the Dying State:\nIncreases the Recovery speed by +25 %.\nAfter self-recovering from the Dying State, you benefit from the following secondary effects:\nInstantly heals you to full health.\nGrants a +50 % Haste Status Effect for 2/3/4 seconds.\nPlot Twist is disabled after recovering by any means, but can be reactivated once more upon powering the Exit Gates.",
+       "alts": [
+        {
+         "name": "Troubleshooter",
+         "icon": "images/IconPerks_troubleshooter.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/0d/IconPerks_troubleshooter.png",
+         "desc": "When you are chased by the Killer, Troubleshooter activates:\nThe Aura of the Generator with the most progress is revealed to you.\nThe Aura of the Killer is revealed to you for 4/5/6 seconds after dropping a Pallet.\nThese effects linger for 6/8/10 seconds after ending the Chase, after which Troubleshooter deactivates."
+        },
+        {
+         "name": "Resurgence",
+         "icon": "images/IconPerks_resurgence.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f3/IconPerks_resurgence.png",
+         "desc": "After you are unhooked by any means, Resurgence triggers the following effect:\nGrants you 50/60/70 % of Healing progression."
+        },
+        {
+         "name": "Parental Guidance",
+         "icon": "images/IconPerks_parentalGuidance.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/46/IconPerks_parentalGuidance.png",
+         "desc": "After stunning the Killer by any means, Parental Guidance triggers its effect:\nSuppresses your Grunts of Pain and the creation of Scratch Marks and Pools of Blood for 5/6/7 seconds."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Chest Focused Build",
+     "notes": [
+      "Quickly do a chest when you're injured to trigger a slow self-heal from Moment of Glory! If you're confident, you can even do it ahead of time.",
+      "Doing a single chest will activate Apocalyptic Ingenuity, which lets you rebuild a \"fragile\" pallet that shatters on use. Most importantly, it reveals the auras of used pallets which is a really nice effect."
+     ],
+     "perks": [
+      {
+       "name": "Moment of Glory",
+       "icon": "images/IconPerks_MomentOfGlory.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/98/IconPerks_MomentOfGlory.png",
+       "desc": "After performing the Unlocking or Rummaging action on Chests a total of 1 time, Moment of Glory activates:\nWhen you become injured, you instantly suffer from the Broken Status Effect.\nYou are automatically healed 1 Health State after 80/70/60 seconds.\nThis effect is cancelled prematurely if you enter the Dying State.\nMoment of Glory does not activate if you already suffer from the Broken Status Effect.\nMoment of Glory deactivates after healing you.",
+       "alts": [
+        {
+         "name": "Pharmacy",
+         "icon": "images/IconPerks_pharmacy.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f1/IconPerks_pharmacy.png",
+         "desc": "While unlocking a Chest, you benefit from the following effects:\nIncreases the Unlocking and Rummaging speeds by 75/100/125 %.\nReduces the audible range of all noises related to the Unlocking interaction by -12 metres.\nGuarantees an Emergency Med-Kit after completing the interaction.\nYou can rummage each chest 1 time."
+        }
+       ]
+      },
+      {
+       "name": "Plunderer's Instinct",
+       "icon": "images/IconPerks_plunderersInstinct.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/2/28/IconPerks_plunderersInstinct.png",
+       "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of the following objects are revealed to you:\nClosed Chests located in the environment.\nItems sitting inside opened Chests.\nItems dropped in the environment.\nIncreases the chances of finding rarer Items inside Chests by +50 %.\nIncreases the unlocking speed of Chests by 150/175/200 %.",
+       "alts": [
+        {
+         "name": "Déjà Vu",
+         "icon": "images/IconPerks_dejaVu.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/89/IconPerks_dejaVu.png",
+         "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of whichever 3 Generators are currently in closest proximity to one another are revealed to you.\nIncreases your Repair speed on those Generators by 4/5/6 %."
+        },
+        {
+         "name": "Appraisal",
+         "icon": "images/IconPerks_appraisal.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/c1/IconPerks_appraisal.png",
+         "desc": "Start the Trial with 4 Tokens.\nWhile standing next to an unlocked and empty Chest, press and hold the Interaction button to perform the Rummage action:\nGrants the ability to retrieve an extra Item from that Chest.\nThis consumes -1 Token and is limited to twice per Chest.\nIncreases the Rummaging speed by 40/60/80 %."
+        }
+       ]
+      },
+      {
+       "name": "Apocalyptic Ingenuity",
+       "icon": "images/IconPerks_apocalypticIngenuity.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/60/IconPerks_apocalypticIngenuity.png",
+       "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of broken Pallets are revealed to you within 24/28/32 metres.\nAfter unlocking or rummaging through 1 Chest, Apocalyptic Ingenuity gains a special ability.\nWhile standing next to the location of a broken Pallet, press and hold the Active Ability button for 3 seconds to use it:\nRebuilds it as a Fragile Pallet.\nFragile Pallets instantly break when dropped.",
+       "alts": [
+        {
+         "name": "Off the Record",
+         "icon": "images/IconPerks_offTheRecord.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/9e/IconPerks_offTheRecord.png",
+         "desc": "After being unhooked or unhooking yourself, Off the Record activates for 30/35/40 seconds:\nBlocks your Aura from being revealed.\nSuppresses your Grunts of Pain while in the Injured State.\nSuppresses the creation of your Scratch Marks.\nGrants the Endurance Status Effect.\nEndurance is cancelled prematurely when performing a Conspicuous Action of any kind.\nOff the Record deactivates prematurely and is disabled for the remainder of the Trial upon powering the Exit Gates."
+        },
+        {
+         "name": "Will to Live",
+         "icon": "images/IconPerks_decisiveStrike.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_decisiveStrike.png",
+         "desc": "Using whatever is at hand, you stab your aggressor in an ultimate attempt to escape.\nAfter being unhooked or unhooking yourself, Will to Live activates for the next 40/50/60 seconds:\nWhen grabbed or picked up by the Killer, succeed a Skill Check to stab the Killer and escape from their grasp.\nStuns the Killer for 4 seconds.\nCauses you to become the next Obsession.\nWill to Live is deactivated once the Exit Gates are powered.\nWill to Live is disabled for the remainder of the Trial after use.\nWill to Live is deactivated prematurely when performing a Conspicuous Action.\nIncreases your chance of becoming the initial  Obsession by increasing the default value by +100 %.\nThe Killer can only be obsessed with one Survivor at a time."
+        }
+       ]
+      },
+      {
+       "name": "Dead Hard",
+       "icon": "images/IconPerks_deadHard.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/75/IconPerks_deadHard.png",
+       "desc": "After being unhooked by any means, Dead Hard activates:While injured and running, press the Active Ability button to trigger the following effect:\nGrants the Endurance Status Effect for 0.5 seconds.\nDead Hard cannot be used while Exhausted.\nDead Hard causes the Exhausted Status Effect for 60/50/40 seconds.",
+       "alts": [
+        {
+         "name": "Resilience",
+         "icon": "images/IconPerks_resilience.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_resilience.png",
+         "desc": "Whenever you are in the Injured State, Resilience activates:\nIncreases the Action speeds for the following interactions by 7/8/9 %:\nBlessing or Cleansing Totems.\nHealing yourself or other Survivors.\nOpening Exit Gates.\nRepairing Generators.\nSabotaging Hooks.\nSearching Chests.\nUnhooking other Survivors.\nVaulting Windows."
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Team Player",
+   "builds": [
+    {
+     "name": "All Purpose Team Build",
+     "notes": [
+      "Versatile build allows you to bounce back from any situation. ",
+      "Tunneled? Use Lithe on a vault after escaping with Will to Live (Decisive Strike). Not tunneled? Heal in seconds with Resurgence. You can also replace Lithe with any other exhaustion perk of your choice.",
+      "You can heal yourself with Plot Twist if nobody can help you. If you think the Killer is about to down you, you can use it aggressively in their face to force a difficult decision; leave you there and allow you to fully heal or commit to picking you up (relieving some pressure away from your team mates in doing so). If they pick you up, you can escape their grasp with Will to Live/Decisive if it's available.",
+      "We're Gonna Live Forever is also a great 4th perk alternative to quickly help a team mate recover if the Killer is trying to down multiple Survivors. There's many other great alternatives too!"
+     ],
+     "perks": [
+      {
+       "name": "Resurgence",
+       "icon": "images/IconPerks_resurgence.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f3/IconPerks_resurgence.png",
+       "desc": "After you are unhooked by any means, Resurgence triggers the following effect:\nGrants you 50/60/70 % of Healing progression.",
+       "alts": []
+      },
+      {
+       "name": "Will to Live",
+       "icon": "images/IconPerks_decisiveStrike.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_decisiveStrike.png",
+       "desc": "Using whatever is at hand, you stab your aggressor in an ultimate attempt to escape.\nAfter being unhooked or unhooking yourself, Will to Live activates for the next 40/50/60 seconds:\nWhen grabbed or picked up by the Killer, succeed a Skill Check to stab the Killer and escape from their grasp.\nStuns the Killer for 4 seconds.\nCauses you to become the next Obsession.\nWill to Live is deactivated once the Exit Gates are powered.\nWill to Live is disabled for the remainder of the Trial after use.\nWill to Live is deactivated prematurely when performing a Conspicuous Action.\nIncreases your chance of becoming the initial  Obsession by increasing the default value by +100 %.\nThe Killer can only be obsessed with one Survivor at a time.",
+       "alts": [
+        {
+         "name": "Off the Record",
+         "icon": "images/IconPerks_offTheRecord.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/9e/IconPerks_offTheRecord.png",
+         "desc": "After being unhooked or unhooking yourself, Off the Record activates for 30/35/40 seconds:\nBlocks your Aura from being revealed.\nSuppresses your Grunts of Pain while in the Injured State.\nSuppresses the creation of your Scratch Marks.\nGrants the Endurance Status Effect.\nEndurance is cancelled prematurely when performing a Conspicuous Action of any kind.\nOff the Record deactivates prematurely and is disabled for the remainder of the Trial upon powering the Exit Gates."
+        }
+       ]
+      },
+      {
+       "name": "Lithe",
+       "icon": "images/IconPerks_lithe.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/cc/IconPerks_lithe.png",
+       "desc": "Whenever you perform a Rushed Vault action, Lithe triggers its effect:\nGrants a +50 % Haste Status Effect for 3 seconds.\nLithe cannot be used while Exhausted.\nLithe causes the Exhausted Status Effect for 60/50/40 seconds.",
+       "alts": [
+        {
+         "name": "Dead Hard",
+         "icon": "images/IconPerks_deadHard.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/75/IconPerks_deadHard.png",
+         "desc": "After being unhooked by any means, Dead Hard activates:While injured and running, press the Active Ability button to trigger the following effect:\nGrants the Endurance Status Effect for 0.5 seconds.\nDead Hard cannot be used while Exhausted.\nDead Hard causes the Exhausted Status Effect for 60/50/40 seconds."
+        },
+        {
+         "name": "Balanced Landing",
+         "icon": "images/IconPerks_balancedLanding.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/5e/IconPerks_balancedLanding.png",
+         "desc": "While falling from height, you benefit from the following effects:\nSuppresses all noises related to falling and landing.\nReduces the duration of the Stagger upon landing by -75 %.\nGrants a +50 % Haste Status Effect for 3 seconds.\nBalanced Landing cannot be used while Exhausted.\nBalanced Landing causes the Exhausted Status Effect for 60/50/40 seconds after use."
+        },
+        {
+         "name": "Dramaturgy",
+         "icon": "images/IconPerks_dramaturgy.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/85/IconPerks_dramaturgy.png",
+         "desc": "Whenever you are at full health, Dramaturgy activates.\nWhile active, press the Active Ability button while running to run with knees high for 0.5 seconds before benefitting from the following primary effect:\nGrants a +25 Haste Status Effect for 2 seconds.\nAfterwards, Dramaturgy triggers any one of the following secondary effects, but never the same one twice in a row:\nGrants a second instance of the primary Haste Status Effect.\nInflicts the Exposed Status Effect for 12 seconds.\nCauses you to scream.\nGrants a randomly selected Rare Item pre-equipped with a random selection of Add-ons.\nThis causes you to automatically drop any previously held Item.\nDramaturgy cannot be used while Exhausted.\nDramaturgy causes the Exhausted Status Effect for 60/50/40 seconds."
+        }
+       ]
+      },
+      {
+       "name": "Plot Twist",
+       "icon": "images/IconPerks_plotTwist.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/ac/IconPerks_plotTwist.png",
+       "desc": "Whenever you are in the Injured State, Plot Twist activates.\nWhile active, press the Active Ability button while crouching and stationary to trigger the following primary effects:\nSilently enter the Dying State without notifying the Killer.\nSuppresses your Grunts of Pain and the creation of Pools of Blood.\nUnlocks the Self-Recovery ability, allowing you to fully recover from the Dying State:\nIncreases the Recovery speed by +25 %.\nAfter self-recovering from the Dying State, you benefit from the following secondary effects:\nInstantly heals you to full health.\nGrants a +50 % Haste Status Effect for 2/3/4 seconds.\nPlot Twist is disabled after recovering by any means, but can be reactivated once more upon powering the Exit Gates.",
+       "alts": [
+        {
+         "name": "We're Gonna Live Forever",
+         "icon": "images/IconPerks_wereGonnaLiveForever.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/b8/IconPerks_wereGonnaLiveForever.png",
+         "desc": "Your few friends deserve the best protection.\nYou benefit from the following effect when healing a dying Survivor:\nIncreases your Healing speed by +100 %.\nAny dying Survivor you heal back to the Injured State benefits from the following effect:\nGrants the Endurance Status Effect for 6/8/10 seconds.\nThis effect can only be triggered once every 30 seconds."
+        },
+        {
+         "name": "Unbreakable",
+         "icon": "images/IconPerks_unbreakable.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/4a/IconPerks_unbreakable.png",
+         "desc": "Whenever you are put in the Dying State by the Killer, Unbreakable activates:\nIncreases your Recovery speed by 25/30/35 %.\nUnlocks the Self-Recovery ability, allowing you to fully recover from the Dying State.\nThis ability can only be used once per Trial."
+        },
+        {
+         "name": "Conviction",
+         "icon": "images/IconPerks_conviction.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/c9/IconPerks_conviction.png",
+         "desc": "After having completed a Healing action on another Survivor, whenever you are in the Dying State, Conviction activates.\nWhile active, press the Active Ability button after reaching at least 25 % Recovery progress to trigger the following effects:\nUnlocks the Self-Recovery ability, allowing you to fully recover from the Dying State.\nInflicts the Broken Status Effect.\nCauses you to automatically re-enter the Dying State after 20/25/30 seconds."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Tunnel-prevention Build",
+     "notes": [
+      "This builds helps you keep someone alive if they're being targeted repeatedly by the Killer.",
+      "Shoulder the Burden can \"steal\" a hook stage from them. You also have your own anti-tunnel if the Killer switches onto you. Keep in mind that activating Shoulder will result in you becoming injured for a long time. You might want to bring a med-kit to be ready to heal afterwards.",
+      "Killer isn't tunneling anyone? Great, your 4th perk will help the team healthy!"
+     ],
+     "perks": [
+      {
+       "name": "Shoulder the Burden",
+       "icon": "images/IconPerks_shoulderTheBurden.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/3a/IconPerks_shoulderTheBurden.png",
+       "desc": "Once per Trial, and while you are not on Death Hook, press the Active Ability button while standing in front of a Hooked Survivor to unhook them and trigger the following effects:\nTrade 1 Hook Stage with the other Survivor to their benefit.\nCauses you to scream, become injured if healthy and suffer from the Broken Status Effect for 160/140/120 seconds.",
+       "alts": []
+      },
+      {
+       "name": "Will to Live",
+       "icon": "images/IconPerks_decisiveStrike.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_decisiveStrike.png",
+       "desc": "Using whatever is at hand, you stab your aggressor in an ultimate attempt to escape.\nAfter being unhooked or unhooking yourself, Will to Live activates for the next 40/50/60 seconds:\nWhen grabbed or picked up by the Killer, succeed a Skill Check to stab the Killer and escape from their grasp.\nStuns the Killer for 4 seconds.\nCauses you to become the next Obsession.\nWill to Live is deactivated once the Exit Gates are powered.\nWill to Live is disabled for the remainder of the Trial after use.\nWill to Live is deactivated prematurely when performing a Conspicuous Action.\nIncreases your chance of becoming the initial  Obsession by increasing the default value by +100 %.\nThe Killer can only be obsessed with one Survivor at a time.",
+       "alts": [
+        {
+         "name": "Off the Record",
+         "icon": "images/IconPerks_offTheRecord.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/9e/IconPerks_offTheRecord.png",
+         "desc": "After being unhooked or unhooking yourself, Off the Record activates for 30/35/40 seconds:\nBlocks your Aura from being revealed.\nSuppresses your Grunts of Pain while in the Injured State.\nSuppresses the creation of your Scratch Marks.\nGrants the Endurance Status Effect.\nEndurance is cancelled prematurely when performing a Conspicuous Action of any kind.\nOff the Record deactivates prematurely and is disabled for the remainder of the Trial upon powering the Exit Gates."
+        }
+       ]
+      },
+      {
+       "name": "Dead Hard",
+       "icon": "images/IconPerks_deadHard.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/75/IconPerks_deadHard.png",
+       "desc": "After being unhooked by any means, Dead Hard activates:While injured and running, press the Active Ability button to trigger the following effect:\nGrants the Endurance Status Effect for 0.5 seconds.\nDead Hard cannot be used while Exhausted.\nDead Hard causes the Exhausted Status Effect for 60/50/40 seconds.",
+       "alts": [
+        {
+         "name": "Iron Will",
+         "icon": "images/IconPerks_ironWill.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/58/IconPerks_ironWill.png",
+         "desc": "While injured, you benefit from the following effects:\nReduces the volume of Grunts of Pain by 80/90/100 %.\nIron Will cannot be used while Exhausted, but does not cause the Status Effect."
+        }
+       ]
+      },
+      {
+       "name": "Resilience",
+       "icon": "images/IconPerks_resilience.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_resilience.png",
+       "desc": "Whenever you are in the Injured State, Resilience activates:\nIncreases the Action speeds for the following interactions by 7/8/9 %:\nBlessing or Cleansing Totems.\nHealing yourself or other Survivors.\nOpening Exit Gates.\nRepairing Generators.\nSabotaging Hooks.\nSearching Chests.\nUnhooking other Survivors.\nVaulting Windows.",
+       "alts": [
+        {
+         "name": "Five Moves Ahead",
+         "icon": "images/IconsPerks_FiveMovesAhead.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/fe/IconsPerks_FiveMovesAhead.png",
+         "desc": "This perk activates while you are being chased by the Killer or are inside the Killer's Terror Radius:\nAfter you drop a Pallet, you start moving 50 % earlier.\nSee the auras of the 5 closest Pallets.\nThis perk goes on a 40/35/30 seconds cool-down when you drop a Pallet while this perk is activated."
+        },
+        {
+         "name": "Deliverance",
+         "icon": "images/IconPerks_deliverance.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/7e/IconPerks_deliverance.png",
+         "desc": "After safely unhooking another Survivor, Deliverance activates:\nGrants the ability to perform a successful Self-Unhook at any point during the first Hook Stage.\nCauses the Broken Status Effect for 160/140/120 seconds after unhooking yourself.\nDeliverance cannot be used during the second Hook Stage or if you are hooked as the Last Survivor Standing.\nDeliverance is disabled for the remainder of the Trial after use."
+        },
+        {
+         "name": "Babysitter",
+         "icon": "images/IconPerks_babysitter.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/d/db/IconPerks_babysitter.png",
+         "desc": "Whenever you unhook another Survivor, you benefit from the following effect:\nThe Aura of the Killer is revealed to you for 8 seconds.\nThe unhooked Survivor benefits from the following effects instead for 20/25/30 seconds:\nSuppresses the creation of their Scratch Marks and Pools of Blood.\nIncreases the strength of their Haste Status Effect by +10 %."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Slug-prevention Build",
+     "notes": [
+      "Your 1st and 2nd perks allow you to pick up a team mate from the ground very quickly, granting one or both of you the Endurance status effect that will protect you for a while.",
+      "Try coordinating with your team mates so that a chase ends with a Survivor under a pallet so that you can attempt a pallet rescue. If the Killer hesitates to pick up, that will give them time to recover and possibly allow you to step in for a quick heal that will trigger MFT and WGLF!",
+      "Your 3rd and 4th perk allow you to pick yourself up from the ground and also tank a hit without going down!"
+     ],
+     "perks": [
+      {
+       "name": "Made for This",
+       "icon": "images/IconPerks_madeForThis.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/c0/IconPerks_madeForThis.png",
+       "desc": "Whenever you are in the Injured State, Made for This activates.\nWhile active, completing a Healing action on another Survivor triggers the following primary effect:\nGrants the Endurance Status Effect for 6/8/10 seconds.\nEndurance is cancelled prematurely when performing a Conspicuous Action of any kind.\nWhile active and suffering from the Deep Wound Status Effect, running triggers the following secondary effect:\nGrants a 1/2/3 % Haste Status Effect.",
+       "alts": []
+      },
+      {
+       "name": "We're Gonna Live Forever",
+       "icon": "images/IconPerks_wereGonnaLiveForever.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/b8/IconPerks_wereGonnaLiveForever.png",
+       "desc": "Your few friends deserve the best protection.\nYou benefit from the following effect when healing a dying Survivor:\nIncreases your Healing speed by +100 %.\nAny dying Survivor you heal back to the Injured State benefits from the following effect:\nGrants the Endurance Status Effect for 6/8/10 seconds.\nThis effect can only be triggered once every 30 seconds.",
+       "alts": []
+      },
+      {
+       "name": "Unbreakable",
+       "icon": "images/IconPerks_unbreakable.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/4a/IconPerks_unbreakable.png",
+       "desc": "Whenever you are put in the Dying State by the Killer, Unbreakable activates:\nIncreases your Recovery speed by 25/30/35 %.\nUnlocks the Self-Recovery ability, allowing you to fully recover from the Dying State.\nThis ability can only be used once per Trial.",
+       "alts": [
+        {
+         "name": "Conviction",
+         "icon": "images/IconPerks_conviction.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/c9/IconPerks_conviction.png",
+         "desc": "After having completed a Healing action on another Survivor, whenever you are in the Dying State, Conviction activates.\nWhile active, press the Active Ability button after reaching at least 25 % Recovery progress to trigger the following effects:\nUnlocks the Self-Recovery ability, allowing you to fully recover from the Dying State.\nInflicts the Broken Status Effect.\nCauses you to automatically re-enter the Dying State after 20/25/30 seconds."
+        }
+       ]
+      },
+      {
+       "name": "Soul Guard",
+       "icon": "images/IconPerks_soulGuard.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a5/IconPerks_soulGuard.png",
+       "desc": "Whenever you heal or recover from the Dying State, Soul Guard triggers its primary effect:\nGrants the Endurance Status Effect for 4/6/8 seconds.\nEndurance is cancelled prematurely when performing a Conspicuous Action of any kind.\nThis ability has a cool-down of 30 seconds.\nWhile suffering from the Cursed Status Effect, Soul Guard applies its secondary effect:\nUnlocks the Self-Recovery ability, allowing you to fully recover from the Dying State..",
+       "alts": [
+        {
+         "name": "Breakdown",
+         "icon": "images/IconPerks_breakdown.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/6/6c/IconPerks_breakdown.png",
+         "desc": "After you are unhooked by any means, Breakdown triggers its effects:\nInstantly breaks that Hook.\nIncreases its Auto-Repair timer to 180 seconds.\nThe Aura of the Killer is revealed to you for 4/5/6 seconds."
+        },
+        {
+         "name": "Bond",
+         "icon": "images/IconPerks_bond.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a0/IconPerks_bond.png",
+         "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of all other Survivors are revealed to you within 20/28/36 metres."
+        },
+        {
+         "name": "Empathy",
+         "icon": "images/IconPerks_empathy.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/ae/IconPerks_empathy.png",
+         "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of injured or dying Survivors are revealed to you within 64/96/128 metres."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Gen-Jockey Build",
+     "notes": [
+      "Best used with a strong toolbox to quickly repair the gens highlighted by Déjà Vu and forcing the Killer to defend gens that are really far apart.",
+      "When your toolbox is depleted, you can turn it into a medkit by hopping into a locker with the perk Change of Plan! You can ask a team mate to drop their toolbox and do it once again with theirs too.",
+      "Alternatively, you can use Built to Last to refill your empty toolbox and use it multiple times or one of the other suggested perks!"
+     ],
+     "perks": [
+      {
+       "name": "Déjà Vu",
+       "icon": "images/IconPerks_dejaVu.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/89/IconPerks_dejaVu.png",
+       "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of whichever 3 Generators are currently in closest proximity to one another are revealed to you.\nIncreases your Repair speed on those Generators by 4/5/6 %.",
+       "alts": []
+      },
+      {
+       "name": "Poised",
+       "icon": "images/IconPerks_poised.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/52/IconPerks_poised.png",
+       "desc": "Whenever a Generator is completed, Poised triggers its primary effect:\nSuppresses the creation of your Scratch Marks for 20/25/30 seconds.\nWhenever you start repairing a Generator for the first time, Poised triggers its secondary effect:\nThe Aura of the Killer is revealed to you for 8 seconds.",
+       "alts": [
+        {
+         "name": "Overcome",
+         "icon": "images/IconPerks_overcome.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/82/IconPerks_overcome.png",
+         "desc": "Whenever you enter the Injured State from full health, Overcome triggers its effect:\nExtends the duration of the On-hit Sprint boost by +2 seconds.\nOvercome cannot be used while Exhausted.\nOvercome causes the Exhausted Status Effect for 60/50/40 seconds."
+        }
+       ]
+      },
+      {
+       "name": "Prove Thyself",
+       "icon": "images/IconPerks_proveThyself.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/0f/IconPerks_proveThyself.png",
+       "desc": "Increases the Repair speed by a stack-able 6/8/10 % per other Survivor within 4 metres of your location, up to a maximum of 18/24/30 %.\nProve Thyself extends its effect to all Survivors within its range.\nSurvivors can only be affected by one instance of Prove Thyself at a time.",
+       "alts": [
+        {
+         "name": "Bond",
+         "icon": "images/IconPerks_bond.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a0/IconPerks_bond.png",
+         "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of all other Survivors are revealed to you within 20/28/36 metres."
+        },
+        {
+         "name": "Friendly Competition",
+         "icon": "images/IconPerks_friendlyCompetition.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/4c/IconPerks_friendlyCompetition.png",
+         "desc": "Each time you complete a Generator together with at least one other Survivor, Friendly Competition activates:\nIncreases the Repair speed of all participating Survivors, including yourself, by +10 % for 80/85/90 seconds."
+        },
+        {
+         "name": "Sprint Burst",
+         "icon": "images/IconPerks_sprintBurst.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/e4/IconPerks_sprintBurst.png",
+         "desc": "Starting to run triggers Sprint Burst:\nGrants a +50 % Haste Status Effect for 2 seconds.\nSprint Burst cannot be used while Exhausted.\nSprint Burst causes the Exhausted Status Effect for 60/50/40 seconds."
+        }
+       ]
+      },
+      {
+       "name": "Change of Plan",
+       "icon": "images/IconsPerks_ChangeOfPlan.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/40/IconsPerks_ChangeOfPlan.png",
+       "desc": "You start the Trial with 2 Tokens.\nWhile hiding inside a Locker and holding a non-event Toolbox, press Active Ability button to spend 1 Token and transform your Toolbox into a Med-Kit of the same rarity with a random add-on of the same rarity.\nThe new Med-kit has 80/90/100 % of its charges.",
+       "alts": [
+        {
+         "name": "Built to Last",
+         "icon": "images/IconPerks_builtToLast.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/3b/IconPerks_builtToLast.png",
+         "desc": "While hiding inside a Locker with a depleted Item equipped, Built to Last triggers the following effect after 12/10/8 seconds:\nRecharges the Item to one of the following percentages:\nFirst time: 99 %.\nSecond time: 66 %.\nThird time: 33 %.\nBuilt to Last is disabled for the remainder of the Trial after triggering its effect for the third time."
+        },
+        {
+         "name": "Road Life",
+         "icon": "images/IconPerks_RoadLife.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/d/df/IconPerks_RoadLife.png",
+         "desc": "While injured and repairing a Generator, regular Skill Checks have the following effects:\nGain +1 Token for Great Repair Skill Checks.\nGain 0 Tokens for Good Repair Skill Checks.\nLose -1 Token for Failed Repair Skill Checks.\nOnce you accumulate 6/5/4 Tokens, consume all Tokens to benefit from the following effect:\nUnlocks the ability to heal yourself\nIncreases your Self-Healing speed by +10 % until you stop healing and for 4 seconds after."
+        },
+        {
+         "name": "Adrenaline",
+         "icon": "images/IconPerks_adrenaline.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f7/IconPerks_adrenaline.png",
+         "desc": "Once the Exit Gates are powered, Adrenaline activates and triggers the following effects:\nHeals you to the next Health State.\nGrants a +50 % Haste Status Effect for 4 seconds.\nAdrenaline can be used while Exhausted and ignores an existing Status Effect.\nAdrenaline causes the Exhausted Status Effect for 60/50/40 seconds after use."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Team Healer Build",
+     "notes": [
+      "A perfect build to become the \"designated healer\" of the group. It can save a lot of time over the course of a match if your team is coordinated enough!",
+      "With Solidarity, healing others while injured will also heal you passively! After bringing a team mate to full health, they'll be able to finish off your healing in just a matter of seconds.",
+      "Empathic Connection is perfect for this build since it reveals your aura to your injured team mates while also boosting healing speed. If you're not in voice comms, you might prefer a perk such as Empathy that allows you to actively seek out team mates yourself.",
+      "Your final perk, \"A Place For Us\", gives you a nice and consistent stealth while healing others. You can swap it for something more aggressive such as \"Made For This\" if you want to go for riskier heals!"
+     ],
+     "perks": [
+      {
+       "name": "Solidarity",
+       "icon": "images/IconPerks_solidarity.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/9e/IconPerks_solidarity.png",
+       "desc": "While injured, healing another Survivor causes Solidarity to apply the following effects:\nGrants the ability to passively heal yourself while healing other Survivors.\nReduces your Personal Healing speed to 65/70/75 % of your Altruistic Healing speed.",
+       "alts": [
+        {
+         "name": "Clean Break",
+         "icon": "images/IconPerks_cleanBreak.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/b3/IconPerks_cleanBreak.png",
+         "desc": "After completing a Healing action on another Survivor, Clean Break activates.\nPress the Active Ability button while being healed by another Survivor to trigger the following effects:\nSuffer from the Broken Status Effect.\nYou are automatically healed 1 Health State after 75/60/45 seconds.\nThis effect is cancelled prematurely if you enter the Dying State.\nClean Break does not activate if you already suffer from Broken.\nClean Break deactivates after healing you."
+        }
+       ]
+      },
+      {
+       "name": "Better than New",
+       "icon": "images/IconPerks_betterThanNew.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/b1/IconPerks_betterThanNew.png",
+       "desc": "Completing a Healing action on another Survivor grants them the following benefits until they receive damage again:\nIncreases their Action speeds for Blessing, Cleansing, Healing, and Unlocking by 40/45/50 %.",
+       "alts": [
+        {
+         "name": "Botany Knowledge",
+         "icon": "images/IconPerks_botanyKnowledge.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/1e/IconPerks_botanyKnowledge.png",
+         "desc": "You benefit from the following permanent effect:\nIncreases your Healing speed by 30/40/50 %."
+        },
+        {
+         "name": "Do No Harm",
+         "icon": "images/T_UI_iconsPerks_DoNoHarm.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/1e/T_UI_iconsPerks_DoNoHarm.png",
+         "desc": "When healing another Survivor, depending on their accumulated Hook Stages, you benefit from the following effects:\nIncreases your Altruistic Healing speed by 30/35/40 % per Hook Stage, up to a maximum of 60/70/80 %.\nIncreases the Progression bonus of Great Healing Skill Checks by +3 % per Hook Stage, up to a maximum of +6 %.\nIncreases the odds of triggering a Skill Check by +5 % per Hook Stage, up to a maximum of +5 %Max."
+        }
+       ]
+      },
+      {
+       "name": "Empathic Connection",
+       "icon": "images/IconPerks_empathicConnection.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/14/IconPerks_empathicConnection.png",
+       "desc": "You benefit from the following permanent primary effect:\nIncreases your Altruistic Healing speed by 30/35/40 %.\nWhenever any other Survivor is injured, Empathic Connection applies its secondary effect:\nYour Aura as a potential Healer is revealed to them.",
+       "alts": [
+        {
+         "name": "Empathy",
+         "icon": "images/IconPerks_empathy.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/ae/IconPerks_empathy.png",
+         "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of injured or dying Survivors are revealed to you within 64/96/128 metres."
+        },
+        {
+         "name": "Boon: Circle of Healing",
+         "icon": "images/IconPerks_boonCircleOfHealing.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/54/IconPerks_boonCircleOfHealing.png",
+         "desc": "A Boon that offers comfort amidst the terror.\nPress and hold the Active Ability button on a Dull or Hex Totem to bless it and create a Boon Totem.\nAll Survivors within 24 metres hear soft chimes ringing out and benefit from its Boon Effects:\nIncreases the Altruistic Healing speeds by 50/75/100 % when not using a Med-Kit.\nIf a Survivor is injured, their Aura is revealed to all other Survivors.\nSurvivors can only be affected by one instance of Boon: Circle of Healing at a time.\nOnly one Totem can be blessed by your Boon Perks at a time and all of their effects are active on the same Boon Totem."
+        },
+        {
+         "name": "Bond",
+         "icon": "images/IconPerks_bond.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a0/IconPerks_bond.png",
+         "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of all other Survivors are revealed to you within 20/28/36 metres."
+        },
+        {
+         "name": "Aftercare",
+         "icon": "images/IconPerks_aftercare.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/0d/IconPerks_aftercare.png",
+         "desc": "Unlocks potential in your Aura-reading ability:\nYou see the Auras of the 1/2/3  most recent Survivor(s) that helped you or vice versa:\nRescued from a Hook.\nCompleted a Healing action on.\nThey also see your Aura.\nAftercare resets its effects when you are hooked by the Killer."
+        }
+       ]
+      },
+      {
+       "name": "A Place For Us",
+       "icon": "images/IconsPerks_aPlaceForUs.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/8f/IconsPerks_aPlaceForUs.png",
+       "desc": "While healing an another Survivor, both you and the healed Survivor gain Elusive Status Effect.\nWhen you finish healing the Obsession, both you and the Obsession gain Elusive Status Effect for 20/25/30 seconds.\nReduces your chance of becoming the initial  Obsession by reducing the default value by -100 %.\nThe Killer can only be obsessed with one Survivor at a time.",
+       "alts": [
+        {
+         "name": "Made for This",
+         "icon": "images/IconPerks_madeForThis.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/c0/IconPerks_madeForThis.png",
+         "desc": "Whenever you are in the Injured State, Made for This activates.\nWhile active, completing a Healing action on another Survivor triggers the following primary effect:\nGrants the Endurance Status Effect for 6/8/10 seconds.\nEndurance is cancelled prematurely when performing a Conspicuous Action of any kind.\nWhile active and suffering from the Deep Wound Status Effect, running triggers the following secondary effect:\nGrants a 1/2/3 % Haste Status Effect."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Boon Support Build",
+     "notes": [
+      "Creates a strong healing area where team mates can be quickly healed and self-pick up.",
+      "Use a map with the Sharpened Flint add-on can replace Extrasensory Perception to find totems. If you trust your team's ability to find totems without any tools, feel free to use something else instead!",
+      "Your final perk can be whatever you want! An exhaustion perk to quickly help you relocate can be a solid choice.",
+      "Good choice for a player that wants to stay in the background."
+     ],
+     "perks": [
+      {
+       "name": "Boon: Circle of Healing",
+       "icon": "images/IconPerks_boonCircleOfHealing.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/54/IconPerks_boonCircleOfHealing.png",
+       "desc": "A Boon that offers comfort amidst the terror.\nPress and hold the Active Ability button on a Dull or Hex Totem to bless it and create a Boon Totem.\nAll Survivors within 24 metres hear soft chimes ringing out and benefit from its Boon Effects:\nIncreases the Altruistic Healing speeds by 50/75/100 % when not using a Med-Kit.\nIf a Survivor is injured, their Aura is revealed to all other Survivors.\nSurvivors can only be affected by one instance of Boon: Circle of Healing at a time.\nOnly one Totem can be blessed by your Boon Perks at a time and all of their effects are active on the same Boon Totem.",
+       "alts": []
+      },
+      {
+       "name": "Boon: Exponential",
+       "icon": "images/IconPerks_boonExponential.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/7/76/IconPerks_boonExponential.png",
+       "desc": "Press and hold the Active Ability button on a Dull or Hex Totem to bless it and create a Boon Totem.\nAll Survivors within 24 metres hear soft chimes ringing out and benefit from its Boon Effects:\nIncreases the Recovery speed while in the Dying State by 90/95/100 %.\nUnlocks the Self-Recovery ability, allowing them to fully recover from the Dying State.\nOnly one Totem can be blessed by your Boon Perks at a time and all of their effects are active on the same Boon Totem.",
+       "alts": [
+        {
+         "name": "Boon: Shadow Step",
+         "icon": "images/IconPerks_boonShadowStep.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/c/c7/IconPerks_boonShadowStep.png",
+         "desc": "A Boon that conceals the truth.\nPress and hold the Active Ability button on a Dull or Hex Totem to bless it and create a Boon Totem.\nAll Survivors within 24 metres hear soft chimes ringing out and benefit from its Boon Effects:\nScratch Marks are suppressed.\nAuras are hidden from The Killer.\nBoth effects linger for 2/3/4 seconds after leaving the Boon Totem's range.\nOnly one Totem can be blessed by your Boon Perks at a time and all of their effects are active on the same Boon Totem."
+        }
+       ]
+      },
+      {
+       "name": "Extrasensory Perception",
+       "icon": "images/IconsPerks_ExtrasensoryPerception.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/96/IconsPerks_ExtrasensoryPerception.png",
+       "desc": "Crouch for 4 seconds to activate this perk. While active:\nYou see the Auras of Survivors, the Killer, and a variety of objects. These are revealed in an expanding 44 meter radius..\nRevealed objects include Chests, Exit Gate, Generators, Hatch, Items, Pallets, Totems, and Windows.\nYou gain Elusive and Oblivious Status Effects\nWhen you stop crouching, or after 11 seconds, all effects of this perk end and it enters a 60/50/40 seconds cool-down.",
+       "alts": [
+        {
+         "name": "Small Game",
+         "icon": "images/IconPerks_smallGame.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/d/dc/IconPerks_smallGame.png",
+         "desc": "You see auras of Totems within 10/11/12 metres."
+        },
+        {
+         "name": "Lend a Hand",
+         "icon": "images/T_UI_iconsPerks_LendaHand.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/94/T_UI_iconsPerks_LendaHand.png",
+         "desc": "Cleansing or Blessing a Totem activates this perk:\nOnce per Survivor, while healing a Survivor, press Activate Ability 2 to give the healed Survivor 2/3/4  permanent healing charges."
+        },
+        {
+         "name": "Overzealous",
+         "icon": "images/IconPerks_overzealous.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/9/99/IconPerks_overzealous.png",
+         "desc": "Fighting back against the Ravage motivates and inspires you.\nAfter cleansing or blessing a Totem, Overzealous activates:\nDull Totem: Increases your Repair speed by 8/9/10 %.\nHex Totem: Increases your Repair speed by 16/18/20 %.\nOverzealous deactivates after losing a Health State by any means."
+        }
+       ]
+      },
+      {
+       "name": "Sprint Burst",
+       "icon": "images/IconPerks_sprintBurst.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/e4/IconPerks_sprintBurst.png",
+       "desc": "Starting to run triggers Sprint Burst:\nGrants a +50 % Haste Status Effect for 2 seconds.\nSprint Burst cannot be used while Exhausted.\nSprint Burst causes the Exhausted Status Effect for 60/50/40 seconds.",
+       "alts": [
+        {
+         "name": "Overcome",
+         "icon": "images/IconPerks_overcome.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/82/IconPerks_overcome.png",
+         "desc": "Whenever you enter the Injured State from full health, Overcome triggers its effect:\nExtends the duration of the On-hit Sprint boost by +2 seconds.\nOvercome cannot be used while Exhausted.\nOvercome causes the Exhausted Status Effect for 60/50/40 seconds."
+        },
+        {
+         "name": "Balanced Landing",
+         "icon": "images/IconPerks_balancedLanding.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/5/5e/IconPerks_balancedLanding.png",
+         "desc": "While falling from height, you benefit from the following effects:\nSuppresses all noises related to falling and landing.\nReduces the duration of the Stagger upon landing by -75 %.\nGrants a +50 % Haste Status Effect for 3 seconds.\nBalanced Landing cannot be used while Exhausted.\nBalanced Landing causes the Exhausted Status Effect for 60/50/40 seconds after use."
+        },
+        {
+         "name": "Will to Live",
+         "icon": "images/IconPerks_decisiveStrike.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_decisiveStrike.png",
+         "desc": "Using whatever is at hand, you stab your aggressor in an ultimate attempt to escape.\nAfter being unhooked or unhooking yourself, Will to Live activates for the next 40/50/60 seconds:\nWhen grabbed or picked up by the Killer, succeed a Skill Check to stab the Killer and escape from their grasp.\nStuns the Killer for 4 seconds.\nCauses you to become the next Obsession.\nWill to Live is deactivated once the Exit Gates are powered.\nWill to Live is disabled for the remainder of the Trial after use.\nWill to Live is deactivated prematurely when performing a Conspicuous Action.\nIncreases your chance of becoming the initial  Obsession by increasing the default value by +100 %.\nThe Killer can only be obsessed with one Survivor at a time."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "Fast Unhook Build",
+     "notes": [
+      "This build makes it nearly impossible for most Killers to secure a kill in the endgame. Perfect for confident teams that trust in their ability to survive until the endgame.",
+      "If you're hooked yourself, Slippery Meat or Leader will make your unhooking speed very fast, increasing the odds that everyone will reach the exit gate safely. If someone else is hooked, No One Left Behind help you unhook them very quickly! It will also show you everyone's auras during the to help you stay coordinated.",
+      "But what if the Killer interrupts you during the unhook and someone else has to take over? In that case, Overcome (or Hope) will help you create tons of distance and safely reach the exit gate as well.",
+      "Your 4th perk can be whatever you want, possibly something to help you reach the endgame safely!"
+     ],
+     "perks": [
+      {
+       "name": "Slippery Meat",
+       "icon": "images/IconPerks_slipperyMeat.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/03/IconPerks_slipperyMeat.png",
+       "desc": "You have developed an efficient way to get off Hooks.\nOther Survivors unhook you 90/95/100 % faster.\nIncreases the Haste granted by Unhook Protections by +5 %.",
+       "alts": [
+        {
+         "name": "Leader",
+         "icon": "images/IconPerks_leader.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/3d/IconPerks_leader.png",
+         "desc": "All other Survivors within 10 metres of your location benefit from the following effect:\nIncreases their Action speeds for Cleansing, Gate-Opening, Healing, Sabotaging, Unhooking, and Unlocking by 20/25/30 %.\nThis effect lingers for 15 seconds after leaving its Area of Effect.\nSurvivors can only be affected by one instance of Leader at a time."
+        }
+       ]
+      },
+      {
+       "name": "No One Left Behind",
+       "icon": "images/IconPerks_noOneLeftBehind.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/b/b0/IconPerks_noOneLeftBehind.png",
+       "desc": "Once the Exit Gates are powered, No One Left Behind activates:\nThe Auras of all other Survivors are revealed to you.\nIncreases your Action speeds for Healing and Unhooking by 80/90/100 %.\nIncreases the strength and duration of the Haste Status Effect granted to Survivors you unhook by +10 % and +5 seconds respectively:\nCauses them to benefit from a 20 % Haste Status Effect for 15 seconds.",
+       "alts": [
+        {
+         "name": "Flow State",
+         "icon": "images/IconsPerks_FlowState.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/3/37/IconsPerks_FlowState.png",
+         "desc": "Whenever a Generator is completed, gain a token, up to 5.\nFor each token:\nBless and cleanse Totems 13/14/15 % faster.\nHeal 13/14/15 % faster.\nUnhook Survivors 13/14/15 % faster."
+        },
+        {
+         "name": "Desperate Measures",
+         "icon": "images/IconPerks_desperateMeasures.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/84/IconPerks_desperateMeasures.png",
+         "desc": "Whenever any Survivor, including yourself, is not in the Healthy State, Desperate Measures activates:\nIncreases your Action speeds for Healing and Unhooking by a stack-able 16/18/20 % per injured, dying, or hooked Survivor, up to a maximum of 64/72/80 %."
+        }
+       ]
+      },
+      {
+       "name": "Overcome",
+       "icon": "images/IconPerks_overcome.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/82/IconPerks_overcome.png",
+       "desc": "Whenever you enter the Injured State from full health, Overcome triggers its effect:\nExtends the duration of the On-hit Sprint boost by +2 seconds.\nOvercome cannot be used while Exhausted.\nOvercome causes the Exhausted Status Effect for 60/50/40 seconds.",
+       "alts": [
+        {
+         "name": "Sole Survivor",
+         "icon": "images/IconPerks_soleSurvivor.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/8e/IconPerks_soleSurvivor.png",
+         "desc": "Identical to Down to the Last."
+        },
+        {
+         "name": "Hope",
+         "icon": "images/IconPerks_hope.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/18/IconPerks_hope.png",
+         "desc": "Once the Exit Gates are powered, Hope activates for the remainder of the Trial:\nGrants a 3/4/5 % Haste Status Effect."
+        }
+       ]
+      },
+      {
+       "name": "Will to Live",
+       "icon": "images/IconPerks_decisiveStrike.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/e/ee/IconPerks_decisiveStrike.png",
+       "desc": "Using whatever is at hand, you stab your aggressor in an ultimate attempt to escape.\nAfter being unhooked or unhooking yourself, Will to Live activates for the next 40/50/60 seconds:\nWhen grabbed or picked up by the Killer, succeed a Skill Check to stab the Killer and escape from their grasp.\nStuns the Killer for 4 seconds.\nCauses you to become the next Obsession.\nWill to Live is deactivated once the Exit Gates are powered.\nWill to Live is disabled for the remainder of the Trial after use.\nWill to Live is deactivated prematurely when performing a Conspicuous Action.\nIncreases your chance of becoming the initial  Obsession by increasing the default value by +100 %.\nThe Killer can only be obsessed with one Survivor at a time.",
+       "alts": [
+        {
+         "name": "Resurgence",
+         "icon": "images/IconPerks_resurgence.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/f3/IconPerks_resurgence.png",
+         "desc": "After you are unhooked by any means, Resurgence triggers the following effect:\nGrants you 50/60/70 % of Healing progression."
+        },
+        {
+         "name": "Déjà Vu",
+         "icon": "images/IconPerks_dejaVu.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/89/IconPerks_dejaVu.png",
+         "desc": "Unlocks potential in your Aura-reading ability:\nThe Auras of whichever 3 Generators are currently in closest proximity to one another are revealed to you.\nIncreases your Repair speed on those Generators by 4/5/6 %."
+        },
+        {
+         "name": "Five Moves Ahead",
+         "icon": "images/IconsPerks_FiveMovesAhead.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/f/fe/IconsPerks_FiveMovesAhead.png",
+         "desc": "This perk activates while you are being chased by the Killer or are inside the Killer's Terror Radius:\nAfter you drop a Pallet, you start moving 50 % earlier.\nSee the auras of the 5 closest Pallets.\nThis perk goes on a 40/35/30 seconds cool-down when you drop a Pallet while this perk is activated."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "name": "\"Noob Helper\" Build",
+     "notes": [
+      "Focused on effects to help & guide a new player in your team.",
+      "Kindred, Aftercare or similar perks can help them keep an eye on you.",
+      "Corrective Action (or possibly Prove Thyself) makes it easier to do gens together and reduce missed skill-checks.",
+      "With Babysitter, you'll see the Killer's aura after unhooking and be able to determine if it's a good idea to heal quickly with We'll Make It. If the Killer returns, Babysitter provides great stealth and haste to the person unhooked."
+     ],
+     "perks": [
+      {
+       "name": "Aftercare",
+       "icon": "images/IconPerks_aftercare.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/0d/IconPerks_aftercare.png",
+       "desc": "Unlocks potential in your Aura-reading ability:\nYou see the Auras of the 1/2/3  most recent Survivor(s) that helped you or vice versa:\nRescued from a Hook.\nCompleted a Healing action on.\nThey also see your Aura.\nAftercare resets its effects when you are hooked by the Killer.",
+       "alts": [
+        {
+         "name": "Kindred",
+         "icon": "images/IconPerks_kindred.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/a/a8/IconPerks_kindred.png",
+         "desc": "Unlocks potential in your Aura-reading ability.\nWhenever any Survivor is hooked, Kindred activates and applies the following effects:\nThe Aura of the Killer is revealed to all Survivors whenever the Killer comes within 14/15/16 metres of the Hook.\nIf you are the Hooked Survivor, the Auras of all Survivors are revealed to each other.\nIf you are not the Hooked Survivor, the Auras of all other Survivors are only revealed to you."
+        }
+       ]
+      },
+      {
+       "name": "Corrective Action",
+       "icon": "images/IconPerks_correctiveAction.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/4/4f/IconPerks_correctiveAction.png",
+       "desc": "You start the Trial with 1/2/3 Token(s) and succeeding a Great Skill Check grants +1 Token, up to a maximum of 5 Tokens.\nWhile any other Survivor performs a skilful interaction that can trigger Skill Checks, they benefit from the following effects:\nConverts any Failed Skill Check into a Good Skill Check.\nThis consumes -1 Token.\nThe Aura of that Survivor is revealed to you for 6 seconds.\nCorrective Action does not apply to special Skill Checks.",
+       "alts": [
+        {
+         "name": "Prove Thyself",
+         "icon": "images/IconPerks_proveThyself.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/0/0f/IconPerks_proveThyself.png",
+         "desc": "Increases the Repair speed by a stack-able 6/8/10 % per other Survivor within 4 metres of your location, up to a maximum of 18/24/30 %.\nProve Thyself extends its effect to all Survivors within its range.\nSurvivors can only be affected by one instance of Prove Thyself at a time."
+        }
+       ]
+      },
+      {
+       "name": "Babysitter",
+       "icon": "images/IconPerks_babysitter.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/d/db/IconPerks_babysitter.png",
+       "desc": "Whenever you unhook another Survivor, you benefit from the following effect:\nThe Aura of the Killer is revealed to you for 8 seconds.\nThe unhooked Survivor benefits from the following effects instead for 20/25/30 seconds:\nSuppresses the creation of their Scratch Marks and Pools of Blood.\nIncreases the strength of their Haste Status Effect by +10 %.",
+       "alts": []
+      },
+      {
+       "name": "We'll Make It",
+       "icon": "images/IconPerks_wellMakeIt.png",
+       "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/8/8a/IconPerks_wellMakeIt.png",
+       "desc": "After unhooking another Survivor, We'll Make It activates for 70/80/90 seconds:\nIncreases your Altruistic Healing speed by +100 %.",
+       "alts": [
+        {
+         "name": "Botany Knowledge",
+         "icon": "images/IconPerks_botanyKnowledge.png",
+         "icon2": "https://static.wikia.nocookie.net/deadbydaylight_gamepedia_en/images/1/1e/IconPerks_botanyKnowledge.png",
+         "desc": "You benefit from the following permanent effect:\nIncreases your Healing speed by 30/40/50 %."
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
