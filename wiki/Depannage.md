@@ -34,8 +34,8 @@ L'outil cherche les mots *PLAYERS / QUESTS* (menu des joueurs) ou *MATCH SCOREBO
 
 ### Mode automatique : le tableau de fin ne part pas
 
-- L'outil attend que les quatre survivants et le tueur affichent tous leurs perks : tant qu'une ligne est cachée, la partie n'est pas finie. La page Live indique alors *« waiting for the end of the match »*.
-- Un match personnalisé avec moins de joueurs, ou un joueur venu sans aucune perk, ne remplit jamais cette condition : appuie sur ta touche de capture sur le tableau.
+- L'outil attend que les quatre survivants et le tueur affichent tous leur équipement (perks, ou au moins les emplacements vides) : tant qu'une ligne est cachée, la partie n'est pas finie. La page Live indique alors *« waiting for the end of the match »*.
+- Un bot ou un joueur sans perks, ça passe (leurs emplacements de perks vides sont reconnus comme un équipement dévoilé), mais un match personnalisé à moins de cinq joueurs ne remplit jamais cette condition : appuie sur ta touche de capture sur le tableau.
 - NightLight doit être configuré (un jeton, et une connexion). Sans ça, rien n'est envoyé et rien n'est signalé : c'est voulu.
 
 ### Overlay mal placé

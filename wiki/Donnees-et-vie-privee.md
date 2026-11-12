@@ -2,6 +2,8 @@
 
 ## Données et vie privée
 
+**À qui sont ces données.** *Dead by Daylight* et tout ce qui vient du jeu appartiennent à **Behaviour Interactive Inc.** Les perks, icônes, maps et textes que l'outil livre et télécharge ont été récupérés auprès du [Dead by Daylight Wiki](https://deadbydaylight.wiki.gg) et de ses contributeurs, les builds et notes viennent d'Otzdarva, et les statistiques de NightLight : ils sont cités dans le [README](https://github.com/Tau-hub/entity-toolkit/blob/main/README.fr.md#cr%C3%A9dits) et dans le dossier `seed/`, et retirés sur demande.
+
 Tout ce que l'outil enregistre vit dans le dossier `data/`, à côté du code ou à côté de `EntityToolkit.exe` (ignoré par git ; modifiable avec la variable d'environnement `ENTITY_TOOLKIT_DATA`) :
 
 | Fichier / dossier | Contenu |

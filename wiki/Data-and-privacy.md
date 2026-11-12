@@ -2,6 +2,8 @@
 
 ## Data and privacy
 
+**Whose data it is.** *Dead by Daylight* and everything that comes from the game belong to **Behaviour Interactive Inc.** The perks, icons, maps and texts the toolkit ships and downloads were collected from the [Dead by Daylight Wiki](https://deadbydaylight.wiki.gg) and its contributors, the builds and ratings come from Otzdarva, and the statistics from NightLight: they are credited in the [README](https://github.com/Tau-hub/entity-toolkit#credits) and in the `seed/` folder, and removed on request.
+
 Everything the toolkit stores lives in the `data/` folder next to the code, or next to `EntityToolkit.exe` (git-ignored; override with the `ENTITY_TOOLKIT_DATA` environment variable):
 
 | File / folder | What |

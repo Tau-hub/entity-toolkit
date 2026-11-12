@@ -68,7 +68,7 @@ Ta touche de capture et ta touche qui retire l'overlay continuent de marcher en 
 
 **Ce que ça touche.** Rien de nouveau par rapport à la touche de capture : une capture de l'écran, l'état de la touche Tab, et la liste des programmes lancés pour savoir que le jeu est au premier plan. La mémoire et les fichiers du jeu ne sont jamais lus, et rien n'est envoyé au jeu. Comme toujours, aucune garantie vis-à-vis de l'anti-triche : voir le README.
 
-**Limites.** Un tableau n'est envoyé que si les cinq lignes montrent au moins une perk, donc un match personnalisé avec moins de joueurs, ou un joueur venu sans aucune perk, ne part pas tout seul : utilise ta touche de capture. Après un tableau, le suivant ne part pas tout seul pendant 2 min 30 (pour que quitter la page puis y revenir ne l'envoie pas deux fois). Si tu quittes un match sans voir le tableau de fin, l'overlay reste jusqu'à ton prochain Tab ou ta touche qui retire l'overlay.
+**Limites.** Un tableau n'est envoyé que si les cinq lignes montrent leur équipement. Un bot, ou un joueur venu sans aucune perk, affiche quand même les contours vides de ses emplacements de perks et les carrés des add-ons, ce qui compte ; une ligne vide est un équipement que le jeu cache encore (la partie n'est pas finie). Un match personnalisé à moins de cinq joueurs ne part pas tout seul : utilise ta touche de capture. Après un tableau, le suivant ne part pas tout seul pendant 2 min 30 (pour que quitter la page puis y revenir ne l'envoie pas deux fois). Si tu quittes un match sans voir le tableau de fin, l'overlay reste jusqu'à ton prochain Tab ou ta touche qui retire l'overlay.
 
 ## Dans les deux modes
 

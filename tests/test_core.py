@@ -482,6 +482,22 @@ class AutomaticMode(unittest.TestCase):
         self.assertEqual(auto.rows_revealed(img), [True, True, True, False, True])
         self.assertEqual(auto.rows_revealed(img.resize((1920, 1080))), [True, True, True, False, True])  # positions follow the screen's height
 
+    def test_bots_and_players_without_perks_show_empty_diamonds_and_count_as_revealed(self):
+        import numpy as np
+        from PIL import Image
+        from entity_toolkit import auto
+        img = Image.new("RGB", (2560, 1440), (45, 48, 52))
+        px = np.asarray(img, dtype=float).copy()
+        pattern = np.kron(auto._EMPTY_DIAMOND, np.ones((2, 2))) / 127 * 40   # the outline of an empty diamond, on the dark row band
+        for row in (0, 1, 2, 4):                                              # all drawn but empty, except the fourth row: still hidden
+            for x in auto.PERKS_X:
+                cy = int(auto.ROW_Y + auto.ROW_STEP * row)
+                px[cy - 30:cy + 30, x - 30:x + 30, :] += pattern[:, :, None]
+        img = Image.fromarray(np.clip(px, 0, 255).astype("uint8"))
+        self.assertEqual([auto.row_state(img, i) for i in range(5)], ["empty", "empty", "empty", "hidden", "empty"])
+        self.assertEqual(auto.rows_revealed(img), [True, True, True, False, True])
+        self.assertEqual(auto.rows_revealed(img.resize((1920, 1080))), [True, True, True, False, True])
+
 
 class SameMatchAgain(unittest.TestCase):
     def test_the_same_allies_on_screen_mean_the_same_match(self):

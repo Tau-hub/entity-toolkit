@@ -1,5 +1,7 @@
 # The database shipped with Entity Toolkit
 
+**Dead by Daylight and everything in this folder that comes from the game (names, characters, perks, add-ons, items, offerings, maps, icons, portraits, texts) belong to Behaviour Interactive Inc.** It was collected from the Dead by Daylight Wiki, from Otzdarva and from NightLight, as listed below, and is credited to them.
+
 This folder is a copy of the data the toolkit otherwise downloads with **Update database**, so that it works right after installing.
 `seed.json` says which day it was taken and for which game patch. The toolkit copies it into your `data` folder at the first start and
 keeps it current afterwards.

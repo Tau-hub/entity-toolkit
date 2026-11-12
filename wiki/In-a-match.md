@@ -68,7 +68,7 @@ Your capture key and your clear key keep working in automatic mode, for instance
 
 **What it touches.** Nothing new compared with the capture key: a screenshot of the monitor, the state of the Tab key, and the list of running programs to know the game is in front. The game's memory and files are never read, and nothing is sent to the game. As always, there is no guarantee about anti-cheat: see the README.
 
-**Limits.** A scoreboard is sent only when all five rows show at least one perk, so a custom match with fewer players, or a player who brought no perk at all, is not sent by itself: use your capture key. After one scoreboard, the next one is not sent by itself for 2.5 minutes (so leaving the page and coming back does not send it twice). If you leave a match without seeing the scoreboard, the overlay stays until your next Tab or your clear key.
+**Limits.** A scoreboard is sent only when all five rows show their loadout. A bot, or a player who brought no perk at all, still shows the empty outlines of its perk slots and add-on squares, which counts; a row that is blank is a loadout the game still hides (the match is not over). A custom match with fewer than five players is not sent by itself: use your capture key. After one scoreboard, the next one is not sent by itself for 2.5 minutes (so leaving the page and coming back does not send it twice). If you leave a match without seeing the scoreboard, the overlay stays until your next Tab or your clear key.
 
 ## In both modes
 

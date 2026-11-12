@@ -30,6 +30,7 @@
   body.done #s1, body.done #finish, body.done .step h2 .n, body.done .wizOnly, body.done #wizBar, body.done #wizNav { display:none; } body:not(.done) #reset { display:none; }
   /* first launch: one page at a time, with Back / Next */
   body:not(.done) main > .step { display:none; } body:not(.done) main > .step.cur { display:block; min-height:230px; }
+  #credits p { font-size:12.5px; }  body:not(.done) #credits { display:none !important; }
   #wizBar { display:flex; gap:6px; flex-wrap:wrap; justify-content:center; max-width:860px; margin:0 auto 14px; }
   #wizBar button { background:var(--panel2); border:1px solid var(--border); color:var(--muted); border-radius:999px; padding:5px 12px; font:inherit; font-size:12.5px; cursor:pointer; }
   #wizBar button b { display:inline-block; min-width:16px; margin-right:5px; color:var(--text); }
@@ -142,6 +143,11 @@
     <p style="text-align:center">You can come back to all of this later: the Setup button becomes <b>⚙ Settings</b> (top right).</p>
   </section>
   <div id="wizNav"><button class="sec" id="bBack">← Back</button><span class="msg" id="wizHint"></span><button class="act" id="bNext">Next →</button></div>
+  <section class="step" id="credits">
+    <h2>Credits</h2>
+    <p><b>Dead by Daylight</b> and everything that comes from the game (characters, perks, add-ons, items, offerings, maps, icons, portraits and texts) belong to <b>Behaviour Interactive Inc.</b> Entity Toolkit is a fan-made companion, not affiliated with or endorsed by Behaviour Interactive.</p>
+    <p>The data was collected from the <a href="https://deadbydaylight.wiki.gg" target="_blank" rel="noopener">Dead by Daylight Wiki</a> and its contributors (names, descriptions, icons, portraits, maps), <b>Otzdarva</b> (<a href="https://otzdarva-builds.com" target="_blank" rel="noopener">builds and ratings</a>) and <a href="https://nightlight.gg" target="_blank" rel="noopener">NightLight</a> (community statistics, map ids, the upload). Thank you to all of them.</p>
+  </section>
   <section class="step" id="reset">
     <h2>Reset</h2>
     <p>Shows the first-launch setup again. Your downloaded data, levels, builds, NightLight token and options are kept.</p>

@@ -11,6 +11,7 @@ Nothing is read from, or sent to, the game's process. The strip is about 1/17 of
 cost is one short look every 2 seconds, and none at all while the game is not in front.
 """
 import asyncio
+import base64
 import ctypes
 import re
 import time
@@ -18,7 +19,7 @@ from ctypes import wintypes
 
 import mss
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageFilter
 
 from . import ocr, winapi
 
@@ -66,25 +67,68 @@ def look(hwnd):
     return read_kind(Image.frombytes("RGB", shot.size, shot.bgra, "raw", "BGRX"))
 
 
-PERKS_X = (245, 317, 397, 476)   # centres of the four perk diamonds of a scoreboard row (px on a 1440-high screen)
+PERKS_X = (239, 318, 397, 476)   # centres of the four perk diamonds of a scoreboard row (px on a 1440-high screen)
 ROW_Y, ROW_STEP = 433, 160.5     # centre of the first row's perks, distance between two rows
+FILLED = 15                      # a drawn perk is a busy little picture: its grey levels vary this much (standard deviation)
+EMPTY_MATCH = 0.5                # how much a slot must look like an empty diamond (1 = identical) to count as one
+# What an EMPTY perk diamond looks like once the smooth background is removed (30x30, whole-number levels). Taken from the four bot rows of
+# a 2560x1440 scoreboard, where every perk slot is empty. A player without perks, or a bot, shows these outlines; a row whose loadout is still
+# hidden shows nothing at all.
+_EMPTY_DIAMOND = np.frombuffer(base64.b64decode(
+    "AP4CBQACAQEDBxgxTmkLwdPGSF49Hw0GAwD/AAAC/v4CBAQFAgEECiFAUgS+2dO5swpNLhgMBAAB/wME/Pn+AQMC/v4KGDdL"
+    "4qbN1tjVxsowTikYDwQCAQT//vz//f8CAg0WLETgocDK8QjQ073HIEMwIAwCAf76/wIBAAYOGiM0ROiYusLnJTMA38K0m/xP"
+    "LhoLBP/9/QIA/AUUJjJA35K6utInJxohENPSra0qRDEbDwQAAv///xIeOUX/przK4hklExETHAXZxq6qKkoqHwsIAQEEEiA3"
+    "QOClwMzhER0aFg0MEhkKxrqguFJPLiMZAwUOIDVP8JjGzOQaHgsHBwMBBQ8b+cavnrQxXD0uCw8dL0oFpsXA6RsiDggEAQL+"
+    "AQcOJ/21rZKiN1tGICY2RuSZr8PeEyAMAgMBAgH+BAYLEiDvq6aTr0JwKTxD+KiswekWGAsB/f8A/v7+AwQEDyEv+6qimbVE"
+    "TVj/qcO73RETB/z7+v7+//38AAECCQsfOQGurq3UYQSnycrfDRIFAv39/f3+//z2+gAA/gYQIDX4usS6/6jL3OwcGQIDAwEB"
+    "Af7+/Pj4+wICAQUMEREqFczPtb/S9CAkDQQDAgL/AQEAAQQA/wUC/f7+BhIhMCTtus7cHisbCAMCAgEA/vz+AQQBAQMC////"
+    "CRglOVACvb3R4A4cDAb///8DBAIBAgH8/wIDBgIDChouMfPIKci5y9gMGAoBAf8ABgICAgH5+/8EAwIHDRwf37u/ZjOys73R"
+    "CiMPBf7/BQECAvv8/QECBQUNJBrErK+4OVYivaS22BghFgoCBwMDAf0CAgIFCBMeIM+tsqI1HitSKq6pudEEGhoOBgMDAgMF"
+    "BQQMGycVzqmlkQJ7ESAqTx2qoLS49y0TEggC+/0DBAoSJBrYs6SS71JKAw4YLEUqpIGsrgMxHQ4F//4ABhIiHMqopIUUXDwu"
+    "/wQLGSpMKsKbpbkDJRsLAv0CDh0Wz6irlu9hNyYaAQQHCRchTVOunaOtAiITCQ8RGxfqsKen4l45KxsQ/P4FAQcVJ04qqp66"
+    "wgMjGxofIPnArZkWYzckFAoC/f4B/QAMHjlWMK+gyuEZMysz/8i1luxWQiQTCAcEAwEBAgIJER04aDS0vdPcGTwU5sSw9F9K"
+    "JhQE/v4BBgcDBwQEChMvQnJNzcjl7vvWzrrKal01IAgCAf8C"
+), dtype=np.int8).reshape(30, 30).astype(float)
+
+
+def _flat(img, cx, cy):
+    """The 60x60 patch (at 1440p) centred on (cx, cy), in grey levels."""
+    k = img.height / 1440
+    return img.crop((int((cx - 30) * k), int((cy - 30) * k), int((cx + 30) * k), int((cy + 30) * k))).convert("L").resize((60, 60), Image.BICUBIC)
+
+
+def diamond_match(img, cx, cy):
+    """How much the slot centred on (cx, cy) looks like an empty perk diamond: 1 = the same outline, about 0 = flat or something else."""
+    p = _flat(img, cx, cy)
+    a = np.asarray(p, dtype=float) - np.asarray(p.filter(ImageFilter.GaussianBlur(4)), dtype=float)
+    a = a.reshape(30, 2, 30, 2).mean(axis=(1, 3))
+    a, b = a - a.mean(), _EMPTY_DIAMOND - _EMPTY_DIAMOND.mean()
+    d = float(np.sqrt((a * a).sum() * (b * b).sum()))
+    return float((a * b).sum() / d) if d > 1e-6 else 0.0
+
+
+def row_state(img, i):
+    """'perks' (at least one perk drawn), 'empty' (the four slots are drawn but empty: a bot, or a player without perks) or 'hidden'."""
+    k = img.height / 1440
+    cy = ROW_Y + ROW_STEP * i
+    half = 26 * k
+    for x in PERKS_X:
+        g = np.asarray(img.crop((int(x * k - half), int((cy - 26) * k), int(x * k + half), int((cy + 26) * k))).convert("L"), dtype=float)
+        if float(g.std()) >= FILLED:
+            return "perks"
+    if sum(diamond_match(img, x, cy) >= EMPTY_MATCH for x in PERKS_X) >= 2:
+        return "empty"
+    return "hidden"
 
 
 def rows_revealed(img):
-    """For the five rows of the scoreboard (four survivors, then the killer): True when the row shows its perks.
+    """For the five rows of the scoreboard (four survivors, then the killer): True when the row shows its loadout.
 
-    The game hides a player's perks until the match is really over for everyone: a scoreboard seen earlier (you died first, or you came
-    back from spectating) has rows without their perk diamonds. A drawn perk is a busy little picture; a hidden or empty slot is flat.
+    The game hides a player's loadout until the match is really over for everyone: a scoreboard seen earlier (you died first, or you came
+    back from spectating) has rows with nothing drawn on them. Once it is over, a row shows its perk diamonds: filled, or, for a bot or a
+    player who brought no perk at all, empty outlines (and the squares of the add-ons). Both count as revealed; only a blank row does not.
     """
-    k = img.height / 1440
-    out = []
-    for i in range(5):
-        cy, half, shown = (ROW_Y + ROW_STEP * i) * k, 26 * k, False
-        for x in PERKS_X:
-            g = np.asarray(img.crop((int(x * k - half), int(cy - half), int(x * k + half), int(cy + half))).convert("L"), dtype=float)
-            shown = shown or float(g.std()) >= 15
-        out.append(shown)
-    return out
+    return [row_state(img, i) != "hidden" for i in range(5)]
 
 
 def same_board(a, b):

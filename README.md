@@ -4,7 +4,7 @@
 
 An **unofficial** companion for *Dead by Daylight* (Windows): see your teammates' perks over the game, send your match scoreboard to NightLight with one key, track your character levels, browse recommended builds, and build your own.
 
-> Not affiliated with Behaviour Interactive, NightLight, Otzdarva or the DbD wiki. *Dead by Daylight* and its assets are trademarks / property of Behaviour Interactive Inc. The perk icons, descriptions, builds and ratings the toolkit needs come with it in the [`seed/`](seed/README.md) folder, which names the source and owner of each part: they are not covered by this project's licence, and are then kept current on your PC.
+> Fan-made and unofficial: not affiliated with Behaviour Interactive, NightLight, Otzdarva or the DbD wiki. *Dead by Daylight*, its name and everything that comes from the game belong to **Behaviour Interactive Inc.** (see [Credits](#credits)). The perk icons, descriptions, builds and ratings the toolkit needs come with it in the [`seed/`](seed/README.md) folder, which names the source and owner of each part: they are not covered by this project's licence, and are then kept current on your PC.
 
 ![The allies' perks drawn over the game's survivor list](docs/images/overlay.jpg)
 
@@ -85,7 +85,16 @@ The manual is on the [wiki](https://github.com/Tau-hub/entity-toolkit/wiki):
 
 ## Credits
 
-Builds, perk values and the add-on tier list come from **Otzdarva** ([otzdarva-builds.com](https://otzdarva-builds.com), [otzdarva.com](https://otzdarva.com)); community statistics and the upload API from **[NightLight](https://nightlight.gg)**; perk and map data from the **[Dead by Daylight wiki](https://deadbydaylight.wiki.gg)**. A copy of that data ships with the toolkit so that it works right after installing ([`seed/`](seed/README.md) says what comes from where); it stays the property of its authors, and it is removed on request.
+**Dead by Daylight** and everything that comes from the game (its name, characters, perks, add-ons, items, offerings, maps, icons, portraits and texts) belong to **Behaviour Interactive Inc.** This project is a fan-made companion: it is not affiliated with, endorsed by or sponsored by Behaviour Interactive.
+
+The data the toolkit uses was collected from these community sources, which deserve the credit:
+
+- **[Dead by Daylight Wiki](https://deadbydaylight.wiki.gg)** and its contributors: perk, add-on, item, offering and power names and descriptions, the icons and portraits, map and realm names, as the wiki publishes them. The wiki's content is the game's, shared by the community.
+- **Otzdarva** ([otzdarva-builds.com](https://otzdarva-builds.com), [otzdarva.com](https://otzdarva.com)): builds, perk values and the add-on tier list.
+- **[NightLight](https://nightlight.gg)**: community statistics, most played builds, map ids, and the upload API.
+- **Steam**: the announcements the toolkit reads to know which patch the game is on.
+
+A copy of that data ships with the toolkit so that it works right after installing ([`seed/`](seed/README.md) names the source and the owner of each part); it stays the property of its authors, and it is removed on request. Thank you to all of them.
 
 ## License
 

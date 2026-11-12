@@ -34,8 +34,8 @@ The toolkit looks for the words *PLAYERS / QUESTS* (players menu) or *MATCH SCOR
 
 ### Automatic mode: the scoreboard is not sent
 
-- The toolkit waits until the four survivors and the killer all show their perks: while one row is still hidden, the match is not over. The Live page then says *"waiting for the end of the match"*.
-- A custom match with fewer players, or a player who brought no perk at all, never fills that condition: press your capture key on the scoreboard.
+- The toolkit waits until the four survivors and the killer all show their loadout (perks, or at least the empty slots): while one row is still hidden, the match is not over. The Live page then says *"waiting for the end of the match"*.
+- A bot or a player without perks is fine (their empty perk slots are recognised as a revealed loadout), but a custom match with fewer than five players never fills that condition: press your capture key on the scoreboard.
 - NightLight must be set up (a token, and one sign-in). Without it, nothing is sent and nothing is said: that is intended.
 
 ### Overlay misplaced

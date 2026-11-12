@@ -4,7 +4,7 @@ Un compagnon **non officiel** pour *Dead by Daylight* (Windows) : voir les perks
 
 [English version](README.md)
 
-> Aucun lien avec Behaviour Interactive, NightLight, Otzdarva ni le wiki DbD. *Dead by Daylight* et ses éléments sont des marques et la propriété de Behaviour Interactive Inc. Les icônes de perks, les descriptions, les builds et les notes dont l'outil a besoin sont livrés avec lui dans le dossier [`seed/`](seed/README.md), qui indique la source et le propriétaire de chaque partie : ils ne sont pas couverts par la licence de ce projet, et sont ensuite tenus à jour sur ton PC.
+> Non officiel, réalisé par des fans : aucun lien avec Behaviour Interactive, NightLight, Otzdarva ni le wiki DbD. *Dead by Daylight*, son nom et tout ce qui vient du jeu appartiennent à **Behaviour Interactive Inc.** (voir [Crédits](#crédits)). Les icônes de perks, les descriptions, les builds et les notes dont l'outil a besoin sont livrés avec lui dans le dossier [`seed/`](seed/README.md), qui indique la source et le propriétaire de chaque partie : ils ne sont pas couverts par la licence de ce projet, et sont ensuite tenus à jour sur ton PC.
 
 ![Les perks des alliés dessinés par-dessus la liste des survivants du jeu](docs/images/overlay.jpg)
 
@@ -87,7 +87,16 @@ Le mode d'emploi est sur le [wiki](https://github.com/Tau-hub/entity-toolkit/wik
 
 ## Crédits
 
-Les builds, les valeurs de perks et la tier list des add-ons viennent d'**Otzdarva** ([otzdarva-builds.com](https://otzdarva-builds.com), [otzdarva.com](https://otzdarva.com)) ; les statistiques de la communauté et l'API d'envoi de **[NightLight](https://nightlight.gg)** ; les données de perks et de maps du **[wiki Dead by Daylight](https://deadbydaylight.wiki.gg)**. Une copie de ces données est livrée avec l'outil pour qu'il marche dès l'installation ([`seed/`](seed/README.md) dit ce qui vient d'où) ; elles restent la propriété de leurs auteurs, et sont retirées sur demande.
+**Dead by Daylight** et tout ce qui vient du jeu (son nom, ses personnages, perks, add-ons, objets, offrandes, maps, icônes, portraits et textes) appartiennent à **Behaviour Interactive Inc.** Ce projet est un compagnon réalisé par des fans : il n'est ni affilié à Behaviour Interactive, ni approuvé, ni sponsorisé par elle.
+
+Les données que l'outil utilise ont été récupérées auprès de ces sources communautaires, à qui revient le mérite :
+
+- **[Dead by Daylight Wiki](https://deadbydaylight.wiki.gg)** et ses contributeurs : noms et descriptions des perks, add-ons, objets, offrandes et pouvoirs, icônes et portraits, noms des maps et des royaumes, tels que le wiki les publie. Le contenu du wiki est celui du jeu, partagé par la communauté.
+- **Otzdarva** ([otzdarva-builds.com](https://otzdarva-builds.com), [otzdarva.com](https://otzdarva.com)) : les builds, les valeurs de perks et la tier list des add-ons.
+- **[NightLight](https://nightlight.gg)** : les statistiques de la communauté, les builds les plus joués, les identifiants de maps, et l'API d'envoi.
+- **Steam** : les annonces que l'outil lit pour savoir sur quel patch est le jeu.
+
+Une copie de ces données est livrée avec l'outil pour qu'il marche dès l'installation ([`seed/`](seed/README.md) nomme la source et le propriétaire de chaque partie) ; elles restent la propriété de leurs auteurs, et sont retirées sur demande. Merci à tous.
 
 ## Licence
 
