@@ -160,6 +160,7 @@ class Assistant:
         self.overlay_was_on = False  # this press has just removed the overlay
         self.last_menu = None  # (allies, your row, menu screenshot, time) of the last press in the players menu
         self.players_at = None  # when the players menu was last read for the current match (automatic mode does not read it again right away)
+        self.sent_board = None  # the picture of the scoreboard last handled: automatic mode never sends the same one again (reset by the next players menu)
         self.end_at = None      # when a scoreboard was last handled (automatic mode does not handle the same one twice)
         self.complete = False   # the last players-menu reading found the three allies and their survivors
         self.burst = None       # the extra screenshots being taken for the press in progress
@@ -204,6 +205,7 @@ class Assistant:
         threading.Thread(target=captures.save, args=(img.copy(), kind or "other"), daemon=True).start()  # rotation of the last captures, off the critical path
         if kind == "players":
             self.players_at = time.time()
+            self.sent_board = None  # a new match begins
             self.on_players(img)
             self.complete = bool(self.last_menu) and read_complete(self.last_menu[0], an.survivor_names())
             if quiet and self.last_menu and not self.complete and self.retries < 2:
@@ -216,6 +218,7 @@ class Assistant:
                 self.retries = 0
         elif kind == "end":
             self.end_at, self.players_at = time.time(), None
+            self.sent_board = img.copy()
             self.complete, self.retries = False, 0
             self.last_menu = None  # the match is over: its perks must never come back (not as an overlay, not as mouse checks)
             self.on_end(img, quiet)

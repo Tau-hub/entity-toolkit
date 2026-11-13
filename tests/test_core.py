@@ -462,6 +462,12 @@ class AutomaticMode(unittest.TestCase):
         self.assertTrue(auto.want_players(None, 1000))
         self.assertFalse(auto.want_players(1000, 1000 + 60))
         self.assertTrue(auto.want_players(1000, 1000 + auto.REREAD_AFTER + 1))
+        from PIL import Image
+        a = Image.new("RGB", (640, 360), (40, 40, 40))
+        b = Image.new("RGB", (640, 360), (200, 60, 60))
+        self.assertFalse(auto.already_sent(None, a))
+        self.assertTrue(auto.already_sent(a, a.copy()))   # same scoreboard, however long after
+        self.assertFalse(auto.already_sent(a, b))          # another match
         self.assertTrue(auto.want_end(None, 1000))
         self.assertFalse(auto.want_end(1000, 1000 + 30))
         self.assertTrue(auto.want_end(1000, 1000 + auto.RESEND_AFTER + 1))

@@ -140,6 +140,12 @@ def same_board(a, b):
     return float(np.abs(rows(a) - rows(b)).mean()) < 6.0
 
 
+def already_sent(sent, img):
+    """Is `img` the scoreboard that was handled already (`sent`: its picture, None when there is none to remember)? Leaving the game for a while
+    and coming back shows it again: it must not be sent a second time, however long you were away. A new match shows other players."""
+    return sent is not None and same_board(sent, img)
+
+
 def want_players(players_at, now):
     """Look for the players menu? Not when it was read a moment ago for this match."""
     return players_at is None or now - players_at > REREAD_AFTER
@@ -160,6 +166,7 @@ class Watcher:
         self.next_end = 0.0
         self.confirm = 0       # looks in a row that found a finished scoreboard
         self.told = False      # "waiting for the end of the match" was said for this scoreboard
+        self.dup_told = False  # "already handled" was said for this scoreboard
 
     def step(self, now):
         """One turn of the loop; returns how long to sleep."""
@@ -205,6 +212,12 @@ class Watcher:
             if not want_end(self.ast.end_at, now):
                 return 0.03
             img = winapi.grab_game_monitor(hwnd)
+            if already_sent(self.ast.sent_board, img):
+                self.confirm = 0
+                if not self.dup_told:
+                    self.dup_told = True
+                    self.log("Automatic: this scoreboard was already handled (you came back to it): not sent again")
+                return 0.5
             done = rows_revealed(img)
             if all(done):
                 self.confirm += 1
@@ -221,7 +234,7 @@ class Watcher:
                     self.log(f"Automatic: scoreboard seen, the perks of {left} player{'s' if left > 1 else ''} are still hidden (rows {done}): waiting")
                     self.say(f"Scoreboard seen: waiting for the end of the match ({left} player{'s' if left > 1 else ''} with hidden perks). Press the capture key to send it now")
         else:
-            self.confirm, self.told = 0, False
+            self.confirm, self.told, self.dup_told = 0, False, False
         return 0.03
 
     def run(self):
