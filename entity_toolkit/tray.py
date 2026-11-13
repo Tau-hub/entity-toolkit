@@ -55,7 +55,7 @@ def start(url, hub, log, open_page=None):
             pystray.Menu.SEPARATOR,
             item("Settings", go("setup.html")),
             pystray.Menu.SEPARATOR,
-            item("Quit Entity Toolkit", lambda: hub.quit()),
+            item("Quit Entity Toolkit", lambda: hub.quit("you chose Quit in the notification-area icon menu")),
         ))
         icon.run_detached()
         return icon

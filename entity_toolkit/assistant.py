@@ -464,7 +464,7 @@ def run(hub, ast, stop_with_game=True):
                     deadline = time.time() + 240  # lets an upload / review in progress finish
                     while ast.busy.locked() and time.time() < deadline:
                         time.sleep(1)
-                    hub.quit()
+                    hub.quit("the game closed")
                     return
             time.sleep(3)
 

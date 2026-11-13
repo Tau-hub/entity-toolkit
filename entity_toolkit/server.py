@@ -132,7 +132,11 @@ class Hub:
         s.update(ready=db_ready(), key=winapi.combo_label(cfg["capture_key"]), auto=bool(cfg.get("auto")))
         return s
 
-    def quit(self):
+    def quit(self, why=""):
+        """Stops the toolkit. `why` is written to the log: who asked (the window, the notification-area icon, an update...)."""
+        if why:
+            from .log import log
+            log(f"Entity Toolkit is stopping: {why}")
         self.stop.set()
 
     def wait(self):
@@ -265,7 +269,7 @@ def make_handler(hub):
                 return {"ok": True}
             if path == "/api/update/install":  # "Update now" in the window, or in Settings
                 from .log import log
-                return {"started": version.install(log, hub.quit), "version": version.info()}
+                return {"started": version.install(log, lambda: hub.quit("installing an update")), "version": version.info()}
             if path == "/api/update/check":
                 try:
                     version.check()
@@ -273,7 +277,7 @@ def make_handler(hub):
                     return {"error": str(e), "version": version.info()}
                 return {"version": version.info()}
             if path == "/api/quit":  # the window was closed with "quit Entity Toolkit"
-                hub.quit()
+                hub.quit("you chose to quit when closing the window")
                 return {"ok": True}
             if path == "/api/window/show":  # a second launch of the program: show what is already running
                 if hub.opener:

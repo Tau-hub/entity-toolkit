@@ -149,7 +149,7 @@ def _run(open_page, stop_with_game, setup=False):
     database.ON_FINISH.append(reload_recogniser)
     database.start_auto_update(log)
     from . import shrine, tray, version
-    version.start(log, hub.quit, idle=lambda: not winapi.game_running())
+    version.start(log, lambda: hub.quit("installing an update"), idle=lambda: not winapi.game_running())
     shrine.start(log)
     from . import window
     ui = window.Launcher(url, hub, log)
@@ -174,4 +174,12 @@ def _run(open_page, stop_with_game, setup=False):
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    try:
+        code = main()
+    except BaseException as e:  # pythonw has no console: whatever kills the program must at least be in the log
+        if not isinstance(e, SystemExit):
+            import traceback
+            from .log import log
+            log("Entity Toolkit crashed:\n" + traceback.format_exc())
+        raise
+    sys.exit(code)
