@@ -84,7 +84,7 @@ def best_score(crop, templates):
 def row_offsets(img):
     """How far each of the four rows really is from ROWS_Y (px at REF_H). The rows keep their usual place when four humans play, but are
     shorter or taller when bots are in the match (a bot row has no player icon), so the later rows move up or down by up to ~20 px.
-    Found on the purple diamond of each row's first perk. Small differences (under 9 px) are noise and give 0."""
+    Found on the purple diamond of each row's first perk. When no row is more than 8 px off, all give 0 (noise)."""
     s = img.height / REF_H
     y0 = 170
     x = cx_of(img, PERKS_X[0])
@@ -95,11 +95,11 @@ def row_offsets(img):
     sm = np.convolve(purple.sum(axis=1).astype(float), np.ones(k) / k, mode="same")
     out = []
     for y in ROWS_Y:
-        lo, hi = max(0, int((y - y0 - 26) * s)), int((y - y0 + 26) * s)
+        lo, hi = max(0, int((y - y0 - 40) * s)), int((y - y0 + 40) * s)  # up to three bots: the last row can be ~25 px higher
         seg = sm[lo:hi]
         d = round((lo + float(np.flatnonzero(seg >= 0.98 * seg.max()).mean())) / s + y0 - y) if len(seg) and seg.max() > 3 else 0  # middle of the top plateau
-        out.append(d if abs(d) > 8 else 0)
-    return out
+        out.append(d)
+    return out if any(abs(d) > 8 for d in out) else [0, 0, 0, 0]  # all the offsets or none: small ones alone are noise
 
 
 def recognize(img, refs, top=3, rows=None, dys=None):
@@ -122,8 +122,8 @@ def recognize(img, refs, top=3, rows=None, dys=None):
             out.append(None)
             continue
         d = dys[ri] if dys else 0
-        if d:  # the row moved (bots in the match): the offset found is within a few px, the best one is the one where the first two icons match best
-            d = max(range(d - 8, d + 9, 4), key=lambda c: sum(icon_scores(x, int((y + c) * scale))[0][0] for x in PERKS_X[:2]))
+        if dys and any(dys):  # rows moved (bots in the match): the offset found is within a few px, the best one is the one where the first icon matches best
+            d = max((d - 6, d, d + 6), key=lambda c: icon_scores(PERKS_X[0], int((y + c) * scale))[0][0])
         if dys:
             dys[ri] = d  # (the refined offset goes back to the caller: the names are read at the same height)
         yy = int((y + d) * scale)
