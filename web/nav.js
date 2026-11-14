@@ -7,11 +7,11 @@ window.ET_PAGES = [
   ["levels.html", "Levels"],
   ["priorities.html?kind=killers", "Killer priorities"],
   ["priorities.html?kind=survivors", "Survivor priorities"],
-  ["tierlist.html", "Perk tier list"],
   ["killer.html", "Killer sheet"],
   ["survivor_builds.html", "Survivor builds"],
   ["loadout.html", "Random loadout"],
   ["buildmaker.html", "Build creator"],
+  ["tierlist.html", "Perk tier list"],
 ];
 // Setup (first launch) becomes Settings, at the far right, once the setup is finished
 window.ET_SETUP_PAGE = "setup.html";

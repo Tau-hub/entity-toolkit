@@ -48,6 +48,6 @@ In the options, *When a newer version exists* chooses between **ask me** (the de
 While the toolkit runs, a small red **E** sits in the Windows notification area (bottom right of the taskbar, behind the **^** arrow if Windows hides it). It tells you the toolkit is on, and it is the way back to the window once you have closed it:
 
 - **Double-click**: opens the Live page.
-- **Right-click**: a menu with every page (Live, Levels, Killer priorities, Survivor priorities, Perk tier list, Killer sheet, Survivor builds, Random loadout, Build creator), today's two daily challenges, **Settings**, then **Quit Entity Toolkit**, which stops the toolkit: the capture key or the automatic mode, the overlay and the local pages.
+- **Right-click**: a menu with every page (Live, Levels, Killer priorities, Survivor priorities, Killer sheet, Survivor builds, Random loadout, Build creator, Perk tier list), today's two daily challenges, **Settings**, then **Quit Entity Toolkit**, which stops the toolkit: the capture key or the automatic mode, the overlay and the local pages.
 
 You can turn the icon off in the options; the toolkit works the same without it.

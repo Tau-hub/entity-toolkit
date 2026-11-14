@@ -61,26 +61,27 @@
 window.addEventListener("error", (e) => { document.getElementById("app").innerHTML = "<p class='empty2'>Error: " + e.message + "</p>"; });
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const CUTS = [["S", 0.08], ["A", 0.25], ["B", 0.5], ["C", 0.78], ["D", 1]];  // share of the rated perks (best first) at the end of each tier
+const LIMITS = [["S", 80], ["A", 65], ["B", 50], ["C", 25], ["D", 0]];  // a perk is in the first tier whose limit its score (out of 100) reaches
 const METRIC_NAME = { note: "combined rating", otz: "Otzdarva's opinion", pick: "NightLight pick rate", nlRate: "NightLight escape / kill rate" };
 let DATA = null, side = "S", tipFor = null;
 try { side = localStorage.getItem("tier.side") || "S"; $("metric").value = localStorage.getItem("tier.metric") || "note"; } catch (e) {}
 
-const value = (p, m) => (typeof p[m] === "number" ? p[m] : null);
-const stars = (n) => "★".repeat(n) + "☆".repeat(3 - n);
-
-// Tier limits come from the whole side (not from what is filtered), so a filter never changes a perk's tier: equal values share a tier.
-function tiersOf(perks, m) {
-  const rated = perks.map((p) => value(p, m)).filter((v) => v !== null).sort((a, b) => b - a);
-  const limits = CUTS.map(([t, share]) => [t, rated.length ? rated[Math.min(rated.length - 1, Math.max(0, Math.ceil(rated.length * share) - 1))] : 0]);
-  const of = (v) => { for (const [t, lim] of limits) if (v >= lim) return t; return "D"; };
-  return { of, limits, n: rated.length };
+// Score out of 100 on which the tiers are cut. Combined rating: the rating itself. Otzdarva: his value (out of 999) on 100.
+// NightLight (pick rate, escape / kill rate): where the perk stands among the perks of its side, 100 = the best, 0 = the worst.
+function scoreOf(perks, m) {
+  if (m === "note") return (p) => (typeof p.note === "number" ? p.note : null);
+  if (m === "otz") return (p) => (typeof p.otz === "number" ? Math.round(p.otz / 10) : null);
+  const v = perks.map((p) => p[m]).filter((x) => typeof x === "number").sort((a, b) => a - b);
+  return (p) => (typeof p[m] === "number" && v.length > 1 ? Math.round((100 * v.filter((x) => x < p[m]).length) / (v.length - 1)) : null);
 }
+const stars = (n) => "★".repeat(n) + "☆".repeat(3 - n);
+const tierOf = (s) => { for (const [t, lim] of LIMITS) if (s >= lim) return t; return "D"; };
 
-function tipText(p, tier, m) {
+function tipText(p, score) {
   const lines = [];
   lines.push(`<b>${esc(p.name)}</b><i>${side === "K" ? "Killer" : "Survivor"} perk${p.owner ? " · " + esc(p.owner) : " · general"}${p.have ? "" : " · not unlocked"}</i>`);
   const nums = [];
+  if (score !== null) nums.push(`Tier score ${score}/100 (${METRIC_NAME[$("metric").value]})`);
   if (typeof p.note === "number") nums.push(`Rating ${p.note}/100`);
   if (typeof p.otz === "number") nums.push(`Otzdarva ${stars(p.stars || 0)} (${p.otz}/999)`);
   if (typeof p.pick === "number") nums.push(`NightLight: picked in ${p.pick} % of games`);
@@ -91,23 +92,23 @@ function tipText(p, tier, m) {
 }
 
 function draw() {
-  const m = $("metric").value, perks = DATA.perks[side] || [], t = tiersOf(perks, m);
+  const m = $("metric").value, perks = DATA.perks[side] || [], sc = scoreOf(perks, m);
   const kind = $("type").value, q = $("q").value.trim().toLowerCase(), mine = $("mine").checked;
   const dimmed = (p) => (kind && !(p.types || []).includes(kind)) || (mine && !p.have);
   const found = (p) => q && (p.name.toLowerCase().includes(q) || String(p.owner || "").toLowerCase().includes(q));
   const groups = { S: [], A: [], B: [], C: [], D: [], N: [] };
-  for (const p of perks) { const v = value(p, m); groups[v === null ? "N" : t.of(v)].push(p); }
-  const byValue = (a, b) => (value(b, m) ?? -1) - (value(a, m) ?? -1) || a.name.localeCompare(b.name);
+  let n = 0;
+  for (const p of perks) { const v = sc(p); if (v !== null) n++; groups[v === null ? "N" : tierOf(v)].push(p); }
+  const byValue = (a, b) => (sc(b) ?? -1) - (sc(a) ?? -1) || (b[m] ?? 0) - (a[m] ?? 0) || a.name.localeCompare(b.name);
   const shown = (p) => !dimmed(p);
-  const lim = Object.fromEntries(t.limits);
-  const range = (k) => (k === "N" ? "" : k === "S" ? `≥ ${lim.S}` : `≥ ${lim[k]}`);
+  const range = (k) => { const i = LIMITS.findIndex(([t]) => t === k); return k === "S" ? "80 – 100" : `${LIMITS[i][1]} – ${LIMITS[i - 1][1] - 1}`; };
   $("app").innerHTML = ["S", "A", "B", "C", "D", "N"].map((k) => {
     const list = groups[k].sort(byValue).filter(shown);
     if (k === "N" && !groups.N.length) return "";
     const tiles = list.map((p) => `<button class="p${p.have ? "" : " no"}${found(p) ? " hit" : ""}" data-n="${esc(p.name)}" aria-label="${esc(p.name)}"><img loading="lazy" src="${esc(p.icon)}" alt=""></button>`).join("");
     return `<div class="tier ${k}"><div class="lab">${k === "N" ? "?" : k}<small>${k === "N" ? "no data" : range(k)}</small></div><div class="perks">${tiles || '<span class="empty2">Nothing here with these filters.</span>'}</div></div>`;
   }).join("");
-  $("legend").textContent = `${t.n} perks rated by ${METRIC_NAME[m]}. Tiers cut by rank: best 8 % → S, next 17 % → A, next 25 % → B, next 28 % → C, the rest → D. Dimmed perks do not match your filters; faded ones are not unlocked on your account yet.`;
+  $("legend").textContent = `${n} perks rated by ${METRIC_NAME[m]}. Tiers on a score out of 100: S 80 and more, A 65 – 79, B 50 – 64, C 25 – 49, D 0 – 24; perks without data are at the bottom.${m === "pick" || m === "nlRate" ? " For NightLight, the score is the perk's position among the perks of its side (100 = the best)." : ""} Dimmed perks do not match your filters; faded ones are not unlocked on your account yet.`;
   try { localStorage.setItem("tier.side", side); localStorage.setItem("tier.metric", m); } catch (e) {}
 }
 
@@ -131,7 +132,7 @@ document.addEventListener("mousemove", (e) => {
     tipFor = b;
     const p = (DATA.perks[side] || []).find((x) => x.name === b.dataset.n);
     const m = $("metric").value;
-    tip.innerHTML = tipText(p, null, m).replace(/\n/g, "<br>");
+    tip.innerHTML = tipText(p, scoreOf(DATA.perks[side] || [], m)(p)).replace(/\n/g, "<br>");
     tip.style.display = "block";
   }
   const w = tip.offsetWidth, h = tip.offsetHeight;
