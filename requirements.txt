@@ -1,5 +1,5 @@
 pillow>=13.0.0
-numpy>=1.26
+numpy>=2.5.4
 opencv-python>=4.9
 mss>=9
 requests>=2.31
