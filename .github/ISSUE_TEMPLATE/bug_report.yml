@@ -1,0 +1,50 @@
+name: Bug report
+description: Something does not work as it should
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. Check the [Troubleshooting](https://github.com/Tau-hub/entity-toolkit/wiki/Troubleshooting) page first.
+        **Blur or remove player names, your NightLight token and personal details** in everything you paste.
+  - type: input
+    id: version
+    attributes:
+      label: Entity Toolkit version
+      description: Shown in Settings, e.g. 0.4.3
+    validations:
+      required: true
+  - type: dropdown
+    id: how
+    attributes:
+      label: How do you run it?
+      options: [".exe (release zip)", "From the sources (Python)"]
+    validations:
+      required: true
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Mode
+      options: ["Automatic", "Hotkey"]
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Game resolution, solo or with bots, survivor or killer, which screen...
+  - type: textarea
+    id: log
+    attributes:
+      label: Log
+      description: The relevant lines of `data/entity_toolkit.log` (around the time of the problem).
+      render: text
+  - type: textarea
+    id: shots
+    attributes:
+      label: Screenshots
+      description: Drag images here (anonymised). The toolkit keeps its own in `data/captures`.

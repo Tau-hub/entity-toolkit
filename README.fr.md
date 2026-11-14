@@ -101,8 +101,12 @@ Une copie de ces données est livrée avec l'outil pour qu'il marche dès l'inst
 
 ## Licence
 
-[MIT](LICENSE) pour le code de ce dépôt. Elle ne couvre ni les données tierces que l'outil livre dans [`seed/`](seed/README.md) ou télécharge, ni les éléments de *Dead by Daylight*.
+[MIT](LICENSE) pour le code de ce dépôt. Elle ne couvre ni les données tierces que l'outil livre dans [`seed/`](seed/README.md) ou télécharge, ni les éléments de *Dead by Daylight*. Les bibliothèques utilisées et leurs licences sont dans [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
 
 ## Assistance de l'IA
 
 L'essentiel du code et de la documentation de ce projet a été écrit avec Claude (Anthropic) via Claude Code, à partir des besoins du mainteneur. Le mainteneur a choisi les fonctionnalités, relu les résultats et vérifié l'outil sur de vraies captures de jeu et en match. Comme pour tout code assisté par IA, il reste probablement des bugs et des configurations non gérées : lis ce que fait l'outil avant de lui donner accès à ton compte NightLight. Les commits contenant des changements écrits par l'IA portent une ligne `Co-Authored-By: Claude`. Les contributions sont bienvenues ; si un outil d'IA en a écrit une partie, dis-le dans la pull request.
+
+## Projet
+
+[Changelog](CHANGELOG.md) · [Contribuer](CONTRIBUTING.md) (les commits suivent les [Conventional Commits](https://www.conventionalcommits.org/)) · [Code de conduite](CODE_OF_CONDUCT.md) · [Politique de sécurité](SECURITY.md)

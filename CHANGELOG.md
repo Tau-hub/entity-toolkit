@@ -1,0 +1,105 @@
+# Changelog
+
+All notable changes to Entity Toolkit are written here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project follows [Semantic Versioning](https://semver.org/) (0.x: the minor number can bring changes of behaviour).
+
+Releases are made only when they are worth it for the people using the `.exe`: between two releases, changes pile up under *Unreleased*.
+
+## [Unreleased]
+
+### Fixed
+- Players menu: with bots in the match the rows are no longer where the toolkit looked for them, so a human ally could be taken for an empty row and their perks were missing. The height of each row is now found from the row itself (up to three bots), and a player name that is not read is read again brightened.
+
+### Project
+- Conventional Commits for every commit; contributing guide, code of conduct, security policy, issue and pull request templates, third-party notices.
+
+## [0.4.3] - 2026-11-14
+
+### Added
+- **Perk tier list** page: every survivor or killer perk in tiers S to D, on a score out of 100 (S 80 and more, A 65-79, B 50-64, C 25-49, D 0-24), based on the combined rating, Otzdarva's opinion, or NightLight's pick rate and escape / kill rate. Filters by kind of perk, search, only the perks you have. Last page of the navigation, also in the notification-area menu.
+
+### Fixed
+- The scoreboard is never sent with the game's perk tooltip over it (mouse on a perk): the toolkit waits for a clean picture and shows a small message asking you to move the mouse off the perks.
+
+### Changed
+- The toolkit now writes in its log why it stops (window, notification-area menu, update, game closed) and any crash.
+
+## [0.4.2] - 2026-11-14
+
+### Fixed
+- Automatic mode: a scoreboard that was already handled is never sent again, however long you were away from it (it used to be sent a second time after 2.5 minutes).
+
+## [0.4.1] - 2026-11-12
+
+### Added
+- Scoreboard upload: a short blip and a small "Uploading..." box at the top left of the game as soon as the picture is good, so you can leave the scoreboard at once (setting in Settings).
+- Skins that rename a character (A2 for Yui Kimura...): read from the wiki's "Alternate Character Models", so the players menu knows every such name.
+
+### Changed
+- Shorter sounds; quicker second look at the end scoreboard.
+- GitHub Actions run on Node 24.
+
+### Fixed
+- Only one Entity Toolkit window can exist, and it goes away with the toolkit that opened it (a killed and restarted toolkit left a dead window behind).
+- Players menu: extra screenshots that change nothing are no longer read over and over.
+
+## [0.4.0] - 2026-11-12
+
+### Added
+- The Entity Toolkit window: its own window instead of a browser tab (75 % of the screen, remembered place, close to the notification area or quit).
+- The database ships with the toolkit (`seed/`): it works right after installing; targeted database updates after a game patch.
+- Self-update from the releases (ask / install by itself / only tell), checked with SHA-256.
+- Credits to Dead by Daylight, the DbD Wiki (CC BY-NC-SA 4.0), Otzdarva and NightLight.
+
+### Fixed
+- Automatic mode: a scoreboard covered by another window is never sent; bots and players without perks count as a revealed scoreboard.
+
+## [0.3.3] - 2026-11-11
+
+### Changed
+- Automatic mode is the default (hotkey mode stays one click away in Settings).
+
+## [0.3.2] - 2026-11-11
+
+### Added
+- Step-by-step setup wizard.
+
+### Changed
+- Smarter automatic mode: several screenshots put together after Tab, quick taps handled, nothing sent when NightLight is not in use.
+
+## [0.3.1] - 2026-11-11
+
+### Added
+- Automatic mode (Hotkey or Automatic in Settings): Tab reads the players menu, the scoreboard is sent by itself.
+
+### Changed
+- Settings are saved as you change them; the overlay is removed before the automatic capture.
+
+## [0.3.0] - 2026-11-11
+
+### Added
+- Shrine of Secrets alert, loadout filters, daily challenge.
+- Windows `.exe` release with a SHA-256 checksum, built by GitHub Actions.
+- Wiki (EN + FR); the README keeps the essentials.
+
+## [0.2.0] - 2026-11-11
+
+### Added
+- Notification-area icon, update dot on Settings, new-version check, GitHub Actions tests.
+
+### Fixed
+- Character names with a few letters misread as lower case.
+
+## [0.1.0] - 2026-11-04
+
+### Added
+- First version: perk overlay on the game's survivor list, NightLight upload, level tracking, priorities, killer sheet, survivor builds, random loadout.
+
+[Unreleased]: https://github.com/Tau-hub/entity-toolkit/compare/v0.4.3...HEAD
+[0.4.3]: https://github.com/Tau-hub/entity-toolkit/compare/v0.4.2...v0.4.3
+[0.4.2]: https://github.com/Tau-hub/entity-toolkit/compare/v0.4.1...v0.4.2
+[0.4.1]: https://github.com/Tau-hub/entity-toolkit/compare/v0.4.0...v0.4.1
+[0.4.0]: https://github.com/Tau-hub/entity-toolkit/compare/v0.3.3...v0.4.0
+[0.3.3]: https://github.com/Tau-hub/entity-toolkit/compare/v0.3.2...v0.3.3
+[0.3.2]: https://github.com/Tau-hub/entity-toolkit/compare/v0.3.1...v0.3.2
+[0.3.1]: https://github.com/Tau-hub/entity-toolkit/compare/v0.3.0...v0.3.1
+[0.3.0]: https://github.com/Tau-hub/entity-toolkit/releases/tag/v0.3.0

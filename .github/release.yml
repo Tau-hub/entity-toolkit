@@ -1,0 +1,11 @@
+# Categories of the notes GitHub generates for a release (from the pull requests and their labels)
+changelog:
+  categories:
+    - title: New
+      labels: [enhancement]
+    - title: Fixed
+      labels: [bug]
+    - title: Documentation
+      labels: [documentation]
+    - title: Other changes
+      labels: ["*"]

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Troubleshooting and manual (wiki)
+    url: https://github.com/Tau-hub/entity-toolkit/wiki
+    about: Installation, settings, how the automatic mode works, common problems.
+  - name: Security problem
+    url: https://github.com/Tau-hub/entity-toolkit/security/advisories/new
+    about: Report it privately, not as a public issue.

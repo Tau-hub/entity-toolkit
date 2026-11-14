@@ -99,8 +99,12 @@ A copy of that data ships with the toolkit so that it works right after installi
 
 ## License
 
-[MIT](LICENSE) for the code of this repository. It does not cover the third-party data the toolkit ships in [`seed/`](seed/README.md) or downloads, nor *Dead by Daylight*'s assets.
+[MIT](LICENSE) for the code of this repository. It does not cover the third-party data the toolkit ships in [`seed/`](seed/README.md) or downloads, nor *Dead by Daylight*'s assets. The libraries it uses and their licences are in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
 
 ## AI assistance
 
 Most of the code and documentation of this project was written with Claude (Anthropic) through Claude Code, from the maintainer's requirements. The maintainer chose the features, reviewed the results, and checked the tool on real game screenshots and in matches. As with any AI-assisted code, bugs and unhandled setups are likely: read what the toolkit does before giving it access to your NightLight account. Commits containing AI-written changes carry a `Co-Authored-By: Claude` line. Contributions are welcome; if an AI tool wrote part of yours, mention it in the pull request.
+
+## Project
+
+[Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md) (commits follow [Conventional Commits](https://www.conventionalcommits.org/)) · [Code of conduct](CODE_OF_CONDUCT.md) · [Security policy](SECURITY.md)
