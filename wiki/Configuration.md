@@ -48,6 +48,6 @@ Dans les options, *When a newer version exists* choisit entre **ask me** (par d�
 Tant que l'outil tourne, un petit **E** rouge reste dans la zone de notification de Windows (en bas à droite de la barre des tâches, derrière la flèche **^** si Windows le masque). Il indique que l'outil est allumé, et c'est le moyen de retrouver la fenêtre une fois que tu l'as fermée :
 
 - **Double-clic** : ouvre la page Live.
-- **Clic droit** : un menu avec toutes les pages (Live, Levels, Killer priorities, Survivor priorities, Killer sheet, Survivor builds, Random loadout, Build creator), les deux défis du jour, **Settings**, puis **Quit Entity Toolkit**, qui arrête l'outil : la touche de capture ou le mode automatique, l'overlay et les pages locales.
+- **Clic droit** : un menu avec toutes les pages (Live, Levels, Killer priorities, Survivor priorities, Perk tier list, Killer sheet, Survivor builds, Random loadout, Build creator), les deux défis du jour, **Settings**, puis **Quit Entity Toolkit**, qui arrête l'outil : la touche de capture ou le mode automatique, l'overlay et les pages locales.
 
 Tu peux désactiver l'icône dans les options ; l'outil fonctionne pareil sans elle.

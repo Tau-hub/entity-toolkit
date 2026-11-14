@@ -58,6 +58,21 @@ def loadout_page_data():
     return data
 
 
+def tierlist_data():
+    """The perk tier list page: every perk of both sides with its ratings (Otzdarva, NightLight), whether you have it, its kinds; the patch and period of the statistics."""
+    data = loadout_page_data()
+    out = {"perks": data["perks"], "types": data["types"], "labels": {}, "patch": "", "nlPeriod": ""}
+    for side, f in (("K", paths.KILLERS), ("S", paths.SURVIVORS)):
+        try:
+            d = json.loads(f.read_text(encoding="utf8"))
+        except Exception:
+            continue
+        out["labels"][side] = d.get("nlRate", "")
+        out["patch"] = out["patch"] or d.get("patch", "")
+        out["nlPeriod"] = out["nlPeriod"] or d.get("nlPeriod", "")
+    return with_patch(out)
+
+
 def buildmaker_data():
     """Everything the Build creator needs: perks of both sides with their types, the type lists, the killers (small heads), the saved builds."""
     data = loadout_data()
@@ -235,6 +250,8 @@ def make_handler(hub):
                 return self._json({"shrine": shrine.info()})
             if path == "/api/buildmaker":
                 return self._json(buildmaker_data())
+            if path == "/api/tierlist":
+                return self._json(tierlist_data())
             if path in ("/api/builds/killers", "/api/builds/survivors"):
                 f = paths.KILLERS if path.endswith("killers") else paths.SURVIVORS
                 data = json.loads(f.read_text(encoding="utf8")) if f.exists() else {}

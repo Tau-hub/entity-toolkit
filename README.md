@@ -22,6 +22,7 @@ An **unofficial** companion for *Dead by Daylight* (Windows): see your teammates
 | **Level tracking** | A page to set how far you got with each killer and survivor, kept up to date automatically from the scoreboard. Bulk changes ask for confirmation and can be undone. |
 | **Priorities** | Which characters are worth levelling next, from Otzdarva's opinion plus NightLight stats. The page also shows the bloodpoints still needed to bring your owned killers, survivors, or both to level 3 (an estimate of about 1,116,000 per level). |
 | **Recommended builds** | Killer sheets (builds, add-on tier list, combos) and survivor builds, from Otzdarva and NightLight. |
+| **Perk tier list** | Every survivor and killer perk in tiers S to D, ranked by the combined rating, Otzdarva's opinion or NightLight's pick rate and escape / kill rate. Filter by kind of perk, search, or show only the perks you have. |
 | **Shrine of Secrets** | The priorities pages show this week's four Shrine perks and tell you which ones you do not have yet and are worth your shards. |
 | **Random loadout** | Roll a random killer (or survivor) loadout: power, add-ons, perks, optional offering, with ratings. Filters: only what you have, one perk of a given type, a minimum rating. Copy or download the poster as an image. |
 | **Daily challenge** | One killer loadout and one survivor loadout per day, the same for everyone: play it, tick it, keep your streak. |

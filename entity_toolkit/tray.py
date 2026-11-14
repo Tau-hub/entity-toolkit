@@ -13,6 +13,7 @@ PAGES = [
     ("levels.html", "Levels"),
     ("priorities.html?kind=killers", "Killer priorities"),
     ("priorities.html?kind=survivors", "Survivor priorities"),
+    ("tierlist.html", "Perk tier list"),
     ("killer.html", "Killer sheet"),
     ("survivor_builds.html", "Survivor builds"),
     ("loadout.html", "Random loadout"),
