@@ -140,6 +140,14 @@ def same_board(a, b):
     return float(np.abs(rows(a) - rows(b)).mean()) < 6.0
 
 
+def tooltip_over(img):
+    """Is the game's own tooltip (a perk text: the mouse is over a perk icon) covering the scoreboard? It is a large, flat, almost black panel
+    over the rows; the rows themselves are never that dark. Measured: 0.2 to 0.5 of that area on scoreboards with a tooltip, 0.08 at most without."""
+    w, h = img.size
+    a = np.asarray(img.crop((int(w * 0.20), int(h * 0.20), int(w * 0.50), int(h * 0.80))).convert("RGB").resize((150, 180)), dtype=int)
+    return float((a.max(axis=2) < 28).mean()) > 0.15
+
+
 def already_sent(sent, img):
     """Is `img` the scoreboard that was handled already (`sent`: its picture, None when there is none to remember)? Leaving the game for a while
     and coming back shows it again: it must not be sent a second time, however long you were away. A new match shows other players."""
@@ -167,6 +175,7 @@ class Watcher:
         self.confirm = 0       # looks in a row that found a finished scoreboard
         self.told = False      # "waiting for the end of the match" was said for this scoreboard
         self.dup_told = False  # "already handled" was said for this scoreboard
+        self.tip_told = False  # "a tooltip covers the scoreboard" was said
 
     def step(self, now):
         """One turn of the loop; returns how long to sleep."""
@@ -212,6 +221,17 @@ class Watcher:
             if not want_end(self.ast.end_at, now):
                 return 0.03
             img = winapi.grab_game_monitor(hwnd)
+            if tooltip_over(img):  # the mouse is on a perk: its text covers the rows. Wait for it to go away: a covered picture is never sent
+                self.confirm = 0
+                if not self.tip_told:
+                    self.tip_told = True
+                    self.log("Automatic: the game's perk tooltip covers the scoreboard (mouse over a perk): waiting for it to go away before sending")
+                    self.ast.hwnd = hwnd
+                    self.ast.notify("Move the mouse off the perks to send the scoreboard", 120)
+                return 0.4
+            if self.tip_told:
+                self.tip_told = False
+                self.ast.notify("", 1)
             if already_sent(self.ast.sent_board, img):
                 self.confirm = 0
                 if not self.dup_told:
@@ -235,6 +255,9 @@ class Watcher:
                     self.say(f"Scoreboard seen: waiting for the end of the match ({left} player{'s' if left > 1 else ''} with hidden perks). Press the capture key to send it now")
         else:
             self.confirm, self.told, self.dup_told = 0, False, False
+            if self.tip_told:
+                self.tip_told = False
+                self.ast.notify("", 1)
         return 0.03
 
     def run(self):

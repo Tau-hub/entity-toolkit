@@ -465,6 +465,11 @@ class AutomaticMode(unittest.TestCase):
         from PIL import Image
         a = Image.new("RGB", (640, 360), (40, 40, 40))
         b = Image.new("RGB", (640, 360), (200, 60, 60))
+        board = Image.new("RGB", (1280, 720), (70, 60, 55))
+        self.assertFalse(auto.tooltip_over(board))
+        covered = board.copy()
+        covered.paste((14, 11, 16), (260, 150, 600, 520))  # the game's tooltip: a big flat black panel over the rows
+        self.assertTrue(auto.tooltip_over(covered))
         self.assertFalse(auto.already_sent(None, a))
         self.assertTrue(auto.already_sent(a, a.copy()))   # same scoreboard, however long after
         self.assertFalse(auto.already_sent(a, b))          # another match

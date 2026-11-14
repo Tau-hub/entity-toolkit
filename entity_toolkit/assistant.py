@@ -202,6 +202,25 @@ class Assistant:
             log(f"Automatic: the scoreboard picture is not complete any more (rows {auto.rows_revealed(img)}): nothing sent, looking again")
             threading.Thread(target=captures.save, args=(img.copy(), "end-covered"), daemon=True).start()
             return
+        if kind == "end" and auto.tooltip_over(img):
+            # the mouse is on a perk: the game's tooltip covers the rows. Other screenshots are taken until one is clean; none is sent covered.
+            threading.Thread(target=captures.save, args=(img.copy(), "end-tooltip"), daemon=True).start()
+            clean = None
+            for n in range(8):
+                time.sleep(0.4)
+                shot = winapi.grab_game_monitor(self.hwnd)
+                if not auto.tooltip_over(shot) and (not quiet or all(auto.rows_revealed(shot))):
+                    clean = shot
+                    break
+                log(f"Scoreboard: the perk tooltip is still over it: taking another picture ({n + 1})")
+            if clean is None:
+                log("Scoreboard: the perk tooltip covers it on every picture: nothing sent (move the mouse off the perks)")
+                self.notify("Move the mouse off the perks to send the scoreboard", 10)
+                if not quiet:
+                    sounds.beep(False)
+                    self.say("Scoreboard covered by a perk tooltip: move the mouse off the perks and press the key again")
+                return
+            img = clean
         threading.Thread(target=captures.save, args=(img.copy(), kind or "other"), daemon=True).start()  # rotation of the last captures, off the critical path
         if kind == "players":
             self.players_at = time.time()
