@@ -697,6 +697,24 @@ class Hotkeys(unittest.TestCase):
             winapi.parse_combo("alt+nonsense")
 
 
+class RowOffsets(unittest.TestCase):
+    def test_rows_stay_when_nothing_moves(self):
+        from PIL import Image
+        from entity_toolkit import recognize as rc
+        self.assertEqual(rc.row_offsets(Image.new("RGB", (2000, 1125), (30, 30, 30))), [0, 0, 0, 0])
+
+    def test_rows_moved_by_bots_are_found(self):
+        from PIL import Image, ImageDraw
+        from entity_toolkit import recognize as rc
+        img = Image.new("RGB", (2000, 1125), (30, 30, 30))
+        d = ImageDraw.Draw(img)
+        for y, dy in zip(rc.ROWS_Y, (14, -2, -17, -14)):  # the layout of a match with two bots
+            x = rc.cx_of(img, rc.PERKS_X[0])
+            d.rectangle((x - 22, y + dy - 25, x + 22, y + dy + 25), fill=(110, 50, 150))
+        got = rc.row_offsets(img)
+        self.assertEqual([abs(g - w) <= 4 for g, w in zip(got, (14, 0, -17, -14))], [True] * 4)
+
+
 if __name__ == "__main__":
     unittest.main()
 

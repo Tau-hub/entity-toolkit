@@ -5,6 +5,7 @@ import re
 import time
 
 import numpy as np
+from PIL import Image
 
 from . import ocr, paths, recognize as rc
 from .log import log
@@ -67,13 +68,14 @@ class Analyzer:
         me = self.me_row(img)
         me = 0 if me is None else me
         ally_rows = [r for r in range(4) if r != me]
-        res, _ = rc.recognize(img, self.refs, top=1, rows=ally_rows)
+        dys = rc.row_offsets(img)
+        res, _ = rc.recognize(img, self.refs, top=1, rows=ally_rows, dys=dys)
         allies = []
         for ri in ally_rows:
             row = res[ri]
             if row is None or max(r[0][0] for r in row) < EMPTY_ROW:
                 continue
-            survivor, player = self.row_name(img, ri)
+            survivor, player = self.row_name(img, ri, dys[ri])
             raw = survivor
             survivor = self.resolve_survivor(survivor) if survivor else survivor
             if survivor and not player and survivor != survivor.upper():
@@ -114,15 +116,18 @@ class Analyzer:
         return best.upper() if best and score >= need else text
 
     @staticmethod
-    def row_name(img, ri):
+    def row_name(img, ri, dy=0, lift=False):
         """(survivor, player name) read on the title line by OCR; empty strings if unreadable.
         The character name (white, bold) is on the first recognised line, the player name (grey) on the next."""
         try:
             s = img.height / rc.REF_H
-            y = rc.ROWS_Y[ri]
+            y = rc.ROWS_Y[ri] + dy
             box = (int(rc.cx_of(img, 800)), int((y - 78) * s), int(rc.cx_of(img, 1240)), int((y - 34) * s))  # starts after the player / globe icon
             crop = img.crop(box)
-            lines = sorted(ocr.read_words(crop, 3), key=lambda ln: ln[0][1])
+            shown = crop
+            if lift:  # a dim player name on a dark row is not read as it is: brightened (gamma 0.5), it is. Boxes keep the same coordinates
+                shown = Image.fromarray(np.clip(255 * (np.asarray(crop.convert("RGB"), dtype=float) / 255) ** 0.5, 0, 255).astype("uint8"))
+            lines = sorted(ocr.read_words(shown, 3), key=lambda ln: ln[0][1])
             try:  # the character name is white (255), the player name grey (~125): more reliable than letter case (names may be upper-case, with digits or "_")
                 g = np.asarray(crop.convert("L"), dtype=float)
                 bright, dim = [], []
@@ -134,7 +139,11 @@ class Analyzer:
                         if reg.size:
                             (bright if np.percentile(reg, 95) >= 190 else dim).append((x, t))
                 if bright:
-                    return " ".join(t for _, t in sorted(bright)), " ".join(t for _, t in sorted(dim))
+                    name, pseudo = " ".join(t for _, t in sorted(bright)), " ".join(t for _, t in sorted(dim))
+                    if not pseudo and not lift:  # the player name was not read: once more, brightened
+                        again = Analyzer.row_name(img, ri, dy, lift=True)
+                        return (again[0] or name), again[1]
+                    return name, pseudo
             except Exception:
                 pass
             texts = [" ".join(w[0] for w in ln if not (w[0].isdigit() or w[0].lower() == "ms")) for ln in lines]

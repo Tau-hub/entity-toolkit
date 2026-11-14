@@ -81,24 +81,51 @@ def best_score(crop, templates):
     return max(float(cv2.matchTemplate(crop, t, cv2.TM_CCOEFF_NORMED).max()) for t in templates)
 
 
-def recognize(img, refs, top=3, rows=None):
-    """rows: indices of the rows to analyse (0 = local player, at the top); None = all 4 rows."""
+def row_offsets(img):
+    """How far each of the four rows really is from ROWS_Y (px at REF_H). The rows keep their usual place when four humans play, but are
+    shorter or taller when bots are in the match (a bot row has no player icon), so the later rows move up or down by up to ~20 px.
+    Found on the purple diamond of each row's first perk. Small differences (under 9 px) are noise and give 0."""
+    s = img.height / REF_H
+    y0 = 170
+    x = cx_of(img, PERKS_X[0])
+    b = int(22 * s)
+    band = np.asarray(img.convert("RGB").crop((int(x - b), int(y0 * s), int(x + b), int(720 * s))), dtype=int)
+    purple = ((band[:, :, 2] - band[:, :, 1]) > 30) & ((band[:, :, 0] - band[:, :, 1]) > 8)
+    k = max(3, int(34 * s))
+    sm = np.convolve(purple.sum(axis=1).astype(float), np.ones(k) / k, mode="same")
+    out = []
+    for y in ROWS_Y:
+        lo, hi = max(0, int((y - y0 - 26) * s)), int((y - y0 + 26) * s)
+        seg = sm[lo:hi]
+        d = round((lo + float(np.flatnonzero(seg >= 0.98 * seg.max()).mean())) / s + y0 - y) if len(seg) and seg.max() > 3 else 0  # middle of the top plateau
+        out.append(d if abs(d) > 8 else 0)
+    return out
+
+
+def recognize(img, refs, top=3, rows=None, dys=None):
+    """rows: indices of the rows to analyse (0 = local player, at the top); None = all 4 rows. dys: vertical offset of each row (see row_offsets)."""
     scale = img.height / REF_H
     out = []
     t0 = time.time()
     prepared = prepare(refs, [GLYPH - 2, GLYPH, GLYPH + 2])
+    b = int(BOX * scale)
+
+    def icon_scores(x, yy):
+        px = int(cx_of(img, x))
+        crop = img.crop((px - b, yy - b, px + b, yy + b)).resize((2 * BOX, 2 * BOX), Image.LANCZOS)
+        c = whiteness(np.array(crop))
+        c[:19, 33:] = 0  # tier pips at the top right
+        return sorted(((best_score(c, ts), n) for n, ts in prepared), reverse=True)[:top]
+
     for ri, y in enumerate(ROWS_Y):
         if rows is not None and ri not in rows:
             out.append(None)
             continue
-        row = []
-        for x in PERKS_X:
-            b = int(BOX * scale)
-            px = int(cx_of(img, x))
-            crop = img.crop((px - b, int(y * scale) - b, px + b, int(y * scale) + b)).resize((2 * BOX, 2 * BOX), Image.LANCZOS)
-            c = whiteness(np.array(crop))
-            c[:19, 33:] = 0  # tier pips at the top right
-            scores = sorted(((best_score(c, ts), n) for n, ts in prepared), reverse=True)[:top]
-            row.append(scores)
-        out.append(row)
+        d = dys[ri] if dys else 0
+        if d:  # the row moved (bots in the match): the offset found is within a few px, the best one is the one where the first two icons match best
+            d = max(range(d - 8, d + 9, 4), key=lambda c: sum(icon_scores(x, int((y + c) * scale))[0][0] for x in PERKS_X[:2]))
+        if dys:
+            dys[ri] = d  # (the refined offset goes back to the caller: the names are read at the same height)
+        yy = int((y + d) * scale)
+        out.append([icon_scores(x, yy) for x in PERKS_X])
     return out, time.time() - t0
