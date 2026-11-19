@@ -61,6 +61,8 @@ class Analyzer:
 
     def menu_visible(self, img):
         """Guard: is the survivor players menu on screen? (the first ally's first perk must look like a real icon)"""
+        if self.me_row(img) is not None:  # your own row (yellow background) is at the top: you are a survivor, whatever the allies brought (or nobody at all)
+            return True
         dys = rc.row_offsets(img)
         for rows in ([1], [2, 3]):  # an ally who brought no perk (four empty slots) must not make the whole menu look like the killer's: the next rows are looked at
             res, _ = rc.recognize(img, self.refs, top=1, rows=rows, dys=list(dys))
