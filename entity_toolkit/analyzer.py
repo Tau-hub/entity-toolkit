@@ -61,8 +61,12 @@ class Analyzer:
 
     def menu_visible(self, img):
         """Guard: is the survivor players menu on screen? (the first ally's first perk must look like a real icon)"""
-        res, _ = rc.recognize(img, self.refs, top=1, rows=[1])
-        return max(r[0][0] for r in res[1]) >= EMPTY_ROW
+        dys = rc.row_offsets(img)
+        for rows in ([1], [2, 3]):  # an ally who brought no perk (four empty slots) must not make the whole menu look like the killer's: the next rows are looked at
+            res, _ = rc.recognize(img, self.refs, top=1, rows=rows, dys=list(dys))
+            if any(r is not None and max(x[0][0] for x in r) >= EMPTY_ROW for r in res):
+                return True
+        return False
 
     def analyze(self, img):
         me = self.me_row(img)
@@ -73,13 +77,19 @@ class Analyzer:
         allies = []
         for ri in ally_rows:
             row = res[ri]
-            if row is None or max(r[0][0] for r in row) < EMPTY_ROW:
-                continue
+            no_perk = row is None or max(r[0][0] for r in row) < EMPTY_ROW
             survivor, player = self.row_name(img, ri, dys[ri])
             raw = survivor
             survivor = self.resolve_survivor(survivor) if survivor else survivor
             if survivor and not player and survivor != survivor.upper():
                 survivor, player = "", survivor  # mixed case = a player name: the character name line was not read (e.g. a short name like "A2")
+            if no_perk:
+                # no perk recognised: an empty row (nobody there), or a player who brought no perk (four empty slots) whose character name is on the row
+                if not survivor or re.sub(r"[^a-z0-9]", "", survivor.lower()) not in {re.sub(r"[^a-z0-9]", "", n.lower()) for n in self.names}:
+                    continue
+                log(f"Ally {ri}: '{raw}' -> {survivor} · player '{player}' · no perk (four empty slots)")
+                allies.append({"row": ri, "survivor": survivor, "player": player, "perks": []})
+                continue
             log(f"Ally {ri}: '{raw}' -> {survivor} · player '{player}'")
             allies.append({"row": ri, "survivor": survivor, "player": player, "perks": [self.perk(*r[0]) for r in row]})
         try:

@@ -9,6 +9,8 @@ Releases are made only when they are worth it for the people using the `.exe`: b
 ### Fixed
 - Players menu: with bots in the match the rows are no longer where the toolkit looked for them, so a human ally could be taken for an empty row and their perks were missing. The height of each row is now found from the row itself (up to three bots), and a player name that is not read is read again brightened.
 
+- Players menu: an ally who brought no perk at all (four empty slots) no longer makes the whole menu look like the killer's view, which left every other ally without perks; they are kept as an ally with no perk, so the overlay is still shown for the others.
+
 ### Changed
 - Dependencies: minimum versions raised for Pillow (13), pywebview (6.2.1), beautifulsoup4 (4.15) and the `winrt` packages (4.x, with Windows.Media.Ocr 10.0.28000); GitHub Actions `setup-python` 7. A clean install of `requirements.txt` (OpenCV 5.0, NumPy 2.4.6) was checked on real screenshots: menu, scoreboard and OCR read as before.
 
