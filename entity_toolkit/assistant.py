@@ -478,7 +478,7 @@ def run(hub, ast, stop_with_game=True):
                 seen, missing = True, 0
             elif seen:
                 missing += 1
-                if missing >= 2:
+                if missing >= 3:  # three looks, one second apart: a few seconds in all, and not fooled by a game restarting its process
                     seen = False  # handled once per game session
                     action = config.load().get("game_close") or "tray"
                     log(f"Game closed: {action}")
@@ -490,7 +490,7 @@ def run(hub, ast, stop_with_game=True):
                         return
                     if action == "tray":
                         hub.close_window()
-            time.sleep(3)
+            time.sleep(1)
 
     state = {"on": False, "at": 0.0}
 
