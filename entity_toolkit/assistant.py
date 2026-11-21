@@ -472,13 +472,13 @@ def run(hub, ast, stop_with_game=True):
     def watch_game():
         seen, missing = False, 0
         while True:
-            if winapi.game_running():
+            if winapi.game_window_open():  # the window, not the process: the process lingers some seconds after you quit
                 if not seen:
                     log("Game detected")
                 seen, missing = True, 0
             elif seen:
                 missing += 1
-                if missing >= 3:  # three looks, one second apart: a few seconds in all, and not fooled by a game restarting its process
+                if missing >= 2:  # two looks, one second apart (a switch to windowed mode recreates the window)
                     seen = False  # handled once per game session
                     action = config.load().get("game_close") or "tray"
                     log(f"Game closed: {action}")

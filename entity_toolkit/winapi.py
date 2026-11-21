@@ -47,6 +47,26 @@ def game_running():
     return bool(game_pids())
 
 
+def game_window_open():
+    """Does the game still have a visible window? It goes away at once when you quit, long before the process ends."""
+    pids = game_pids()
+    if not pids:
+        return False
+    found = []
+    proc = ctypes.WINFUNCTYPE(wintypes.BOOL, wintypes.HWND, wintypes.LPARAM)
+
+    def each(hwnd, _):
+        if user32.IsWindowVisible(hwnd):
+            pid = wintypes.DWORD()
+            user32.GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
+            if pid.value in pids:
+                found.append(hwnd)
+                return False
+        return True
+    user32.EnumWindows(proc(each), 0)
+    return bool(found)
+
+
 def foreground_exe():
     """(executable name, window) in front. For the game we only compare the window's process id with the process list:
     no handle is opened on the game's process (no read, no query)."""
