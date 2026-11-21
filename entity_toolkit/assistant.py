@@ -476,15 +476,20 @@ def run(hub, ast, stop_with_game=True):
                 if not seen:
                     log("Game detected")
                 seen, missing = True, 0
-            elif seen and stop_with_game and not hub.window_open():  # the game is closed, and so is the window: nothing left to do
+            elif seen:
                 missing += 1
                 if missing >= 2:
-                    log("Game closed: stopping")
-                    deadline = time.time() + 240  # lets an upload / review in progress finish
-                    while ast.busy.locked() and time.time() < deadline:
-                        time.sleep(1)
-                    hub.quit("the game closed")
-                    return
+                    seen = False  # handled once per game session
+                    action = config.load().get("game_close") or "tray"
+                    log(f"Game closed: {action}")
+                    if action == "quit" and stop_with_game:
+                        deadline = time.time() + 240  # lets an upload / review in progress finish
+                        while ast.busy.locked() and time.time() < deadline:
+                            time.sleep(1)
+                        hub.quit("the game closed")
+                        return
+                    if action == "tray":
+                        hub.close_window()
             time.sleep(3)
 
     state = {"on": False, "at": 0.0}

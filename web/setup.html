@@ -125,6 +125,7 @@
     <div class="row"><label><input type="checkbox" id="oOpen"> Open it on the Live page when the toolkit starts</label></div>
     <p>With <i>Start automatically with Windows</i> below, this means the window opens by itself each time you launch Dead by Daylight. It reopens where you left it (your second screen, for instance).</p>
     <div class="row"><label>When I close the window <select id="oClose"><option value="ask">ask me</option><option value="tray">keep the toolkit running in the notification area</option><option value="quit">quit Entity Toolkit</option></select></label></div>
+    <div class="row"><label>When the game is closed <select id="oGameClose"><option value="tray">close the window, keep the toolkit in the notification area</option><option value="quit">quit Entity Toolkit</option><option value="keep">leave everything as it is</option></select></label></div>
     <div class="row"><label><input type="checkbox" id="oTray"> Show an icon in the Windows notification area while the toolkit runs (open the pages, quit)</label></div>
     <div class="row"><label><input type="checkbox" id="oVer"> Look for a newer Entity Toolkit at each start (reads GitHub's public release page, sends nothing)</label><span class="msg" id="verMsg"></span></div>
     <div class="row"><label>When a newer version exists <select id="oUpd"><option value="ask">ask me, then install it for me</option><option value="auto">install it by itself when the game is not running</option><option value="never">only tell me</option></select></label><button class="sec" id="bUpdNow" style="display:none">Update now</button><span class="msg" id="updMsg"></span></div>
@@ -235,7 +236,7 @@ async function refresh() {
     $("player").value = s.config.player;
     $("oUpload").checked = s.config.upload; $("oDry").checked = s.config.dry_run;
     $("oOverlay").checked = s.config.overlay; $("oAutoMode").checked = !!s.config.auto; $("oKeyMode").checked = !s.config.auto; $("oHover").checked = s.config.perk_hover; $("oSounds").checked = s.config.sounds; $("oNotice").checked = s.config.notice !== false;
-    $("oAuto").checked = s.autostart; $("oOpen").checked = s.config.open_browser; $("oWindow").checked = s.config.window; $("oClose").value = s.config.close_action || "ask"; $("oTray").checked = s.config.tray; $("oVer").checked = s.config.check_version; $("oUpd").value = s.config.update_install || "ask"; $("oFirst").checked = s.config.first_download; $("oPatch").checked = s.config.update_on_patch; $("oShrine").checked = s.config.shrine;
+    $("oAuto").checked = s.autostart; $("oOpen").checked = s.config.open_browser; $("oWindow").checked = s.config.window; $("oClose").value = s.config.close_action || "ask"; $("oGameClose").value = s.config.game_close || "tray"; $("oTray").checked = s.config.tray; $("oVer").checked = s.config.check_version; $("oUpd").value = s.config.update_install || "ask"; $("oFirst").checked = s.config.first_download; $("oPatch").checked = s.config.update_on_patch; $("oShrine").checked = s.config.shrine;
     const v = s.version;
     $("verMsg").innerHTML = v.newer ? `Version ${v.current} · <b>${v.latest} is available</b> (<a href="${v.page}" target="_blank" rel="noopener">what is new</a>)` : `Version ${v.current}` + (v.latest ? " (up to date)" : "");
     $("bUpdNow").style.display = v.newer && v.can_install ? "" : "none";
@@ -310,10 +311,10 @@ function said(text, bad) {
   clearTimeout(savedTimer); savedTimer = setTimeout(() => { el.className = ""; }, bad ? 6000 : 1600);
 }
 async function saveOpts() {
-  const r = await post("/api/config", { upload: $("oUpload").checked, dry_run: $("oDry").checked, overlay: $("oOverlay").checked, auto: $("oAutoMode").checked, perk_hover: $("oHover").checked, sounds: $("oSounds").checked, notice: $("oNotice").checked, open_browser: $("oOpen").checked, window: $("oWindow").checked, close_action: $("oClose").value, tray: $("oTray").checked, check_version: $("oVer").checked, update_install: $("oUpd").value, first_download: $("oFirst").checked, update_on_patch: $("oPatch").checked, shrine: $("oShrine").checked, auto_update_days: +$("oDays").value, keep_captures: Math.max(0, parseInt($("kKeep").value, 10) || 0), capture_key: $("kCap").value.trim(), clear_key: $("kClr").value.trim() });
+  const r = await post("/api/config", { upload: $("oUpload").checked, dry_run: $("oDry").checked, overlay: $("oOverlay").checked, auto: $("oAutoMode").checked, perk_hover: $("oHover").checked, sounds: $("oSounds").checked, notice: $("oNotice").checked, open_browser: $("oOpen").checked, window: $("oWindow").checked, close_action: $("oClose").value, game_close: $("oGameClose").value, tray: $("oTray").checked, check_version: $("oVer").checked, update_install: $("oUpd").value, first_download: $("oFirst").checked, update_on_patch: $("oPatch").checked, shrine: $("oShrine").checked, auto_update_days: +$("oDays").value, keep_captures: Math.max(0, parseInt($("kKeep").value, 10) || 0), capture_key: $("kCap").value.trim(), clear_key: $("kClr").value.trim() });
   said(r.error ? "Not saved: " + r.error : "Saved ✓", !!r.error);
 }
-for (const id of ["oKeyMode", "oAutoMode", "oUpload", "oDry", "oOverlay", "oHover", "oSounds", "oOpen", "oWindow", "oClose", "oUpd", "oFirst", "oPatch", "oTray", "oVer", "oShrine", "oDays", "kKeep", "kCap", "kClr"]) $(id).addEventListener("change", saveOpts);
+for (const id of ["oKeyMode", "oAutoMode", "oUpload", "oDry", "oOverlay", "oHover", "oSounds", "oOpen", "oWindow", "oClose", "oGameClose", "oUpd", "oFirst", "oPatch", "oTray", "oVer", "oShrine", "oDays", "kKeep", "kCap", "kClr"]) $(id).addEventListener("change", saveOpts);
 window.addEventListener("et-show", () => refresh());  // the shell re-shows this page: refresh its data
 mountScan($("scanMount"), { onDone: () => refresh() });
 refresh();

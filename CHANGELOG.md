@@ -6,6 +6,9 @@ Releases are made only when they are worth it for the people using the `.exe`: b
 
 ## [Unreleased]
 
+### Added
+- Setting *When the game is closed*: the window closes and the toolkit stays in the notification area (default), the toolkit quits, or everything is left as it is.
+
 ### Fixed
 - Players menu: with bots in the match the rows are no longer where the toolkit looked for them, so a human ally could be taken for an empty row and their perks were missing. The height of each row is now found from the row itself (up to three bots), and a player name that is not read is read again brightened.
 

@@ -153,7 +153,7 @@ def _run(open_page, stop_with_game, setup=False):
     shrine.start(log)
     from . import window
     ui = window.Launcher(url, hub, log)
-    hub.window_open, hub.opener = ui.alive, ui.open
+    hub.window_open, hub.opener, hub.close_window = ui.alive, ui.open, ui.close
     icon = tray.start(url, hub, log, ui.open) if cfg["tray"] else None
     label = assistant.run(hub, ast, stop_with_game=stop_with_game)
     log(f"Entity Toolkit ready: {label} · {'dry run' if cfg['dry_run'] or not cfg['upload'] else 'real upload'}")

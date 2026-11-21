@@ -27,6 +27,7 @@ The pages are shown in a window of their own, like any program: no web browser a
 
 - **Where it opens.** The first time, in the middle of the screen at 75 % of its size, on your second screen if you have one (so that it does not cover the game). After that it reopens where you left it, at the size you gave it.
 - **Closing it.** The first time, it asks: **Keep it running** (the window goes away, the toolkit keeps reading your matches from the notification area) or **Quit Entity Toolkit** (everything stops). Tick *Remember my choice* and it no longer asks; the choice is in the options (*When I close the window*).
+- **When the game is closed.** By default the window closes and the toolkit stays in the notification area (*When the game is closed*). You can also make it quit, or leave everything as it is.
 - **Getting it back.** Double-click the red **E** in the notification area, or start the program again: the copy already running shows its window.
 - **With the game.** With *Start automatically with Windows*, the window opens by itself on the Live page when you launch Dead by Daylight. The toolkit stops when the game **and** the window are both closed.
 - **Prefer your browser?** Untick *Show the pages in the Entity Toolkit window* in the options: the pages then open in your default browser, as before.

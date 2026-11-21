@@ -117,6 +117,7 @@ class Hub:
         self.state = {"version": 0, "status": "Waiting for the capture key", "result": None}
         self.stop = threading.Event()
         self.goto = None                 # page the open window is asked to show (taken by the window, once)
+        self.close_window = lambda: None  # replaced by the launcher: closes the Entity Toolkit window
         self.window_open = lambda: False  # replaced by the launcher: is the Entity Toolkit window open?
         self.opener = None               # replaced by the launcher: shows a page (window or browser)
 

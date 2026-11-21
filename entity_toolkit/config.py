@@ -15,6 +15,7 @@ DEFAULTS = {
     "upload": True,               # send the scoreboard to NightLight when you press the key on it
     "dry_run": False,             # True: save the scoreboard locally but never send it
     "window": True,               # show the pages in the Entity Toolkit window (False: in the default browser)
+    "game_close": "tray",         # when the game is closed: "tray" (the window closes, the toolkit stays in the notification area), "quit" (stop the toolkit) or "keep" (leave everything as it is)
     "close_action": "ask",        # closing the window: "ask", "tray" (keep running in the notification area) or "quit" (stop the toolkit)
     "window_geometry": None,      # where the window was left: [x, y, width, height]
     "open_browser": True,         # open the Live page in your default browser when the toolkit starts (so: when the game starts, with autostart)

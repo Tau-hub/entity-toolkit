@@ -27,6 +27,7 @@ Les pages s'affichent dans une fenêtre à part, comme n'importe quel logiciel :
 
 - **Où elle s'ouvre.** La première fois, au milieu de l'écran, à 75 % de sa taille, sur ton second écran si tu en as un (pour ne pas recouvrir le jeu). Ensuite, elle se rouvre là où tu l'as laissée, à la taille que tu lui as donnée.
 - **La fermer.** La première fois, elle demande : **Keep it running** (la fenêtre disparaît, l'outil continue de lire tes parties depuis la zone de notification) ou **Quit Entity Toolkit** (tout s'arrête). Coche *Remember my choice* et elle ne demande plus ; le choix se retrouve dans les options (*When I close the window*).
+- **Quand le jeu se ferme.** Par défaut, la fenêtre se ferme et l'outil reste dans la zone de notification (option *When the game is closed*). Tu peux aussi le faire quitter, ou ne rien changer.
 - **La retrouver.** Double-clique sur le **E** rouge dans la zone de notification, ou relance le programme : la copie déjà lancée affiche sa fenêtre.
 - **Avec le jeu.** Avec *Start automatically with Windows*, la fenêtre s'ouvre toute seule sur la page Live quand tu lances Dead by Daylight. L'outil s'arrête quand le jeu **et** la fenêtre sont tous les deux fermés.
 - **Tu préfères ton navigateur ?** Décoche *Show the pages in the Entity Toolkit window* dans les options : les pages s'ouvrent alors dans ton navigateur par défaut, comme avant.
