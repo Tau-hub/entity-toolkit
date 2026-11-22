@@ -697,6 +697,19 @@ class Hotkeys(unittest.TestCase):
             winapi.parse_combo("alt+nonsense")
 
 
+class EmptySlot(unittest.TestCase):
+    def test_empty_slot_is_flagged_not_guessed(self):
+        from entity_toolkit import analyzer
+        a = analyzer.Analyzer.__new__(analyzer.Analyzer)
+        a.by_name = {"Bond": {"icon": "b.png"}}
+        a.by_icon = {"b.png": [{"name": "Bond", "icon": "b.png"}]}
+        self.assertTrue(a.perk(0.11, "Bond")["empty"])
+        self.assertTrue(a.perk(0.36, "Bond")["empty"])
+        weak = a.perk(0.55, "Bond")
+        self.assertTrue(weak["uncertain"] and not weak["empty"])
+        self.assertFalse(a.perk(0.9, "Bond")["uncertain"])
+
+
 class RowOffsets(unittest.TestCase):
     def test_rows_stay_when_nothing_moves(self):
         from PIL import Image

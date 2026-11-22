@@ -10,6 +10,7 @@ Releases are made only when they are worth it for the people using the `.exe`: b
 - Setting *When the game is closed*: the window closes and the toolkit stays in the notification area (default), the toolkit quits, or everything is left as it is.
 
 ### Fixed
+- Players menu: an ally with fewer than four perks (empty slots, dark or purple) no longer gets made-up perks in the empty slots; they are left out.
 - Players menu: with bots in the match the rows are no longer where the toolkit looked for them, so a human ally could be taken for an empty row and their perks were missing. The height of each row is now found from the row itself (up to three bots), and a player name that is not read is read again brightened.
 
 - Players menu: an ally who brought no perk at all (four empty slots) no longer makes the whole menu look like the killer's view, which left every other ally without perks; they are kept as an ally with no perk, so the overlay is still shown for the others.

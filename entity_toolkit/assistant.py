@@ -287,6 +287,8 @@ class Assistant:
                     res = merge_readings([res, self.partial[0]], known)
                 log(f"After putting the readings together: {[(a['row'], a['survivor']) for a in res['allies']]}")
             self.partial = None if read_complete(res["allies"], known) else (res, time.time())
+            for a in res["allies"]:  # an empty perk slot is no perk: never shown, never guessed
+                a["perks"] = [p for p in a["perks"] if not p.get("empty")]
             allies = [a["survivor"] for a in res["allies"] if a["survivor"]]
             if not allies and self.last_menu and self.overlay and self.cfg["overlay"] and time.time() - self.last_menu[3] < 45 * 60:
                 prev, me, menu, _ = self.last_menu  # unreadable this time: same match, so the overlay already known stays

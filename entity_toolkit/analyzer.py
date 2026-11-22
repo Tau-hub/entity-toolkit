@@ -11,6 +11,7 @@ from . import ocr, paths, recognize as rc
 from .log import log
 
 MIN_SCORE = 0.78   # below: the perk is flagged "to check"
+EMPTY_SLOT = 0.45  # a perk slot below this score holds no perk (an empty slot, dark or purple): it is dropped, not guessed
 EMPTY_ROW = 0.60   # every perk of a row below this score: empty row (no player)
 
 # Survivors that may be missing from the wiki data (recent chapters): completed here when needed
@@ -46,7 +47,7 @@ class Analyzer:
     def perk(self, score, name):
         p = self.by_name[name]
         same = list(self.by_icon[p["icon"]])  # perks sharing the same icon cannot be told apart on screen
-        return {"score": score, "perks": same, "icon": p["icon"], "uncertain": score < MIN_SCORE}
+        return {"score": score, "perks": same, "icon": p["icon"], "uncertain": MIN_SCORE > score >= EMPTY_SLOT, "empty": score < EMPTY_SLOT}
 
     @staticmethod
     def me_row(img):
