@@ -7,7 +7,8 @@ Releases are made only when they are worth it for the people using the `.exe`: b
 ## [Unreleased]
 
 ### Added
-- The new content announced by the patch notes (killer, survivor, map) is checked after every update; what is missing is shown in Settings and tried again every few hours.
+- The patch is also looked at each time the game starts; content only on the PTB is left out of the database.
+- The new content announced by the patch notes (killer, survivor, perks, map) is checked after every update; what is missing is shown in Settings and tried again every few hours.
 - Updates report the perks whose text or numbers changed, and the last news stays visible after a later update that finds nothing.
 - Builds, priorities and killer pages show the current wiki text of each perk (another site could still show a PTB text).
 - A perk without any rating shows the average of its side, marked as an average.

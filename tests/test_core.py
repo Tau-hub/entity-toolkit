@@ -702,6 +702,16 @@ class PatchCompleteness(unittest.TestCase):
              {"title": "10.3.0 | PTB Patch Notes", "contents": "[b]New Killer: Nobody[/b]"},
              {"title": "10.2.0 | Patch Notes", "contents": "[b]New Killer: The Judgment[/b]"}]
 
+    def test_perks_are_read_from_the_notes_and_the_ptb_is_left_out(self):
+        from entity_toolkit.database import verify
+        notes = lambda killer, perk: (f"[h3][b]New Killer: {killer}[/b][/h3][p][b]New Killer Perks:[/b][/p][list][*][p][b]{perk}[/b]:[/p]"
+                                      "[list][*][p]Gain [b]Exhausted[/b]:[/p][/*][/list][/*][/list][h3]Other[/h3]")
+        items = [{"title": "10.3.0 | Patch Notes", "contents": notes("The Terrifier", "Kill Spree")},
+                 {"title": "10.4.0 | PTB Patch Notes", "contents": notes("The Next One", "Later Perk")},
+                 {"title": "10.3.0 | PTB Patch Notes", "contents": notes("Old Test", "Old Perk")}]
+        self.assertEqual(verify.announced(items, "10.3.0"), [["Killer", "The Terrifier"], ["Killer perk", "Kill Spree"]])
+        self.assertEqual(verify.upcoming(items, "10.3.0"), [["Killer", "The Next One"], ["Killer perk", "Later Perk"]])
+
     def test_announced_content_of_the_live_chapter(self):
         from entity_toolkit.database import verify
         self.assertEqual(verify.announced(self.NOTES, "10.3.0a"),

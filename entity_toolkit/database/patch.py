@@ -39,12 +39,14 @@ def latest():
 def main(log=print):
     items = feed()
     version, title, date = pick(items)
-    new = verify.announced(items, version)
+    new, later = verify.announced(items, version), verify.upcoming(items, version)
     paths.ensure()
-    paths.PATCH.write_text(json.dumps({"live": version, "title": title, "date": date, "fetched": int(time.time()), "new": new}), encoding="utf8")
+    paths.PATCH.write_text(json.dumps({"live": version, "title": title, "date": date, "fetched": int(time.time()), "new": new, "upcoming": later}), encoding="utf8")
     log(f"Game patch: {version} ({title}, {time.strftime('%Y-%m-%d', time.localtime(date))})")
     if new:
         log("Announced in the patch notes: " + ", ".join(f"{k.lower()} {n}" for k, n in new))
+    if later:
+        log("Left out, only on the PTB for now: " + ", ".join(f"{k.lower()} {n}" for k, n in later))
     return version
 
 

@@ -15,6 +15,7 @@ import unicodedata
 import urllib.parse
 import urllib.request
 from .. import paths
+from . import verify
 
 HERE = paths.DATA
 IMAGES = paths.DATA / "images"
@@ -140,7 +141,8 @@ def all_killers(with_builds, listed):
     and must not be missing from the database for that."""
     have = {canon(k["name"]) for k in with_builds}
     new = sorted((d for c, d in listed.items() if c not in have and d.get("name") and d.get("order")), key=lambda d: d["order"])
-    return list(with_builds) + [{"name": d["name"], "builds": []} for d in new]
+    every = list(with_builds) + [{"name": d["name"], "builds": []} for d in new]
+    return [k for k in every if not verify.not_released(k["name"], "Killer")]
 
 
 def parse_perk_docs(page):
@@ -401,7 +403,7 @@ def main(log=print):
     sperks_n = {nname(k): v for k, v in sperks.items()}
     sport = {c["name"]: c["portraitUrl"] for c in scrape["survivors"]["characters"]}
     survivors = []
-    for sv in sorted(parse_survivors(ci_page), key=lambda x: x["order"]):
+    for sv in sorted((s for s in parse_survivors(ci_page) if not verify.not_released(s["name"], "Survivor")), key=lambda x: x["order"]):
         tl = []
         for r in sv["perkRefs"]:
             if r not in perk_docs:

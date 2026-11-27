@@ -28,6 +28,10 @@ def survivor_names():
         names += [s for v in json.loads(paths.SKINS.read_text(encoding="utf8"))["survivors"].values() for s in v]
     except Exception:
         pass
+    try:  # a survivor the patch notes announce is known by name at once, even when the community sites are late
+        names += [n for kind, n in json.loads(paths.PATCH.read_text(encoding="utf8")).get("new") or [] if kind == "Survivor" and n not in names]
+    except Exception:
+        pass
     return names + [n for n in EXTRA_SURVIVORS if n not in names]
 
 

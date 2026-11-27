@@ -11,6 +11,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 from .. import paths
 from ..text import norm
+from . import verify
 from .perks import api, fetch_icon, get, resolve_urls, wiki_rows, WIKI
 
 POOLS = {"1": "Keys", "2": "Firecrackers", "3": "Flashlights", "4": "Limited", "5": "Maps", "6": "Med-Kits", "7": "Toolboxes", "8": "Fog Vials"}
@@ -187,7 +188,7 @@ def main(log=print, refresh=False):
         "items": [i for i in keep(items) if len(keep(pools[i["pool"]])) >= 2],
         "itemPools": {k: keep(v) for k, v in pools.items()},
         "poolNames": POOLS,
-        "powers": [p for p in powers if len(p["addons"]) >= 2 and (p["icon"] or p["portrait"])],
+        "powers": [p for p in powers if len(p["addons"]) >= 2 and (p["icon"] or p["portrait"]) and not any(verify.not_released(n, "Killer") for n in [p["killer"], *p.get("names", [])])],
         "offerings": {k: keep(v) for k, v in offerings.items()},
     }
     enrich(data)

@@ -4,6 +4,7 @@ import re
 import urllib.request
 
 from .. import paths
+from . import verify
 from .perks import BROWSER_UA, api
 
 NL = "https://nightlight.gg"
@@ -13,7 +14,7 @@ def wiki_maps(log=print):
     out = {}
     for key, cat in (("maps", "Category:Maps"), ("realms", "Category:Realms")):
         r = api(action="query", list="categorymembers", cmtitle=cat, cmlimit=500)
-        out[key] = [x["title"] for x in r["query"]["categorymembers"]]
+        out[key] = [x["title"] for x in r["query"]["categorymembers"] if not verify.not_released(x["title"], "Map")]
     paths.ensure()
     paths.MAPS.write_text(json.dumps(out, ensure_ascii=False), encoding="utf8")
     log(f"Maps: {len(out['maps'])} maps, {len(out['realms'])} realms")

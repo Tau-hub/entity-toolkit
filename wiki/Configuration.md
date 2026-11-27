@@ -53,4 +53,4 @@ Tant que l'outil tourne, un petit **E** rouge reste dans la zone de notification
 
 Tu peux désactiver l'icône dans les options ; l'outil fonctionne pareil sans elle.
 
-**Patchs du jeu.** L'outil cherche un nouveau patch au démarrage, puis toutes les heures. Après une mise à jour, il vérifie que le tueur, le survivant et la map annoncés dans les notes de patch sont bien là ; ce qui manque (un site communautaire en retard) est affiché dans Settings et réessayé toutes les quelques heures. Un perk que personne ne note affiche la moyenne de son camp, signalée comme telle.
+**Patchs du jeu.** L'outil cherche un nouveau patch au démarrage, à chaque lancement du jeu et toutes les heures (les patchs PTB sont ignorés, et ce qui n'est qu'en PTB est laissé de côté). Après une mise à jour, il vérifie que le tueur, le survivant, les perks et la map annoncés dans les notes de patch sont bien là ; ce qui manque (un site communautaire en retard) est affiché dans Settings et réessayé toutes les quelques heures. Un perk que personne ne note affiche la moyenne de son camp, signalée comme telle.

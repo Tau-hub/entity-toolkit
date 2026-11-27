@@ -53,4 +53,4 @@ While the toolkit runs, a small red **E** sits in the Windows notification area 
 
 You can turn the icon off in the options; the toolkit works the same without it.
 
-**Game patches.** The toolkit looks for a new patch at start, then every hour. After an update it checks that the killer, survivor and map announced in the patch notes are there; what is missing (a community site running late) is shown in Settings and tried again every few hours. Perks nobody rates show the average of their side, marked as such.
+**Game patches.** The toolkit looks for a new patch at start, at each game launch and every hour (PTB patches are ignored, and what is only on the PTB is left out). After an update it checks that the killer, survivor, perks and map announced in the patch notes are there; what is missing (a community site running late) is shown in Settings and tried again every few hours. Perks nobody rates show the average of their side, marked as such.

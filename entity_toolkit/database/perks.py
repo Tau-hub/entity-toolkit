@@ -15,6 +15,7 @@ from bs4 import BeautifulSoup, NavigableString
 
 from .. import paths
 from ..text import norm
+from . import verify
 
 BROWSER_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36"
 WIKI = "https://deadbydaylight.wiki.gg"
@@ -227,6 +228,8 @@ def main(log=print, refresh=False):
     perks = {"K": [], "S": []}
     for side in ("K", "S"):
         for n, tags in parse_perks(lua, side):
+            if verify.not_released(n, "Killer perk" if side == "K" else "Survivor perk"):
+                continue
             row = rows[side].get(norm(n)) or rows[side].get(norm(re.sub(r"\s*\(.*?\)\s*$", "", n)))
             if row:
                 perks[side].append({"name": n, "icon": row[1], "desc": row[2], "tags": tags})

@@ -472,11 +472,13 @@ def run(hub, ast, stop_with_game=True):
             time.sleep(0.03)
 
     def watch_game():
+        from . import database
         seen, missing = False, 0
         while True:
             if winapi.game_window_open():  # the window, not the process: the process lingers some seconds after you quit
                 if not seen:
                     log("Game detected")
+                    database.look_now()  # a patch may have just dropped
                 seen, missing = True, 0
             elif seen:
                 missing += 1

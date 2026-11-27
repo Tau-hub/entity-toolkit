@@ -189,6 +189,13 @@ PATCH_EVERY = 3600       # one small request to the Steam announcements: the too
 RETRY_EVERY = 3 * 3600   # while something announced is missing from the database
 
 
+LOOK_NOW = threading.Event()  # set when the game starts: the patch is looked at without waiting for the next hour
+
+
+def look_now():
+    LOOK_NOW.set()
+
+
 def next_action(now, cfg, live, stored, is_due):
     """What the background loop has to do now: "patch", "missing", "age" or None. `live` is None when the patch was not asked this time."""
     if live and patch_changed(live, cfg, stored):
@@ -201,7 +208,7 @@ def next_action(now, cfg, live, stored, is_due):
 def start_auto_update(log=_log):
     """Background checks, so that nobody has to press "Update database":
      - the very first start downloads everything by itself (the `first_download` setting);
-     - at each start, then every hour, the Steam announcements tell whether the game got a new patch: if so the database is
+     - at each start, at each game launch and every hour, the Steam announcements tell whether the game got a new patch: if so the database is
        refreshed (the `update_on_patch` setting);
      - when the patch notes announce something the database does not have yet, it is tried again every few hours;
      - and it is refreshed anyway when it is older than the chosen number of days (`auto_update_days`)."""
@@ -226,7 +233,8 @@ def start_auto_update(log=_log):
                         check_complete()
                         checked, cfg = True, config.load()
                     live, now = None, time.time()  # wall clock: it also moves while the computer sleeps
-                    if cfg.get("update_on_patch") and now - looked_at >= PATCH_EVERY:
+                    if cfg.get("update_on_patch") and (LOOK_NOW.is_set() or now - looked_at >= PATCH_EVERY):
+                        LOOK_NOW.clear()
                         live, looked_at = patch.latest()[0], now
                     action = next_action(now, cfg, live, patch.load(), due())
                     if action == "patch":
