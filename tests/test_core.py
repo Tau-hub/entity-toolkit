@@ -726,6 +726,11 @@ class PatchCompleteness(unittest.TestCase):
         self.assertEqual(database.next_action(1000 + database.RETRY_EVERY, cfg, None, {}, False), "missing")
         self.assertEqual(database.next_action(2000, cfg, "10.3.1", {}, False), "patch")
 
+    def test_what_is_missing_is_kept_in_the_settings(self):
+        from entity_toolkit import config
+        self.assertIn("db_missing", config.DEFAULTS)  # save() drops every key it does not know: the retry would never happen
+        self.assertIn("db_missing_tried", config.DEFAULTS)
+
     def test_builds_get_the_current_perk_text(self):
         from entity_toolkit.database import perks
         src = {"killers": [{"name": "Bond", "desc": "a killer, not a perk", "teachables": [{"name": "Bond", "desc": "old"}],

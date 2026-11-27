@@ -28,6 +28,8 @@ DEFAULTS = {
     "update_install": "ask",      # a newer Entity Toolkit exists: "ask" (offer to install it), "auto" (install it when the game is not running) or "never" (only tell)
     "first_download": True,       # download the database by itself at the very first start, when this copy ships without one
     "update_on_patch": True,      # at start then every hour: a new game patch refreshes the database; what its notes announce and is missing is tried again
+    "db_missing": [],             # announced by the patch notes but not in the database yet (set by the update, tried again)
+    "db_missing_tried": 0,        # when that was last looked at
     "db_patch": "",               # the game patch the database was last fully refreshed for (set by the update)
     "check_version": True,        # once a day, look on GitHub whether a newer Entity Toolkit exists (reads one public file, sends nothing)
     "shrine": True,               # show this week's Shrine of Secrets and flag the perks you do not have (reads NightLight's public list, sends nothing)
