@@ -188,6 +188,37 @@ def average_unrated(perks):
             d.update(note=mean, noteAvg=True)
 
 
+def current_texts(node, texts, in_perks=False):
+    """Puts the wiki's text on every perk found under "teachables", "perks" or "alts" of a builds file. Returns how many changed."""
+    n = 0
+    if isinstance(node, list):
+        for x in node:
+            n += current_texts(x, texts, in_perks)
+    elif isinstance(node, dict):
+        text = texts.get(norm(node.get("name", ""))) if in_perks and "desc" in node else None
+        if text and node["desc"] != text:
+            node["desc"], n = text, 1
+        for key, x in node.items():
+            if isinstance(x, (list, dict)):
+                n += current_texts(x, texts, key in ("teachables", "perks", "alts"))
+    return n
+
+
+def update_build_texts(data):
+    """The other sites' perk texts can be older than the game (a PTB description): the builds, priorities and killer pages get the wiki's."""
+    texts = {norm(d["name"]): d["desc"] for side in data["perks"].values() for d in side if d.get("desc")}
+    total = 0
+    for f in (paths.KILLERS, paths.SURVIVORS, paths.SURVIVOR_BUILDS):
+        if not f.exists():
+            continue
+        src = json.loads(f.read_text(encoding="utf8"))
+        n = current_texts(src, texts)
+        if n:
+            f.write_text(json.dumps(src, ensure_ascii=False, indent=1), encoding="utf8")
+        total += n
+    return total
+
+
 def main(log=print, refresh=False):
     paths.ensure()
     log("Reading the wiki's perk tables...")
@@ -209,5 +240,6 @@ def main(log=print, refresh=False):
     data = {"perks": {side: [d for d in lst if d["icon"] in ok] for side, lst in perks.items()}}
     rated = enrich(data)
     paths.LOADOUT.write_text(json.dumps(data, ensure_ascii=False), encoding="utf8")
+    update_build_texts(data)
     log(f"Perk database done: {len(data['perks']['K'])} killer + {len(data['perks']['S'])} survivor perks, {rated} with a rating")
     return data

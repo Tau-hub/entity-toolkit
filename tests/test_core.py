@@ -726,6 +726,14 @@ class PatchCompleteness(unittest.TestCase):
         self.assertEqual(database.next_action(1000 + database.RETRY_EVERY, cfg, None, {}, False), "missing")
         self.assertEqual(database.next_action(2000, cfg, "10.3.1", {}, False), "patch")
 
+    def test_builds_get_the_current_perk_text(self):
+        from entity_toolkit.database import perks
+        src = {"killers": [{"name": "Bond", "desc": "a killer, not a perk", "teachables": [{"name": "Bond", "desc": "old"}],
+                            "addons": [{"name": "Bond", "desc": "an add-on"}]}]}
+        self.assertEqual(perks.current_texts(src, {"bond": "new"}), 1)
+        k = src["killers"][0]
+        self.assertEqual((k["desc"], k["teachables"][0]["desc"], k["addons"][0]["desc"]), ("a killer, not a perk", "new", "an add-on"))
+
     def test_unrated_perk_gets_the_average(self):
         from entity_toolkit.database import perks
         lst = [{"note": 20}, {"note": 60}, {}]

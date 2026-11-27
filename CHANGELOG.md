@@ -9,6 +9,7 @@ Releases are made only when they are worth it for the people using the `.exe`: b
 ### Added
 - The new content announced by the patch notes (killer, survivor, map) is checked after every update; what is missing is shown in Settings and tried again every few hours.
 - Updates report the perks whose text or numbers changed, and the last news stays visible after a later update that finds nothing.
+- Builds, priorities and killer pages show the current wiki text of each perk (another site could still show a PTB text).
 - A perk without any rating shows the average of its side, marked as an average.
 - Setting *When the game is closed*: the window closes and the toolkit stays in the notification area (default), the toolkit quits, or everything is left as it is.
 
