@@ -205,7 +205,7 @@ function renderDb(db) {
     const li = (l) => "<ul>" + l.map((c) => "<li>" + c.replace(/</g, "&lt;") + "</li>").join("") + "</ul>";
     const when = !(db.changes && db.changes.length) && db.news ? " (" + new Date(db.news.at * 1000).toLocaleDateString() + ", patch " + String(db.news.patch).replace(/</g, "&lt;") + ")" : "";
     nw.style.display = "block";
-    nw.innerHTML = (gone.length ? "<b>Announced by the game but not in the database yet</b>" + li(gone) + "<p>The community sites may be a few days late: the toolkit tries again by itself.</p>" : "")
+    nw.innerHTML = (gone.length ? "<b>Not in the database yet</b>" + li(gone) + "<p>The community sites may be a few days late: the toolkit tries again by itself.</p>" : "")
       + (lines.length ? "<b>What the last update brought" + when + "</b>" + li(lines) : "");
   }
   else if (db.finished && !db.running) { nw.style.display = "block"; nw.innerHTML = "<b>What the last update brought</b><br>Nothing new (no killer, survivor, perk, add-on, item, offering or map added or removed)."; }

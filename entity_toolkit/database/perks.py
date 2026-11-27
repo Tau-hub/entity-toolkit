@@ -3,6 +3,7 @@
 Writes data/loadout_data.json (killer and survivor perks) and downloads the perk icons into data/icons/. The survivor icons are what the
 recognition compares screenshots with. When killers.json / survivors.json exist, each perk also gets its rating (note /100, stars, NightLight stats).
 """
+import difflib
 import json
 import re
 import time
@@ -155,6 +156,15 @@ def parse_perks(lua, char_type):
     return out
 
 
+def rating_of(rated, name):
+    """The ratings of a perk by its name, tolerating the other sites' spelling ("Favor" / "Favour", a typo)."""
+    k = norm(name)
+    if k not in rated:
+        close = difflib.get_close_matches(k, list(rated), n=1, cutoff=0.92)
+        k = close[0] if close else k
+    return rated.get(k, {})
+
+
 def enrich(data):
     """Adds the ratings stored in killers.json / survivors.json: note /100, Otz stars, NightLight pick / win rates, owner character."""
     rate = {"K": {}, "S": {}}
@@ -162,16 +172,16 @@ def enrich(data):
         if not f.exists():
             continue
         src = json.loads(f.read_text(encoding="utf8"))
-        for ch in src["killers"]:
+        for ch in [*src["killers"], {"name": "", "teachables": src.get("general", [])}]:  # (the general perks have no owner)
             for t in ch["teachables"]:
                 nl = t.get("nl") or {}
                 alt = " ".join(dict.fromkeys([ch["name"], ch.get("short", ""), *ch.get("aliases", [])]))
-                rate[key][norm(t["name"])] = {"owner": ch.get("short") or ch["name"], "ownerAlt": alt,
+                rate[key][norm(t["name"])] = {**({"owner": ch.get("short") or ch["name"], "ownerAlt": alt} if ch["name"] else {}),
                                               "note": round(t["score"] / 10), "stars": t.get("stars"), "otz": t.get("value"),
                                               "pick": nl.get("pick"), "nlRate": nl.get("rate")}
     for key in ("K", "S"):
         for d in data["perks"][key]:
-            d.update(rate[key].get(norm(d["name"]), {}))
+            d.update(rating_of(rate[key], d["name"]))
     n = sum("note" in d and not d.get("noteAvg") for key in ("K", "S") for d in data["perks"][key])
     for key in ("K", "S"):
         average_unrated(data["perks"][key])

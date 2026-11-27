@@ -15,6 +15,8 @@ Releases are made only when they are worth it for the people using the `.exe`: b
 - Setting *When the game is closed*: the window closes and the toolkit stays in the notification area (default), the toolkit quits, or everything is left as it is.
 
 ### Fixed
+- General perks (Resilience, Sloppy Butcher, Kindred...) had no rating and no statistics: they now get their own, like the others.
+- NightLight perk statistics were no longer read (the site now asks for a patch): they come from the newest patch with enough matches, and a failure is shown in Settings and tried again.
 - Database: a killer just released was left out when Otzdarva had no build for them yet (The Terrifier).
 - Database: a new game patch is now noticed while the toolkit keeps running (it was only looked for at start).
 - Players menu: an ally with fewer than four perks (empty slots, dark or purple) no longer gets made-up perks in the empty slots; they are left out.

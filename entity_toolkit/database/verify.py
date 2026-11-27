@@ -89,6 +89,8 @@ def missing(new):
     sides = _load(paths.LOADOUT).get("perks", {})
     perks = {kind: [p["name"] for p in sides.get(side, [])] for kind, side in (("Killer perk", "K"), ("Survivor perk", "S"))}
     out = []
+    if killers and not _load(paths.KILLERS).get("nlPeriod"):  # the site did not answer, or changed: the ratings are Otzdarva's alone
+        out.append("NightLight's perk statistics")
     for kind, name in new or []:
         if kind in perks:
             if not _same(name, perks[kind]):

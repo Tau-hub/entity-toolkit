@@ -736,6 +736,24 @@ class PatchCompleteness(unittest.TestCase):
         self.assertEqual(database.next_action(1000 + database.RETRY_EVERY, cfg, None, {}, False), "missing")
         self.assertEqual(database.next_action(2000, cfg, "10.3.1", {}, False), "patch")
 
+    def test_statistics_come_from_the_newest_patch_with_enough_matches(self):
+        from entity_toolkit.database import builds
+        counts = lambda *n: [{"patch": v, "date": d, "count": c} for (v, d), c in zip((("10.1.0", "2026-08-25"), ("10.3.0", "2026-11-24")), n)]
+        self.assertEqual(builds.stats_patch(counts(90000, 5600), counts(700000, 34000)), "10.3.0")
+        self.assertEqual(builds.stats_patch(counts(90000, 300), counts(700000, 34000)), "10.1.0")
+
+    def test_a_rating_is_found_despite_the_spelling(self):
+        from entity_toolkit.database import perks
+        from entity_toolkit.text import norm
+        rated = {norm("Hex: Blood Favor"): {"note": 56}, norm("Hex: Ruin"): {"note": 10}}
+        self.assertEqual(perks.rating_of(rated, "Hex: Blood Favour"), {"note": 56})
+        self.assertEqual(perks.rating_of(rated, "Hex: Plaything"), {})
+
+    def test_general_perks_are_rated_too(self):
+        from entity_toolkit.database import builds
+        docs = {"1": {"name": "Resilience", "value": 966, "belongsTo": "Survivor"}, "2": {"name": "Lithe", "value": 800, "belongsTo": "Feng Min"}}
+        self.assertEqual([(p["name"], p["score"]) for p in builds.general_perks(docs, "Survivor", {})], [("Resilience", 966)])
+
     def test_what_is_missing_is_kept_in_the_settings(self):
         from entity_toolkit import config
         self.assertIn("db_missing", config.DEFAULTS)  # save() drops every key it does not know: the retry would never happen

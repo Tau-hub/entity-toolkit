@@ -156,6 +156,17 @@ def parse_perk_docs(page):
     return docs
 
 
+def general_perks(docs, side, pool):
+    """The perks of one side ("Killer" or "Survivor") that no character teaches: rated by Otzdarva too, with NightLight's numbers."""
+    out = []
+    for d in docs.values():
+        if d.get("belongsTo") != side or not d.get("value"):
+            continue
+        nl = nl_lookup(pool, d["name"])
+        out.append({"name": d["name"], "value": d["value"], "stars": stars(d["value"]), "nl": nl, "score": blend(d["value"], nl)})
+    return out
+
+
 def parse_survivors(page):
     out = []
     for chunk in page.split('_createdAt:"')[1:]:
@@ -171,10 +182,26 @@ def parse_survivors(page):
 NL = "https://nightlight.gg"
 
 
+MIN_USES = 4000  # perk picks a patch needs, on each side, before its statistics are used (about 1000 players)
+
+
+def stats_patch(killer_counts, survivor_counts, minimum=MIN_USES):
+    """The newest patch NightLight has enough matches for, on both sides. The counts are its own lists [{patch, date, count}]."""
+    survivors = {c["patch"]: c["count"] for c in survivor_counts}
+    for c in sorted(killer_counts, key=lambda c: c["date"], reverse=True):
+        if c["count"] >= minimum and survivors.get(c["patch"], 0) >= minimum:
+            return c["patch"]
+    raise RuntimeError("NightLight has no patch with enough matches")
+
+
 def fetch_nightlight():
-    """NightLight community stats (last 28 days): {role: {normalised name: stats}}, period."""
-    kp = json.loads(get(NL + "/api/v1/stats/global/killer-perks", BROWSER_UA))["data"]
-    sp = json.loads(get(NL + "/api/v1/stats/global/survivor-perks", BROWSER_UA))["data"]
+    """NightLight community stats of a patch: {role: {normalised name: stats}}, period. (Statistics by patch are open to everyone;
+    chosen dates are for the site's supporters.)"""
+    api = NL + "/api/v1/stats/global/"
+    counts = [json.loads(get(api + side + "_perks/counts", BROWSER_UA))["data"] for side in ("killer", "survivor")]
+    version = stats_patch(*counts)
+    kp = json.loads(get(api + "killer-perks?patch=" + version, BROWSER_UA))["data"]
+    sp = json.loads(get(api + "survivor-perks?patch=" + version, BROWSER_UA))["data"]
     viewer = get(NL + "/perks/viewer", BROWSER_UA)
     names = {}
     for js in sorted(set(re.findall(r"/assets/[\w\-.]+\.js", viewer))):
@@ -184,7 +211,7 @@ def fetch_nightlight():
             continue
         if "Pain Resonance" not in txt:
             continue
-        for pid, n, slug, r, tier, rank in re.findall(r'"(\d+)":\{"n":"([^"]+)","i":"([^"]*)","u":"[^"]*","r":(\d),"c":\d+,"t":"(\w+)","p":(\d+)', txt):
+        for pid, n, slug, r, tier, rank in re.findall(r'"(\d+)":\{"n":"([^"]+)","i":"([^"]*)","u":"[^"]*","r":(\d),"c":-?\d+,"t":"(\w+)","p":(\d+)', txt):
             names[int(pid)] = (n, int(r), tier, int(rank), slug)
         break
     glob = json.loads(get(NL + "/api/v1/stats/global/perks_and_builds", BROWSER_UA))["data"]
@@ -205,7 +232,7 @@ def fetch_nightlight():
                 "perf": 0.5 if x["count"] < 150 else max(0.0, min(1.0, 0.5 + (x[rate_key] - avg) / 20)),
             }
         out[role] = pool
-    return out, f'{kp["start"][:10]} → {kp["end"][:10]}', names, glob
+    return out, f'patch {version}, {kp["start"][:10]} → {kp["end"][:10]}', names, glob
 
 
 def cdn_local(url):
@@ -396,7 +423,7 @@ def main(log=print):
         if not d:
             log(f"  ! no difficulty info for {k['name']}")
 
-    data = {"patch": meta.get("patchNumber", ""), "nlPeriod": nl_period, "nlRate": "kills", "killers": killers, "universal": universal or []}
+    data = {"patch": meta.get("patchNumber", ""), "nlPeriod": nl_period, "nlRate": "kills", "killers": killers, "universal": universal or [], "general": general_perks(perk_docs, "Killer", nl_stats[2])}
     # ---- survivors ----
     sperks = {p["name"]: {"icon": loc(p["iconUrl"]), "icon2": fandom(p["iconUrl"]), "desc": perk_desc(p["description"])}
               for p in scrape["survivors"]["perks"]}
@@ -418,7 +445,7 @@ def main(log=print):
         raw = sport.get(sv["name"]) or sv["icon"]
         survivors.append({"name": sv["name"], "short": sv["name"], "slug": nname(sv["name"]), "portrait": loc(raw), "portrait2": fandom(raw),
                           "availableIn": sv["availableIn"], "teachables": tl, "nlBuilds": []})
-    sdata = {"patch": meta.get("patchNumber", ""), "nlPeriod": nl_period, "nlRate": "escapes", "killers": survivors, "universal": []}
+    sdata = {"patch": meta.get("patchNumber", ""), "nlPeriod": nl_period, "nlRate": "escapes", "killers": survivors, "universal": [], "general": general_perks(perk_docs, "Survivor", nl_stats[1])}
     log(f"Survivors: {len(survivors)}")
     # chapter label of every character (killer + survivor of the same DLC share it), typos in the source snapped together
     raw_labels = [chapter_label(c.get("availableIn", "")) for c in killers + survivors]
