@@ -347,7 +347,7 @@ function rollItem(){
 function rollOff(){ L.off = pick(DATA.offerings[mode].concat(DATA.offerings.B)); }
 
 function ratingText(d){
-  if (d.note != null) return `Rating ${d.note}/100` + (d.stars ? ` · Otz ${"★".repeat(d.stars)}${"☆".repeat(3-d.stars)}` : "") + (d.pick != null ? ` · NightLight ${d.pick}% pick, ${d.nlRate}%` : "");
+  if (d.note != null) return `Rating ${d.note}/100` + (d.noteAvg ? " (average: no rating found)" : "") + (d.stars ? ` · Otz ${"★".repeat(d.stars)}${"☆".repeat(3-d.stars)}` : "") + (d.pick != null ? ` · NightLight ${d.pick}% pick, ${d.nlRate}%` : "");
   if (d.tier) return `Otzdarva tier: ${TIER_FR[d.tier]}`;
   return "";
 }
@@ -361,7 +361,7 @@ function moveTip(e){ const w=tip.offsetWidth, h=tip.offsetHeight; tip.style.left
 function hideTip(){ tip.style.display = "none"; }
 
 function noteChip(d){
-  if (d.note != null) return `<span class="note ${noteClass(d.note)}">Rating ${d.note}/100</span>`;
+  if (d.note != null) return `<span class="note ${noteClass(d.note)}">Rating ${d.noteAvg ? "~" : ""}${d.note}/100</span>`;
   if (d.tier) return `<span class="note t-${d.tier}">${TIER_FR[d.tier]}</span>`;
   return "";
 }

@@ -165,7 +165,7 @@ function buildsBox(k){
     return l.length ? `<p class="subline">Most played builds on NightLight (${esc(DATA.nlPeriod)}), without empty slots or the Adept achievement build.</p><div class="builds">${l.map(nlBuildHTML).join("")}</div>`
                     : `<p class="empty">Not enough NightLight data for this killer.</p>`;
   }
-  return `<div class="builds">${k.builds.map(buildHTML).join("")}</div>`;
+  return k.builds.length ? `<div class="builds">${k.builds.map(buildHTML).join("")}</div>` : `<p class="empty">Otzdarva has no build for this killer yet.</p>`;
 }
 function setTab(t){
   buildTab = t; try { localStorage.setItem("et-build-tab", t); } catch(e){}

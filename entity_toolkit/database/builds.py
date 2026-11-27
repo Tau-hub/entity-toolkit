@@ -124,6 +124,7 @@ def parse_difficulty(page):
             t.replace('\\"', '"') for t in re.findall(r'text:"((?:[^"\\]|\\.)*)"', chunk) if t != "---"
         )
         out[canon(name)] = {
+            "name": name,
             "order": int((re.search(r"inGameOrder:(\d+)", chunk) or [0, 0])[1]),
             "unlockPriority": int((re.search(r"unlockPriority:(\d+)", chunk) or [0, 0])[1]),
             "perkRefs": re.findall(r'_ref:"([^"]+)"', chunk.split("perks:[", 1)[1].split("]", 1)[0]) if "perks:[" in chunk else [],
@@ -132,6 +133,14 @@ def parse_difficulty(page):
             "guide": g("mostRecentGuideUrl"),
         }
     return out
+
+
+def all_killers(with_builds, listed):
+    """The killers of builds.json (Otzdarva's builds) plus those only listed on the character page: a killer just released has no build yet,
+    and must not be missing from the database for that."""
+    have = {canon(k["name"]) for k in with_builds}
+    new = sorted((d for c, d in listed.items() if c not in have and d.get("name") and d.get("order")), key=lambda d: d["order"])
+    return list(with_builds) + [{"name": d["name"], "builds": []} for d in new]
 
 
 def parse_perk_docs(page):
@@ -354,7 +363,7 @@ def main(log=print):
 
     killers, universal = [], None
     tier_by_canon = {canon(tier_key_to_name(f)): (f, t) for f, t in tiers.items()}
-    for k in builds["killers"]:
+    for k in all_killers(builds["killers"], diffs):
         if k["name"] == "Universal Builds":
             universal = [build(b) for b in k["builds"]]
             continue

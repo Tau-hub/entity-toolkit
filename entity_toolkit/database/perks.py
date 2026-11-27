@@ -171,8 +171,21 @@ def enrich(data):
     for key in ("K", "S"):
         for d in data["perks"][key]:
             d.update(rate[key].get(norm(d["name"]), {}))
-    n = sum("note" in d for key in ("K", "S") for d in data["perks"][key])
+    n = sum("note" in d and not d.get("noteAvg") for key in ("K", "S") for d in data["perks"][key])
+    for key in ("K", "S"):
+        average_unrated(data["perks"][key])
     return n
+
+
+def average_unrated(perks):
+    """A perk nobody rates (general perks, mostly) gets the average rating of its side, marked `noteAvg` so the pages can say so."""
+    rated = [d["note"] for d in perks if "note" in d and not d.get("noteAvg")]
+    if not rated:
+        return
+    mean = round(sum(rated) / len(rated))
+    for d in perks:
+        if "note" not in d or d.get("noteAvg"):
+            d.update(note=mean, noteAvg=True)
 
 
 def main(log=print, refresh=False):

@@ -82,7 +82,7 @@ function tipText(p, score) {
   lines.push(`<b>${esc(p.name)}</b><i>${side === "K" ? "Killer" : "Survivor"} perk${p.owner ? " · " + esc(p.owner) : " · general"}${p.have ? "" : " · not unlocked"}</i>`);
   const nums = [];
   if (score !== null) nums.push(`Tier score ${score}/100 (${METRIC_NAME[$("metric").value]})`);
-  if (typeof p.note === "number") nums.push(`Rating ${p.note}/100`);
+  if (typeof p.note === "number") nums.push(`Rating ${p.note}/100${p.noteAvg ? " (average: no rating found)" : ""}`);
   if (typeof p.otz === "number") nums.push(`Otzdarva ${stars(p.stars || 0)} (${p.otz}/999)`);
   if (typeof p.pick === "number") nums.push(`NightLight: picked in ${p.pick} % of games`);
   if (typeof p.nlRate === "number") nums.push(`NightLight: ${p.nlRate} % ${DATA.labels[side] || "results"}`);

@@ -697,6 +697,44 @@ class Hotkeys(unittest.TestCase):
             winapi.parse_combo("alt+nonsense")
 
 
+class PatchCompleteness(unittest.TestCase):
+    NOTES = [{"title": "10.3.0 | Terrifier Patch Notes", "contents": "[h3][b]New Killer: The Terrifier[/b][/h3] [b]New Survivor: Sienna Shaw[/b] [b]New Map: Hartshorne Mall[/b] [b]New Killer Perks:[/b]"},
+             {"title": "10.3.0 | PTB Patch Notes", "contents": "[b]New Killer: Nobody[/b]"},
+             {"title": "10.2.0 | Patch Notes", "contents": "[b]New Killer: The Judgment[/b]"}]
+
+    def test_announced_content_of_the_live_chapter(self):
+        from entity_toolkit.database import verify
+        self.assertEqual(verify.announced(self.NOTES, "10.3.0a"),
+                         [["Killer", "The Terrifier"], ["Survivor", "Sienna Shaw"], ["Map", "Hartshorne Mall"]])
+
+    def test_a_killer_without_build_is_kept(self):
+        from entity_toolkit.database import builds
+        listed = {"judgment": {"name": "The Judgment", "order": 44}, "terrifier": {"name": "The Terrifier", "order": 45}}
+        got = builds.all_killers([{"name": "The Judgment", "builds": [1]}], listed)
+        self.assertEqual([k["name"] for k in got], ["The Judgment", "The Terrifier"])
+        self.assertEqual(got[1]["builds"], [])
+
+    def test_reworked_perks_are_reported(self):
+        from entity_toolkit.database import changes
+        old, new = {"_texts": {"Bond": "20 m", "Lithe": "x"}}, {"_texts": {"Bond": "24 m", "Lithe": "x", "New": "y"}}
+        self.assertEqual(changes.reworked(old, new), ["Bond"])
+
+    def test_missing_content_is_tried_again(self):
+        from entity_toolkit import database
+        cfg = {"update_on_patch": True, "db_patch": "10.3.0", "db_missing": ["killer The Terrifier"], "db_missing_tried": 1000}
+        self.assertIsNone(database.next_action(2000, cfg, None, {}, False))
+        self.assertEqual(database.next_action(1000 + database.RETRY_EVERY, cfg, None, {}, False), "missing")
+        self.assertEqual(database.next_action(2000, cfg, "10.3.1", {}, False), "patch")
+
+    def test_unrated_perk_gets_the_average(self):
+        from entity_toolkit.database import perks
+        lst = [{"note": 20}, {"note": 60}, {}]
+        perks.average_unrated(lst)
+        self.assertEqual((lst[2]["note"], lst[2]["noteAvg"]), (40, True))
+        perks.average_unrated(lst)
+        self.assertEqual(lst[2]["note"], 40)
+
+
 class EmptySlot(unittest.TestCase):
     def test_empty_slot_is_flagged_not_guessed(self):
         from entity_toolkit import analyzer

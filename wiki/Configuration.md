@@ -52,3 +52,5 @@ Tant que l'outil tourne, un petit **E** rouge reste dans la zone de notification
 - **Clic droit** : un menu avec toutes les pages (Live, Levels, Killer priorities, Survivor priorities, Killer sheet, Survivor builds, Random loadout, Build creator, Perk tier list), les deux défis du jour, **Settings**, puis **Quit Entity Toolkit**, qui arrête l'outil : la touche de capture ou le mode automatique, l'overlay et les pages locales.
 
 Tu peux désactiver l'icône dans les options ; l'outil fonctionne pareil sans elle.
+
+**Patchs du jeu.** L'outil cherche un nouveau patch au démarrage, puis toutes les heures. Après une mise à jour, il vérifie que le tueur, le survivant et la map annoncés dans les notes de patch sont bien là ; ce qui manque (un site communautaire en retard) est affiché dans Settings et réessayé toutes les quelques heures. Un perk que personne ne note affiche la moyenne de son camp, signalée comme telle.

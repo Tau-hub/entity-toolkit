@@ -9,6 +9,7 @@ import time
 import urllib.request
 
 from .. import paths
+from . import verify
 
 FEED = "https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=381210&count=60&maxlength=0"
 VERSION = re.compile(r"^\s*(\d+\.\d+\.\d+[a-z]?)(?![A-Za-z0-9])")
@@ -26,16 +27,24 @@ def pick(items):
     return best
 
 
-def latest():
+def feed():
     req = urllib.request.Request(FEED, headers={"User-Agent": "Mozilla/5.0"})
-    return pick(json.loads(urllib.request.urlopen(req, timeout=30).read().decode("utf8", "replace"))["appnews"]["newsitems"])
+    return json.loads(urllib.request.urlopen(req, timeout=30).read().decode("utf8", "replace"))["appnews"]["newsitems"]
+
+
+def latest():
+    return pick(feed())
 
 
 def main(log=print):
-    version, title, date = latest()
+    items = feed()
+    version, title, date = pick(items)
+    new = verify.announced(items, version)
     paths.ensure()
-    paths.PATCH.write_text(json.dumps({"live": version, "title": title, "date": date, "fetched": int(time.time())}), encoding="utf8")
+    paths.PATCH.write_text(json.dumps({"live": version, "title": title, "date": date, "fetched": int(time.time()), "new": new}), encoding="utf8")
     log(f"Game patch: {version} ({title}, {time.strftime('%Y-%m-%d', time.localtime(date))})")
+    if new:
+        log("Announced in the patch notes: " + ", ".join(f"{k.lower()} {n}" for k, n in new))
     return version
 
 

@@ -7,9 +7,14 @@ Releases are made only when they are worth it for the people using the `.exe`: b
 ## [Unreleased]
 
 ### Added
+- The new content announced by the patch notes (killer, survivor, map) is checked after every update; what is missing is shown in Settings and tried again every few hours.
+- Updates report the perks whose text or numbers changed, and the last news stays visible after a later update that finds nothing.
+- A perk without any rating shows the average of its side, marked as an average.
 - Setting *When the game is closed*: the window closes and the toolkit stays in the notification area (default), the toolkit quits, or everything is left as it is.
 
 ### Fixed
+- Database: a killer just released was left out when Otzdarva had no build for them yet (The Terrifier).
+- Database: a new game patch is now noticed while the toolkit keeps running (it was only looked for at start).
 - Players menu: an ally with fewer than four perks (empty slots, dark or purple) no longer gets made-up perks in the empty slots; they are left out.
 - Players menu: with bots in the match the rows are no longer where the toolkit looked for them, so a human ally could be taken for an empty row and their perks were missing. The height of each row is now found from the row itself (up to three bots), and a player name that is not read is read again brightened.
 

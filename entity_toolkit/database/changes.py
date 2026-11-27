@@ -25,6 +25,7 @@ def snapshot():
     if d:
         snap["Killer perk"] = sorted(p["name"] for p in d["perks"]["K"])
         snap["Survivor perk"] = sorted(p["name"] for p in d["perks"]["S"])
+        snap["_texts"] = {p["name"]: " ".join(p.get("desc", "").split()) for side in ("K", "S") for p in d["perks"][side]}
     d = _load(paths.LOADOUT_EXTRA)
     if d:
         snap["Add-on"] = sorted({f'{a["name"]} ({p["killer"]})' for p in d["powers"] for a in p["addons"]})
@@ -41,6 +42,8 @@ def diff(before, after):
     """[(kind, added names, removed names)] for what changed."""
     out = []
     for kind, names in after.items():
+        if kind.startswith("_"):
+            continue
         old = before.get(kind)
         if old is None:
             continue  # nothing there before (first download): not a change
@@ -48,6 +51,19 @@ def diff(before, after):
         if add or gone:
             out.append((kind, add, gone))
     return out
+
+
+def reworked(before, after):
+    """Names of the perks that were there before and whose text changed (a rework, new numbers)."""
+    old, new = before.get("_texts") or {}, after.get("_texts") or {}
+    return sorted(n for n, text in new.items() if n in old and old[n] != text)
+
+
+def describe_reworked(names, limit=12):
+    if not names:
+        return []
+    shown = ", ".join(names[:limit]) + ("…" if len(names) > limit else "")
+    return [f"{len(names)} perk{'s' if len(names) != 1 else ''} changed (text or numbers): {shown}"]
 
 
 def describe(changes, limit=8):

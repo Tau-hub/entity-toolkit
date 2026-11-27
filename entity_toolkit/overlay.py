@@ -110,7 +110,7 @@ def tooltip_text(pk, limit=700):
     cut = lambda t: t if len(t) <= limit else t[:limit].rsplit(" ", 1)[0] + "…"
     sections = []
     for p in pk["perks"]:
-        head = p["name"] + (f"   ·   {p['note']}/100" if p.get("note") is not None else "")
+        head = p["name"] + (f"   ·   {p['note']}/100" + (" (average)" if p.get("noteAvg") else "") if p.get("note") is not None else "")
         sections.append((head, cut((p.get("desc") or "No description.").strip())))
     title = sections[0][0] + ("   (to check)" if pk.get("uncertain") else "")
     if len(sections) == 1:

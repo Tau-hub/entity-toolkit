@@ -27,7 +27,7 @@ An **unofficial** companion for *Dead by Daylight* (Windows): see your teammates
 | **Random loadout** | Roll a random killer (or survivor) loadout: power, add-ons, perks, optional offering, with ratings. Filters: only what you have, one perk of a given type, a minimum rating. Copy or download the poster as an image. |
 | **Daily challenge** | One killer loadout and one survivor loadout per day, the same for everyone: play it, tick it, keep your streak. |
 | **Build creator** | Save your own killer and survivor builds (four perks, a name, the killers it suits). Search perks by name, killer or type: "aura", "gen regression", "healing"… |
-| **Ready after installing** | The perks, icons, maps, builds and ratings come with the toolkit. At each start it checks whether the game got a new patch and refreshes them by itself (only the new icons are downloaded); it also does so every 7 days. All of it can be changed. |
+| **Ready after installing** | The perks, icons, maps, builds and ratings come with the toolkit. It watches for game patches (at start, then every hour), refreshes them by itself and checks that what the patch notes announce is there (only the new icons are downloaded); it also does so every 7 days. All of it can be changed. |
 | **Updates itself** | When a newer Entity Toolkit is released, it offers to install it: one click, the download is checked (SHA-256), your data is kept, the toolkit restarts. |
 | **Sounds** | A soft "ok" or "not ok" sound so you know without looking whether the map and perks were read. |
 

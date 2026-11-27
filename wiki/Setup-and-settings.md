@@ -52,3 +52,5 @@ While the toolkit runs, a small red **E** sits in the Windows notification area 
 - **Right-click**: a menu with every page (Live, Levels, Killer priorities, Survivor priorities, Killer sheet, Survivor builds, Random loadout, Build creator, Perk tier list), today's two daily challenges, **Settings**, then **Quit Entity Toolkit**, which stops the toolkit: the capture key or the automatic mode, the overlay and the local pages.
 
 You can turn the icon off in the options; the toolkit works the same without it.
+
+**Game patches.** The toolkit looks for a new patch at start, then every hour. After an update it checks that the killer, survivor and map announced in the patch notes are there; what is missing (a community site running late) is shown in Settings and tried again every few hours. Perks nobody rates show the average of their side, marked as such.

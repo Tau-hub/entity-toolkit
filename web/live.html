@@ -65,7 +65,7 @@ function perkCard(pk) {
   const desc = ps.map((p) => (ps.length > 1 ? p.name + ": " : "") + (p.desc || "No description.")).join("\n\n");
   return `<div class="card"><img src="${ICONS + encodeURIComponent(pk.icon)}" alt="">
     <div><h4>${esc(ps.map((p) => p.name).join(" / "))}
-      ${p0.note != null ? `<span class="note ${noteCls(p0.note)}">${p0.note}/100</span>` : ""}
+      ${p0.note != null ? `<span class="note ${noteCls(p0.note)}" title="${p0.noteAvg ? "Average of its side: no rating found for this perk" : "Rating"}">${p0.noteAvg ? "~" : ""}${p0.note}/100</span>` : ""}
       ${pk.uncertain ? `<span class="warn">to check (${Math.round(pk.score * 100)} %)</span>` : ""}</h4>
     <p>${esc(desc)}</p></div></div>`;
 }
